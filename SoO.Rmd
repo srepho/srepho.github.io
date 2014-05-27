@@ -1,17 +1,41 @@
 Can we predict the outcome of the State of Origin Series just by looking at the Number of Australian representitive players on each Team?
 ========================================================
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **Help** toolbar button for more details on using R Markdown).
+The State of Origin is a 3 game series held annually between NSW and Queensland. It is generally considered to be the highest standard games of Rugby League as it pits the best Australian players against each other. Australia dominates International Rugby League (though they do on occasion lose) and its probable that the NSW or QLD side would still be favourites against any other international side.
 
-When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+The Game itself is usually very close and given the quality of the teams, come backs from even deep deficiets are common. Despite this, the Queensland team has managed to rattle off 8 series victories in a row!
 
-```{r}
-summary(cars)
+Despite this, every year there are headlines in the NSW papers about how the Blues can win. This post will look at the predictive abilities of a model based on the number of Origin players who are in the Australian team in each squad (one of the conditions of Origin selection is that the player must be eligable for selection to the Australian squad)
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(lattice)
+setwd("D:/Users/soates/Desktop/SO")
+SOdata<-read.csv("SOdata.tsv", header=T, sep="\t")
 ```
 
-You can also embed plots, for example:
 
-```{r fig.width=7, fig.height=6}
-plot(cars)
+
+```{r fig.height=8, fig.width=8, cache=T, echo=FALSE}
+ggplot(SOdata, aes(fill=AUS2013, x=State)) + geom_bar(stat="bin", position=position_dodge())
 ```
 
+We can also look at the number of former Australian players in each team:
+
+```{r fig.height=8, fig.width=8, cache=T, echo=FALSE}
+ggplot(SOdata, aes(fill=PreviousAUS, x=State)) + geom_bar(stat="bin", position=position_dodge())
+```
+
+This appears about even, but its deceptive as we can see from the number of caps per player
+
+```{r fig.height=8, fig.width=8, cache=T, echo=FALSE}
+ggplot(SOdata, aes(fill=State, x=AUSGames)) + geom_density(alpha=.3)
+```
+
+One area where they have a bit of an advantage is in the age of the team
+
+```{r fig.height=8, fig.width=8, cache=T, echo=FALSE}
+ggplot(SOdata, aes(fill=State, x=Age)) + geom_density(alpha=.3)
+```
