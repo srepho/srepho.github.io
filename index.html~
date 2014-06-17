@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Srepho.github.io : Aspiring Data Scientist" />
+    <meta name="description" content="Stephen Oates : Aspiring Data Scientist" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Srepho.github.io</title>
+    <title>Stephen Oates</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/srepho">View on GitHub</a>
 
-          <h1 id="project_title">Srepho.github.io</h1>
+          <h1 id="project_title">Stephen Oates</h1>
           <h2 id="project_tagline">Aspiring Data Scientist</h2>
 
         </header>
@@ -30,7 +30,7 @@
         <h3>
 <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>This is the homepage of Stephen Oates, a Sydney based Data Scientist. Below you will find links to examples of my work on a wide range of different topics. The unifying theme is the use of Machine Learning in its many guises.</p>
 
 <pre><code>$ cd your_repo_root/repo_name
 $ git fetch origin
