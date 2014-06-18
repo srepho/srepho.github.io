@@ -20,6 +20,6 @@ library(caret)
 Next up we need to split the data. The Caret package makes this easy.
 
 ```{r }
-
+createDataPartition
 ```
 
