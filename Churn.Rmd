@@ -12,6 +12,7 @@ Lets load the required packages:
 ```{r cache=TRUE, message=FALSE}
 library(plyr)
 library(dplyr)
+library(stringr)
 library(ggplot2)
 library(reshape2)
 library(caret)
@@ -19,7 +20,38 @@ library(caret)
 
 Next up we need to split the data. The Caret package makes this easy.
 
-```{r }
-createDataPartition
+```{r cache=TRUE}
+churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+set.seed(12)
+trainIndex <- caret::createDataPartition(churn$Churn., p = .5, list = FALSE, times = 1)
+churnTrain <- churn[ trainIndex,]
+churnTest <- churn[-trainIndex, ]
 ```
+The first step is to have a look at the data - in particular we are initially interested in missing data, and any unusual clumping of variables.
+
+```{r cache=TRUE}
+summary(churnTrain)
+```
+
+We can see that there are no missing data in this set (something that almost never happens in real life!). There is a big skew in terms of the number of Churned to non-Churned (only ~17% of people churn so even guessing all as non-Churned would return a success rate of about ~83%!). We can also see some features that are being treated as numerical that should not be (for example Area.Code is treated as a numerical factor when it should be a categorical factor as the numbers are not related to each other). The other factor that stands out is that Phone Field is not really usable as it currently stands as it seems that each phone number is singular. We will put this to one side to see if we can modify it to extract something more meaningful.
+
+So lets switch the Phone Field to a categorical factor.
+
+```{r cache=TRUE}
+churnTrain$Area.Code<-as.factor(churnTrain$Area.Code)
+churnTest$Area.Code<-as.factor(churnTest$Area.Code)
+```
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-52218028-1', 'srepho.github.io');
+  ga('send', 'pageview');
+
+</script>
 
