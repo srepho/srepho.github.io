@@ -6,3 +6,4 @@ knitr
 lattice
 plyr
 reshape2
+stringr

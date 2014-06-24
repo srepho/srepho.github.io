@@ -21,7 +21,8 @@ library(caret)
 Next up we need to split the data. The Caret package makes this easy.
 
 ```{r cache=TRUE}
-churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+#churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+churn <- read.csv("E:/Github Stuff/srepho.github.io/churn.txt", header=T)
 set.seed(12)
 trainIndex <- caret::createDataPartition(churn$Churn., p = .5, list = FALSE, times = 1)
 churnTrain <- churn[ trainIndex,]
@@ -42,6 +43,18 @@ churnTrain$Area.Code<-as.factor(churnTrain$Area.Code)
 churnTest$Area.Code<-as.factor(churnTest$Area.Code)
 ```
 
+The next step is to have a close look at the variables graphically.
+
+```{r fig.width=5, fig.height=5, cache=TRUE, fig.show='hold'}
+one<-ggplot(churn, aes(x=Account.Length, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Account Length")
+two<-ggplot(churn, aes(x=VMail.Message, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Voice Mails")
+one 
+two
+```
+
+```{r fig.width=5, fig.height=5, cache=TRUE}
+
+```
 
 
 <script>

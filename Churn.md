@@ -13,6 +13,7 @@ Lets load the required packages:
 ```r
 library(plyr)
 library(dplyr)
+library(stringr)
 library(ggplot2)
 library(reshape2)
 library(caret)
@@ -22,7 +23,8 @@ Next up we need to split the data. The Caret package makes this easy.
 
 
 ```r
-churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+#churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+churn <- read.csv("E:/Github Stuff/srepho.github.io/churn.txt", header=T)
 set.seed(12)
 trainIndex <- caret::createDataPartition(churn$Churn., p = .5, list = FALSE, times = 1)
 churnTrain <- churn[ trainIndex,]
@@ -84,8 +86,24 @@ So lets switch the Phone Field to a categorical factor.
 
 
 ```r
-churn$Area.Code<-as.factor(churn$Area.Code)
+churnTrain$Area.Code<-as.factor(churnTrain$Area.Code)
+churnTest$Area.Code<-as.factor(churnTest$Area.Code)
 ```
+
+The next step is to have a close look at the variables graphically.
+
+
+```r
+one<-ggplot(churn, aes(x=Account.Length, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Account Length")
+two<-ggplot(churn, aes(x=VMail.Message, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Voice Mails")
+one 
+two
+```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-51.png) ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-52.png) 
+
+
+
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
