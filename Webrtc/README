@@ -1,5 +1,5 @@
-video_call_with_chat_and_file_sharing.html
-This is a basic web page that connects a Caller and a Callee via a Web Socket signaling server to support a video call and text based chat with file sharing.  This utilises the new_file_arriving.png and share_new_file.png files in the images directory.
+basic_video_call.html
+This is a basic web page that connects a Caller and a Callee in a video call via a Web Socket signaling server.
 This also includes:
 - webrtc_polyfill.js
 This is a simple WebRTC polyfill designed to make it easy to write WebRTC code that runs on different browser implementations (e.g. Chrome, Firefox, etc.).

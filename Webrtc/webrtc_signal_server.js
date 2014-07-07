@@ -56,7 +56,7 @@ http_server.listen(port, function() {
   log_comment("server listening (port "+port+")");
 });
 var page = undefined;
-fs.readFile("video_call_with_chat_and_file_sharing.html", function(error, data) {
+fs.readFile("basic_video_call.html", function(error, data) {
   if (error) {
     log_error(error);
   } else {
