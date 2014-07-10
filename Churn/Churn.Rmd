@@ -3,11 +3,11 @@ Churn Analysis
 
 
 ### What We Are Trying To Do
-One of the more common tasks in Business Analytics is to try and understand consumer behaviour. By understanding the hope is that a company can better change this behaviour. In many industries it is more expensive to find a new customer then to entice an existing one to stay. This is usually known as "churn" analysis. The aim is to accuratley identify the cohort who is likely to leave early enough so that the relationship can be saved.
+One of the more common tasks in Business Analytics is to try and understand consumer behaviour. By understanding the hope is that a company can better change this behaviour. In many industries it is more expensive to find a new customer then to entice an existing one to stay. This is usually known as "churn" analysis. The aim is to accurately identify the cohort who is likely to leave early enough so that the relationship can be saved.
 
 ### Data Set
 
-This data is taken from a telecommunications company and involves customer data for a collection of customers who either stayed with the company or left wihtin a certain period. <i>In many industries its often not the case that the cut off is so binary. Frequently it might be more likely that a client account lays dormant rather then getting explicitly closed - for example if the client only pays for usage. I will explain how to adjust for these situations latter in the piece.</i> This dataset is taken from [here] (http://www.dataminingconsultant.com/data/churn.txt) with descriptions of the data available [here] (http://www.sgi.com/tech/mlc/db/churn.names). This dataset also appears in the [C50 package] (http://cran.r-project.org/web/packages/C50/index.html)
+This data is taken from a telecommunications company and involves customer data for a collection of customers who either stayed with the company or left within a certain period. <i>In many industries its often not the case that the cut off is so binary. Frequently it might be more likely that a client account lays dormant rather then getting explicitly closed - for example if the client only pays for usage. I will explain how to adjust for these situations latter in the piece.</i> This dataset is taken from [here] (http://www.dataminingconsultant.com/data/churn.txt) with descriptions of the data available [here] (http://www.sgi.com/tech/mlc/db/churn.names). This dataset also appears in the [C50 package] (http://cran.r-project.org/web/packages/C50/index.html)
 
 
 Lets load the required packages:
@@ -21,10 +21,10 @@ library(reshape2)
 library(caret)
 ```
 
-Given that in this instance we have a binary current/former client example we can simpley assess how many of each category 
+Given that in this instance we have a binary current/former client example we can simply assess how many of each category 
 
 
-Next up we need to split the data. The purpose of the split is to try and have a more accurate estimate of how our algorithim/s will go in production. If we were to assess the accuracy on the same data that we use to tune the algorithim, we will have an unrealistically optimistic accuracy. We can use the Caret package to split the data into a "Training Set" with 75% of the data and a "Test" Set with 25%.
+Next up we need to split the data. The purpose of the split is to try and have a more accurate estimate of how our algorithm/s will go in production. If we were to assess the accuracy on the same data that we use to tune the algorithm, we will have an unrealistically optimistic accuracy. We can use the Caret package to split the data into a "Training Set" with 75% of the data and a "Test" Set with 25%.
 
 ```{r cache=TRUE}
 churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
@@ -47,11 +47,11 @@ The next step is to have a look at the data - lets start by just looking at nume
 
 1. Missing Data: In particular is the missing data randomly spread or is affecting a particular cohort? Can we impute the data or should we just ignore it?
 
-2. Errors: These are often of two kinds. Sometimes just obvious errors that stand out (someone might be listed as an impossible age like in our case less then say 16 and more then 85 might be suspicious) sometimes when the initial data was entered a "special" number is used to indicate its a missing field. Often this is something like 999999 or -99999 etc and it really stands out from the other values.
+2. Errors: These are often of two kinds. Sometimes just obvious errors that stand out (someone might be listed as an impossible age like in our case less then say 16 and more then 85 might be suspicious) sometimes when the initial data was entered a "special" number is used to indicate its a missing field. Often this is something like 999999 or -99999 etc. and it really stands out from the other values.
 
-3. Very low variance: Indicators that are nearly 100% one value are not likely to be very useful and in fact in many algorithims can have a detrimental affect. (If in doubt we can always run the algorithim twice and see which one does better).
+3. Very low variance: Indicators that are nearly 100% one value are not likely to be very useful and in fact in many algorithms can have a detrimental affect. (If in doubt we can always run the algorithm twice and see which one does better).
 
-4. The Shape of the Distribution: Some algorithims work more accuratly if we can transform highly skewed data to more closely resemble a standard (Gaussian) distribution. Sometimes its as simple as a log transformation, sometimes we need something like a Box-Cox transformation. It is usually good practice to scale and center our data as well as the diffence in magnititude will trip up some algorithims.
+4. The Shape of the Distribution: Some algorithms work more accurately if we can transform highly skewed data to more closely resemble a standard (Gaussian) distribution. Sometimes its as simple as a log transformation, sometimes we need something like a Box-Cox transformation. It is usually good practice to scale and centre our data as well as the difference in magnitude will trip up some algorithms.
 
 
 ```{r cache=TRUE}
