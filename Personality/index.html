@@ -136,15 +136,15 @@
       <br />
       <div id="question10">
         <div class="question">How likely are you to feel stressed or worried?</div>
-        <input type="radio" name="question2" value="1"/>
+        <input type="radio" name="question10" value="1"/>
         <label>Very Unlikely</label>
-        <input type="radio" name="question2" value="2"/>
+        <input type="radio" name="question10" value="2"/>
         <label>Moderately Unlikely</label>
-        <input type="radio" name="question2" value="3"/>
+        <input type="radio" name="question10" value="3"/>
         <label>Neither Unlikely or Likely</label>
-        <input type="radio" name="question2" value="4"/>
+        <input type="radio" name="question10" value="4"/>
         <label>Moderately Likely</label>
-	<input type="radio" name="question2" value="5"/>
+	<input type="radio" name="question10" value="5"/>
         <label>Very Likely</label>
       </div>
 		<br />
@@ -154,9 +154,11 @@
 	
 	<script>
 	function doFunction() {
-	document.getElementById("demo").innerHTML = "Hello JavaScript!";
+	var x = document.getElementById("question2").value;
+    document.getElementById("question2").innerHTML = x;
 	}
-	</script
+	</script>
+	<p id="answer"></p>
 
 
     <script src="jquery.js"></script>
