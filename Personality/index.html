@@ -147,14 +147,14 @@
 	<input type="radio" name="question10" value="5"/>
         <label>Very Likely</label>
       </div>
-		<br />
+		<br/><br/>
 	<input id="clickMe" type="button" value="Results" onclick="doFunction();" />
     </div>
    	
     <script src="jquery.js"></script>
     <script>
 	function doFunction() {
-	var Answer = alert($('input[name=question2]:checked').val());
+	var Answer = $('input[name=question2]:checked').val();
 	$('p').html('<br/>Selected Radio Button Value is : <b>' + Answer + '</b>');
 	</script>
 	<p id="answer"></p>
