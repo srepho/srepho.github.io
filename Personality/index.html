@@ -154,8 +154,7 @@
 	
 	<script>
 	function doFunction() {
-	var x = document.getElementById("question2").value;
-    document.getElementById("p").innerHTML = x;
+	alert($('input[name=question2]:checked').val());
 	}
 	</script>
 	<p id="answer"></p>
