@@ -157,8 +157,18 @@
 	
 	$(document).ready(function(){
     $('#clickMe').click(function() {
-        var selValue = $('input[name=question2]:checked').val(); 
-        $('p').html('<br/>Selected Radio Button Value is : <b>' + selValue + '</b>');
+        var ans1 = $('input[name=question1]:checked').val();
+		var ans2 = $('input[name=question2]:checked').val();
+		var ans3 = $('input[name=question3]:checked').val();
+		var ans4 = $('input[name=question4]:checked').val();
+		var ans5 = $('input[name=question5]:checked').val();
+		var ans6 = $('input[name=question6]:checked').val();
+		var ans7 = $('input[name=question7]:checked').val();
+		var ans8 = $('input[name=question8]:checked').val();
+		var ans9 = $('input[name=question9]:checked').val();
+		var ans10 = $('input[name=question10]:checked').val();
+		
+        $('p').html('<br/>Extroversion score is  : <b>' + ans1 + ans6 + '</b>');
     });
 });
 	</script>
