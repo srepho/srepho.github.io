@@ -149,14 +149,21 @@
       </div>
 		<br/><br/>
 	<input id="clickMe" type="button" value="Results" onclick="doFunction();" />
+	<p></p>
     </div>
    	
     <script src="jquery.js"></script>
-    <script>
-	function doFunction() {
-	var Answer = $('input[name=question2]:checked').val();
-	$('p').html('<br/>Selected Radio Button Value is : <b>' + Answer + '</b>');
+	<script>
+	$(document).ready(function(){
+    $('#clickMe').click(function() {
+        var selValue = $('input[name=question2]:checked').val(); 
+        $('p').html('<br/>Selected Radio Button Value is : <b>' + selValue + '</b>');
+    });
+});
 	</script>
+	
+	
+   
 	<p></p>
 
 
