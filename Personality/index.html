@@ -150,11 +150,11 @@
 		<br />
 	<input id="clickMe" type="button" value="Results" onclick="doFunction();" />
     </div>
-   	<a href="http://jquery.com/">jQuery</a>
+   	
     <script src="jquery.js"></script>
     <script>
 	function doFunction() {
-	return alert($('input[name=question2]:checked').val());
+	$("p").text (alert($('input[name=question2]:checked').val()));
 	}
 	</script>
 	<p id="answer"></p>
