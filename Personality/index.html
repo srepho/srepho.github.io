@@ -167,11 +167,11 @@
 		var ans8 = parseInt($('input[name=question8]:checked').val());
 		var ans9 = parseInt($('input[name=question9]:checked').val());
 		var ans10 = parseInt($('input[name=question10]:checked').val());
-		var Extro = parseInt(ans1) + parseInt(ans6)
-		var Neuro = parseInt(ans5) + parseInt(ans10)
-		var Consc = parseInt(ans4) + parseInt(ans9)
-		var Agree = parseInt(ans2) + parseInt(ans7)
-		var Open = parseInt(ans3) + parseInt(ans8)
+		var Extro = (parseInt(ans1) + parseInt(ans6))/10*100
+		var Neuro = (parseInt(ans5) + parseInt(ans10))/10*100
+		var Consc = (parseInt(ans4) + parseInt(ans9))/10*100
+		var Agree = (parseInt(ans2) + parseInt(ans7))/10*100
+		var Open = (parseInt(ans3) + parseInt(ans8))/10*100
         $('p1').html('<br/>Extroversion score is  : <b>' + Extro + '</b>');
 		$('p2').html('<br/>Neuroticism score is  : <b>' + Neuro + '</b>');
 		$('p3').html('<br/>Conscientiousness score is  : <b>' + Consc + '</b>');
