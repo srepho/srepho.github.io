@@ -154,8 +154,8 @@
     <script src="jquery.js"></script>
     <script>
 	function doFunction() {
-	$("p").text (alert($('input[name=question2]:checked').val()));
-	}
+	var Answer = alert($('input[name=question2]:checked').val());
+	$('p').html('<br/>Selected Radio Button Value is : <b>' + Answer + '</b>');
 	</script>
 	<p id="answer"></p>
 
