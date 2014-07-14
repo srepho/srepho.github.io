@@ -6,3 +6,6 @@ library(ggplot2)
 library(ggvis)
 library(caret)
 library(forecast)
+
+rogues<-seq(100, 1)
+financial_planners<-seq(1, 100)
