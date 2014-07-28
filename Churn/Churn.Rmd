@@ -12,7 +12,7 @@ This data is taken from a telecommunications company and involves customer data 
 
 Lets load the required packages:
 
-```{r cache=TRUE, message=FALSE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', message=FALSE}
 library(plyr)
 library(dplyr)
 library(stringr)
@@ -26,7 +26,7 @@ Given that in this instance we have a binary current/former client example we ca
 
 Next up we need to split the data. The purpose of the split is to try and have a more accurate estimate of how our algorithm/s will go in production. If we were to assess the accuracy on the same data that we use to tune the algorithm, we will have an unrealistically optimistic accuracy. We can use the Caret package to split the data into a "Training Set" with 75% of the data and a "Test" Set with 25%.
 
-```{r cache=TRUE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
 #churn <- read.csv("E:/Github Stuff/srepho.github.io/churn.txt", header=T)
 set.seed(12)
@@ -37,7 +37,7 @@ churnTest <- churn[-trainIndex, ]
 
 So the first step is to have a look at the balance of the outcomes.
 
-```{r cache=TRUE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 table(churnTrain$Churn.)
 ```
 
@@ -54,7 +54,7 @@ The next step is to have a look at the data - lets start by just looking at nume
 4. The Shape of the Distribution: Some algorithms work more accurately if we can transform highly skewed data to more closely resemble a standard (Gaussian) distribution. Sometimes its as simple as a log transformation, sometimes we need something like a Box-Cox transformation. It is usually good practice to scale and centre our data as well as the difference in magnitude will trip up some algorithms.
 
 
-```{r cache=TRUE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 summary(churnTrain)
 ```
 
@@ -65,31 +65,30 @@ summary(churnTrain)
   * Its not clear what length of time these fields cover? I am guessing its an average of something (because otherwise the longer held accounts would have higher fields) but is it a daily, weekly or monthly average? Its hard to tell if these are unrealistic values without knowing the time covered. (As long as the data is correct though it won't matter what the ratio is as long as its standardised)
   * We need to have a closer look at the States and Phone Fields as we cannot tell if there are errors from this summary.
   
-```{r cache=TRUE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 table(churnTrain$State)
 ```
 
-There is a big skew in terms of the number of Churned to non-Churned (only ~17% of people churn so even guessing all as non-Churned would return a success rate of about ~83%!). We can also see some features that are being treated as numerical that should not be (for example Area.Code is treated as a numerical factor when it should be a categorical factor as the numbers are not related to each other). The other factor that stands out is that Phone Field is not really usable as it currently stands as it seems that each phone number is singular. We will put this to one side to see if we can modify it to extract something more meaningful.
+There is a big skew in terms of the number of Churned to non-Churned (only ~17% of people churn so even guessing all as non-Churned would return a success rate of about ~83%!). We can also see some features that are being treated as numerical that should not be (for example Area.Code is treated as a numerical factor when it should be a categorical factor as the numbers are not related to each other). The other factor that stands out is that Phone Field is not really usable as it currently stands as it seems that each phone number is singular. We will put this to one side for the moment. Latter we will look to see if we can modify it to extract something more meaningful.
 
 So lets switch the Phone Field to a categorical factor.
 
-```{r cache=TRUE}
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 churnTrain$Area.Code<-as.factor(churnTrain$Area.Code)
 churnTest$Area.Code<-as.factor(churnTest$Area.Code)
 ```
 
-The next step is to have a close look at the variables graphically.
+The next step is to have a close look at the variables graphically. I won't bore you with looking at every single one, though if the number of potential relationships is in the 100s this is something that I would do.
 
-```{r fig.width=5, fig.height=5, cache=TRUE, fig.show='hold'}
+
+```{r fig.width=5, fig.height=5, cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
 one<-ggplot(churn, aes(x=Account.Length, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Account Length")
 two<-ggplot(churn, aes(x=VMail.Message, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Voice Mails")
 one 
 two
 ```
 
-```{r fig.width=5, fig.height=5, cache=TRUE}
 
-```
 
 
 <script>
