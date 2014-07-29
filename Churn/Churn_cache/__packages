@@ -1,8 +1,10 @@
 base
 caret
 dplyr
+e1071
 ggplot2
 lattice
 plyr
+randomForest
 reshape2
 stringr

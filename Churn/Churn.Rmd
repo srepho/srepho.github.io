@@ -100,7 +100,8 @@ we are intrested in sensitivity in our models rather then specificity.
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
 set.seed(12)
-lrmodel<-train(churnTrain$Churn.~., data=churnTrain, )
+rfmodel<-train(churnTrain$Churn.~., data=churnTrain, method="rf", trainControl = c(method = "adaptive_cv", number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = "gls", complete = TRUE)), metric="Kappa")
+confusionMatrix(rfmodel)
 
 ```
 <script>
