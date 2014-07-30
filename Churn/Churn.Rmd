@@ -81,7 +81,7 @@ churnTrain$Area.Code<-as.factor(churnTrain$Area.Code)
 churnTest$Area.Code<-as.factor(churnTest$Area.Code)
 ```
 
-The next step is to have a close look at the variables graphically. Often looking graphically is more illuminating then just a summary (and famously an indentical numerical summary can mask vast differences). We also want to see the Shape of the Distributions. Some algorithms work more accurately if we can transform highly skewed data to more closely resemble a standard (Gaussian) distribution. Sometimes its as simple as a log transformation, sometimes we need something like a Box-Cox transformation. It is usually good practice to scale and centre our data as well as the difference in magnitude will trip up some algorithms. 
+The next step is to have a close look at the variables graphically. Often looking graphically is more illuminating then just a summary (and famously an indentical numerical summary can mask vast differences). We also want to see the Shape of the Distributions. Some algorithms work more accurately if we can transform highly skewed data to more closely resemble a standard (Gaussian) distribution. Sometimes its as simple as a log transformation, sometimes we need something like a Box-Cox transformation. It is usually good practice to scale and centre our data as well as the difference in magnitude will trip up some algorithms. We won't have to worry about this Today as the Random Forest algorithim does not require these changes.
 
 We can also start to form testable ideas about relationships. For example does the "Account Length" field have an impact on if they churn?
 
@@ -91,11 +91,11 @@ one<-ggplot(churn, aes(x=Account.Length, fill=Churn.))+geom_density()+ facet_gri
 one 
 ```
 
-Does not appear to be any noticable difference.
+Nope! Does not appear to be any noticable difference.
 
 I actually looked at all the variables but I won't bore you with all of them ;)
 
-Next up we can start the process of building some actual models. We will use the excellent caret package for this. As mentioned the imbalance in the number of churned customers and the fact that we really want to predict who will be a churned customer mean we have to make some modificiations to our approach. More technically
+Next up we can start the process of building an actual model. We will use the excellent caret package for this. As mentioned the imbalance in the number of churned customers and the fact that we really want to predict who will be a churned customer mean we have to make some modificiations to our approach. More technically
 we are intrested in sensitivity in our models rather then specificity.
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
@@ -104,6 +104,21 @@ rfmodel<-train(churnTrain$Churn.~., data=churnTrain, method="rf", trainControl =
 confusionMatrix(rfmodel)
 
 ```
+
+Now we can't be too excited yet as this is how we did on the same data we used to build the model. So lets have a look how it goes with the "test" set that our model has never seen before.
+
+```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
+pred<-predict(rfmodel, newdata=churnTest)
+confusionMatrix(pred, churnTest$Churn.)
+```
+
+Not too shabby. Of the 97 that we predicted would have left we got 85 right and only 12 wrong. We did miss 35 other clients who left but its a big improvement from a naive guess of "All Stay" that we started with. In a latter post I will show how we can try and capture more of those missing 35 by accepting a few more "false positives".
+
+##### References
+* Chapter 16 of the excellent Applied Predictive Modeling by Max Kuhn & Kjell Johnson covers cases like this where there is a class imbalance.
+* A new feature of the Caret package (authored by Max Kuhn) is adaptive resampling. The package website contains an overview.
+
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
