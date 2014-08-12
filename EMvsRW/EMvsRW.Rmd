@@ -1,0 +1,24 @@
+---
+title: "Robin Williams and Eddie Murphy"
+author: "Stephen Oates"
+date: "Tuesday, August 12, 2014"
+output: html_document
+---
+A very quick look at the [Metacritic](http://www.metacritic.com/) scores for [Eddie Murphy](http://www.metacritic.com/person/eddie-murphy) and [Robin Williams](http://www.metacritic.com/person/robin-williams?page=1).
+
+
+```{r, echo=FALSE}
+library(ggplot2)
+EMandRW <- read.delim("F:/EMandRW.txt")
+EM <- read.delim("F:/EM.txt")
+RW <- read.delim("F:/RW.txt")
+EMandRW$Date<-as.Date(EMandRW$Date, format = "%d/%m/%Y")
+print("Eddie Murphy")
+summary(EM$Score)
+print("Robin Williams")
+summary(RW$Score)
+ggplot(EMandRW, aes(Date, Score, color=Actor)) + geom_point() + scale_x_date() + stat_smooth()
+ggplot(EMandRW, aes(x=Score, color=Actor)) + geom_histogram() + facet_grid(.~Actor)
+ggplot(EMandRW, aes(x=Score, color=Actor)) + geom_density()
+```
+
