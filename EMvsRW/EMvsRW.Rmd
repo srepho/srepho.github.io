@@ -17,7 +17,7 @@ print("Eddie Murphy")
 summary(EM$Score)
 print("Robin Williams")
 summary(RW$Score)
-ggplot(EMandRW, aes(Date, Score, color=Actor)) + geom_point() + scale_x_date() + stat_smooth()
+ggplot(EMandRW, aes(Date, Score, color=Actor)) + geom_point() + scale_x_date() + stat_smooth() + geom_text(aes(label=Name),hjust=0, vjust=0)
 ggplot(EMandRW, aes(x=Score, color=Actor)) + geom_histogram() + facet_grid(.~Actor)
 ggplot(EMandRW, aes(x=Score, color=Actor)) + geom_density()
 ```
