@@ -67,3 +67,13 @@ library(ForeCA)
 Omega(asx300$Return)
 
 ```
+
+7% out of a 100! Though this does seem to imply that there is something that is predictable as 0% means totally random.
+
+Lets take the next step and fire up the foreca process but we will break up the asx300 into smaller chunks for it based on different industries.
+
+
+
+References:
+1. A [talk](http://techtalks.tv/talks/forecastable-component-analysis/58229/) on Forecast Component Analysis by Georg Georg.
+2. 
