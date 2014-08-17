@@ -1,0 +1,298 @@
+Constituent	Symbol
+360 Capital Industrial Fund	TIX
+Abacus Property Group	ABP
+Acrux Ltd	ACR
+Adelaide Brighton Ltd	ABC
+AGL Energy Ltd	AGK
+Ainsworth Game Technology Ltd	AGI
+Alacer Gold Corp.	AQG
+ALS Ltd	ALQ
+Altium Limited	ALU
+Alumina Ltd	AWC
+Amcom Telecom Ltd	AMM
+Amcor Ltd	AMC
+AMP Ltd	AMP
+Ansell Ltd	ANN
+ANZ Banking Group	ANZ
+APA Group	APA
+APN News & Media Ltd	APN
+Aquila Resources	AQA
+ARB Corp Ltd	ARP
+Ardent Leisure Ltd	AAD
+ARENA REIT	ARF
+Aristocrat Leisure Ltd	ALL
+Arrium Ltd	ARI
+Asciano Ltd	AIO
+Aspen Group	APZ
+Astro Japan Property Group	AJA
+ASX Limited	ASX
+Atlas Iron Limited	AGO
+Auckland Intl Airport Ltd	AIA
+Aurizon Holdings Limited	AZJ
+Ausdrill Ltd	ASL
+Ausenco	AAX
+Austin Engineering Limited	ANG
+Australand Property Group	ALZ
+Australian Agricultural Co	AAC
+Australian Pharmaceutical Ind	API
+Automotive Holdings Group Ltd	AHE
+Aveo Group Trust	AOG
+AWE Ltd	AWE
+Bank of Queensland Ltd	BOQ
+Bathurst Resources Limited	BRL
+BC Iron Limited	BCI
+Beach Energy Limited	BPT
+Beadell Resources Limited	BDR
+Bega Cheese Ltd	BGA
+Bendigo and Adelaide Bank Limited	BEN
+Bentham IMF Limited	IMF
+BHP Billiton Ltd	BHP
+Billabong Intl Ltd	BBG
+Bionomics Ltd	BNO
+Bluescope Steel Ltd	BSL
+Boart Longyear Limited	BLY
+Boral Ltd	BLD
+Bradken Ltd	BKN
+Brambles Industries Ltd	BXB
+Breville Group Ltd	BRG
+Buru Energy Limited	BRU
+BWP Trust	BWP
+Cabcharge Australia Ltd	CAB
+Caltex Australia Ltd	CTX
+Cardno Limited	CDD
+Carsales.com Ltd	CRZ
+Cash Converters International	CCV
+Cedar Woods Properties Ltd	CWP
+CFS Retail Property Trust Group	CFX
+Challenger Limited	CGF
+Charter Hall Group	CHC
+Charter Hall Retail REIT	CQR
+Chorus Ltd.	CNU
+Coca-Cola Amatil Ltd	CCL
+Cochlear Ltd	COH
+Codan Limited	CDA
+Collection House Ltd	CLH
+Commonwealth Bank Australia	CBA
+Computershare Ltd	CPU
+Cooper Energy NL	COE
+Corporate Travel Management Ltd	CTD
+COVER-MORE GROUP LIMITED	CVO
+Credit Corp Group Limited	CCP
+Cromwell Property Group	CMW
+Crown Resorts Ltd	CWN
+CSG Limited	CSV
+CSL Ltd	CSL
+CSR Ltd	CSR
+Cudeco Limited	CDU
+David Jones Ltd	DJS
+Decmil Group Ltd	DCG
+Dexus Property Group	DXS
+Dick Smith Holdings Limited	DSH
+Domino's Pizza Enterprises Ltd	DMP
+Downer EDI Ltd	DOW
+Drillsearch Energy Ltd	DLS
+Duet Group	DUE
+DuluxGroup Ltd	DLX
+Echo Entertainment Group	EGP
+Emeco Holdings	EHL
+Energy Resources of Australia	ERA
+Energy World Corporation Ltd	EWC
+Envestra Ltd	ENV
+ERM Power Ltd	EPW
+Evolution Mining Ltd	EVN
+Fairfax Media Ltd	FXJ
+Federation Centres	FDC
+Fleetwood Corp Ltd	FWD
+Fletcher Building Ltd	FBU
+FlexiGroup Limited	FXL
+Flight Centre Travel Group Ltd	FLT
+Folkestone Education Trust	FET
+Fonterra Shareholders Fund	FSF
+Fortescue Metals Group	FMG
+G8 Education Limited	GEM
+GDI PROPERTY GROUP	GDI
+Goodman Fielder	GFF
+Goodman Group	GMG
+GPT Group	GPT
+Graincorp Ltd A	GNC
+Greencross Ltd	GXL
+GUD Hldgs Ltd	GUD
+GWA Group Ltd	GWA
+Harvey Norman Hldgs Ltd	HVN
+Henderson Group PLC	HGG
+Hills Limited	HIL
+Horizon Oil Ltd	HZN
+HOTEL PROPERTY INVESTMENTS	HPI
+iiNET Limited	IIN
+Iluka Resources Ltd	ILU
+Imdex Limited	IMD
+Incitec Pivot	IPL
+Independence Group NL	IGO
+Indophil Resources NL	IRN
+Industria REIT	IDR
+Infigen Energy	IFN
+Ingenia Communities Group	INA
+Insurance Australia Group Ltd	IAG
+Intrepid Mines Limited	IAU
+Investa Office Fund	IOF
+Invocare Ltd	IVC
+Ioof Hldgs Ltd	IFL
+iProperty Group Ltd	IPP
+Iress Limited	IRE
+ISELECT LIMITED	ISU
+James Hardie Industries plc	JHX
+Jb Hi-Fi	JBH
+Karoon Gas Australia Limited	KAR
+Kathmandu Holdings Limited	KMD
+Kingsgate Consolidated Ltd	KCN
+Leighton Hldgs Ltd	LEI
+Lend Lease Group	LLC
+Lynas Corporation Limited	LYC
+M2 Group Limited	MTU
+MACA Limited	MLD
+Macmahon Holdings Ltd	MAH
+Macquarie Altas Roads Limited	MQA
+Macquarie Group Ltd	MQG
+Magellan Financial Group Limited	MFG
+Maverick Drilling & Exploration Ltd.	MAD
+Maxitrans Industries	MXI
+Mayne Pharma Group Ltd	MYX
+McMillan Shakespeare Limited	MMS
+Medusa Mining Limited	MML
+Mermaid Marine Australia Ltd	MRM
+Mesoblast Limited	MSB
+Metcash Ltd	MTS
+Mighty River Power Limited	MYT
+Mineral Deposits Limited	MDL
+Mineral Resources	MIN
+Mirvac Group	MGR
+Monadelphous Group Ltd	MND
+Mortgage Choice Ltd	MOC
+Mount Gibson Iron	MGX
+Myer Holdings Ltd	MYR
+National Australia Bank Ltd	NAB
+NATIONAL STORAGE REIT	NSR
+Navitas Limited	NVT
+Newcrest Mining Ltd	NCM
+News Corporation	NWS
+Newsat Ltd	NWT
+NEXTDC Ltd	NXT
+Nine Entertainment Co. Holdings Limited	NEC
+Northern Star Resources Ltd	NST
+NRW Holdings Limited	NWH
+Nufarm Limited	NUF
+OceanaGold Corporation - CDI	OGC
+Oil Search Ltd	OSH
+Orica Ltd	ORI
+Origin Energy Ltd	ORG
+Orocobre Ltd	ORE
+Orora Limited	ORA
+Orotongroup Limited	ORL
+OZ Minerals Limited	OZL
+OzForex Group Limited	OFX
+Pacific Brands Ltd	PBG
+PACT GROUP HOLDINGS LTD	PGH
+Paladin Energy Ltd.	PDN
+PanAust Ltd	PNA
+Papillon Resources Limited	PIR
+Perpetual Limited	PPT
+Perseus Mining Limited	PRU
+Platinum Asset Management Limited	PTM
+Prana Biotechnology Ltd	PBT
+Premier Investments Ltd	PMV
+Primary Health Care Ltd	PRY
+Programmed Maintenance Servces	PRG
+Qantas Airways Ltd	QAN
+QBE Insurance Group Ltd	QBE
+Qube Holdings Ltd	QUB
+Ramsay Health Care Ltd	RHC
+RCG Corporation Limited	RCG
+RCR Tomlinson Limited	RCR
+REA Group Ltd	REA
+Recall Holdings Limited	REC
+Reckon Ltd	RKN
+Red Fork Energy Ltd	RFE
+Regis Resources Ltd	RRL
+ResMed Inc	RMD
+Resolute Mining Ltd	RSG
+Retail Food Group Limited	RFG
+Ridley Corporation Ltd	RIC
+Rio Tinto Ltd	RIO
+Roc Oil Co Ltd	ROC
+SAI Global Ltd	SAI
+Sandfire Resources NL	SFR
+Santos Ltd	STO
+Saracen Mineral Holdings Ltd	SAR
+Scentre Group	SCG
+Seek Ltd	SEK
+Select Harvests Ltd	SHV
+Senex Energy Limited	SXY
+Seven Group Holdings Limited	SVW
+Seven West Media Ltd	SWM
+Shopping Centres Australasia Property Group	SCP
+Sigma Pharmaceuticals Limited	SIP
+Silex Systems Ltd	SLX
+Silver Lake Resources Ltd	SLR
+Sims Metal Management Ltd	SGM
+Singapore Telecommunications Ltd	SGT
+Sino Gas & Energy Holdings Ltd	SEH
+Sirius Resources NL	SIR
+Sirtex Medical Ltd	SRX
+Skilled Group Limited	SKE
+Sky Network Television Limited	SKT
+SkyCity Entertainment Group	SKC
+Slater & Gordon Limited	SGH
+SMS Management & Technology Ltd	SMX
+Sonic Healthcare Ltd	SHL
+Southern Cross Media Group Limited	SXL
+SP AUSNET (stapled)	SPN
+Spark Infrastructure Trust	SKI
+St Barbara Limited	SBM
+Starpharma Holdings Limited	SPL
+Steadfast Group Limited	SDF
+Stockland	SGP
+STW Communications Group Ltd	SGN
+Suncorp Group Ltd	SUN
+Sundance Energy Australia Ltd	SEA
+Sundance Resources Limited	SDL
+Super Retail Group Ltd	SUL
+Sydney Airport	SYD
+Syrah Resources Limited	SYR
+Tabcorp Hldgs Ltd	TAH
+Tassal Group Limited	TGR
+Tatts Group Limited	TTS
+Telecom Corporation of New Zealand Limited	TEL
+Telstra Corp Ltd	TLS
+Ten Network Hldgs	TEN
+TFS Corporation Limited	TFC
+The Reject Shop Limited	TRS
+Thorn Group Ltd	TGA
+Tiger Resources Limited	TGS
+Toll Hldgs Ltd	TOL
+Tox Free Solutions Limited	TOX
+TPG Telecom Ltd	TPM
+Trade Me Ltd	TME
+Transfield Services Ltd	TSE
+Transpacific Industries Group	TPI
+Transurban Group NPV	TCL
+Treasury Group	TRG
+Treasury Wine Estates	TWE
+Troy Resources Limited	TRY
+UGL Ltd	UGL
+UXC Ltd	UXC
+Veda Group Limited	VED
+Village Roadshow Ltd	VRL
+Virtus Health Limited	VRT
+VOCATION LIMITED	VET
+Vocus Communications Ltd	VOC
+Webjet Ltd	WEB
+Wesfarmers Ltd	WES
+Western Areas Ltd	WSA
+Western Desert Resources Ltd	WDR
+Westfield Corp	WFD
+Westpac Banking Corp	WBC
+Whitehaven Coal Ltd	WHC
+Woodside Petroleum Ltd	WPL
+Woolworths Ltd	WOW
+WorleyParsons Ltd	WOR
+Wotif.com Holdings	WTF

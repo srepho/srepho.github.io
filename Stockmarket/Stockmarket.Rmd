@@ -115,28 +115,27 @@ Lets also tidy up the Volume field which has some 0s which are clearly wrong, we
 asx300$Volume<-stringr::str_replace_all(asx300$Volume, "^0", "NA")
 asx300$Volume<-as.numeric(asx300$Volume)
 asx300$Volume[!complete.cases(asx300$Volume)]<-median(asx300$Volume, na.rm=T)
-asx300$VolLag1<-lag(asx300$Volume, 1)
-asx300$VolLag1[1]<-808890000
-asx300$L1<-lag(asx300$L1, 1)
-asx300$L2<-lag(asx300$L2, 1)
-asx300$L3<-lag(asx300$L3, 1)
-asx300$L4<-lag(asx300$L4, 1)
-asx300$L4<-lag(asx300$L4, 1)
 ```
 
-One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open.
+One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open. We will also add a new column with the next days movement (Close-Open) as this is what the model will try and predict.
 
 ```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
 asx300$DailyMove<-asx300$Close-asx300$Open
-
+asx300$Tomorrow<-lead(asx300$DailyMove, 1)
+#lets drop the last row whilst we are building the model
 ```
 
 
 Now let's break out the excellent caret library and build some models.
 
 ```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
-#Lets get rid of the variables we don't need.
-data<-dplyr::select(asx300, L1, L2, L3, L4, L5, VolLag1)
+#Lets get rid of the last day and split the data
+data<-na.omit(asx300)
+trainIndex <- caret::createDataPartition(data$Tomorrow, p = .80, list = FALSE, times = 1)
+Train <- data[ trainIndex,]
+Test <- data[-trainIndex, ]
+#model building
+rfmodel<-train(Train$Tomorrow~., data=Train, method="rf", trainControl = c(method = "adaptive_cv", number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = "gls", complete = TRUE)))
 ```
 #### References:
 

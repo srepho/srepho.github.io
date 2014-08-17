@@ -23,3 +23,13 @@ library(ForeCA)
 Omega(asx300$Return)
 
 
+i<-1
+Comps<-read.csv("ConstituentsExport.txt", header=T, sep="\t")
+foo<-paste("http://real-chart.finance.yahoo.com/table.csv?s=", Comps$Symbol[i], 
+".AX&d=7&e=17&f=2014&g=d&a=0&b=29&c=1988&ignore=.csv", sep = "")
+x<-getURL(foo)
+y<-read.csv(foo)
+y$Company<-Comps$Symbol[i]
+
+
+
