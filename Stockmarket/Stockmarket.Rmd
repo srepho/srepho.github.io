@@ -9,9 +9,10 @@ Recently I joined up in some friends to compete in a share trading game run by t
 
 For this analysis I will use two separate approaches:
 
-1. In the excellent book "An introduction to Statistical Learning" by James, Witten, Hastie & Tibshirani they have a part of chapter 4 devoted to building a classification model for daily share movements. Surprisingly the model actually goes quite well at about ~60% accuracy (remembering that 50% would be chance). Lets see if these models do equally well on the ASX data.
+1. Earlier in the year the excellent machine learning blog FastML (well worth subscribing too) had an interesting [post](http://fastml.com/are-stocks-predictable/) on [Forecastable Component Analysis](http://arxiv.org/abs/1205.4591) by Georg M. Georg. Georg has actually created a [CRAN package](http://cran.r-project.org/web/packages/ForeCA/index.html) for the approach which will we try and use.
 
-2. Earlier in the year the excellent machine learning blog FastML (well worth subscribing too) had an interesting [post](http://fastml.com/are-stocks-predictable/) on [Forecastable Component Analysis](http://arxiv.org/abs/1205.4591) by Georg M. Georg. Georg has actually created a [CRAN package](http://cran.r-project.org/web/packages/ForeCA/index.html) for the approach which will we try and use.
+2. In the excellent book "An introduction to Statistical Learning" (ISWR) by James, Witten, Hastie & Tibshirani they have a part of chapter 4 devoted to building a classification model for dailyLshare movements. Surprisingly the model actually goes quite well at about ~60% accuracy (remembering that 50% would be chance). Lets see if these models do equally well on the ASX data.
+
 
 So we need Data, lots of data
 
@@ -38,18 +39,23 @@ Lets load the data we can get and have a look.
 
 ```{r, message=FALSE, cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
 asx300<-read.csv("asx300.csv", header=T)
+asx300<-asx300[301:1,]
 asx300$Date<-as.Date(asx300$Date, format = "%d/%m/%Y")
 ggplot(asx300, aes(x=Date, y=Adj.Close)) + geom_line() + scale_x_date()
-ggplot(asx300, aes(x=Date, y=Return)) + geom_line() + scale_x_date()
+#Now Lets add some Lag columns as we will need the difference for a lot of the latter tasks rather then the actual difference
+asx300$Lag1[2:301]<-diff(asx300$Adj.Close, lag=1)
+asx300$Lag1[1]<-0
+asx300$L1<-asx300$Lag1/(asx300$Lag1+asx300$Adj.Close)
+ggplot(asx300, aes(x=Date, y=L1)) + geom_line() + scale_x_date()
 ```
 
 Lets start super simple and see how we go with just the excellent [forecast package](http://cran.r-project.org/web/packages/forecast/index.html) which is built for time series.
 
 ```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/'}
 library(forecast)
-basic.model<-forecast(asx300$Adj.Close[301:21], h=20)
+basic.model<-forecast(asx300$Adj.Close[1:280], h=20)
 plot(basic.model)
-lines(asx300$Adj.Close[301:1])
+lines(asx300$Adj.Close)
 
 ```
 
@@ -64,16 +70,75 @@ So lets move onto the ForeCA package.
 
 ```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/'}
 library(ForeCA)
-Omega(asx300$Return)
+Omega(asx300$L1)
 
 ```
 
-7% out of a 100! Though this does seem to imply that there is something that is predictable as 0% means totally random.
+7% out of a 100! Though this does seem to imply that there is possible a tiny something that is predictable as 0% means totally random.
 
-Lets take the next step and fire up the foreca process but we will break up the asx300 into smaller chunks for it based on different industries.
+The other component of the ForeCA seems to be about the interaction between different signals (time series) so we will leave that to one side until latter when we have multiple signals.
+
+### Predicting
+
+In the example from ISLR the authors use daily closing price, volume, 5 columns for lag of 1-5 days, the amount of movement and the direction.
+
+```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/'}
+library(ISLR)
+names(Smarket)
+```
+
+So lets do the same thing with our data,
+```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/'}
+#Lag of 2 trading days
+asx300$Lag2[3:301]<-diff(asx300$Adj.Close, lag=2)
+asx300$Lag2[1:2]<-0
+asx300$L2<-asx300$Lag2/(asx300$Lag2+asx300$Adj.Close)
+
+#of 3
+asx300$Lag3[4:301]<-diff(asx300$Adj.Close, lag=3)
+asx300$Lag3[1:3]<-0
+asx300$L3<-asx300$Lag3/(asx300$Lag3+asx300$Adj.Close)
+
+#of 4
+asx300$Lag4[5:301]<-diff(asx300$Adj.Close, lag=4)
+asx300$Lag4[1:4]<-0
+asx300$L4<-asx300$Lag4/(asx300$Lag4+asx300$Adj.Close)
+
+#of 5
+asx300$Lag5[6:301]<-diff(asx300$Adj.Close, lag=5)
+asx300$Lag5[1:5]<-0
+asx300$L5<-asx300$Lag5/(asx300$Lag5+asx300$Adj.Close)
+```
+
+Lets also tidy up the Volume field which has some 0s which are clearly wrong, we will just use the median for the moment. We will also create a lag field as we can only use the previous days Volume rather then the current.
+```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
+asx300$Volume<-stringr::str_replace_all(asx300$Volume, "^0", "NA")
+asx300$Volume<-as.numeric(asx300$Volume)
+asx300$Volume[!complete.cases(asx300$Volume)]<-median(asx300$Volume, na.rm=T)
+asx300$VolLag1<-lag(asx300$Volume, 1)
+asx300$VolLag1[1]<-808890000
+asx300$L1<-lag(asx300$L1, 1)
+asx300$L2<-lag(asx300$L2, 1)
+asx300$L3<-lag(asx300$L3, 1)
+asx300$L4<-lag(asx300$L4, 1)
+asx300$L4<-lag(asx300$L4, 1)
+```
+
+One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open.
+
+```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
+asx300$DailyMove<-asx300$Close-asx300$Open
+
+```
 
 
+Now let's break out the excellent caret library and build some models.
 
-References:
+```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
+#Lets get rid of the variables we don't need.
+data<-dplyr::select(asx300, L1, L2, L3, L4, L5, VolLag1)
+```
+#### References:
+
 1. A [talk](http://techtalks.tv/talks/forecastable-component-analysis/58229/) on Forecast Component Analysis by Georg Georg.
 2. 
