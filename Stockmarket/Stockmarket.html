@@ -137,15 +137,19 @@ asx300$L5&lt;-asx300$Lag5/(asx300$Lag5+asx300$Adj.Close)</code></pre>
 <p>Lets also tidy up the Volume field which has some 0s which are clearly wrong, we will just use the median for the moment. We will also create a lag field as we can only use the previous days Volume rather then the current.</p>
 <pre class="r"><code>asx300$Volume&lt;-stringr::str_replace_all(asx300$Volume, &quot;^0&quot;, &quot;NA&quot;)
 asx300$Volume&lt;-as.numeric(asx300$Volume)
-asx300$Volume[!complete.cases(asx300$Volume)]&lt;-median(asx300$Volume, na.rm=T)
-asx300$VolLag1&lt;-lag(asx300$Volume, 1)
-asx300$VolLag1[1]&lt;-808890000
-asx300$L1&lt;-lag(asx300$L1, 1)</code></pre>
-<p>One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open.</p>
-<pre class="r"><code>asx300$DailyMove&lt;-asx300$Close-asx300$Open</code></pre>
+asx300$Volume[!complete.cases(asx300$Volume)]&lt;-median(asx300$Volume, na.rm=T)</code></pre>
+<p>One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open. We will also add a new column with the next days movement (Close-Open) as this is what the model will try and predict.</p>
+<pre class="r"><code>asx300$DailyMove&lt;-asx300$Close-asx300$Open
+asx300$Tomorrow&lt;-dplyr::lead(asx300$DailyMove, 1)
+#lets drop the last row whilst we are building the model</code></pre>
 <p>Now let’s break out the excellent caret library and build some models.</p>
-<pre class="r"><code>#Lets get rid of the variables we don't need.
-data&lt;-dplyr::select(asx300, L1, L2, L3, L4, L5, VolLag1)</code></pre>
+<pre class="r"><code>#Lets get rid of the last day and split the data
+data&lt;-na.omit(asx300)
+trainIndex &lt;- caret::createDataPartition(data$Tomorrow, p = .80, list = FALSE, times = 1)
+Train &lt;- data[ trainIndex,]
+Test &lt;- data[-trainIndex, ]
+#model building
+#rfmodel&lt;-train(Train$Tomorrow~., data=Train, method=&quot;rf&quot;, trainControl = c(method = &quot;adaptive_cv&quot;, number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = &quot;gls&quot;, complete = TRUE)))</code></pre>
 <div id="references" class="section level4">
 <h4>References:</h4>
 <ol style="list-style-type: decimal">
