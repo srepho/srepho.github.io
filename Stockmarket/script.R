@@ -4,6 +4,7 @@ library(reshape2)
 library(stringr)
 library(ggplot2)
 library(caret)
+library(RCurl)
 
 asx300<-read.csv("asx300.csv", header=T)
 asx300<-asx300[301:1,]
@@ -23,13 +24,17 @@ library(ForeCA)
 Omega(asx300$Return)
 
 
+Total<-c(1:8)
 i<-1
+while(i<298){ 
 Comps<-read.csv("ConstituentsExport.txt", header=T, sep="\t")
 foo<-paste("http://real-chart.finance.yahoo.com/table.csv?s=", Comps$Symbol[i], 
-".AX&d=7&e=17&f=2014&g=d&a=0&b=29&c=1988&ignore=.csv", sep = "")
+".AX&d=7&e=18&f=2014&g=d&a=0&b=29&c=1988&ignore=.csv", sep = "")
 x<-getURL(foo)
 y<-read.csv(foo)
 y$Company<-Comps$Symbol[i]
-
+Total<-rbind(Total, y)
+i<-i+1
+}
 
 
