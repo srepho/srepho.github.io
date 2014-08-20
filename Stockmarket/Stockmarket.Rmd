@@ -137,6 +137,13 @@ Test <- data[-trainIndex, ]
 #model building
 #rfmodel<-train(Train$Tomorrow~., data=Train, method="rf", trainControl = c(method = "adaptive_cv", number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = "gls", complete = TRUE)))
 ```
+
+
+Looking at the data
+
+```{r}
+count(Total$Company)
+```
 #### References:
 
 1. A [talk](http://techtalks.tv/talks/forecastable-component-analysis/58229/) on Forecast Component Analysis by Georg Georg.
