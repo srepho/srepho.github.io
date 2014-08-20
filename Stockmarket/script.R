@@ -35,6 +35,9 @@ y<-read.csv(foo)
 y$Company<-Comps$Symbol[i]
 Total<-rbind(Total, y)
 i<-i+1
+Sys.sleep(1.5)
 }
 
-
+Total %>%
+  group_by(Company) %>%
+  group_size()
