@@ -6,7 +6,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
 
 <meta name="author" content="Stephen Oates" />
@@ -59,7 +58,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 
-<p>Recently I joined up in some friends to compete in a share trading game run by the Australian Stock Exchange (ASX). They have changed the structure of the game somewhat since the last time we played, removing the ability to buy indexes or commodities listed on the stock market. Instead all you can do is buy 298 of the ASX300 (the largest companies listed). Even short selling is not possible. Instead of going down the usual path of buying shares in things I know, or doing research I think it would be fun to try and use analytics to pick the stocks. I have no illusion this would work (except by chance), but it would be fun to beat my friends who largely work in finance.</p>
+<p>Recently I joined up in with some friends to compete in a share trading game run by the Australian Stock Exchange (ASX). They have changed the structure of the game somewhat since the last time we played, removing the ability to buy indexes or commodities listed on the stock market. Instead all you can do is buy 298 of the ASX300 (the largest companies listed). Even short selling is not possible. Instead of going down the usual path of buying shares in things I know, or doing research I think it would be fun to try and use analytics to pick the stocks. I have no illusion this would work (except by chance), but it would be fun to beat my friends who largely work in finance.</p>
 <p>For this analysis I will use two separate approaches:</p>
 <ol style="list-style-type: decimal">
 <li><p>Earlier in the year the excellent machine learning blog FastML (well worth subscribing too) had an interesting <a href="http://fastml.com/are-stocks-predictable/">post</a> on <a href="http://arxiv.org/abs/1205.4591">Forecastable Component Analysis</a> by Georg M. Georg. Georg has actually created a <a href="http://cran.r-project.org/web/packages/ForeCA/index.html">CRAN package</a> for the approach which will we try and use.</p></li>
@@ -105,10 +104,10 @@ Omega(asx300$L1)</code></pre>
 ## attr(,&quot;unit&quot;)
 ## [1] &quot;%&quot;</code></pre>
 <p>7% out of a 100! Though this does seem to imply that there is possible a tiny something that is predictable as 0% means totally random.</p>
-<p>The other component of the ForeCA seems to be about the interaction between different signals (time series) so we will leave that to one side until latter when we have multiple signals.</p>
+<p>The main function of the ForeCA seems to be about the interaction between different signals (time series) so we will leave that to one side until latter when we have multiple signals.</p>
 </div>
-<div id="predicting" class="section level3">
-<h3>Predicting</h3>
+<div id="predicting-the-index" class="section level3">
+<h3>Predicting the index</h3>
 <p>In the example from ISLR the authors use daily closing price, volume, 5 columns for lag of 1-5 days, the amount of movement and the direction.</p>
 <pre class="r"><code>library(ISLR)
 names(Smarket)</code></pre>
@@ -136,20 +135,42 @@ asx300$Lag5[1:5]&lt;-0
 asx300$L5&lt;-asx300$Lag5/(asx300$Lag5+asx300$Adj.Close)</code></pre>
 <p>Lets also tidy up the Volume field which has some 0s which are clearly wrong, we will just use the median for the moment. We will also create a lag field as we can only use the previous days Volume rather then the current.</p>
 <pre class="r"><code>asx300$Volume&lt;-stringr::str_replace_all(asx300$Volume, &quot;^0&quot;, &quot;NA&quot;)
-asx300$Volume&lt;-as.numeric(asx300$Volume)
-asx300$Volume[!complete.cases(asx300$Volume)]&lt;-median(asx300$Volume, na.rm=T)</code></pre>
+asx300$Volume&lt;-as.numeric(asx300$Volume)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre class="r"><code>asx300$Volume[!complete.cases(asx300$Volume)]&lt;-median(asx300$Volume, na.rm=T)</code></pre>
 <p>One important thing to note is that the closing price one day will not (usually) be the opening price the next day. We therefore need to include a column that includes the closing price minus the open. We will also add a new column with the next days movement (Close-Open) as this is what the model will try and predict.</p>
 <pre class="r"><code>asx300$DailyMove&lt;-asx300$Close-asx300$Open
 asx300$Tomorrow&lt;-dplyr::lead(asx300$DailyMove, 1)
 #lets drop the last row whilst we are building the model</code></pre>
+<p>There is actually some evidence that there short term momentum in some stocks (CITATION). So lets have look at the correlation between the lags for the index.</p>
+<pre class="r"><code>lag_data&lt;-dplyr::select(asx300, DailyMove, Tomorrow, L1, L2, L3, L4, L5)
+cor(lag_data, use=&quot;complete.obs&quot;)</code></pre>
+<pre><code>##           DailyMove Tomorrow       L1       L2       L3       L4       L5
+## DailyMove   1.00000 -0.01585  0.85030  0.57418  0.43670  0.33672  0.28274
+## Tomorrow   -0.01585  1.00000 -0.01144 -0.02261 -0.06292 -0.08078 -0.07772
+## L1          0.85030 -0.01144  1.00000  0.72246  0.62566  0.51126  0.42389
+## L2          0.57418 -0.02261  0.72246  1.00000  0.83844  0.73551  0.62144
+## L3          0.43670 -0.06292  0.62566  0.83844  1.00000  0.88572  0.78948
+## L4          0.33672 -0.08078  0.51126  0.73551  0.88572  1.00000  0.90552
+## L5          0.28274 -0.07772  0.42389  0.62144  0.78948  0.90552  1.00000</code></pre>
+<p>It may look slightly confusing when you look at the Tomorrow column vs the L1 column, but remember that the Lx columns are calculated based on Adjusted Close from one day to the next where as Daily Move and Tomorrow are calculated: open - close.</p>
 <p>Now let’s break out the excellent caret library and build some models.</p>
 <pre class="r"><code>#Lets get rid of the last day and split the data
-data&lt;-na.omit(asx300)
-trainIndex &lt;- caret::createDataPartition(data$Tomorrow, p = .80, list = FALSE, times = 1)
-Train &lt;- data[ trainIndex,]
-Test &lt;- data[-trainIndex, ]
+#data&lt;-na.omit(asx300)
+#trainIndex &lt;- caret::createDataPartition(data$Tomorrow, p = .80, list = FALSE, times = 1)
+#Train &lt;- data[ trainIndex,]
+#Test &lt;- data[-trainIndex, ]
 #model building
 #rfmodel&lt;-train(Train$Tomorrow~., data=Train, method=&quot;rf&quot;, trainControl = c(method = &quot;adaptive_cv&quot;, number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = &quot;gls&quot;, complete = TRUE)))</code></pre>
+<p>That is about as far as we will go with the ASX300 but lets start to look at individual stocks.</p>
+</div>
+<div id="individual-stocks" class="section level3">
+<h3>Individual Stocks</h3>
+<p>In this share game you can only buy individual stocks, so its time to have a look at them. The first step is download the data. Doing this actually required breaking a Terms of Service for a search engine, so I won’t go into the exact steps I used. (It is not however that difficult).</p>
+<p>The data is very similair to the ASX300 data used above, though it goes back further. So lets do the same work on it that we did on the above data.</p>
+<pre class="r"><code>stock_data&lt;-read.csv(&quot;Total1.csv&quot;, header=T)
+stock_data&lt;-na.omit(stock_data)
+stock_data&lt;-as.Date(stock_data$Date)</code></pre>
 <div id="references" class="section level4">
 <h4>References:</h4>
 <ol style="list-style-type: decimal">
@@ -171,12 +192,12 @@ $(document).ready(function () {
 
 </script>
 
-<!-- dynamically load mathjax for compatibility with --self-contained -->
+<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

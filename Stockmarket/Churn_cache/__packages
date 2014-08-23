@@ -1,8 +1,17 @@
 base
 caret
 dplyr
+ForeCA
+forecast
 ggplot2
+ifultools
+ISLR
 lattice
+MASS
+nlme
 plyr
 reshape2
+splus2R
 stringr
+timeDate
+zoo
