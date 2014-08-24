@@ -161,8 +161,13 @@ The data is very similair to the ASX300 data used above, though it goes back fur
 ```{r, message=FALSE, cache.path = 'Churn_cache/', fig.path='figure/', warning=FALSE}
 stock_data<-read.csv("Total1.csv", header=T)
 stock_data<-na.omit(stock_data)
-stock_data<-as.Date(stock_data$Date)
+stock_data$Date<-as.Date(stock_data$Date)
+foo<-count(stock_data$Company)
+foo[order(foo$freq),]
 ```
+
+
+
 
 #### References:
 
