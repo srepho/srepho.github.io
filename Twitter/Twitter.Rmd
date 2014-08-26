@@ -21,6 +21,7 @@ PGi.df <- do.call(rbind, lapply(PGi, as.data.frame))
 
 ```{r, message=FALSE, cache=TRUE, cache.path = 'Twitter_cache/', fig.path='figure/'}
 PGi<-read.csv("PGi.csv", header=T)
+PGi$
 
 ```
 
