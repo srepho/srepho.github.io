@@ -1,0 +1,5 @@
+Rev_cache/
+.Rhistory
+test.json
+train.json
+sampleSubmission.csv
