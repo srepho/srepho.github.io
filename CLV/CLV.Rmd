@@ -14,7 +14,7 @@ This paper aims to layout the current state of Customer Lifetime Value calculati
 ##### Contractual
 
 - Naive
-- Recency Frequencey Monetary (RFM) Summaries
+- Recency Frequency Monetary (RFM) Summaries
 - Markov Chains
 - Hazard Functions
 - Survival Regression
@@ -27,7 +27,7 @@ This paper aims to layout the current state of Customer Lifetime Value calculati
 
 #### CLV approaches
 
-One of the most useful models is the assessment of the future value of existing customers. An accurate model that answers this quesion allows for more accurate targeting of advertising and marketing budgets. It also shows the differing value in different cohorts of the customer base. CLV models tend to be in two forms; contractual vs uncontractual. Contractual tends to be easier to deal with as there is certainty of the clients current status (Alive vs. Dead). We will look in this paper at conctractual accounts before moving onto the more difficult extensions into uncontractal account modelling.
+One of the most useful models is the assessment of the future value of existing customers. An accurate model that answers this question allows for more accurate targeting of advertising and marketing budgets. It also shows the differing value in different cohorts of the customer base. CLV models tend to be in two forms; contractual vs uncontractual. Contractual tends to be easier to deal with as there is certainty of the clients current status (Alive vs. Dead). We will look in this paper at contractual accounts before moving onto the more difficult extensions into uncontractal account modelling.
 
 #### Basic Equation
 
@@ -49,7 +49,7 @@ A simple way of calculating this requires:
 1. The probability of a client leaving in a given period. (t)
 2. The discount multiplier of capital for the given period. (DR)
 3. Expected Revenue per client.
-4. Cost of relationship maintainence.
+4. Cost of relationship maintenance.
 
 If point 1 (called *A* below) is taken as stable throughout the lifespan it can be calculated as 
 
@@ -69,7 +69,7 @@ This is trivial to produce in Excel and would look something like this:
 
 ![Example](LTVexample.PNG)
 
-(Taken from Blatterberg et al. 2008 p.110)
+(Taken from Blattberg et al. 2008 p.110)
 
 So we will now move onto the practical points regarding the collection of the data that we need.
 
@@ -78,7 +78,7 @@ So we will now move onto the practical points regarding the collection of the da
 The least sophisticated approach to working out a model life time would be to merely take the proportion who leave duration a duration (lets call it *A* for attrition) and treat it as constant and universal. This then can be plugged in to the LTV equations above with the discount rate. Next we would take the average spend by all customers under investigation and plug this into the above equation. We can then model the future!
 
 
-1. Working with old data from the start point calcuate the proportion of clients that stay in a given period. (Hazard Rate)
+1. Working with old data from the start point calculate the proportion of clients that stay in a given period. (Hazard Rate)
 2. Calculate the average spend per client during this period. (Revenue)
 3. Calculate the average cost of marketing expenditure per period per client. (Cost)
 4. Obtain the Firms Discount Rate. (Discount Rate)
@@ -113,9 +113,9 @@ Generally it uses the below definitions:
 
 Once we have manipulated this data into this form we can then group the data based on these metrics. There is no *a priori* correct way of doing this that holds for all data. We will follow the simple example of Birant (2011). Clients are split along each metric into quintiles (20% groupings) and assigned an ordinal label of 5 for the highest 20% of values, 4 to next highest etc. These are then concatenated (ex 454, 134, 555 etc) This allows for a quick short hand to group customers. So for example we can tell that a 155 is a frequent purchaser who has spent a lot of money during this period but has not purchased in some time. This may be a sign that the client is in danger of leaving.
 
-This gives us an idea of how RFM can work to quickly segment clients. However it still seems too trivial for a lot of situations. Birant (2011) lays out a more sophisticated approach latter in the paper involving clustering of the post RFM groups. I actually think that clustering on the raw RFM data prior to the grouping makes more sense as there seems no a prori reason to assume that quintile splits is more useful then pure clustering. (See Appendix 3 at the end of this paper for an overview of some more basic Numerical Clustering). We can then take the assigned group and use this to create groupings that we can then use to predict future client activity.
+This gives us an idea of how RFM can work to quickly segment clients. However it still seems too trivial for a lot of situations. Birant (2011) lays out a more sophisticated approach latter in the paper involving clustering of the post RFM groups. I actually think that clustering on the raw RFM data prior to the grouping makes more sense as there seems no a priori reason to assume that quintile splits is more useful then pure clustering. (See Appendix 3 at the end of this paper for an overview of some more basic Numerical Clustering). We can then take the assigned group and use this to create groupings that we can then use to predict future client activity.
 
-One thing to note regarding RFM models is that the model requires at least 1 period of activity from a client, one possible way of extending the model to allow for more immediate assessment is to build a model based on the client traits that are known and use this to predict the RFM cluster that the client is likely to belong to. This would have to be tested empirically to know if there was sufficient data in this client information to see if first the predictions of correct cluster can be made accuratly enough to be of use and secondly that the cluster assignment in turn provides a useful framework for prediction of future behaviour.
+One thing to note regarding RFM models is that the model requires at least 1 period of activity from a client, one possible way of extending the model to allow for more immediate assessment is to build a model based on the client traits that are known and use this to predict the RFM cluster that the client is likely to belong to. This would have to be tested empirically to know if there was sufficient data in this client information to see if first the predictions of correct cluster can be made accurately enough to be of use and secondly that the cluster assignment in turn provides a useful framework for prediction of future behaviour.
 
 [Bruce Hardie](http://www.brucehardie.com/) a Professor at the London Business School has an Excel Spreadsheet and a paper on how to implement RFM Summaries [here](http://www.brucehardie.com/notes/022/).
 
@@ -124,7 +124,7 @@ One thing to note regarding RFM models is that the model requires at least 1 per
 ##### *"Man is born free, and everywhere he is in chains" Rousseau (1762)*
 ##### *"The old endless chain of love, tolerance, indifference, aversion and disgust" Beckett (1938)*
 
-An alternative way to look at CLV calculations is to treat discrete time periods since last purchase as states. For each state we can then assign a probability that the client will make a purchase (P) based on the state that they are in (j). 1 - $P_j$ then becomes the probability that they will drop to the next state - in other words that they don't make a purchase. Below is an example of a state based model and CLV calculation taken from Blatterberg (2008).
+An alternative way to look at CLV calculations is to treat discrete time periods since last purchase as states. For each state we can then assign a probability that the client will make a purchase (P) based on the state that they are in (j). 1 - $P_j$ then becomes the probability that they will drop to the next state - in other words that they don't make a purchase. Below is an example of a state based model and CLV calculation taken from Blattberg (2008).
 
 ![Markov](Markov.PNG)
 
@@ -132,7 +132,7 @@ An alternative way to look at CLV calculations is to treat discrete time periods
 
 ##### Moving to Markov Chains
 
-We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilites from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs.
+We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilities from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs.
 
 # Hazard Function
 
@@ -163,7 +163,7 @@ We can also produce a probability for clients moving between time states to "die
 
 ![NAProb](NAprob.png)
 
-These analysis are quite simple to perform. Effectivly we just need the dataset to contain the age of a customers account and the point at which they closed the account (if they did). Fitting the Nelson-Aalen estimator shown above once this dataset is loaded can be completed in Python as follows:
+These analysis are quite simple to perform. Effectively we just need the dataset to contain the age of a customers account and the point at which they closed the account (if they did). Fitting the Nelson-Aalen estimator shown above once this dataset is loaded can be completed in Python as follows:
 
 ```{r eval=FALSE}
 from lifelines import NelsonAalenFitter
@@ -178,11 +178,11 @@ library(mvna)
 model <- mvna(data, state.names, tra, cens.name)
 ```
 
-It is also possible to fit difference estimators based on groupings of the data. For example we could build a seperate hazard function for each clustering group. This is fine for small groupings, however it is usually better to use Survival Regression techniques before splitting into too many groups.
+It is also possible to fit difference estimators based on groupings of the data. For example we could build a separate hazard function for each clustering group. This is fine for small groupings, however it is usually better to use Survival Regression techniques before splitting into too many groups.
 
 #### From One to Many
 
-In the above discussion we looked at just time until "death". In fact we can extend the Nelson-Aalen estimator to handle multiple outcomes. I will just show the math below as I am not too famailar with its usage.
+In the above discussion we looked at just time until "death". In fact we can extend the Nelson-Aalen estimator to handle multiple outcomes. I will just show the math below as I am not too familiar with its usage.
 
 $$
 \hat{A_{0j}}(t) = \sum\limits_{k=1}^K  \frac{\text{Number of observed type j events at }t_k}{\text{Number of indidivudals at risk just prior to }t_k}
@@ -200,7 +200,7 @@ $$
 
 # Survival Regression
 
-It is also possible to utilise data about the customer directly into our analysis through Survival Regression. Due to censorship we cannot directly use normal linear regression. The most famous approach is the Cox Propotional Hazard Model. Below is an example from Python (lifelines Package). The dataset relates to Criminal Recindivism and can be found [here](http://cran.r-project.org/doc/contrib/Fox-Companion/Rossi.txt)
+It is also possible to utilise data about the customer directly into our analysis through Survival Regression. Due to censorship we cannot directly use normal linear regression. The most famous approach is the Cox Proportional Hazard Model. Below is an example from Python (lifelines Package). The dataset relates to Criminal Recidivism and can be found [here](http://cran.r-project.org/doc/contrib/Fox-Companion/Rossi.txt)
 
 From Python:
 
@@ -247,12 +247,12 @@ In summary we can use the predictions from Survival Analysis based techniques to
 
 ![Run Forest](RFOREST.png)
 
-It is possible to treat the probability of a client leaving as a straightforward supervised classification Machine Learning problem. This technique is less suitable where the number of discrete points at which a client can leave is more then a small number. In those cases we would use the Survival Analysis techniques mentioned above. The below example is taken from a previous blog post I [wrote](http://srepho.github.io/Churn/Churn) so I won't go into all that is going on here. It relates to a synthetic dataset and we are merely trying to predict the binary "Churn"/"No Churn" variable. Note the splitting of the dataset and the crossvalidation steps allow for very accurate predictions for how such an algorithim would work in production. I have limited the below to a single algorithim (Random Forest which is [itself](http://en.wikipedia.org/wiki/Random_forest) an ensemble of weak learning algorithims). Accuracy could be boosted by running many different types of algorithims on the data and "stacking" the predictions. An interactive visualisation of one way of assessing algorithim similarity can be seen [here](http://topepo.github.io/caret/similarity.html). The dataset being used is very unbalanced (the vast majority of customers do not churn) so the [Kappa](http://en.wikipedia.org/wiki/Cohen&#39;s_kappa) . I have also used adaptive sampling to avoid a brute force search through the parameter space (RF has number of "trees" to grow and number of variables to sample as parameters). Parameter search can be sped up via two main approaches:
+It is possible to treat the probability of a client leaving as a straightforward supervised classification Machine Learning problem. This technique is less suitable where the number of discrete points at which a client can leave is more then a small number. In those cases we would use the Survival Analysis techniques mentioned above. The below example is taken from a previous blog post I [wrote](http://srepho.github.io/Churn/Churn) so I won't go into all that is going on here. It relates to a synthetic dataset and we are merely trying to predict the binary "Churn"/"No Churn" variable. Note the splitting of the dataset and the cross-validation steps allow for very accurate predictions for how such an algorithm would work in production. I have limited the below to a single algorithm (Random Forest which is [itself](http://en.wikipedia.org/wiki/Random_forest) an ensemble of weak learning algorithms). Accuracy could be boosted by running many different types of algorithms on the data and "stacking" the predictions. An interactive visualisation of one way of assessing algorithm similarity can be seen [here](http://topepo.github.io/caret/similarity.html). The dataset being used is very unbalanced (the vast majority of customers do not churn) so the [Kappa](http://en.wikipedia.org/wiki/Cohen&#39;s_kappa) . I have also used adaptive sampling to avoid a brute force search through the parameter space (RF has number of "trees" to grow and number of variables to sample as parameters). Parameter search can be sped up via two main approaches:
 
-1. Spread the algorithim if possible over multiple cores.
-2. Use a faster algorithim or implementation.
+1. Spread the algorithm if possible over multiple cores.
+2. Use a faster algorithm or implementation.
 
-Sadly in R 1. is only possible on Unix based machines. R itself can be a very slow langague once data starts to get bigger so 2. often means using another langauge (Python is often faster and can use multiple cores on Windows). For really large data we reduce the complexity of the algorithim and look to faster ML programs ([Vowpal Wabbit](http://hunch.net/~vw/) and [BIDMach](http://bid2.berkeley.edu/bid-data-project/) have both been used very succesfully in Machine Learning competitions). It is important to note though that it is very cheap to buy a large instance on AWS which can ameliorate a lot of these problems. *At the time of writing an R3 Instance contains 32 cores and 244 GB of RAM and costs AU$0.32 an hour on the spot market.*
+Sadly in R 1. is only possible on Unix based machines. R itself can be a very slow language once data starts to get bigger so 2. often means using another language (Python is often faster and can use multiple cores on Windows). For really large data we reduce the complexity of the algorithm and look to faster ML programs ([Vowpal Wabbit](http://hunch.net/~vw/) and [BIDMach](http://bid2.berkeley.edu/bid-data-project/) have both been used very successfully in Machine Learning competitions). It is important to note though that it is very cheap to buy a large instance on AWS which can ameliorate a lot of these problems. *At the time of writing an R3 Instance contains 32 cores and 244 GB of RAM and costs AU$0.32 an hour on the spot market.*
 
 **As was stated at a recent Machine Learning conference, "There are only a tiny number of companies that have greater then 244GB of interesting data".**
 
@@ -280,16 +280,16 @@ pred<-predict(rfmodel, newdata=churnTest)
 confusionMatrix(pred, churnTest$Churn.)
 ```
 
-Predictions about can then be fed back into other models or used directly on marketing decisions to try and encourage clients in danger to stay. One could model the purachases using similair methods.  
+Predictions about can then be fed back into other models or used directly on marketing decisions to try and encourage clients in danger to stay. One could model the purchases using similar methods.  
 
 
 # But what of non-contractual situations?
 
-In some commercial relationships it is not definitivley possible to know if a client has stopped using the service. Accounts may lay dormant but always maintain a chance of springing back into life.
+In some commercial relationships it is not definitively possible to know if a client has stopped using the service. Accounts may lay dormant but always maintain a chance of springing back into life.
 
 ![Here Comes Zombie](Zombie.gif)
 
-Some of the previously discussed models can be made to work in at least some of these cases (in paritcular Markov Chains). A lot of work has gone into looking at the problem more directly. It has lead to a whole branch of specialist literature.
+Some of the previously discussed models can be made to work in at least some of these cases (in particular Markov Chains). A lot of work has gone into looking at the problem more directly. It has lead to a whole branch of specialist literature.
 
 # The ~~Customer~~ Manager is always right
 
@@ -315,14 +315,14 @@ Pareto/NBD model produces better predictions than the simple heuristic as to who
 From a practical point of view the lesson is that we should include Management heuristics in our suite of models and compare it statistically to other more "sophisticated" approaches/
 
 # Pareto and friends
-Most of the approaches treat as two seperate problems:
+Most of the approaches treat as two separate problems:
 
 1. The prediction of "Alive" or "Dead"
 2. The probability of purchase/s
 
-Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposded a Negative Binomial Distribution (NBD) but most modern approaches use two seperate families of distributions; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
+Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposed a Negative Binomial Distribution (NBD) but most modern approaches use two separate families of distributions; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
 
-One useful analogy (taken from Medri 2012) is to imagine each customer as having two seperate coins one that they flip to "decide" to answer 1. and the other for 2. (if applicable). The job of the data analyst is to predict these probabilities.
+One useful analogy (taken from Medri 2012) is to imagine each customer as having two separate coins one that they flip to "decide" to answer 1. and the other for 2. (if applicable). The job of the data analyst is to predict these probabilities.
 
 ![Coin](Coin.gif)
 
@@ -333,13 +333,13 @@ The above papers fit the named distributions for each customer and then its a si
 
 (Taken from Blattberg 2008 p.123)
 
-The glaring weakness from the early papers that continues through to the more modern extensions is that there is no mechanism for the interplay between purchases and whether client is alive. Blattberg proposes the use of hierarchial Bayesian modelling to answer this question. We also need to be careful of individual level approaches that are relying on small amounts of information as they are likely to be noisy.
+The glaring weakness from the early papers that continues through to the more modern extensions is that there is no mechanism for the interplay between purchases and whether client is alive. Blattberg proposes the use of hierarchical Bayesian modelling to answer this question. We also need to be careful of individual level approaches that are relying on small amounts of information as they are likely to be noisy.
 
 #### Implementation
 
 ##### Excel
 
-One of the great things about even these more sophisticated methods is that they are possible in Excel. This allows access to them to those who are not comfortable with a programming langauge. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of excel spreadsheets and excel walkthroughs of many of these models available. I will therefore just (non-exhaustivly) list them here:
+One of the great things about even these more sophisticated methods is that they are possible in Excel. This allows access to them to those who are not comfortable with a programming language. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of excel spreadsheets and excel walkthroughs of many of these models available. I will therefore just (non-exhaustively) list them here:
 
 -[BG/NBD Model](http://www.brucehardie.com/notes/004/)
 
@@ -351,7 +351,7 @@ There is much else of value on his website.
 
 ##### R
 
-R has a package called [BTYD](http://cran.r-project.org/web/packages/BTYD/index.html) (Buy Till You Die) that implements many of these models. We will walkthrough the implementation of a Pareto/NBD model from the [vignette](http://cran.r-project.org/web/packages/BTYD/vignettes/BTYD-walkthrough.pdf)
+R has a package called [BTYD](http://cran.r-project.org/web/packages/BTYD/index.html) (Buy Till You Die) that implements many of these models. We will walk through the implementation of a Pareto/NBD model from the [vignette](http://cran.r-project.org/web/packages/BTYD/vignettes/BTYD-walkthrough.pdf)
 
 ```{r cache=TRUE, cache.path = 'PGi_cache/', fig.path='figure/', message=FALSE}
 library(BTYD)
@@ -448,15 +448,15 @@ cum.tracking[,20:25]
 
 ```
 
-[Michael Platzer](https://github.com/mplatzer/BTYDplus) has created a package that extends the BTYD package. It covers more sophisticated and recent varients. It only appears to run on Unix based machines. His [Masters Thesis](https://e6c4d5dd-a-62cb3a1a-s-sites.googlegroups.com/site/michaelplatzer/stochastic-models-of-noncontractual-consumer-relationships/StochasticModelsofNoncontractualConsumerRelationships.pdf) covers a CLV competition and looks closely at improving the assumptions of some of the models discussed above. It also includes his own model (which is implemented in his R package) CBG/CNBD-k which takes the central variant approach but uses an [Erlang-k](http://en.wikipedia.org/wiki/Erlang_distribution) distribution to more accuratley fit the model. His approach placed 2nd in the Direct Marketing Educational Foundation CLV 2008 competition.
+[Michael Platzer](https://github.com/mplatzer/BTYDplus) has created a package that extends the BTYD package. It covers more sophisticated and recent variants. It only appears to run on Unix based machines. His [Masters Thesis](https://e6c4d5dd-a-62cb3a1a-s-sites.googlegroups.com/site/michaelplatzer/stochastic-models-of-noncontractual-consumer-relationships/StochasticModelsofNoncontractualConsumerRelationships.pdf) covers a CLV competition and looks closely at improving the assumptions of some of the models discussed above. It also includes his own model (which is implemented in his R package) CBG/CNBD-k which takes the central variant approach but uses an [Erlang-k](http://en.wikipedia.org/wiki/Erlang_distribution) distribution to more accurately fit the model. His approach placed 2nd in the Direct Marketing Educational Foundation CLV 2008 competition.
 
 
 
 # References
 
-"Competing Risks and Multistate Models with R" Beyersmann, Allignol & Schumacher (2012)
+"Competing Risks and Multi-state Models with R" Beyersmann, Allignol & Schumacher (2012)
 
-"Modeling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
+"Modelling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
 
 "Intelligent Choice of the Number of Clusters in K-Means Clustering: An Experimental Study with Different Cluster Spreads" Chiang & Mirkin (2009) Journal of Classification
 
@@ -468,7 +468,7 @@ cum.tracking[,20:25]
 
 "Murphy" Beckett (1938)
 
-"Applied Predictive Modeling" Kuhn & Johnson (2013)
+"Applied Predictive Modelling" Kuhn & Johnson (2013)
 
 "Optimal selection for direct mail" Bult & Wansbeek (1995) Marketing Science
 
@@ -537,7 +537,7 @@ Zachary Mayer and the R Core Team (2014). caret: Classification and Regression T
 http://CRAN.R-project.org/package=caret
 
 Allignol, A., Beyersmann, J. and Schumacher, M. (2008). mvna: An R Package for the Nelson-Aalen Estimator in
-Multistate Models R News, 8(2):48--50
+Multi-state Models R News, 8(2):48--50
 
 # Appendicies:
 
@@ -547,7 +547,7 @@ Multistate Models R News, 8(2):48--50
 
 Really what we are interested in is a way of assessing the future (residual) value of sets of customers.
 
-For example Fader & Hardie (2012) work through 3 seperate formulas:
+For example Fader & Hardie (2012) work through 3 separate formulas:
 
 
 1. from Blattberg et al (2008)
@@ -585,44 +585,44 @@ Assumptions of the models (taken from Platzer 2008) are highlighted below.
 ##### NBD: 
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distrubution with shape *r* and rate $\alpha$
+2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
 
 ##### Pareto/NBD:
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distrubution with shape *r* and rate $\alpha$
-3. Customer Lifespan exponetially distributed with death rate $/mu$
+2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+3. Customer Lifespan exponentially distributed with death rate $/mu$
 4. Differences in $\mu$
 5. Purchasing rate and death rate are independently distributed
 
 ##### BG/NBD:
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distrubution with shape *r* and rate $\alpha$
-3. After each purchaes probability of death remains constant *p*
+2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+3. After each purchase probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
-5. Purchase rate and death rate are independtly distributed
+5. Purchase rate and death rate are independently distributed
 
 
 ##### CBG/NBD:
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distrubution with shape *r* and rate $\alpha$
-3. At time zero and after each purchaes probability of death remains constant *p*
+2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+3. At time zero and after each purchases probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
-5. Purchase rate and death rate are independtly distributed
+5. Purchase rate and death rate are independently distributed
 
 ##### CGB/CNBD-k
 1. While active number of transactions follows an *Erlang-k* distribution with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distrubution with shape *r* and rate $\alpha$
-3. At time zero and after each purchaes probability of death remains constant *p*
+2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+3. At time zero and after each purchases probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
-5. Purchase rate and death rate are independtly distributed
+5. Purchase rate and death rate are independently distributed
 6. Observation period of each individual starts with a transaction at time zero
 
 ### Appendix 3: An overview of Clustering Numerical Values
 #### A brief look at K-Means clustering
 
-Birant (2011) looks to group the RFM as above and then run the data through a Clustering algorithim (in this case K-Means). Clustering algorithims are a form of *Unsupervised* Machine Learning, based on the fact that we do not provide a variable that needs to be predicted. The K-Means clustering algorithim attempts to group the data into k number of groups via the creation of centroids (group centers) and then iterativley moving them and recalculating the distance metrics. It will eventually converge to a least within cluster sum of squares. One downside is that we have to choose the number of clusters prior to running the algorithim, so it can be something of an art to nail down a useful number. (It is a useful number as there is no correct number of partitions in a strict mathematical sense). 
+Birant (2011) looks to group the RFM as above and then run the data through a Clustering algorithm (in this case K-Means). Clustering algorithms are a form of *Unsupervised* Machine Learning, based on the fact that we do not provide a variable that needs to be predicted. The K-Means clustering algorithm attempts to group the data into k number of groups via the creation of centroids (group centers) and then iteratively moving them and recalculating the distance metrics. It will eventually converge to a least within cluster sum of squares. One downside is that we have to choose the number of clusters prior to running the algorithm, so it can be something of an art to nail down a useful number. (It is a useful number as there is no correct number of partitions in a strict mathematical sense). 
 
 
 ##### How Many Clusters?
@@ -643,7 +643,7 @@ PlotHartigan(hartiganResults)
 
 The usual rule of thumb is to find the first point that meets Hartigan's metric so we would stop at 8 in the above dataset. (In fact this data set is the famous Iris Flower data set which contains three species - its a terrible dataset for cluster analysis!)
 
-Another way of calculating the number of clusters is to use the "Gap Statistic" (Tibshirani, Walther & Hastie 2001). This statistic is calculated by "comparing the change in within-cluster dispersion with that expected under an appropriate reference null distributuion" (taken from the Abstract of Tibshirani et al. 2001)
+Another way of calculating the number of clusters is to use the "Gap Statistic" (Tibshirani, Walther & Hastie 2001). This statistic is calculated by "comparing the change in within-cluster dispersion with that expected under an appropriate reference null distribution" (taken from the Abstract of Tibshirani et al. 2001)
 
 ```{r cache=TRUE, cache.path = 'PGi_cache/', fig.path='figure/'}
 gskmn <- clusGap(iris_scaled, FUN = kmeans, nstart = 50, K.max = 8, B = 500)
@@ -654,7 +654,7 @@ gskmn
 So we can see that we should use 2 factors, which is actually a pretty good guess as the plot shows that two of the species are partially intertwined (remember that cluster analysis has no idea of this fact).
 
 ##### From Means to Medioids
-There is a related approach of the K-Means algorithim we can use known as *Partitioning Around Medoids* (PAM) or sometimes *K-Medoids* which can actually handle categorical data as well. It has some advantages over K-Means in terms of outliers and does not require a complete dataset.
+There is a related approach of the K-Means algorithm we can use known as *Partitioning Around Medoids* (PAM) or sometimes *K-Medoids* which can actually handle categorical data as well. It has some advantages over K-Means in terms of outliers and does not require a complete dataset.
 
 ```{r cache=TRUE, cache.path = 'PGi_cache/', fig.path='figure/'}
 iris_4_PAM <- pam(iris_scaled, k=2, keep.diss = TRUE, keep.data = TRUE)
