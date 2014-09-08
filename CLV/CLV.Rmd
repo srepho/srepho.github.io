@@ -269,6 +269,9 @@ Sadly in R 1. is only possible on Unix based machines. R itself can be a very sl
 
 **As was stated at a recent Machine Learning conference, "There are only a tiny number of companies that have greater then 244GB of interesting data".**
 
+![ML](MLmodelsum.png)
+
+(Taken from Kuhn & Johnson 2013 p.550)
 
 ```{r cache=TRUE, cache.path = 'PGi_cache/', fig.path='figure/', message=FALSE}
 library(plyr)
