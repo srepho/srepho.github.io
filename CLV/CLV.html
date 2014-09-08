@@ -688,12 +688,12 @@ plot(iris_4_PAM)</code></pre>
 <p>For simplicity we assume that there is 3 Recency States. The following matrix shows the probability of moving from one state to another.</p>
 <p><span class="math">\[
   P = \textrm{ State at t}
-  \stackrel{\mbox{State at t + 1}}{%
+  \stackrel{\mbox{State at t + 1}}{
     \begin{bmatrix}
       p_1 &amp; 1 - p_1 &amp; 0\\
       p_2 &amp; 0 &amp; 1 - p_2\\
       p_3 &amp; 0 &amp; 1-p_3\\
-    \end{bmatrix}%}
+    \end{bmatrix}}
 \]</span></p>
 <p>We can then create a matrix showing the profit from each state. In this case we presume that we only get money if they spend something. The blank states are impossible to arrive at</p>
 <p><span class="math">\[
