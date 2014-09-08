@@ -750,3 +750,6 @@ Statistical Software, 21(12), 1-20. URL http://www.jstatsoft.org/v21/i12/.
 
 Hadley Wickham (2012). stringr: Make it easier to work with strings. R
 package version 0.6.2. http://CRAN.R-project.org/package=stringr
+
+Yihui Xie (2014). knitr: A general-purpose package for dynamic report
+generation in R. R package version 1.6.
