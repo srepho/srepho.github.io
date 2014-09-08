@@ -1,7 +1,6 @@
 ---
 title: "Calculating CLV"
 author: "Stephen Oates"
-date: "Friday, September 05, 2014"
 output: html_document
 ---
 
