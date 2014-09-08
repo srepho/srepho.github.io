@@ -94,8 +94,6 @@ The least sophisticated approach to working out a model life time would be to me
 3. Calculate the average cost of marketing expenditure per period per client. (Cost)
 4. Obtain the Firms Discount Rate. (Discount Rate)
 
-See appendix for an example of how to calculate the mean or median using Markov Chain Monte Carlo.
-
 ###### *"Everything changes and nothing stands still." (Heraclitus as quoted in Plato's "Cratylus")*
 
 ###### *"You are not a beautiful or unique snowflake." (Tyler Durden in "Fight Club" by Chuck Palahniuk)*
@@ -103,8 +101,8 @@ See appendix for an example of how to calculate the mean or median using Markov 
 There are a number of problems that might arise with the above model largely to do with the fact that we are treating all clients the same and all portions of time the same. More specifically
 
 1. The Hazard Rate is considered to steady. Is a client who has been with a company for < 1 period likely to have the same attrition rate as one who has been with a company for say 7? Even more alarming is that a steady Hazard Rate leads us to predictions of all clients (of a certain cohort) leaving by a certain period.
-2. All clients are treated the same in terms of spending. There is not differentiation based on spending habits.
-3. 1 & 2 can interact, so high spending clients might have a different Hazard Rate etc.
+2. All clients are treated the same in terms of spending. There is no differentiation based on spending habits.
+3. 1 & 2 can interact, so high spending clients might have a different Hazard Rate then lower spending clients.
 
 So we will start off looking at simple solutions and move on to more ~~cool~~ sophisticated approaches that try to incorporate this heterogeneity.
 
@@ -119,7 +117,7 @@ RFM refers to a modelling technique that utilises Recency Frequency and Monetary
 Generally it uses the below definitions:
 
 - Recency: Period since last purchase.
-- Frequency: How many purchases during observation period.
+- Frequency: How many purchases an individual made during the observation period.
 - Monetary: Cumulative total spent by client during observation period.
 
 Once we have manipulated this data into this form we can then group the data based on these metrics. There is no *a priori* correct way of doing this that holds for all data. We will follow the simple example of Birant (2011). Clients are split along each metric into quintiles (20% groupings) and assigned an ordinal label of 5 for the highest 20% of values, 4 to next highest etc. These are then concatenated (ex 454, 134, 555 etc) This allows for a quick short hand to group customers. So for example we can tell that a 155 is a frequent purchaser who has spent a lot of money during this period but has not purchased in some time. This may be a sign that the client is in danger of leaving.
@@ -135,7 +133,7 @@ One thing to note regarding RFM models is that the model requires at least 1 per
 ##### *"Man is born free, and everywhere he is in chains" Rousseau (1762)*
 ##### *"The old endless chain of love, tolerance, indifference, aversion and disgust" Beckett (1938)*
 
-An alternative way to look at CLV calculations is to treat discrete time periods since last purchase as states. For each state we can then assign a probability that the client will make a purchase (P) based on the state that they are in (j). 1 - $P_j$ then becomes the probability that they will drop to the next state - in other words that they don't make a purchase. Below is an example of a state based model and CLV calculation taken from Blattberg (2008).
+An alternative way to look at CLV calculations is to treat the discrete time periods since last purchase as states. For each state we can then assign a probability that the client will make a purchase (P) based on the state that they are in (j). 1 - $P_j$ then becomes the probability that they will drop to the next state - in other words that they don't make a purchase. Below is an example of a state based model and CLV calculation taken from Blattberg (2008).
 
 ![Markov](Markov.PNG)
 
@@ -143,7 +141,7 @@ An alternative way to look at CLV calculations is to treat discrete time periods
 
 ##### Moving to Markov Chains
 
-We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilities from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs.
+We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value easily and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilities from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs in order to increase a better return on a Marketing Budget.
 
 # Hazard Function
 
