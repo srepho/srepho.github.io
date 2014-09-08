@@ -611,17 +611,29 @@ $$
     \end{bmatrix}}
 $$
 
-We can then create a matrix showing the profit from each state. In this case we presume that we only get money if they spend something. The blank states are impossible to arrive at 
+We can then create a matrix showing the profit from each state. In this case we presume that we only get money if they spend something. R is the revenue produced by the purchase and M is the Marketing cost spent on the client.
 
 $$
-\
+G = \
 \left[ {\begin{array}{cc}
-MC & -M \\
+R & -M \\
 -M &  \\
 -M &  \\
 \end{array} } \right]
 \
 $$
+
+Once we know the discount rate we can therefore generalise for any period (T) via 
+
+$P^TG/(1+d)^T$ 
+
+Therefore the entire (until the infinite period) Net Present Value (NPV) is simply:
+
+$$
+V^\infty \lim_{T\to\infty}V^T=[\mathbb{I}-(1+d)^{-1}P]^{-1}G
+$$
+
+Where $\mathbb{I}$ is the Identity Matrix.
 
 # References
 
