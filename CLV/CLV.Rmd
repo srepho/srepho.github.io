@@ -450,45 +450,23 @@ cum.tracking[,20:25]
 
 [Michael Platzer](https://github.com/mplatzer/BTYDplus) has created a package that extends the BTYD package. It covers more sophisticated and recent variants. It only appears to run on Unix based machines. His [Masters Thesis](https://e6c4d5dd-a-62cb3a1a-s-sites.googlegroups.com/site/michaelplatzer/stochastic-models-of-noncontractual-consumer-relationships/StochasticModelsofNoncontractualConsumerRelationships.pdf) covers a CLV competition and looks closely at improving the assumptions of some of the models discussed above. It also includes his own model (which is implemented in his R package) CBG/CNBD-k which takes the central variant approach but uses an [Erlang-k](http://en.wikipedia.org/wiki/Erlang_distribution) distribution to more accurately fit the model. His approach placed 2nd in the Direct Marketing Educational Foundation CLV 2008 competition.
 
-
-
 # References
 
 "Competing Risks and Multi-state Models with R" Beyersmann, Allignol & Schumacher (2012)
 
-"Modelling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
-
-"Intelligent Choice of the Number of Clusters in K-Means Clustering: An Experimental Study with Different Cluster Spreads" Chiang & Mirkin (2009) Journal of Classification
-
-"Estimating the number of clusters in a data set via the gap statistic" Tibshirani, Walther & Hastie (2001) Journal of the Royal Statistical Society
-
-"The use of multiple measurements in taxonomic problems" Fisher (1936) Annals of Eugenics
-
-"R for Everyone: Advanced Analytics and Graphics" Lander (2013)
-
 "Murphy" Beckett (1938)
 
-"Applied Predictive Modelling" Kuhn & Johnson (2013)
-
-"Optimal selection for direct mail" Bult & Wansbeek (1995) Marketing Science
-
-"Estimating User Lifetimes - the right and many wrong ways" Davidson-Pilon (2013) [link](http://blog.yhathq.com/posts/estimating-user-lifetimes-with-pymc.html)
+"Data Mining Using RFM Analysis" Birant (2011) [link](http://cdn.intechweb.org/pdfs/13162.pdf)
 
 "Database Marketing" Blattberg, Kim & Neslin (2008) Springer (International Series in Quantitative Marketing)
 
-"Reconciling and Clarifying CLV Formulas" Fader & Hardie (2012) [link](http://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf)
+"Optimal selection for direct mail" Bult & Wansbeek (1995) Marketing Science
 
 "Managing Marketing in the 21st Century" Capon (2007)
 
-"The Social Contract" by Jean-Jacques Rousseau (1762)
+"Intelligent Choice of the Number of Clusters in K-Means Clustering: An Experimental Study with Different Cluster Spreads" Chiang & Mirkin (2009) Journal of Classification
 
-"Customer Profitability and Lifetime Value" Ofek (2002)
-
-"Stochastic models of non-contractual consumer relationships" Platzer (2008) Master of Science in Business Administration thesis [link](https://github.com/mplatzer/BTYDplus)
-
-"Instant Customer Base Analysis: Managerial Heuristics Often 'Get It Right'" Wubben & Wangenheim (2008) Journal of Marketing
-
-"To model, or not to model: Forecasting for customer prioritization" Huang (2011) International Journal of Forecasting
+"Estimating User Lifetimes - the right and many wrong ways" Davidson-Pilon (2013) [link](http://blog.yhathq.com/posts/estimating-user-lifetimes-with-pymc.html)
 
 "Why should I be interested in Survival Analysis" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
 
@@ -496,11 +474,31 @@ cum.tracking[,20:25]
 
 "Estimating the Hazard Function" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
 
-"What's a customer worth: Case Study from Etsy" Medri (2012) presented at Strata Conference New York [link](http://cdn.oreillystatic.com/en/assets/1/event/85/Case%20Study_%20What_s%20a%20Customer%20Worth_%20Presentation.pdf)
+"Reconciling and Clarifying CLV Formulas" Fader & Hardie (2012) [link](http://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf)
+
+"The use of multiple measurements in taxonomic problems" Fisher (1936) Annals of Eugenics
 
 "'RFM and 'CLV': Using Iso-Value Curves for Customer Base Analysis" Hardie & Lee (2005) Journal of Marketing Research
 
-"Data Mining Using RFM Analysis" Birant (2011) [link](http://cdn.intechweb.org/pdfs/13162.pdf)
+"To model, or not to model: Forecasting for customer prioritization" Huang (2011) International Journal of Forecasting
+
+"Applied Predictive Modelling" Kuhn & Johnson (2013)
+
+"R for Everyone: Advanced Analytics and Graphics" Lander (2013)
+
+"What's a customer worth: Case Study from Etsy" Medri (2012) presented at Strata Conference New York [link](http://cdn.oreillystatic.com/en/assets/1/event/85/Case%20Study_%20What_s%20a%20Customer%20Worth_%20Presentation.pdf)
+
+"Customer Profitability and Lifetime Value" Ofek (2002)
+
+"Modelling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
+
+"Stochastic models of non-contractual consumer relationships" Platzer (2008) Master of Science in Business Administration thesis [link](https://github.com/mplatzer/BTYDplus)
+
+"The Social Contract" by Jean-Jacques Rousseau (1762)
+
+"Estimating the number of clusters in a data set via the gap statistic" Tibshirani, Walther & Hastie (2001) Journal of the Royal Statistical Society
+
+"Instant Customer Base Analysis: Managerial Heuristics Often 'Get It Right'" Wubben & Wangenheim (2008) Journal of Marketing
 
 ### Software
 
