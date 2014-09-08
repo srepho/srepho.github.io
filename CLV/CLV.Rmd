@@ -236,7 +236,12 @@ mod.allison
 ```
 
 
-We can either look directly at the p values to see the impact of each individual predictor. In terms of the model overall we cannot use conventional loss functions. We can use a Concordance Index which assess the ordering of survival times.
+In terms of working out which predictors to use we would go back and forth between.
+
+1. Looking at the p values.
+2. Looking at the total model fit via the C-Index (Concordance Indesx)
+
+This is because we cannot use conventional loss functions due to the time component. The Concordance Index which assess the ordering of survival times between a model and the actual event.
 
 In R we can see this via:
 
@@ -244,11 +249,11 @@ In R we can see this via:
 survConcordance(Surv(week, arrest) ~predict(mod.allison), Rossi)
 ```
 
-*Python has a similair function*.
+*lifelines in Python has a similair function*.
 
 The Concordance Index uses the same scale as the Area Under the Curve (AUC) so random guessing will obtain 0.5, 1.0 is perfect prediction (or concordance) and 0.0 is perfect anti-concordance.
 
-In summary we can use the predictions from Survival Analysis based techniques to feed into our predictions of a clients probability of leaving the company.
+In summary we can use the predictions from Survival Analysis based techniques to feed into our predictions of a clients probability of leaving the company to more accuratly predict based on heterogenaity.
 
 # Machine Learning
 
@@ -258,10 +263,10 @@ In summary we can use the predictions from Survival Analysis based techniques to
 
 It is possible to treat the probability of a client leaving as a straightforward supervised classification Machine Learning problem. This technique is less suitable where the number of discrete points at which a client can leave is more then a small number. In those cases we would use the Survival Analysis techniques mentioned above. The below example is taken from a previous blog post I [wrote](http://srepho.github.io/Churn/Churn) so I won't go into all that is going on here. It relates to a synthetic dataset and we are merely trying to predict the binary "Churn"/"No Churn" variable. Note the splitting of the dataset and the cross-validation steps allow for very accurate predictions for how such an algorithm would work in production. I have limited the below to a single algorithm (Random Forest which is [itself](http://en.wikipedia.org/wiki/Random_forest) an ensemble of weak learning algorithms). Accuracy could be boosted by running many different types of algorithms on the data and "stacking" the predictions. An interactive visualisation of one way of assessing algorithm similarity can be seen [here](http://topepo.github.io/caret/similarity.html). The dataset being used is very unbalanced (the vast majority of customers do not churn) so the [Kappa](http://en.wikipedia.org/wiki/Cohen&#39;s_kappa) . I have also used adaptive sampling to avoid a brute force search through the parameter space (RF has number of "trees" to grow and number of variables to sample as parameters). Parameter search can be sped up via two main approaches:
 
-1. Spread the algorithm if possible over multiple cores.
+1. Spread the algorithm (if possible) over multiple cores.
 2. Use a faster algorithm or implementation.
 
-Sadly in R 1. is only possible on Unix based machines. R itself can be a very slow language once data starts to get bigger so 2. often means using another language (Python is often faster and can use multiple cores on Windows). For really large data we reduce the complexity of the algorithm and look to faster ML programs ([Vowpal Wabbit](http://hunch.net/~vw/) and [BIDMach](http://bid2.berkeley.edu/bid-data-project/) have both been used very successfully in Machine Learning competitions). It is important to note though that it is very cheap to buy a large instance on AWS which can ameliorate a lot of these problems. *At the time of writing an R3 Instance contains 32 cores and 244 GB of RAM and costs AU$0.32 an hour on the spot market.*
+Sadly in R 1. is only possible on Unix based machines. R itself can be a very slow language once data starts to get bigger so 2. often means using another language (Python is often faster and can use multiple cores on Windows). For really large data we reduce the complexity of the algorithm and look to faster ML programs ([Vowpal Wabbit](http://hunch.net/~vw/) and [BIDMach](http://bid2.berkeley.edu/bid-data-project/) have both been used very successfully in Machine Learning competitions). It is important to note though that it is very cheap to buy a large instance on AWS which can ameliorate a lot of these problems. *At the time of writing an R3 Instance containing 32 cores and 244 GB of RAM costs AU$0.32 an hour on the spot market.*
 
 **As was stated at a recent Machine Learning conference, "There are only a tiny number of companies that have greater then 244GB of interesting data".**
 
@@ -289,7 +294,7 @@ pred<-predict(rfmodel, newdata=churnTest)
 confusionMatrix(pred, churnTest$Churn.)
 ```
 
-Predictions about can then be fed back into other models or used directly on marketing decisions to try and encourage clients in danger to stay. One could model the purchases using similar methods.  
+Predictions about the client's liklihood of leaving can then be fed back into other models or used directly on marketing decisions to try and encourage clients in danger to stay. One could model the purchases along the same lines. 
 
 
 # But what of non-contractual situations?
@@ -298,7 +303,7 @@ In some commercial relationships it is not definitively possible to know if a cl
 
 ![Here Comes Zombie](Zombie.gif)
 
-Some of the previously discussed models can be made to work in at least some of these cases (in particular Markov Chains). A lot of work has gone into looking at the problem more directly. It has lead to a whole branch of specialist literature.
+Some of the previously discussed models can be made to work in at least some of these cases (in particular Markov Chains). A lot of work has gone into handling this uncertainty of client state problem more directly. It has lead to a whole branch of specialist literature. We will list below some of these approaches.
 
 # The ~~Customer~~ Manager is always right
 
@@ -321,21 +326,21 @@ Pareto/NBD model produces better predictions than the simple heuristic as to who
 
 (Huang 2011 p.502)
 
-From a practical point of view the lesson is that we should include Management heuristics in our suite of models and compare it statistically to other more "sophisticated" approaches/
+From a practical point of view the lesson is that we should include Management heuristics in our suite of models and compare it statistically to other more "sophisticated" approaches.
 
 # Pareto and friends
-Most of the approaches treat as two separate problems:
+Most of the more sophisticated approaches to modelling CLV in non-contractual settings treat as two separate problems:
 
 1. The prediction of "Alive" or "Dead"
 2. The probability of purchase/s
 
-Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposed a Negative Binomial Distribution (NBD) but most modern approaches use two separate families of distributions; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
+Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposed a Negative Binomial Distribution (NBD) but most modern approaches use two separate families of distributions, one for probability of being alive and the other for probability of purchases. A range of distributions have been use; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
 
-One useful analogy (taken from Medri 2012) is to imagine each customer as having two separate coins one that they flip to "decide" to answer 1. and the other for 2. (if applicable). The job of the data analyst is to predict these probabilities.
+One useful analogy (taken from Medri 2012) to understand these approaches is to imagine each customer as having two separate coins one that they flip to "decide" to answer 1. and the other for 2. (if applicable). The job of the data analyst is to predict these probabilities by finding the distribution parameters.
 
 ![Coin](Coin.gif)
 
-The above papers fit the named distributions for each customer and then its a simple case of solving to find the maximum likelihood [MLE](http://en.wikipedia.org/wiki/Maximum_likelihood). The important point is that we need to check if that the assumptions of the modelling distributions are being met (see appendix for a discussion of this).
+The above papers fit the named distribution parameters for each customer individually (though they could be used on cohorts) and then its a simple case of solving to find the maximum likelihood [MLE](http://en.wikipedia.org/wiki/Maximum_likelihood). The important point is that we need to check if that the assumptions of the modelling distributions are being met (see appendix for a discussion of this).
 
 
 ![Assumptions](ParetoStuff.PNG)
@@ -348,7 +353,7 @@ The glaring weakness from the early papers that continues through to the more mo
 
 ##### Excel
 
-One of the great things about even these more sophisticated methods is that they are possible in Excel. This allows access to them to those who are not comfortable with a programming language. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of excel spreadsheets and excel walkthroughs of many of these models available. I will therefore just (non-exhaustively) list them here:
+One of the great things about even these more sophisticated methods is that they are possible in Excel. This allows access to them to those who are less comfortable with statistical programming. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of excel spreadsheets and excel walkthroughs of many of these models available. I will therefore just list some of them here:
 
 -[BG/NBD Model](http://www.brucehardie.com/notes/004/)
 
@@ -457,94 +462,9 @@ cum.tracking[,20:25]
 
 ```
 
-[Michael Platzer](https://github.com/mplatzer/BTYDplus) has created a package that extends the BTYD package. It covers more sophisticated and recent variants. It only appears to run on Unix based machines. His [Masters Thesis](https://e6c4d5dd-a-62cb3a1a-s-sites.googlegroups.com/site/michaelplatzer/stochastic-models-of-noncontractual-consumer-relationships/StochasticModelsofNoncontractualConsumerRelationships.pdf) covers a CLV competition and looks closely at improving the assumptions of some of the models discussed above. It also includes his own model (which is implemented in his R package) CBG/CNBD-k which takes the central variant approach but uses an [Erlang-k](http://en.wikipedia.org/wiki/Erlang_distribution) distribution to more accurately fit the model. His approach placed 2nd in the Direct Marketing Educational Foundation CLV 2008 competition.
+[Michael Platzer](https://github.com/mplatzer/BTYDplus) has created a package that extends the BTYD package. It covers more sophisticated and recent variants of this type of modelling approach. It only appears to run on Unix based machines. His [Masters Thesis](https://e6c4d5dd-a-62cb3a1a-s-sites.googlegroups.com/site/michaelplatzer/stochastic-models-of-noncontractual-consumer-relationships/StochasticModelsofNoncontractualConsumerRelationships.pdf) covers a CLV competition and looks closely at improving the assumptions of some of the models discussed above. It also includes his own model (which is implemented in his R package) CBG/CNBD-k which takes the central variant approach but uses an [Erlang-k](http://en.wikipedia.org/wiki/Erlang_distribution) distribution to more accurately fit the model. His approach placed 2nd in the Direct Marketing Educational Foundation CLV 2008 competition.
 
-# References
 
-"Competing Risks and Multi-state Models with R" Beyersmann, Allignol & Schumacher (2012)
-
-"Murphy" Beckett (1938)
-
-"Data Mining Using RFM Analysis" Birant (2011) [link](http://cdn.intechweb.org/pdfs/13162.pdf)
-
-"Database Marketing" Blattberg, Kim & Neslin (2008) Springer (International Series in Quantitative Marketing)
-
-"Optimal selection for direct mail" Bult & Wansbeek (1995) Marketing Science
-
-"Managing Marketing in the 21st Century" Capon (2007)
-
-"Intelligent Choice of the Number of Clusters in K-Means Clustering: An Experimental Study with Different Cluster Spreads" Chiang & Mirkin (2009) Journal of Classification
-
-"Estimating User Lifetimes - the right and many wrong ways" Davidson-Pilon (2013) [link](http://blog.yhathq.com/posts/estimating-user-lifetimes-with-pymc.html)
-
-"Why should I be interested in Survival Analysis" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
-
-"Estimating the Survival Function" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
-
-"Estimating the Hazard Function" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
-
-"Reconciling and Clarifying CLV Formulas" Fader & Hardie (2012) [link](http://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf)
-
-"The use of multiple measurements in taxonomic problems" Fisher (1936) Annals of Eugenics
-
-"'RFM and 'CLV': Using Iso-Value Curves for Customer Base Analysis" Hardie & Lee (2005) Journal of Marketing Research
-
-"To model, or not to model: Forecasting for customer prioritization" Huang (2011) International Journal of Forecasting
-
-"Applied Predictive Modelling" Kuhn & Johnson (2013)
-
-"R for Everyone: Advanced Analytics and Graphics" Lander (2013)
-
-"What's a customer worth: Case Study from Etsy" Medri (2012) presented at Strata Conference New York [link](http://cdn.oreillystatic.com/en/assets/1/event/85/Case%20Study_%20What_s%20a%20Customer%20Worth_%20Presentation.pdf)
-
-"Customer Profitability and Lifetime Value" Ofek (2002)
-
-"Modelling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
-
-"Stochastic models of non-contractual consumer relationships" Platzer (2008) Master of Science in Business Administration thesis [link](https://github.com/mplatzer/BTYDplus)
-
-"The Social Contract" by Jean-Jacques Rousseau (1762)
-
-"Estimating the number of clusters in a data set via the gap statistic" Tibshirani, Walther & Hastie (2001) Journal of the Royal Statistical Society
-
-"Instant Customer Base Analysis: Managerial Heuristics Often 'Get It Right'" Wubben & Wangenheim (2008) Journal of Marketing
-
-### Software
-
-R Core Team (2014). R: A language and environment for statistical computing. R Foundation for Statistical
-Computing, Vienna, Austria. URL http://www.R-project.org/.
-
-Jones E, Oliphant E, Peterson P, et al. SciPy: Open Source Scientific Tools for Python, 2001-, http://www.scipy.org/ [Online; accessed 2014-09-06].
-
-Travis E. Oliphant. Python for Scientific Computing, Computing in Science & Engineering, 9, 10-20 (2007), DOI:10.1109/MCSE.2007.58
-
-K. Jarrod Millman and Michael Aivazis. Python for Scientists and Engineers, Computing in Science & Engineering, 13, 9-12 (2011), DOI:10.1109/MCSE.2011.36
-
-Stéfan van der Walt, S. Chris Colbert and Gaël Varoquaux. The NumPy Array: A Structure for Efficient Numerical Computation, Computing in Science & Engineering, 13, 22-30 (2011), DOI:10.1109/MCSE.2011.37
-
-Fernando Pérez and Brian E. Granger. IPython: A System for Interactive Scientific Computing, Computing in Science & Engineering, 9, 21-29 (2007), DOI:10.1109/MCSE.2007.53
-
-John D. Hunter. Matplotlib: A 2D Graphics Environment, Computing in Science & Engineering, 9, 90-95 (2007), DOI:10.1109/MCSE.2007.55
-
-Wes McKinney. Data Structures for Statistical Computing in Python, Proceedings of the 9th Python in Science Conference, 51-56 (2010)
-
-Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau, Matthieu Brucher, Matthieu Perrot, Édouard Duchesnay. Scikit-learn: Machine Learning in Python, Journal of Machine Learning Research, 12, 2825-2830 (2011) 
-
-Cam Davidson-Pilon "lifelines" (2013) [link](https://github.com/CamDavidsonPilon/lifelines)
-
-Patil, A., D. Huard and C.J. Fonnesbeck. 2010. 
-PyMC: Bayesian Stochastic Modelling in Python. Journal of Statistical 
-Software, 35(4), pp. 1-81.
-
-Therneau T (2014). _A Package for Survival Analysis in S_. R package version 2.37-7, <URL:
-http://CRAN.R-project.org/package=survival>.
-
-Max Kuhn. Contributions from Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper,
-Zachary Mayer and the R Core Team (2014). caret: Classification and Regression Training. R package version 6.0-35.
-http://CRAN.R-project.org/package=caret
-
-Allignol, A., Beyersmann, J. and Schumacher, M. (2008). mvna: An R Package for the Nelson-Aalen Estimator in
-Multi-state Models R News, 8(2):48--50
 
 # Appendicies:
 
@@ -704,4 +624,118 @@ MC & -M \\
 \
 $$
 
- 
+# References
+
+"Competing Risks and Multi-state Models with R" Beyersmann, Allignol & Schumacher (2012)
+
+"Murphy" Beckett (1938)
+
+"Data Mining Using RFM Analysis" Birant (2011) [link](http://cdn.intechweb.org/pdfs/13162.pdf)
+
+"Database Marketing" Blattberg, Kim & Neslin (2008) Springer (International Series in Quantitative Marketing)
+
+"Optimal selection for direct mail" Bult & Wansbeek (1995) Marketing Science
+
+"Managing Marketing in the 21st Century" Capon (2007)
+
+"Intelligent Choice of the Number of Clusters in K-Means Clustering: An Experimental Study with Different Cluster Spreads" Chiang & Mirkin (2009) Journal of Classification
+
+"Estimating User Lifetimes - the right and many wrong ways" Davidson-Pilon (2013) [link](http://blog.yhathq.com/posts/estimating-user-lifetimes-with-pymc.html)
+
+"Why should I be interested in Survival Analysis" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
+
+"Estimating the Survival Function" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
+
+"Estimating the Hazard Function" Davidson-Pilon (2014) [webcast](www.dataorigami.net/screencasts)
+
+"Reconciling and Clarifying CLV Formulas" Fader & Hardie (2012) [link](http://www.brucehardie.com/notes/024/reconciling_clv_formulas.pdf)
+
+"The use of multiple measurements in taxonomic problems" Fisher (1936) Annals of Eugenics
+
+"'RFM and 'CLV': Using Iso-Value Curves for Customer Base Analysis" Hardie & Lee (2005) Journal of Marketing Research
+
+"To model, or not to model: Forecasting for customer prioritization" Huang (2011) International Journal of Forecasting
+
+"Applied Predictive Modelling" Kuhn & Johnson (2013)
+
+"R for Everyone: Advanced Analytics and Graphics" Lander (2013)
+
+"What's a customer worth: Case Study from Etsy" Medri (2012) presented at Strata Conference New York [link](http://cdn.oreillystatic.com/en/assets/1/event/85/Case%20Study_%20What_s%20a%20Customer%20Worth_%20Presentation.pdf)
+
+"Customer Profitability and Lifetime Value" Ofek (2002)
+
+"Modelling Customer Relationships as Markov Chains" Pfeifer& Carraway (2000) Journal of Interactive Marketing
+
+"Stochastic models of non-contractual consumer relationships" Platzer (2008) Master of Science in Business Administration thesis [link](https://github.com/mplatzer/BTYDplus)
+
+"The Social Contract" by Jean-Jacques Rousseau (1762)
+
+"Estimating the number of clusters in a data set via the gap statistic" Tibshirani, Walther & Hastie (2001) Journal of the Royal Statistical Society
+
+"Instant Customer Base Analysis: Managerial Heuristics Often 'Get It Right'" Wubben & Wangenheim (2008) Journal of Marketing
+
+### Software
+
+Allignol, A., Beyersmann, J. and Schumacher, M. (2008). mvna: An R Package for the Nelson-Aalen Estimator in
+Multi-state Models R News, 8(2):48--50
+
+Cam Davidson-Pilon "lifelines" (2013) [link](https://github.com/CamDavidsonPilon/lifelines)
+
+Lukasz Dziurzynski, Edward Wadsworth and Daniel McCarthy (2014). BTYD:
+Implementing Buy 'Til You Die Models. R package version 2.3.
+http://CRAN.R-project.org/package=BTYD
+
+John D. Hunter. Matplotlib: A 2D Graphics Environment, Computing in Science & Engineering, 9, 90-95 (2007), DOI:10.1109/MCSE.2007.55
+
+Max Kuhn. Contributions from Jed Wing, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper,
+Zachary Mayer and the R Core Team (2014). caret: Classification and Regression Training. R package version 6.0-35.
+http://CRAN.R-project.org/package=caret
+
+Jared P. Lander (2014). useful: A collection of handy, useful functions. R
+package version 1.1.8. http://CRAN.R-project.org/package=useful
+
+A. Liaw and M. Wiener (2002). Classification and Regression by randomForest.
+R News 2(3), 18--22.
+
+Wes McKinney. Data Structures for Statistical Computing in Python, Proceedings of the 9th Python in Science Conference, 51-56 (2010)
+
+Maechler, M., Rousseeuw, P., Struyf, A., Hubert, M., Hornik, K.(2014).
+cluster: Cluster Analysis Basics and Extensions. R package version 1.15.3.
+
+K. Jarrod Millman and Michael Aivazis. Python for Scientists and Engineers, Computing in Science & Engineering, 13, 9-12 (2011), DOI:10.1109/MCSE.2011.36
+
+Jones E, Oliphant E, Peterson P, et al. SciPy: Open Source Scientific Tools for Python, 2001-, http://www.scipy.org/ [Online; accessed 2014-09-06].
+
+Travis E. Oliphant. Python for Scientific Computing, Computing in Science & Engineering, 9, 10-20 (2007), DOI:10.1109/MCSE.2007.58
+
+Patil, A., D. Huard and C.J. Fonnesbeck. 2010. 
+PyMC: Bayesian Stochastic Modelling in Python. Journal of Statistical 
+Software, 35(4), pp. 1-81.
+
+Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau, Matthieu Brucher, Matthieu Perrot, Édouard Duchesnay. Scikit-learn: Machine Learning in Python, Journal of Machine Learning Research, 12, 2825-2830 (2011) 
+
+Fernando Pérez and Brian E. Granger. IPython: A System for Interactive Scientific Computing, Computing in Science & Engineering, 9, 21-29 (2007), DOI:10.1109/MCSE.2007.53
+
+R Core Team (2014). R: A language and environment for statistical computing. R Foundation for Statistical
+Computing, Vienna, Austria. URL http://www.R-project.org/.
+
+Therneau T (2014). _A Package for Survival Analysis in S_. R package version 2.37-7, <URL:
+http://CRAN.R-project.org/package=survival>.
+
+Stéfan van der Walt, S. Chris Colbert and Gaël Varoquaux. The NumPy Array: A Structure for Efficient Numerical Computation, Computing in Science & Engineering, 13, 22-30 (2011), DOI:10.1109/MCSE.2011.37
+
+Hadley Wickham and Romain Francois (2014). dplyr: dplyr: a grammar of data
+manipulation. R package version 0.2. http://CRAN.R-project.org/package=dplyr
+
+H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York,
+2009.
+
+Hadley Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis.
+Journal of Statistical Software, 40(1), 1-29. URL
+http://www.jstatsoft.org/v40/i01/.
+
+Hadley Wickham (2007). Reshaping Data with the reshape Package. Journal of
+Statistical Software, 21(12), 1-20. URL http://www.jstatsoft.org/v21/i12/.
+
+Hadley Wickham (2012). stringr: Make it easier to work with strings. R
+package version 0.6.2. http://CRAN.R-project.org/package=stringr
