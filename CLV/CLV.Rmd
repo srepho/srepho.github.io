@@ -682,8 +682,7 @@ $$
       p_1 & 1 - p_1 & 0\\
       p_2 & 0 & 1 - p_2\\
       p_3 & 0 & 1-p_3\\
-    \end{bmatrix}%
-  }
+    \end{bmatrix}%}
 $$
 
 We can then create a matrix showing the profit from each state. In this case we presume that we only get money if they spend something. The blank states are impossible to arrive at 
