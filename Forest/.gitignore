@@ -1,5 +1,8 @@
-Rev_cache/
+Forest_cache/
 .Rhistory
 test.csv
 train.csv
 sampleSubmission.csv
+sampleSubmission.csv.zip
+test.csv.zip
+train.csv.zip

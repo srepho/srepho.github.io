@@ -1,0 +1,58 @@
+---
+title: "Forest"
+author: "Stephen Oates"
+date: "Wednesday, September 24, 2014"
+output: html_document
+---
+
+This post outlines an approach to a competition on Kaggle. Kaggle for those who don't know is a site that hosts data analytics  competitions. It was started by an Australian Economist in 2010, though now it is located in San Francisco. The competitions are often sponsored by companies, and you can win prizes or even job interviews. One of the amazing things about the site is that the competitions are so varied, everything from marking essays, search for dark matter in astronomical data, classifying sounds as whale calls to travel times on a high way. This shows that often data science approaches are agnostic to the field that is being studied, which is part of the fun of the subject I think. The Forest Cover competition is a "Knowledge" competition, so its not a formal competition in that there is a prize. Its still a fun way to practice machine learning.
+
+The competition I am looking at Today is "Forest Cover Type Prediction". The goal of our model is to predict the type of Forest Cover for a particular 30m x 30m patch of ground in one of four wilderness areas in the Roosevelt National Forest in Colorado. There are seven types of Forest coverage:
+
+Forest Coverage Categories
+
+1. Spruce/Fir
+2. Lodgepole Pine
+3. Ponderosa Pine
+4. Cottonwood/Willow
+5. Aspen
+6. Douglas-fir
+7. Krummholz
+
+The variables we are given are:
+
+1. Elevation 
+2. Aspect 
+3. Slope 
+4. Horizontal Distance To Hydrology (Dist to nearest surface water features)
+5. Vertical Distance To Hydrology 
+6. Horizontal Distance To Roadways 
+7. Hillshade 9am 
+8. Hillshade Noon 
+9. Hillshade 3pm 
+10. Horizontal Distance To Fire Points (nearest wildfire ignition points)
+11. Wilderness Area Designation
+12. Soil Type 
+
+The dataset is very small (~2MB for the training set and ~74MB for the test set).
+
+The task is a straight forward "Supervised Learning" task. We tune our models on the training set where the Forest Cover is known and then use these models to guess the Forest Cover in the training set.
+
+
+```{r, cache=TRUE, echo=FALSE}
+train <- read.csv("E:/Github Stuff/srepho.github.io/Forest/train.csv", header = T)
+test <- read.csv("E:/Github Stuff/srepho.github.io/Forest/test.csv", header = T)
+sampleSubmission <- read.csv("E:/Github Stuff/srepho.github.io/Forest/sampleSubmission.csv", header = T)
+```
+
+
+
+```{r, cache=TRUE}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(caret)
+```
+
+
