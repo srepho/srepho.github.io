@@ -323,6 +323,81 @@ foo$rowsum &lt;- rowSums(foo)
 summary(foo$rowsum)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##       1       1       1       1       1       1</code></pre>
+<p>Great, so we can see that they only have 1 soil type for each row so we can collapse it into one column. I created a quick data frame with the soil names and loaded it as SN. (Have a think about why we want the text of the description).</p>
+<pre class="r"><code>i&lt;-1
+while(i&lt;41){
+foo[,i]&lt;-foo[,i]*i
+i&lt;-i+1
+}
+foo$rowsum &lt;- rowSums(foo)
+i&lt;-1
+while(i&lt;41){
+  foo$rowsum&lt;-str_replace_all(as.character(foo$rowsum), as.character(i), SN$Soil[i])
+  i&lt;-i+1
+}
+train$SoilType&lt;-foo$rowsum
+train&lt;-select(train, -(Soil_Type1:Soil_Type40))</code></pre>
+<p>Now lets do the same thing for the Wilderness Areas but we won’t worry about actually copying over the text in this case.</p>
+<pre class="r"><code>foo&lt;-select(train, Wilderness_Area1:Wilderness_Area4)
+
+voo&lt;-rowSums(foo)
+summary(voo)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       1       1       1       1       1</code></pre>
+<pre class="r"><code>i&lt;-1
+while(i&lt;5){
+foo[,i]&lt;-foo[,i]*i
+i&lt;-i+1
+}
+foo$rowsum &lt;- rowSums(foo)
+
+train$WildernessType&lt;-foo$rowsum
+train$WildernessType&lt;-as.factor(train$WildernessType)
+train&lt;-select(train, -(Wilderness_Area1:Wilderness_Area4))</code></pre>
+<p>Just to be neat I will reorder the columns again and change cover type to a factor.</p>
+<pre class="r"><code>train&lt;-select(train, Id:Horizontal_Distance_To_Fire_Points, SoilType:WildernessType, Cover_Type)
+train$Cover_Type&lt;-as.factor(train$Cover_Type)
+summary(train)</code></pre>
+<pre><code>##        Id          Elevation        Aspect        Slope     
+##  Min.   :    1   Min.   :1863   Min.   :  0   Min.   : 0.0  
+##  1st Qu.: 3781   1st Qu.:2376   1st Qu.: 65   1st Qu.:10.0  
+##  Median : 7560   Median :2752   Median :126   Median :15.0  
+##  Mean   : 7560   Mean   :2749   Mean   :157   Mean   :16.5  
+##  3rd Qu.:11340   3rd Qu.:3104   3rd Qu.:261   3rd Qu.:22.0  
+##  Max.   :15120   Max.   :3849   Max.   :360   Max.   :52.0  
+##                                                             
+##  Horizontal_Distance_To_Hydrology Vertical_Distance_To_Hydrology
+##  Min.   :   0                     Min.   :-146.0                
+##  1st Qu.:  67                     1st Qu.:   5.0                
+##  Median : 180                     Median :  32.0                
+##  Mean   : 227                     Mean   :  51.1                
+##  3rd Qu.: 330                     3rd Qu.:  79.0                
+##  Max.   :1343                     Max.   : 554.0                
+##                                                                 
+##  Horizontal_Distance_To_Roadways Hillshade_9am Hillshade_Noon
+##  Min.   :   0                    Min.   :  0   Min.   : 99   
+##  1st Qu.: 764                    1st Qu.:196   1st Qu.:207   
+##  Median :1316                    Median :220   Median :223   
+##  Mean   :1714                    Mean   :213   Mean   :219   
+##  3rd Qu.:2270                    3rd Qu.:235   3rd Qu.:235   
+##  Max.   :6890                    Max.   :254   Max.   :254   
+##                                                              
+##  Hillshade_3pm Horizontal_Distance_To_Fire_Points   SoilType        
+##  Min.   :  0   Min.   :   0                       Length:15120      
+##  1st Qu.:106   1st Qu.: 730                       Class :character  
+##  Median :138   Median :1256                       Mode  :character  
+##  Mean   :135   Mean   :1511                                         
+##  3rd Qu.:167   3rd Qu.:1988                                         
+##  Max.   :248   Max.   :6993                                         
+##                                                                     
+##  WildernessType Cover_Type
+##  1:3597         1:2160    
+##  2: 499         2:2160    
+##  3:6349         3:2160    
+##  4:4675         4:2160    
+##                 5:2160    
+##                 6:2160    
+##                 7:2160</code></pre>
 
 
 </div>

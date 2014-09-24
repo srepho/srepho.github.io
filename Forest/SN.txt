@@ -1,0 +1,41 @@
+Soil
+"1 Cathedral family - Rock outcrop complex, extremely stony."
+"2 Vanet - Ratake families complex, very stony."
+"3 Haploborolis - Rock outcrop complex, rubbly."
+"4 Ratake family - Rock outcrop complex, rubbly."
+"5 Vanet family - Rock outcrop complex complex, rubbly."
+"6 Vanet - Wetmore families - Rock outcrop complex, stony."
+7 Gothic family.
+8 Supervisor - Limber families complex.
+"9 Troutville family, very stony."
+"10 Bullwark - Catamount families - Rock outcrop complex, rubbly."
+"11 Bullwark - Catamount families - Rock land complex, rubbly."
+"12 Legault family - Rock land complex, stony."
+"13 Catamount family - Rock land - Bullwark family complex, rubbly."
+14 Pachic Argiborolis - Aquolis complex.
+15 unspecified in the USFS Soil and ELU Survey.
+16 Cryaquolis - Cryoborolis complex.
+17 Gateview family - Cryaquolis complex.
+"18 Rogert family, very stony."
+19 Typic Cryaquolis - Borohemists complex.
+20 Typic Cryaquepts - Typic Cryaquolls complex.
+"21 Typic Cryaquolls - Leighcan family, till substratum complex."
+"22 Leighcan family, till substratum, extremely bouldery."
+"23 Leighcan family, till substratum - Typic Cryaquolls complex."
+"24 Leighcan family, extremely stony."
+"25 Leighcan family, warm, extremely stony."
+"26 Granile - Catamount families complex, very stony."
+"27 Leighcan family, warm - Rock outcrop complex, extremely stony."
+"28 Leighcan family - Rock outcrop complex, extremely stony."
+"29 Como - Legault families complex, extremely stony."
+"30 Como family - Rock land - Legault family complex, extremely stony."
+"31 Leighcan - Catamount families complex, extremely stony."
+"32 Catamount family - Rock outcrop - Leighcan family complex, extremely stony."
+"33 Leighcan - Catamount families - Rock outcrop complex, extremely stony."
+"34 Cryorthents - Rock land complex, extremely stony."
+35 Cryumbrepts - Rock outcrop - Cryaquepts complex.
+"36 Bross family - Rock land - Cryumbrepts complex, extremely stony."
+"37 Rock outcrop - Cryumbrepts - Cryorthents complex, extremely stony."
+"38 Leighcan - Moran families - Cryaquolls complex, extremely stony."
+"39 Moran family - Cryorthents - Leighcan family complex, extremely stony."
+"40 Moran family - Cryorthents - Rock land complex, extremely stony."

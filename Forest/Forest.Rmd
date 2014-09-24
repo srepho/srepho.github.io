@@ -43,6 +43,7 @@ The task is a straight forward "Supervised Learning" task. We tune our models on
 train <- read.csv("E:/Github Stuff/srepho.github.io/Forest/train.csv", header = T)
 test <- read.csv("E:/Github Stuff/srepho.github.io/Forest/test.csv", header = T)
 sampleSubmission <- read.csv("E:/Github Stuff/srepho.github.io/Forest/sampleSubmission.csv", header = T)
+SN <- read.csv("E:/Github Stuff/srepho.github.io/Forest/SN.txt", header=T, sep="\t")
 ```
 
 After loading the data the next thing is to load up the libraries. The folowing won't all be used, but they are my standard list of useful R packages for Kaggling.
@@ -81,3 +82,53 @@ foo <- select(train, Soil_Type1:Soil_Type40)
 foo$rowsum <- rowSums(foo)
 summary(foo$rowsum)
 ```
+
+Great, so we can see that they only have 1 soil type for each row so we can collapse it into one column. I created a quick data frame with the soil names and loaded it as SN. (Have a think about why we want the text of the description).
+
+
+```{r, cache=TRUE}
+i<-1
+while(i<41){
+foo[,i]<-foo[,i]*i
+i<-i+1
+}
+foo$rowsum <- rowSums(foo)
+i<-1
+while(i<41){
+  foo$rowsum<-str_replace_all(as.character(foo$rowsum), as.character(i), SN$Soil[i])
+  i<-i+1
+}
+train$SoilType<-foo$rowsum
+train<-select(train, -(Soil_Type1:Soil_Type40))
+```
+
+Now lets do the same thing for the Wilderness Areas but we won't worry about actually copying over the text in this case.
+
+```{r, cache=TRUE}
+foo<-select(train, Wilderness_Area1:Wilderness_Area4)
+
+voo<-rowSums(foo)
+summary(voo)
+
+i<-1
+while(i<5){
+foo[,i]<-foo[,i]*i
+i<-i+1
+}
+foo$rowsum <- rowSums(foo)
+
+train$WildernessType<-foo$rowsum
+train$WildernessType<-as.factor(train$WildernessType)
+train<-select(train, -(Wilderness_Area1:Wilderness_Area4))
+```
+
+Just to be neat I will reorder the columns again and change cover type to a factor.
+
+```{r, cache=TRUE}
+train<-select(train, Id:Horizontal_Distance_To_Fire_Points, SoilType:WildernessType, Cover_Type)
+train$Cover_Type<-as.factor(train$Cover_Type)
+summary(train)
+```
+
+
+
