@@ -87,26 +87,242 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </ol>
 <p>The dataset is very small (~2MB for the training set and ~74MB for the test set).</p>
 <p>The task is a straight forward “Supervised Learning” task. We tune our models on the training set where the Forest Cover is known and then use these models to guess the Forest Cover in the training set.</p>
+<p>After loading the data the next thing is to load up the libraries. The folowing won’t all be used, but they are my standard list of useful R packages for Kaggling.</p>
 <pre class="r"><code>library(plyr)
-library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'
-## 
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, desc, failwith, id, mutate, summarise, summarize
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(ggplot2)
+library(dplyr)
+library(ggplot2)
 library(tidyr)
-library(caret)</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
+library(caret)
+library(forecast)
+library(stringr)</code></pre>
+<p>Now we need to have a look at the data. We are looking in particular at:</p>
+<ol style="list-style-type: decimal">
+<li>Do we have missing values? Are these missing values random?</li>
+<li>Are the values correct?</li>
+<li>Is the shape of the data tidy?</li>
+<li>Do we have numerical fields that are factors?</li>
+<li>What is the shape of the distributions of variables? Will we need to transform them?</li>
+<li>Are the variables in the train and test set simialir?</li>
+<li>Are there text values that need to be dealt with?</li>
+</ol>
+<pre class="r"><code>summary(train)</code></pre>
+<pre><code>##        Id          Elevation        Aspect        Slope     
+##  Min.   :    1   Min.   :1863   Min.   :  0   Min.   : 0.0  
+##  1st Qu.: 3781   1st Qu.:2376   1st Qu.: 65   1st Qu.:10.0  
+##  Median : 7560   Median :2752   Median :126   Median :15.0  
+##  Mean   : 7560   Mean   :2749   Mean   :157   Mean   :16.5  
+##  3rd Qu.:11340   3rd Qu.:3104   3rd Qu.:261   3rd Qu.:22.0  
+##  Max.   :15120   Max.   :3849   Max.   :360   Max.   :52.0  
+##  Horizontal_Distance_To_Hydrology Vertical_Distance_To_Hydrology
+##  Min.   :   0                     Min.   :-146.0                
+##  1st Qu.:  67                     1st Qu.:   5.0                
+##  Median : 180                     Median :  32.0                
+##  Mean   : 227                     Mean   :  51.1                
+##  3rd Qu.: 330                     3rd Qu.:  79.0                
+##  Max.   :1343                     Max.   : 554.0                
+##  Horizontal_Distance_To_Roadways Hillshade_9am Hillshade_Noon
+##  Min.   :   0                    Min.   :  0   Min.   : 99   
+##  1st Qu.: 764                    1st Qu.:196   1st Qu.:207   
+##  Median :1316                    Median :220   Median :223   
+##  Mean   :1714                    Mean   :213   Mean   :219   
+##  3rd Qu.:2270                    3rd Qu.:235   3rd Qu.:235   
+##  Max.   :6890                    Max.   :254   Max.   :254   
+##  Hillshade_3pm Horizontal_Distance_To_Fire_Points Wilderness_Area1
+##  Min.   :  0   Min.   :   0                       Min.   :0.000   
+##  1st Qu.:106   1st Qu.: 730                       1st Qu.:0.000   
+##  Median :138   Median :1256                       Median :0.000   
+##  Mean   :135   Mean   :1511                       Mean   :0.238   
+##  3rd Qu.:167   3rd Qu.:1988                       3rd Qu.:0.000   
+##  Max.   :248   Max.   :6993                       Max.   :1.000   
+##  Wilderness_Area2 Wilderness_Area3 Wilderness_Area4   Soil_Type1    
+##  Min.   :0.000    Min.   :0.00     Min.   :0.000    Min.   :0.0000  
+##  1st Qu.:0.000    1st Qu.:0.00     1st Qu.:0.000    1st Qu.:0.0000  
+##  Median :0.000    Median :0.00     Median :0.000    Median :0.0000  
+##  Mean   :0.033    Mean   :0.42     Mean   :0.309    Mean   :0.0235  
+##  3rd Qu.:0.000    3rd Qu.:1.00     3rd Qu.:1.000    3rd Qu.:0.0000  
+##  Max.   :1.000    Max.   :1.00     Max.   :1.000    Max.   :1.0000  
+##    Soil_Type2       Soil_Type3       Soil_Type4       Soil_Type5    
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.0412   Mean   :0.0636   Mean   :0.0558   Mean   :0.0109  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+##    Soil_Type6      Soil_Type7   Soil_Type8      Soil_Type9   
+##  Min.   :0.000   Min.   :0    Min.   :0e+00   Min.   :0e+00  
+##  1st Qu.:0.000   1st Qu.:0    1st Qu.:0e+00   1st Qu.:0e+00  
+##  Median :0.000   Median :0    Median :0e+00   Median :0e+00  
+##  Mean   :0.043   Mean   :0    Mean   :1e-04   Mean   :7e-04  
+##  3rd Qu.:0.000   3rd Qu.:0    3rd Qu.:0e+00   3rd Qu.:0e+00  
+##  Max.   :1.000   Max.   :0    Max.   :1e+00   Max.   :1e+00  
+##   Soil_Type10     Soil_Type11      Soil_Type12     Soil_Type13    
+##  Min.   :0.000   Min.   :0.0000   Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000  
+##  Median :0.000   Median :0.0000   Median :0.000   Median :0.0000  
+##  Mean   :0.142   Mean   :0.0269   Mean   :0.015   Mean   :0.0315  
+##  3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.0000  
+##  Max.   :1.000   Max.   :1.0000   Max.   :1.000   Max.   :1.0000  
+##   Soil_Type14      Soil_Type15  Soil_Type16      Soil_Type17    
+##  Min.   :0.0000   Min.   :0    Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0    1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0    Median :0.0000   Median :0.0000  
+##  Mean   :0.0112   Mean   :0    Mean   :0.0075   Mean   :0.0405  
+##  3rd Qu.:0.0000   3rd Qu.:0    3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :0    Max.   :1.0000   Max.   :1.0000  
+##   Soil_Type18     Soil_Type19     Soil_Type20      Soil_Type21    
+##  Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.000   Median :0.000   Median :0.0000   Median :0.0000  
+##  Mean   :0.004   Mean   :0.003   Mean   :0.0092   Mean   :0.0011  
+##  3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.000   Max.   :1.000   Max.   :1.0000   Max.   :1.0000  
+##   Soil_Type22      Soil_Type23      Soil_Type24     Soil_Type25   
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.000   Min.   :0e+00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0e+00  
+##  Median :0.0000   Median :0.0000   Median :0.000   Median :0e+00  
+##  Mean   :0.0228   Mean   :0.0501   Mean   :0.017   Mean   :1e-04  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0e+00  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.000   Max.   :1e+00  
+##   Soil_Type26      Soil_Type27     Soil_Type28     Soil_Type29    
+##  Min.   :0.0000   Min.   :0.000   Min.   :0e+00   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0e+00   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000   Median :0e+00   Median :0.0000  
+##  Mean   :0.0036   Mean   :0.001   Mean   :6e-04   Mean   :0.0854  
+##  3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0e+00   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.000   Max.   :1e+00   Max.   :1.0000  
+##   Soil_Type30      Soil_Type31     Soil_Type32      Soil_Type33    
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000   Median :0.0000   Median :0.0000  
+##  Mean   :0.0479   Mean   :0.022   Mean   :0.0456   Mean   :0.0407  
+##  3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.000   Max.   :1.0000   Max.   :1.0000  
+##   Soil_Type34      Soil_Type35      Soil_Type36     Soil_Type37    
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0e+00   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0e+00   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000   Median :0e+00   Median :0.0000  
+##  Mean   :0.0015   Mean   :0.0067   Mean   :7e-04   Mean   :0.0022  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0e+00   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1e+00   Max.   :1.0000  
+##   Soil_Type38      Soil_Type39      Soil_Type40       Cover_Type
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :1   
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2   
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :4   
+##  Mean   :0.0481   Mean   :0.0435   Mean   :0.0304   Mean   :4   
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:6   
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :7</code></pre>
+<pre class="r"><code>summary(test)</code></pre>
+<pre><code>##        Id           Elevation        Aspect        Slope   
+##  Min.   : 15121   Min.   :1859   Min.   :  0   Min.   : 0  
+##  1st Qu.:156594   1st Qu.:2818   1st Qu.: 58   1st Qu.: 9  
+##  Median :298066   Median :2999   Median :127   Median :13  
+##  Mean   :298066   Mean   :2965   Mean   :156   Mean   :14  
+##  3rd Qu.:439539   3rd Qu.:3164   3rd Qu.:260   3rd Qu.:18  
+##  Max.   :581012   Max.   :3858   Max.   :360   Max.   :66  
+##  Horizontal_Distance_To_Hydrology Vertical_Distance_To_Hydrology
+##  Min.   :   0                     Min.   :-173.0                
+##  1st Qu.: 108                     1st Qu.:   7.0                
+##  Median : 228                     Median :  29.0                
+##  Mean   : 271                     Mean   :  46.3                
+##  3rd Qu.: 390                     3rd Qu.:  69.0                
+##  Max.   :1397                     Max.   : 601.0                
+##  Horizontal_Distance_To_Roadways Hillshade_9am Hillshade_Noon
+##  Min.   :   0                    Min.   :  0   Min.   :  0   
+##  1st Qu.:1116                    1st Qu.:198   1st Qu.:213   
+##  Median :2018                    Median :218   Median :226   
+##  Mean   :2367                    Mean   :212   Mean   :223   
+##  3rd Qu.:3349                    3rd Qu.:231   3rd Qu.:237   
+##  Max.   :7117                    Max.   :254   Max.   :254   
+##  Hillshade_3pm Horizontal_Distance_To_Fire_Points Wilderness_Area1
+##  Min.   :  0   Min.   :   0                       Min.   :0.000   
+##  1st Qu.:119   1st Qu.:1034                       1st Qu.:0.000   
+##  Median :143   Median :1723                       Median :0.000   
+##  Mean   :143   Mean   :1993                       Mean   :0.455   
+##  3rd Qu.:168   3rd Qu.:2561                       3rd Qu.:1.000   
+##  Max.   :254   Max.   :7173                       Max.   :1.000   
+##  Wilderness_Area2 Wilderness_Area3 Wilderness_Area4   Soil_Type1    
+##  Min.   :0.0000   Min.   :0.000    Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000    1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000    Median :0.0000   Median :0.0000  
+##  Mean   :0.0519   Mean   :0.436    Mean   :0.0571   Mean   :0.0047  
+##  3rd Qu.:0.0000   3rd Qu.:1.000    3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.000    Max.   :1.0000   Max.   :1.0000  
+##    Soil_Type2       Soil_Type3       Soil_Type4       Soil_Type5    
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.0122   Mean   :0.0068   Mean   :0.0204   Mean   :0.0025  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+##    Soil_Type6       Soil_Type7      Soil_Type8      Soil_Type9   
+##  Min.   :0.0000   Min.   :0e+00   Min.   :0e+00   Min.   :0.000  
+##  1st Qu.:0.0000   1st Qu.:0e+00   1st Qu.:0e+00   1st Qu.:0.000  
+##  Median :0.0000   Median :0e+00   Median :0e+00   Median :0.000  
+##  Mean   :0.0105   Mean   :2e-04   Mean   :3e-04   Mean   :0.002  
+##  3rd Qu.:0.0000   3rd Qu.:0e+00   3rd Qu.:0e+00   3rd Qu.:0.000  
+##  Max.   :1.0000   Max.   :1e+00   Max.   :1e+00   Max.   :1.000  
+##   Soil_Type10      Soil_Type11      Soil_Type12      Soil_Type13  
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.00  
+##  Mean   :0.0539   Mean   :0.0212   Mean   :0.0526   Mean   :0.03  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.00  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.00  
+##   Soil_Type14     Soil_Type15  Soil_Type16      Soil_Type17   
+##  Min.   :0e+00   Min.   :0    Min.   :0.0000   Min.   :0.000  
+##  1st Qu.:0e+00   1st Qu.:0    1st Qu.:0.0000   1st Qu.:0.000  
+##  Median :0e+00   Median :0    Median :0.0000   Median :0.000  
+##  Mean   :8e-04   Mean   :0    Mean   :0.0048   Mean   :0.005  
+##  3rd Qu.:0e+00   3rd Qu.:0    3rd Qu.:0.0000   3rd Qu.:0.000  
+##  Max.   :1e+00   Max.   :1    Max.   :1.0000   Max.   :1.000  
+##   Soil_Type18      Soil_Type19     Soil_Type20      Soil_Type21    
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.000   Median :0.0000   Median :0.0000  
+##  Mean   :0.0032   Mean   :0.007   Mean   :0.0161   Mean   :0.0015  
+##  3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.000   Max.   :1.0000   Max.   :1.0000  
+##   Soil_Type22      Soil_Type23     Soil_Type24      Soil_Type25   
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0e+00  
+##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0e+00  
+##  Median :0.0000   Median :0.000   Median :0.0000   Median :0e+00  
+##  Mean   :0.0584   Mean   :0.101   Mean   :0.0371   Mean   :8e-04  
+##  3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0e+00  
+##  Max.   :1.0000   Max.   :1.000   Max.   :1.0000   Max.   :1e+00  
+##   Soil_Type26      Soil_Type27      Soil_Type28      Soil_Type29   
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000  
+##  Median :0.0000   Median :0.0000   Median :0.0000   Median :0.000  
+##  Mean   :0.0045   Mean   :0.0019   Mean   :0.0017   Mean   :0.201  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.000  
+##   Soil_Type30     Soil_Type31      Soil_Type32      Soil_Type33    
+##  Min.   :0.000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.000   Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.052   Mean   :0.0448   Mean   :0.0916   Mean   :0.0787  
+##  3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+##   Soil_Type34      Soil_Type35      Soil_Type36     Soil_Type37   
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0e+00   Min.   :0e+00  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0e+00   1st Qu.:0e+00  
+##  Median :0.0000   Median :0.0000   Median :0e+00   Median :0e+00  
+##  Mean   :0.0028   Mean   :0.0032   Mean   :2e-04   Mean   :5e-04  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0e+00   3rd Qu.:0e+00  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1e+00   Max.   :1e+00  
+##   Soil_Type38      Soil_Type39      Soil_Type40    
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+##  Median :0.0000   Median :0.0000   Median :0.0000  
+##  Mean   :0.0262   Mean   :0.0232   Mean   :0.0147  
+##  3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000</code></pre>
+<p>We can see immediatly that a the fields related to soil and wilderness are binarized versions of categorical type variables. In R we don’t need to keep the data in this format (though in Python we would) so to make it easier we can just convert it back to just a single variable. Firstly though lets double check that they can have only one category.</p>
+<pre class="r"><code>foo &lt;- select(train, Soil_Type1:Soil_Type40)
+foo$rowsum &lt;- rowSums(foo)
+summary(foo$rowsum)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       1       1       1       1       1       1</code></pre>
 
 
 </div>

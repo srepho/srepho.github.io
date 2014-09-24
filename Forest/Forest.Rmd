@@ -45,6 +45,7 @@ test <- read.csv("E:/Github Stuff/srepho.github.io/Forest/test.csv", header = T)
 sampleSubmission <- read.csv("E:/Github Stuff/srepho.github.io/Forest/sampleSubmission.csv", header = T)
 ```
 
+After loading the data the next thing is to load up the libraries. The folowing won't all be used, but they are my standard list of useful R packages for Kaggling.
 
 
 ```{r, cache=TRUE}
@@ -53,6 +54,30 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(caret)
+library(forecast)
+library(stringr)
 ```
 
+Now we need to have a look at the data. We are looking in particular at:
 
+1. Do we have missing values? Are these missing values random?
+2. Are the values correct?
+3. Is the shape of the data tidy?
+4. Do we have numerical fields that are factors?
+5. What is the shape of the distributions of variables? Will we need to transform them?
+6. Are the variables in the train and test set simialir?
+7. Are there text values that need to be dealt with?
+
+
+```{r, cache=TRUE}
+summary(train)
+summary(test)
+```
+
+We can see immediatly that a the fields related to soil and wilderness are binarized versions of categorical type variables. In R we don't need to keep the data in this format (though in Python we would) so to make it easier we can just convert it back to just a single variable. Firstly though lets double check that they can have only one category.
+
+```{r, cache=TRUE}
+foo <- select(train, Soil_Type1:Soil_Type40)
+foo$rowsum <- rowSums(foo)
+summary(foo$rowsum)
+```
