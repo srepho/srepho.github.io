@@ -29,4 +29,8 @@ library(bayesm)
 colnames(CDNOW) <- c("Client", "Date", "NoPurchased", "Spent")
 
 
+CDNOW$Date<-as.Date.character(CDNOW$Date, format = "%Y%m%d")
 
+
+Grouped <- CDNOW %>%
+  group_by()
