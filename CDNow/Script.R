@@ -27,3 +27,6 @@ library(bayesm)
 
 
 colnames(CDNOW) <- c("Client", "Date", "NoPurchased", "Spent")
+
+
+
