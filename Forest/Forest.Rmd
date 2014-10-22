@@ -40,15 +40,15 @@ The task is a straight forward "Supervised Learning" task. We tune our models on
 
 
 ```{r, cache=TRUE, echo=FALSE}
-#train <- read.csv("E:/Github Stuff/srepho.github.io/Forest/train.csv", header = T)
-#test <- read.csv("E:/Github Stuff/srepho.github.io/Forest/test.csv", header = T)
-#sampleSubmission <- read.csv("E:/Github Stuff/srepho.github.io/Forest/sampleSubmission.csv", header = T)
-#SN <- read.csv("E:/Github Stuff/srepho.github.io/Forest/SN.txt", header=T, sep="\t")
+train <- read.csv("E:/Github Stuff/srepho.github.io/Forest/train.csv", header = T)
+test <- read.csv("E:/Github Stuff/srepho.github.io/Forest/test.csv", header = T)
+sampleSubmission <- read.csv("E:/Github Stuff/srepho.github.io/Forest/sampleSubmission.csv", header = T)
+SN <- read.csv("E:/Github Stuff/srepho.github.io/Forest/SN.txt", header=T, sep="\t")
 ####
-train <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/train.csv", header = T)
-test <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/test.csv", header = T)
-sampleSubmission <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/sampleSubmission.csv", header = T)
-SN <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/SN.txt", header=T, sep="\t")
+#train <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/train.csv", header = T)
+#test <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/test.csv", header = T)
+#sampleSubmission <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/sampleSubmission.csv", header = T)
+#SN <- read.csv("D:/Users/soates/Documents/Github/srepho.github.io/Forest/SN.txt", header=T, sep="\t")
 ```
 
 After loading the data the next thing is to load up the libraries. The folowing won't all be used, but they are my standard list of useful R packages for Kaggling.
