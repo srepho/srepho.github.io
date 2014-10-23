@@ -30,7 +30,9 @@ colnames(CDNOW) <- c("Client", "Date", "NoPurchased", "Spent")
 
 
 CDNOW$Date<-as.Date.character(CDNOW$Date, format = "%Y%m%d")
+summary(CDNOW)
 
+train<-filter(CDNOW, Date<"1997-09-30")
 
 Grouped <- CDNOW %>%
   group_by()
