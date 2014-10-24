@@ -6,14 +6,11 @@ caret
 cluster
 colorspace
 COUNT
-datasets
 dplyr
 eha
 forecast
 GGally
 ggplot2
-graphics
-grDevices
 gsl
 hflights
 ifultools
@@ -23,7 +20,6 @@ lubridate
 MAPA
 MASS
 Matrix
-methods
 mixAK
 msm
 msme
@@ -31,15 +27,12 @@ muhaz
 mvna
 NbClust
 NLP
-parallel
 pdc
 plyr
 Rcpp
 reshape2
 sandwich
-splines
 splus2R
-stats
 stringr
 survival
 timeDate
@@ -47,6 +40,5 @@ tm
 TSclust
 tsintermittent
 useful
-utils
 wmtsa
 zoo

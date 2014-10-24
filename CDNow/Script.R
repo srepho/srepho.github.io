@@ -25,6 +25,7 @@ library(GGally)
 library(mixAK)
 library(bayesm)
 
+CDNOW <- CDNOW_master
 
 colnames(CDNOW) <- c("Client", "Date", "NoPurchased", "Spent")
 

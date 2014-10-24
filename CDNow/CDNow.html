@@ -58,9 +58,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 
 
-<p>You can also embed plots, for example:</p>
-<pre class="r"><code>CDNOW &lt;- read.table(&quot;E:/Github Stuff/srepho.github.io/CDNow/CDNOW_master.txt&quot;, quote=&quot;\&quot;&quot;)</code></pre>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<p>So when I was writing out my notes on <a href="http://srepho.github.io/CLV/CLV">CLV</a>, the data set <a href="http://www.brucehardie.com/notes/026/notes_on_CDNOW_master.pdf">CDNOW</a> kept cropping up. This dataset comes from an online store that sold CDs. It was started in 1994 in a basement and went on to be very successful before struggling in the very late 90’s and was sold. The data that we have is from a cohort of customers who bought from the store for the first time in Jan 1997. The dataset then includes all transactions involving these customers for the next 78 weeks (until the end of Sept 1998).</p>
+<p>Lets tidy the dataset a little by assigning variable names and formating the date.</p>
+<pre class="r"><code>colnames(CDNOW) &lt;- c(&quot;Client&quot;, &quot;Date&quot;, &quot;NoPurchased&quot;, &quot;Spent&quot;)
+CDNOW$Date&lt;-as.Date.character(CDNOW$Date, format = &quot;%Y%m%d&quot;)</code></pre>
+<p>Inline with</p>
 
 
 </div>

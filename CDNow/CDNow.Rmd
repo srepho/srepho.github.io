@@ -5,9 +5,9 @@ date: "Friday, October 17, 2014"
 output: html_document
 ---
 
+So when I was writing out my notes on [CLV](http://srepho.github.io/CLV/CLV), the data set [CDNOW](http://www.brucehardie.com/notes/026/notes_on_CDNOW_master.pdf) kept cropping up. This dataset comes from an online store that sold CDs. It was started in 1994 in a basement and went on to be very successful before struggling in the very late 90's and was sold. The data that we have is from a cohort of customers who bought from the store for the first time in Jan 1997. The dataset then includes all transactions involving these customers for the next 78 weeks (until the end of Sept 1998).
 
-
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, cache=TRUE}
 library(eha)
 library(tm)
 library(Biograph)
@@ -35,10 +35,18 @@ library(mixAK)
 library(bayesm)
 ```
 
-You can also embed plots, for example:
 
-```{r, cache=TRUE}
+
+```{r, cache=TRUE, echo=FALSE}
 CDNOW <- read.table("E:/Github Stuff/srepho.github.io/CDNow/CDNOW_master.txt", quote="\"")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Lets tidy the dataset a little by assigning variable names and formating the date.
+
+```{r, cache=TRUE}
+colnames(CDNOW) <- c("Client", "Date", "NoPurchased", "Spent")
+CDNOW$Date<-as.Date.character(CDNOW$Date, format = "%Y%m%d")
+```
+
+Inline with 
+
