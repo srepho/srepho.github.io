@@ -3,7 +3,7 @@ library(ggplot2)
 library(caret)
 library(ggmap)
 
-SFPD$Date<-as.Date(SFPD$Date, format="%M/%d/%Y")
+SFPD$Date<-as.Date(SFPD$Date, format="%m/%d/%Y")
 
 SFPD$DT <- paste(SFPD$Date, SFPD$Time, sep=" ")
 
@@ -29,3 +29,9 @@ ggplot(SFTS, aes(x=DT, y=Total)) + geom_line() + scale_x_datetime()
 #Friday and Saturday Evenings
 
 #Weekend
+
+SYD<-qmap("Sydney", zoom = 11, maptype= "hybrid")
+SYD + geom_point(aes(x=US$lon, y=US$lat))
+
+SYD<-get_googlemap('Sydney', markers=US, scale=2)
+ggmap(SYD)
