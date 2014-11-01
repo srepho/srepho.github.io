@@ -22,11 +22,15 @@ ggplot(train, aes(x=TotalDonations)) + geom_density()
 ggplot(train, aes(x=MonFirstDon)) + geom_density()
 
 train$Donated<-NULL
+train$ID<-NULL
+test$ID<-NULL
 preProcValues <- preProcess(train, method = c("center", "scale"))
 train <- predict(preProcValues, train)
 test <- predict(preProcValues, test)
 
 train$Donated<-traindata$Made.Donation.in.March.2007
+train$Donated<-as.factor(train$Donated)
+train$Donated<-ifelse(train$Donated=="0", "NonDonor", "Donor")
 train$Donated<-as.factor(train$Donated)
 
 set.seed(998)
@@ -63,7 +67,10 @@ rfmodel<-train(Donated~., method="rf", trControl = fitControl, data=train, metri
 
 svmpredictions<-predict(svmmodel, newdata=test, type="prob")
 psvpredictions<-predict(psvmmodel, newdata=test, type="prob")
-rsvpredictions<-predict(rsvmmodel, newdata=test)
-rfpredictions<-predict(rfmodel, newdata=test)
+rsvpredictions<-predict(rsvmmodel, newdata=test, type="prob")
+rfpredictions<-predict(rfmodel, newdata=test, type="prob")
 
+foo<-data.frame(testdata$X, rfpredictions$Donor)
+
+write.csv(foo, "E:/DataDriven/Blood/RF.csv", row.names=FALSE)
 
