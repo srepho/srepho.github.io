@@ -1,0 +1,4 @@
+using   DataArrays, DataFrames
+Input = @data([1, 4, 7, 50, 7, 10])
+Output= Input * 2
+print(Input)
