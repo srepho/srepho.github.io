@@ -28,10 +28,12 @@ Next up we need to load and split the data. The purpose of the split is to try a
 We can use the Caret package to split the data into a "Training Set" with 75% of the data and a "Test" Set with 25%.
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
-churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
-#churn <- read.csv("E:/Github Stuff/srepho.github.io/churn.txt", header=T)
+#churn <- read.csv("D:/Users/soates/Downloads/churn.txt", header=T)
+churn <- read.csv("E:/Github Stuff/srepho.github.io/Churn/churn.txt", header=T)
+churn$Churned<-churn$Churn.
+churn$Churn.<-NULL
 set.seed(12)
-trainIndex <- caret::createDataPartition(churn$Churn., p = .75, list = FALSE, times = 1)
+trainIndex <- caret::createDataPartition(churn$Churned, p = .75, list = FALSE, times = 1)
 churnTrain <- churn[ trainIndex,]
 churnTest <- churn[-trainIndex, ]
 ```
@@ -39,7 +41,7 @@ churnTest <- churn[-trainIndex, ]
 So the first step is to have a look at the balance of the outcomes. In this case its very binary, either the client has an existing contract with our telecommunications company or they have cancelled it.
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/'}
-table(churnTrain$Churn.)
+table(churnTrain$Churned)
 ```
 
 So we can see from this that about ~15% of customers left our service. So we now have a baseline for naive prediction of ~85% if we just predict all customers will stay with us (which would not be very useful).
@@ -87,7 +89,7 @@ We can also start to form testable ideas about relationships. For example does t
 
 
 ```{r fig.width=5, fig.height=5, cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
-one<-ggplot(churn, aes(x=Account.Length, fill=Churn.))+geom_density()+ facet_grid(Churn. ~ .) + labs(title="Account Length")
+one<-ggplot(churn, aes(x=Account.Length, fill=Churned))+geom_density()+ facet_grid(Churned ~ .) + labs(title="Account Length")
 one 
 ```
 
@@ -100,7 +102,7 @@ we are intrested in sensitivity in our models rather then specificity.
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
 set.seed(12)
-rfmodel<-train(churnTrain$Churn.~., data=churnTrain, method="rf", trainControl = c(method = "adaptive_cv", number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = "gls", complete = TRUE)), metric="Kappa")
+rfmodel<-train(churnTrain$Churned~., data=churnTrain, method="rf", trainControl = c(method = "adaptive_cv", number = 10, repeats = 5, classProbs = TRUE, summaryFunction = twoClassSummary, adaptive = list(min = 10, alpha = 0.05, method = "gls", complete = TRUE)), metric="Kappa")
 confusionMatrix(rfmodel)
 
 ```
@@ -109,7 +111,7 @@ Now we can't be too excited yet as this is how we did on the same data we used t
 
 ```{r cache=TRUE, cache.path = 'Churn_cache/', fig.path='figure/', fig.show='hold'}
 pred<-predict(rfmodel, newdata=churnTest)
-confusionMatrix(pred, churnTest$Churn.)
+confusionMatrix(pred, churnTest$Churned)
 ```
 
 Not too shabby. Of the 97 that we predicted would have left we got 85 right and only 12 wrong. We did miss 35 other clients who left but its a big improvement from a naive guess of "All Stay" that we started with. In a latter post I will show how we can try and capture more of those missing 35 by accepting a few more "false positives".
