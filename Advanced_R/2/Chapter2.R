@@ -11,6 +11,8 @@ attributes()
 
 # Logical
 
+logie<-c(T, T, F)
+
 # Integer
 
 # Double (numeric)
@@ -18,3 +20,10 @@ attributes()
 # Character
 
 
+c(1, c(2, 4))  #becomes flat
+
+
+## Lists
+# mixture of elements
+
+foo<-list(1:3, c("a"))
