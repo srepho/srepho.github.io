@@ -66,3 +66,7 @@ x <- setNames(1:3, c("a", "b", "c"))
 #1 Why does this not show comment? structure(1:5, comment = "my attribute")
 structure(1:5, comment = "my attribute")
 attr(x, "comment") <- "my attribute"
+
+#Answer: comment attribute is not printed by default
+
+#2 What happens to a factor when you modify its levels? 
