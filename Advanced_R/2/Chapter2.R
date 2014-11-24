@@ -68,5 +68,16 @@ structure(1:5, comment = "my attribute")
 attr(x, "comment") <- "my attribute"
 
 #Answer: comment attribute is not printed by default
+# Ex
+foo<-structure(1:5, comment = "my attribute")
+foo # doesn't print
+comment(foo) #still accessable
 
 #2 What happens to a factor when you modify its levels? 
+f1 <- factor(letters)
+levels(f1) <-rev(levels(f1))
+#Answer: modifying order of the levels modifies the order of the attached variable in the same way
+
+#3 What does this code do? How do f2 and f3 differ from f1?
+f2 <- rev(factor(letters))
+f3 <- factor(letters, levels = rev(letters))
