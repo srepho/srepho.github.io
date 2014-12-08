@@ -61,6 +61,24 @@ names(x) <- c("name1", "name2", "name3")
 
 x <- setNames(1:3, c("a", "b", "c"))
 
+##### Questions:
+#1 What are the six types of atomic vector? How does a list differ from an atomic vector?
+
+#2 What makes is.vector() and is.numeric() fundamentally different to is.list() and is.character()?
+
+#3 Test your knowledge of vector coercion rules by predicting the output of the following uses of c():
+
+c(1, FALSE)
+c("a", 1)
+c(list(1), "a")
+c(TRUE, 1L)
+
+#4 Why do you need to use unlist() to convert a list to an atomic vector? Why doesn't as.vector() work?
+
+#5 Why is 1 == "1" true? Why is -1 < FALSE true? Why is "one" < 2 false?
+
+#6 Why is the default missing value, NA, a logical vector? What's special about logical vectors? 
+# (Hint: think about c(FALSE, NA_character_).)
 
 #####  Questions:
 #1 Why does this not show comment? structure(1:5, comment = "my attribute")
