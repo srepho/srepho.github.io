@@ -1,14 +1,7 @@
 ## Welcome to the homepage of Stephen Oates.
-I am a Sydney based Data Scientist working for Mediacom on Marketing related projects.
+I am a Sydney based Data Scientist..
 
-### [Media Monitoring]()
-Often we are interested in understanding how a Brand or Product are being discussed by the public. This project looks at how to collect and analyse data from a range of news sites, discussion sites and even podcasts.
 
-### [Survey Data]()
-This post looks at how we can use survey data from small samples and map it back onto the Australian population.
-
-### [Modelling Movies]()
-A look at the impact of who works on a movie and budget on Profitability of the film.
 
 ### [Customer Life Time Value Models](http://srepho.github.io/CLV/CLV)
 A discussion of CLV models based on a review of the literature.
