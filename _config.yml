@@ -1,0 +1,8 @@
+title: Stephen Oates
+description: Data Scientist
+google_analytics: UA-52218028-1
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
