@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthropic Performance Challenge</title>
+    <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-tertiary: #0f3460;
+            --accent: #e94560;
+            --accent-secondary: #00d9ff;
+            --text-primary: #eee;
+            --text-secondary: #aaa;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --error: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .stat-value.cycles {
+            color: var(--accent-secondary);
+        }
+
+        .stat-value.speedup {
+            color: var(--success);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            grid-template-rows: 1fr auto;
+            height: calc(100vh - 70px);
+            gap: 1px;
+            background: var(--bg-tertiary);
+        }
+
+        .panel {
+            background: var(--bg-secondary);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            padding: 0.75rem 1rem;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header h2 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow: auto;
+            padding: 1rem;
+        }
+
+        /* Editor Panel */
+        #editor-panel {
+            grid-row: span 2;
+        }
+
+        #code-editor {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 1rem;
+            border: none;
+            resize: none;
+            outline: none;
+        }
+
+        /* Visualization Panel */
+        #viz-panel .panel-content {
+            padding: 0;
+        }
+
+        #slot-viz {
+            width: 100%;
+            height: 200px;
+        }
+
+        /* Benchmarks Panel */
+        .benchmark-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .benchmark-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 4px;
+        }
+
+        .benchmark-cycles {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .benchmark-bar {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .benchmark-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .benchmark-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            min-width: 120px;
+        }
+
+        .benchmark-status {
+            font-size: 1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button.secondary {
+            background: var(--bg-tertiary);
+        }
+
+        /* Output Panel */
+        #output-panel {
+            grid-column: span 2;
+            max-height: 200px;
+        }
+
+        #output {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            color: var(--text-secondary);
+        }
+
+        #output .error {
+            color: var(--error);
+        }
+
+        #output .success {
+            color: var(--success);
+        }
+
+        /* Tutorial Sidebar */
+        .tutorial-toggle {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 1rem 0.5rem;
+            writing-mode: vertical-lr;
+            cursor: pointer;
+            border-radius: 4px 0 0 4px;
+            z-index: 100;
+        }
+
+        #tutorial-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: 2px solid var(--accent);
+            transition: right 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+
+        #tutorial-sidebar.open {
+            right: 0;
+        }
+
+        #tutorial-sidebar .panel-content {
+            padding: 1.5rem;
+        }
+
+        #tutorial-sidebar h3 {
+            color: var(--accent-secondary);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #tutorial-sidebar p, #tutorial-sidebar li {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        #tutorial-sidebar code {
+            background: var(--bg-primary);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        #tutorial-sidebar pre {
+            background: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .close-tutorial {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Slot usage indicator */
+        .slot-usage {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .slot-engine {
+            text-align: center;
+        }
+
+        .slot-engine-name {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+
+        .slot-dots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .slot-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+        }
+
+        .slot-dot.active {
+            background: var(--accent-secondary);
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            main {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr auto auto;
+            }
+
+            #editor-panel {
+                grid-row: auto;
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Anthropic Performance Challenge</h1>
+        <div class="header-stats">
+            <div class="stat">
+                <div class="stat-value cycles" id="cycles-display">---</div>
+                <div class="stat-label">Cycles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value speedup" id="speedup-display">---</div>
+                <div class="stat-label">Speedup</div>
+            </div>
+            <div class="controls">
+                <button id="run-btn" onclick="runKernel()">▶ Run</button>
+                <button id="validate-btn" class="secondary" onclick="validateKernel()">✓ Validate</button>
+                <button id="reset-btn" class="secondary" onclick="resetToBaseline()">↺ Reset</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="editor-panel" class="panel">
+            <div class="panel-header">
+                <h2>Kernel Code</h2>
+                <select id="example-select" onchange="loadExample(this.value)">
+                    <option value="">Load Example...</option>
+                    <option value="baseline">Baseline (Starter)</option>
+                    <option value="packed-hash">Packed Hash</option>
+                </select>
+            </div>
+            <div class="panel-content" style="padding: 0;">
+                <textarea id="code-editor" spellcheck="false">// Anthropic Performance Challenge
+// Kernel Builder - JavaScript Version
+//
+// Edit the buildKernel function to optimize the cycle count.
+// Click "Run" to test your changes.
+
+function buildKernel(kb, forestHeight, nNodes, batchSize, rounds) {
+    const tmp1 = kb.allocScratch("tmp1");
+    const tmp2 = kb.allocScratch("tmp2");
+    const tmp3 = kb.allocScratch("tmp3");
+
+    // Load initial values from memory header
+    const initVars = [
+        "rounds", "n_nodes", "batch_size", "forest_height",
+        "forest_values_p", "inp_indices_p", "inp_values_p"
+    ];
+    for (const v of initVars) {
+        kb.allocScratch(v, 1);
+    }
+    for (let i = 0; i < initVars.length; i++) {
+        kb.add("load", ["const", tmp1, i]);
+        kb.add("load", ["load", kb.scratch[initVars[i]], tmp1]);
+    }
+
+    const zeroConst = kb.scratchConst(0);
+    const oneConst = kb.scratchConst(1);
+    const twoConst = kb.scratchConst(2);
+
+    kb.add("flow", ["pause"]);
+
+    // Allocate working registers
+    const tmpIdx = kb.allocScratch("tmp_idx");
+    const tmpVal = kb.allocScratch("tmp_val");
+    const tmpNodeVal = kb.allocScratch("tmp_node_val");
+    const tmpAddr = kb.allocScratch("tmp_addr");
+
+    // Main loop - this is where you optimize!
+    for (let round = 0; round < rounds; round++) {
+        for (let i = 0; i < batchSize; i++) {
+            const iConst = kb.scratchConst(i);
+
+            // Load index
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_indices_p"], iConst]);
+            kb.add("load", ["load", tmpIdx, tmpAddr]);
+
+            // Load value
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_values_p"], iConst]);
+            kb.add("load", ["load", tmpVal, tmpAddr]);
+
+            // Load tree node
+            kb.add("alu", ["+", tmpAddr, kb.scratch["forest_values_p"], tmpIdx]);
+            kb.add("load", ["load", tmpNodeVal, tmpAddr]);
+
+            // XOR
+            kb.add("alu", ["^", tmpVal, tmpVal, tmpNodeVal]);
+
+            // Hash (6 stages, 3 ops each)
+            for (const [op1, val1, op2, op3, val3] of Simulator.HASH_STAGES) {
+                kb.add("alu", [op1, tmp1, tmpVal, kb.scratchConst(val1)]);
+                kb.add("alu", [op3, tmp2, tmpVal, kb.scratchConst(val3)]);
+                kb.add("alu", [op2, tmpVal, tmp1, tmp2]);
+            }
+
+            // Calculate next index
+            kb.add("alu", ["%", tmp1, tmpVal, twoConst]);
+            kb.add("alu", ["==", tmp1, tmp1, zeroConst]);
+            kb.add("flow", ["select", tmp3, tmp1, oneConst, twoConst]);
+            kb.add("alu", ["*", tmpIdx, tmpIdx, twoConst]);
+            kb.add("alu", ["+", tmpIdx, tmpIdx, tmp3]);
+
+            // Wrap if past tree bounds
+            kb.add("alu", ["<", tmp1, tmpIdx, kb.scratch["n_nodes"]]);
+            kb.add("flow", ["select", tmpIdx, tmp1, tmpIdx, zeroConst]);
+
+            // Store results
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_indices_p"], iConst]);
+            kb.add("store", ["store", tmpAddr, tmpIdx]);
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_values_p"], iConst]);
+            kb.add("store", ["store", tmpAddr, tmpVal]);
+        }
+    }
+
+    kb.add("flow", ["pause"]);
+    return kb.instrs;
+}
+</textarea>
+            </div>
+        </div>
+
+        <div id="viz-panel" class="panel">
+            <div class="panel-header">
+                <h2>Benchmarks</h2>
+            </div>
+            <div class="panel-content">
+                <div class="benchmark-list" id="benchmark-list">
+                    <!-- Populated by JS -->
+                </div>
+
+                <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-secondary);">
+                    SLOT LIMITS
+                </h3>
+                <div class="slot-usage" id="slot-usage">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="output-panel" class="panel">
+            <div class="panel-header">
+                <h2>Output</h2>
+                <button class="secondary" onclick="clearOutput()" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Clear</button>
+            </div>
+            <div class="panel-content">
+                <div id="output"></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="tutorial-toggle" onclick="toggleTutorial()">📚 Tutorial</div>
+
+    <div id="tutorial-sidebar">
+        <button class="close-tutorial" onclick="toggleTutorial()">×</button>
+        <div class="panel-content">
+            <h2 style="color: var(--accent);">Quick Start</h2>
+
+            <h3>The Goal</h3>
+            <p>Minimize the cycle count. The baseline runs in ~147,000 cycles. Top solutions achieve &lt;1,500 cycles.</p>
+
+            <h3>The Machine</h3>
+            <p>A VLIW SIMD processor that can execute multiple operations per cycle:</p>
+            <ul>
+                <li><strong>ALU:</strong> 12 scalar math ops/cycle</li>
+                <li><strong>VALU:</strong> 6 vector ops/cycle (8 elements each)</li>
+                <li><strong>Load:</strong> 2 memory loads/cycle</li>
+                <li><strong>Store:</strong> 2 memory stores/cycle</li>
+                <li><strong>Flow:</strong> 1 control op/cycle</li>
+            </ul>
+
+            <h3>Key Insight</h3>
+            <p>The baseline uses ~1 slot per cycle. Pack independent operations together!</p>
+
+            <h3>Operations</h3>
+            <pre><code>// ALU
+kb.add("alu", ["+", dest, a, b])
+kb.add("alu", ["^", dest, a, b])
+kb.add("alu", ["%", dest, a, b])
+
+// Load
+kb.add("load", ["const", dest, value])
+kb.add("load", ["load", dest, addr])
+kb.add("load", ["vload", dest, addr])
+
+// Store
+kb.add("store", ["store", addr, src])
+
+// Flow
+kb.add("flow", ["select", d, cond, a, b])</code></pre>
+
+            <h3>Packing Operations</h3>
+            <p>Instead of <code>kb.add()</code> one at a time, build instruction bundles:</p>
+            <pre><code>// One cycle, multiple ops:
+kb.instrs.push({
+    "alu": [
+        ["+", a, b, c],
+        ["*", d, e, f]
+    ],
+    "load": [
+        ["load", g, h]
+    ]
+});</code></pre>
+
+            <h3>Vectors (SIMD)</h3>
+            <p>Process 8 items at once with VLEN=8:</p>
+            <pre><code>// Vector add (8 elements)
+kb.add("valu", ["+", vDest, vA, vB])
+
+// Load 8 consecutive values
+kb.add("load", ["vload", vDest, addr])</code></pre>
+
+            <h3>Tips</h3>
+            <ul>
+                <li>Analyze dependencies before packing</li>
+                <li>Use vectors for batch processing</li>
+                <li>Pre-load constants outside loops</li>
+                <li>Minimize memory operations</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="simulator.js"></script>
+    <script src="kernel-builder.js"></script>
+    <script>
+        const BASELINE = 147734;
+        const BENCHMARKS = [
+            { cycles: 147734, label: "Baseline", key: "baseline" },
+            { cycles: 18532, label: "2hr Starting Point", key: "start" },
+            { cycles: 2164, label: "Opus 4 (many hrs)", key: "opus4" },
+            { cycles: 1790, label: "Best Human 2hr", key: "human" },
+            { cycles: 1579, label: "Opus 4.5 (2hr)", key: "opus45_2hr" },
+            { cycles: 1487, label: "Opus 4.5 (11hr)", key: "opus45_11hr" },
+            { cycles: 1363, label: "Opus 4.5 Best", key: "opus45_best" }
+        ];
+
+        let currentCycles = null;
+
+        function log(msg, type = '') {
+            const output = document.getElementById('output');
+            const line = document.createElement('div');
+            line.className = type;
+            line.textContent = msg;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '';
+        }
+
+        function updateDisplay(cycles) {
+            currentCycles = cycles;
+            document.getElementById('cycles-display').textContent = cycles ? cycles.toLocaleString() : '---';
+
+            if (cycles) {
+                const speedup = (BASELINE / cycles).toFixed(2);
+                document.getElementById('speedup-display').textContent = speedup + 'x';
+            } else {
+                document.getElementById('speedup-display').textContent = '---';
+            }
+
+            updateBenchmarks(cycles);
+        }
+
+        function updateBenchmarks(cycles) {
+            const container = document.getElementById('benchmark-list');
+            container.innerHTML = '';
+
+            for (const bm of BENCHMARKS) {
+                const item = document.createElement('div');
+                item.className = 'benchmark-item';
+
+                const passed = cycles && cycles < bm.cycles;
+                const pct = cycles ? Math.min(100, (cycles / bm.cycles) * 100) : 0;
+
+                item.innerHTML = `
+                    <span class="benchmark-status">${passed ? '✓' : ''}</span>
+                    <span class="benchmark-cycles">${bm.cycles.toLocaleString()}</span>
+                    <div class="benchmark-bar">
+                        <div class="benchmark-fill" style="width: ${pct}%; background: ${passed ? 'var(--success)' : 'var(--accent)'}"></div>
+                    </div>
+                    <span class="benchmark-label">${bm.label}</span>
+                `;
+
+                container.appendChild(item);
+            }
+        }
+
+        function updateSlotUsage() {
+            const container = document.getElementById('slot-usage');
+            container.innerHTML = '';
+
+            const engines = [
+                { name: 'ALU', limit: 12 },
+                { name: 'VALU', limit: 6 },
+                { name: 'Load', limit: 2 },
+                { name: 'Store', limit: 2 },
+                { name: 'Flow', limit: 1 }
+            ];
+
+            for (const eng of engines) {
+                const div = document.createElement('div');
+                div.className = 'slot-engine';
+                div.innerHTML = `
+                    <div class="slot-engine-name">${eng.name}</div>
+                    <div class="slot-dots">
+                        ${Array(eng.limit).fill('<div class="slot-dot"></div>').join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function runKernel() {
+            clearOutput();
+            log('Building kernel...');
+
+            try {
+                const code = document.getElementById('code-editor').value;
+
+                // Create function from code
+                const buildFn = new Function('kb', 'forestHeight', 'nNodes', 'batchSize', 'rounds', 'Simulator',
+                    code + '\nreturn buildKernel(kb, forestHeight, nNodes, batchSize, rounds);'
+                );
+
+                // Build kernel
+                const kb = new KernelBuilder();
+                const forestHeight = 10;
+                const rounds = 16;
+                const batchSize = 256;
+                const nNodes = Math.pow(2, forestHeight + 1) - 1;
+
+                const program = buildFn(kb, forestHeight, nNodes, batchSize, rounds, Simulator);
+
+                log(`Generated ${program.length} instructions`);
+
+                // Generate test data
+                const tree = Simulator.generateTree(forestHeight);
+                const input = Simulator.generateInput(tree, batchSize, rounds);
+                const mem = Simulator.buildMemImage(tree, input);
+
+                // Run simulation
+                log('Running simulation...');
+                const machine = new Simulator.Machine(mem, program, { enablePause: false, enableDebug: false });
+                const startTime = performance.now();
+                const cycles = machine.run();
+                const elapsed = performance.now() - startTime;
+
+                log(`Completed in ${elapsed.toFixed(1)}ms`);
+                log(`Cycles: ${cycles.toLocaleString()}`, 'success');
+                log(`Speedup: ${(BASELINE / cycles).toFixed(2)}x over baseline`, 'success');
+
+                updateDisplay(cycles);
+
+            } catch (e) {
+                log(`Error: ${e.message}`, 'error');
+                console.error(e);
+                updateDisplay(null);
+            }
+        }
+
+        function validateKernel() {
+            clearOutput();
+            log('Validating kernel (8 random tests)...');
+
+            try {
+                const code = document.getElementById('code-editor').value;
+
+                const buildFn = new Function('kb', 'forestHeight', 'nNodes', 'batchSize', 'rounds', 'Simulator',
+                    code + '\nreturn buildKernel(kb, forestHeight, nNodes, batchSize, rounds);'
+                );
+
+                let allPassed = true;
+                let totalCycles = 0;
+
+                for (let test = 0; test < 8; test++) {
+                    const kb = new KernelBuilder();
+                    const forestHeight = 10;
+                    const rounds = 16;
+                    const batchSize = 256;
+                    const nNodes = Math.pow(2, forestHeight + 1) - 1;
+
+                    const program = buildFn(kb, forestHeight, nNodes, batchSize, rounds, Simulator);
+
+                    // Generate test data with different random seed
+                    const tree = Simulator.generateTree(forestHeight);
+                    const input = Simulator.generateInput(tree, batchSize, rounds);
+                    const mem = Simulator.buildMemImage(tree, input);
+
+                    // Run reference
+                    const refMem = Simulator.referenceKernel([...mem]);
+
+                    // Run program
+                    const machine = new Simulator.Machine(mem, program, { enablePause: false, enableDebug: false });
+                    const cycles = machine.run();
+                    totalCycles += cycles;
+
+                    // Compare
+                    const inpValuesP = mem[6];
+                    let correct = true;
+                    for (let i = 0; i < batchSize; i++) {
+                        if (refMem[inpValuesP + i] !== machine.mem[inpValuesP + i]) {
+                            correct = false;
+                            break;
+                        }
+                    }
+
+                    if (correct) {
+                        log(`Test ${test + 1}: PASSED (${cycles.toLocaleString()} cycles)`, 'success');
+                    } else {
+                        log(`Test ${test + 1}: FAILED - incorrect output`, 'error');
+                        allPassed = false;
+                    }
+                }
+
+                if (allPassed) {
+                    const avgCycles = Math.round(totalCycles / 8);
+                    log(`\nAll tests passed! Average: ${avgCycles.toLocaleString()} cycles`, 'success');
+                    updateDisplay(avgCycles);
+                } else {
+                    log(`\nSome tests failed - check your implementation`, 'error');
+                }
+
+            } catch (e) {
+                log(`Error: ${e.message}`, 'error');
+                console.error(e);
+            }
+        }
+
+        function resetToBaseline() {
+            document.getElementById('code-editor').value = `// Anthropic Performance Challenge
+// Kernel Builder - JavaScript Version
+//
+// Edit the buildKernel function to optimize the cycle count.
+// Click "Run" to test your changes.
+
+function buildKernel(kb, forestHeight, nNodes, batchSize, rounds) {
+    const tmp1 = kb.allocScratch("tmp1");
+    const tmp2 = kb.allocScratch("tmp2");
+    const tmp3 = kb.allocScratch("tmp3");
+
+    // Load initial values from memory header
+    const initVars = [
+        "rounds", "n_nodes", "batch_size", "forest_height",
+        "forest_values_p", "inp_indices_p", "inp_values_p"
+    ];
+    for (const v of initVars) {
+        kb.allocScratch(v, 1);
+    }
+    for (let i = 0; i < initVars.length; i++) {
+        kb.add("load", ["const", tmp1, i]);
+        kb.add("load", ["load", kb.scratch[initVars[i]], tmp1]);
+    }
+
+    const zeroConst = kb.scratchConst(0);
+    const oneConst = kb.scratchConst(1);
+    const twoConst = kb.scratchConst(2);
+
+    kb.add("flow", ["pause"]);
+
+    // Allocate working registers
+    const tmpIdx = kb.allocScratch("tmp_idx");
+    const tmpVal = kb.allocScratch("tmp_val");
+    const tmpNodeVal = kb.allocScratch("tmp_node_val");
+    const tmpAddr = kb.allocScratch("tmp_addr");
+
+    // Main loop - this is where you optimize!
+    for (let round = 0; round < rounds; round++) {
+        for (let i = 0; i < batchSize; i++) {
+            const iConst = kb.scratchConst(i);
+
+            // Load index
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_indices_p"], iConst]);
+            kb.add("load", ["load", tmpIdx, tmpAddr]);
+
+            // Load value
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_values_p"], iConst]);
+            kb.add("load", ["load", tmpVal, tmpAddr]);
+
+            // Load tree node
+            kb.add("alu", ["+", tmpAddr, kb.scratch["forest_values_p"], tmpIdx]);
+            kb.add("load", ["load", tmpNodeVal, tmpAddr]);
+
+            // XOR
+            kb.add("alu", ["^", tmpVal, tmpVal, tmpNodeVal]);
+
+            // Hash (6 stages, 3 ops each)
+            for (const [op1, val1, op2, op3, val3] of Simulator.HASH_STAGES) {
+                kb.add("alu", [op1, tmp1, tmpVal, kb.scratchConst(val1)]);
+                kb.add("alu", [op3, tmp2, tmpVal, kb.scratchConst(val3)]);
+                kb.add("alu", [op2, tmpVal, tmp1, tmp2]);
+            }
+
+            // Calculate next index
+            kb.add("alu", ["%", tmp1, tmpVal, twoConst]);
+            kb.add("alu", ["==", tmp1, tmp1, zeroConst]);
+            kb.add("flow", ["select", tmp3, tmp1, oneConst, twoConst]);
+            kb.add("alu", ["*", tmpIdx, tmpIdx, twoConst]);
+            kb.add("alu", ["+", tmpIdx, tmpIdx, tmp3]);
+
+            // Wrap if past tree bounds
+            kb.add("alu", ["<", tmp1, tmpIdx, kb.scratch["n_nodes"]]);
+            kb.add("flow", ["select", tmpIdx, tmp1, tmpIdx, zeroConst]);
+
+            // Store results
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_indices_p"], iConst]);
+            kb.add("store", ["store", tmpAddr, tmpIdx]);
+            kb.add("alu", ["+", tmpAddr, kb.scratch["inp_values_p"], iConst]);
+            kb.add("store", ["store", tmpAddr, tmpVal]);
+        }
+    }
+
+    kb.add("flow", ["pause"]);
+    return kb.instrs;
+}`;
+            clearOutput();
+            log('Reset to baseline code');
+            updateDisplay(null);
+        }
+
+        function loadExample(name) {
+            if (!name) return;
+            // Examples could be loaded here
+            document.getElementById('example-select').value = '';
+        }
+
+        function toggleTutorial() {
+            document.getElementById('tutorial-sidebar').classList.toggle('open');
+        }
+
+        // Initialize
+        updateBenchmarks(null);
+        updateSlotUsage();
+        log('Ready! Click "Run" to test the kernel.');
+    </script>
+</body>
+</html>
