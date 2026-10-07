@@ -9,6 +9,15 @@
   "published": "2026-10-07 09:53 UTC"
  },
  {
+  "key": "upcoming",
+  "slug": "upcoming.html",
+  "title": "Upcoming predictions",
+  "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
+  "section": "All forecasts",
+  "date": "2026-10-08",
+  "published": "2026-10-07 14:14 UTC"
+ },
+ {
   "key": "vic",
   "slug": "vic-election-2026.html",
   "title": "Victorian election 2026: seat-by-seat forecast",
