@@ -16,6 +16,20 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 ---
 
+<!-- forecasts:start -->
+## Forecasts
+
+Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
+
+### [NBA 2026–27 season outlook](/predictions/nba-2026-27.html) (Wednesday 7 October 2026)
+Win totals, offence and defence ranks, seeding odds and games-played forecasts for every team, against the Kalshi win-total markets; luck and player WAR.
+
+### [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 7 October 2026)
+All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
+
+---
+<!-- forecasts:end -->
+
 ## Recent Projects
 
 ### AI Agents & Frameworks
