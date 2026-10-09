@@ -1,5 +1,14 @@
 [
  {
+  "key": "cricket-tests",
+  "slug": "cricket-tests.html",
+  "title": "Test cricket rankings and predictions",
+  "blurb": "Opposition-adjusted team and exploratory player rankings, upcoming win/draw/loss predictions, a matchup explorer and chronological validation.",
+  "section": "Cricket",
+  "date": "2026-10-09",
+  "published": "2026-10-09 08:14 UTC"
+ },
+ {
   "key": "cricket",
   "slug": "cricket.html",
   "title": "Cricket predictions and international ratings",
