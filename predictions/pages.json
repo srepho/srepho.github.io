@@ -24,7 +24,7 @@
   "blurb": "A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-09 14:42 UTC"
+  "published": "2026-10-09 21:00 UTC"
  },
  {
   "key": "carryover",
@@ -33,7 +33,7 @@
   "blurb": "A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-09 12:14 UTC"
+  "published": "2026-10-09 21:00 UTC"
  },
  {
   "key": "hothand",
@@ -42,7 +42,7 @@
   "blurb": "A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-09 13:48 UTC"
+  "published": "2026-10-09 21:00 UTC"
  },
  {
   "key": "ideas",
@@ -51,7 +51,7 @@
   "blurb": "Questions worth testing, by sport, with links to the write-ups as each is done.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-09 15:18 UTC"
+  "published": "2026-10-09 21:00 UTC"
  },
  {
   "key": "nba",
@@ -69,7 +69,7 @@
   "blurb": "A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-09 14:52 UTC"
+  "published": "2026-10-09 21:00 UTC"
  },
  {
   "key": "upcoming",
