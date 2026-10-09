@@ -21,6 +21,9 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
+### [Ideas for experiments](/predictions/ideas.html) (Saturday 10 October 2026)
+Questions worth testing, by sport, with links to the write-ups as each is done.
+
 ### [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026)
 A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
 

@@ -45,6 +45,15 @@
   "published": "2026-10-09 13:48 UTC"
  },
  {
+  "key": "ideas",
+  "slug": "ideas.html",
+  "title": "Ideas for experiments",
+  "blurb": "Questions worth testing, by sport, with links to the write-ups as each is done.",
+  "section": "Research",
+  "date": "2026-10-10",
+  "published": "2026-10-09 15:18 UTC"
+ },
+ {
   "key": "nba",
   "slug": "nba-2026-27.html",
   "title": "NBA 2026\u201327 season outlook",
