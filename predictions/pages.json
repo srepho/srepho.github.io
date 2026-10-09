@@ -1,21 +1,12 @@
 [
  {
-  "key": "cricket-tests",
-  "slug": "cricket-tests.html",
-  "title": "Test cricket rankings and predictions",
-  "blurb": "Opposition-adjusted team and exploratory player rankings, upcoming win/draw/loss predictions, a matchup explorer and chronological validation.",
-  "section": "Cricket",
-  "date": "2026-10-09",
-  "published": "2026-10-09 08:48 UTC"
- },
- {
   "key": "cricket",
   "slug": "cricket.html",
-  "title": "Cricket predictions and international ratings",
-  "blurb": "Upcoming T20Is and ODIs with model, runner and market prices; opposition-adjusted team and player ratings, wins above replacement, home advantage and aging curves, men and women.",
+  "title": "Cricket rankings and predictions",
+  "blurb": "Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.",
   "section": "Cricket",
   "date": "2026-10-09",
-  "published": "2026-10-09 07:27 UTC"
+  "published": "2026-10-09 09:02 UTC"
  },
  {
   "key": "nba",

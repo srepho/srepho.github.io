@@ -21,11 +21,8 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
-### [Test cricket rankings and predictions](/predictions/cricket-tests.html) (Friday 9 October 2026)
-Opposition-adjusted team and exploratory player rankings, upcoming win/draw/loss predictions, a matchup explorer and chronological validation.
-
-### [Cricket predictions and international ratings](/predictions/cricket.html) (Friday 9 October 2026)
-Upcoming T20Is and ODIs with model, runner and market prices; opposition-adjusted team and player ratings, wins above replacement, home advantage and aging curves, men and women.
+### [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026)
+Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 
 ### [Upcoming predictions](/predictions/upcoming.html) (Friday 9 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
