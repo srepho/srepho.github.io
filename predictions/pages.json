@@ -9,6 +9,15 @@
   "published": "2026-10-09 10:05 UTC"
  },
  {
+  "key": "carryover",
+  "slug": "form-carryover.html",
+  "title": "Does form carry over between cricket formats?",
+  "blurb": "A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.",
+  "section": "Research",
+  "date": "2026-10-09",
+  "published": "2026-10-09 10:45 UTC"
+ },
+ {
   "key": "nba",
   "slug": "nba-2026-27.html",
   "title": "NBA 2026\u201327 season outlook",

@@ -24,6 +24,9 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026)
 Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 
+### [Does form carry over between cricket formats?](/predictions/form-carryover.html) (Friday 9 October 2026)
+A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.
+
 ### [Upcoming predictions](/predictions/upcoming.html) (Friday 9 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
