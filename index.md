@@ -30,6 +30,9 @@ Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, m
 ### [Does form carry over between cricket formats?](/predictions/form-carryover.html) (Friday 9 October 2026)
 A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.
 
+### [Is there a hot hand in cricket?](/predictions/hot-hand.html) (Friday 9 October 2026)
+A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?
+
 ### [Upcoming predictions](/predictions/upcoming.html) (Friday 9 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
