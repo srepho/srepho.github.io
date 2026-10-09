@@ -21,7 +21,7 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
-### [Upcoming predictions](/predictions/upcoming.html) (Thursday 8 October 2026)
+### [Upcoming predictions](/predictions/upcoming.html) (Friday 9 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### [NBA 2026–27 season outlook](/predictions/nba-2026-27.html) (Wednesday 7 October 2026)
