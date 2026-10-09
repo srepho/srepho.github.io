@@ -27,6 +27,9 @@ A pre-registered test of adding a per-match conditions effect to the player rati
 ### [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026)
 Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 
+### [Can Duckworth–Lewis be improved?](/predictions/dls.html) (Friday 9 October 2026)
+A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.
+
 ### [Does form carry over between cricket formats?](/predictions/form-carryover.html) (Friday 9 October 2026)
 A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.
 
