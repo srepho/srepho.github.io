@@ -54,6 +54,15 @@
   "published": "2026-10-07 09:53 UTC"
  },
  {
+  "key": "sessions",
+  "slug": "test-sessions.html",
+  "title": "Test innings, session by session: above or below expectation?",
+  "blurb": "A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.",
+  "section": "Research",
+  "date": "2026-10-09",
+  "published": "2026-10-09 14:52 UTC"
+ },
+ {
   "key": "upcoming",
   "slug": "upcoming.html",
   "title": "Upcoming predictions",
