@@ -1,5 +1,14 @@
 [
  {
+  "key": "cricket",
+  "slug": "cricket.html",
+  "title": "Cricket predictions and international ratings",
+  "blurb": "Upcoming T20Is and ODIs with model, runner and market prices; opposition-adjusted team and player ratings, wins above replacement, home advantage and aging curves, men and women.",
+  "section": "Cricket",
+  "date": "2026-10-09",
+  "published": "2026-10-09 06:13 UTC"
+ },
+ {
   "key": "nba",
   "slug": "nba-2026-27.html",
   "title": "NBA 2026\u201327 season outlook",
