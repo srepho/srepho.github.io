@@ -21,6 +21,9 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
+### [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026)
+A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
+
 ### [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026)
 Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 

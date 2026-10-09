@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="forecast-date" content="2026-10-09">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Should the ratings allow for the conditions of the day?</title>
+<meta name="description" content="A pre-registered research note with its design, findings, method and data.">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#4b535d;--muted:#7b8591;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--serif:Georgia,"Times New Roman",serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#b8bcc4;--muted:#8a919b;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#b8bcc4;--muted:#8a919b;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;color-scheme:dark}
+html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans)}
+.wrap{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:18px;font-weight:600;margin:32px 0 8px}
+.asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
+.asof span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:12px}
+.lede{font-size:17px;line-height:1.5;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+p{max-width:72ch}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:13px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td:first-child,td:nth-child(2){white-space:nowrap}
+td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+svg text{fill:var(--ink2);font-size:12px;font-family:var(--sans)}
+svg .axis{stroke:var(--line)}svg .zero{stroke:var(--muted);stroke-dasharray:3 3}
+svg .ci{stroke:var(--accent);stroke-width:2}svg .pt{fill:var(--accent)}
+svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
+a{color:var(--accent)}
+footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker" id="kicker"></p>
+  <h1 id="title"></h1>
+  <div class="asof" id="asof"></div>
+  <p class="meta" id="reg"></p>
+  <h2>Question</h2><p id="question"></p>
+  <div class="lede" id="headline"></div>
+  <h2>Findings</h2>
+  <p class="meta">Point estimates with 95% player-block bootstrap intervals. Green: the interval excludes zero.</p>
+  <div id="charts"></div>
+  <div id="tables"></div>
+  <h2>Method</h2><ul id="method"></ul>
+  <div id="deviations"></div>
+  <footer id="foot"></footer>
+</div>
+<script type="application/json" id="data">{"title":"Should the ratings allow for the conditions of the day?","slug":"conditions.html","kicker":"Research note \u00b7 cricket","registered":{"date":"2026-10-09","commit":"6796c22","path":"docs/research/CONDITIONS_PREREG.md"},"generated":"2026-10-09 12:58 UTC","as_of":"2026-10-09","question":"The rating model adjusts each ball for the opponent, the teams, the venue, the year and the home side, but not for the day: the pitch, the light, the ball. Adding one effect per match, estimated jointly from everyone's balls in it, credits a batter relative to how the other players fared that day. Does that produce ratings that predict matches better? Decision rule, fixed in advance: adopt for a new live study only if the pooled previous-eleven Brier change is negative with an interval excluding zero.","headline":"Conditions matter a great deal on the day and hardly at all in the rankings. One effect per match, fitted jointly from everyone's balls, has a spread of 6 to 9 runs per 100 balls across matches (the 10th-to-90th percentile day in men's T20Is runs from \u221210 to +10), about the gap between a good batter and an average one. But a career rating averages over many days, so adding the effects moves the rankings very little (rank correlation 0.99 or better, 90\u201398% of the top 50 unchanged; the biggest moves, \u00b14 to \u00b18 per 100 balls, are players with few matches) and does not change match prediction: the pooled Brier change is +2 \u00d7 10\u207b\u2074 with an interval of \u22122 to +5, so by the rule fixed in advance the fit is not adopted for the live model. The effects are worth keeping for a different job: judging a single innings against the day it was played on.","findings":[{"label":"Male \u00b7 T20 \u00b7 previous-eleven forecast","estimate":2.0439424863403364,"lo":-1.356446066530222,"hi":5.454730357100169,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 T20 \u00b7 team-only forecast","estimate":1.5036924077342717,"lo":-1.394054968700369,"hi":4.440963771609598,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 previous-eleven forecast","estimate":0.7317115438631728,"lo":-5.831243602109779,"hi":6.779935346628127,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 team-only forecast","estimate":-1.5922995765011376,"lo":-8.423606479666654,"hi":4.949171544059369,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 previous-eleven forecast","estimate":-0.7087590582019152,"lo":-15.322165084503354,"hi":13.643013493247572,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 team-only forecast","estimate":-1.2673960458229752,"lo":-11.972432752291885,"hi":10.56143528625318,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 previous-eleven forecast","estimate":7.019487683757931,"lo":-7.093526767979109,"hi":21.11173333644731,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 team-only forecast","estimate":3.9803536194639766,"lo":-8.462387916104417,"hi":16.757666395584824,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"All four groups pooled \u00b7 previous-eleven","estimate":1.5535017179469819,"lo":-2.1944472111288538,"hi":5.233585836010344,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"}],"tables":[{"title":"Primary: walk-forward 2023\u201325, previous-eleven forecast","columns":[["analysis","Group"],["matches","Matches"],["current","Brier, current fit"],["conditions","Brier, conditions fit"],["diff","Change \u00d7 10\u2074 [95% week-block]"],["team_diff","Team-only change \u00d7 10\u2074 [95%]"]],"rows":[{"analysis":"Male \u00b7 T20","matches":1436,"current":"0.1814","conditions":"0.1816","diff":"+2.04 [-1.36, +5.45]","team_diff":"+1.50 [-1.39, +4.44]"},{"analysis":"Female \u00b7 T20","matches":1004,"current":"0.1817","conditions":"0.1818","diff":"+0.73 [-5.83, +6.78]","team_diff":"-1.59 [-8.42, +4.95]"},{"analysis":"Male \u00b7 one-day","matches":425,"current":"0.2103","conditions":"0.2103","diff":"-0.71 [-15.32, +13.64]","team_diff":"-1.27 [-11.97, +10.56]"},{"analysis":"Female \u00b7 one-day","matches":198,"current":"0.1771","conditions":"0.1778","diff":"+7.02 [-7.09, +21.11]","team_diff":"+3.98 [-8.46, +16.76]"},{"analysis":"Pooled","matches":3063,"current":"0.1852","conditions":"0.1854","diff":"+1.55 [-2.19, +5.23]","team_diff":""}]},{"title":"How much the current rankings move","columns":[["group","Group"],["players","Players"],["rank_corr","Rank correlation"],["top50","Top-50 overlap"],["up","Rise most (runs per 100 balls)"],["down","Fall most"]],"rows":[{"group":"Male \u00b7 T20 bat","players":419,"rank_corr":"0.999","top50":"98%","up":"S Mathur (+4.6), Shahid Wasif (+4.1), M Syahadat Ramli (+3.5), SM Curran (+3.4), Yasim Murtaza (+3.3)","down":"SV Samson (-5.4), H Carlyon (-4.3), MS Chapman (-4.1), Hassan Nawaz (-4.0), S Houghton (-4.0)"},{"group":"Male \u00b7 T20 bowl","players":462,"rank_corr":"0.998","top50":"94%","up":"Aayan Afzal Khan (+4.8), Shahid Afridi (+4.2), SA Ahmad (+3.6), MJ Henry (+3.4), JN Loftie-Eaton (+3.3)","down":"Taranjit Singh (-4.1), Mohammad Ghazanfar (-3.8), G Coetzee (-3.6), Shah Faisal (-3.5), H Venkataram (-3.4)"},{"group":"Female \u00b7 T20 bat","players":292,"rank_corr":"0.999","top50":"98%","up":"MK Amusa (+3.2), NN Saidi (+3.0), HJ Thomas (+2.7), C Chukwuonye (+2.6), NJ Pius (+2.5)","down":"F Utagushimaninde (-7.9), LV Boas (-5.2), B Ichinkhorloo (-4.3), L Agatha (-3.9), G Ishimwe (-3.6)"},{"group":"Female \u00b7 T20 bowl","players":358,"rank_corr":"0.999","top50":"96%","up":"L Moises (+4.3), Rameen Shamim (+3.8), CS Nascimento (+3.4), M Ayodhya (+3.2), K Kavindi (+3.2)","down":"TI Gajanayake (-3.1), A Dcosta (-2.5), U Peace (-2.2), HMD Rasangika (-2.2), Afida Afthab (-2.1)"},{"group":"Male \u00b7 one-day bat","players":232,"rank_corr":"0.994","top50":"96%","up":"Shadab Khan (+4.9), MS Chapman (+4.5), J Ramanandi (+4.1), AM Tribe (+4.0), MJ Santner (+3.7)","down":"RD Gaikwad (-7.1), Muhammad Shahdad (-5.5), Ali Zaheer (-4.8), Meet Bhavsar (-4.7), T Bavuma (-4.4)"},{"group":"Male \u00b7 one-day bowl","players":256,"rank_corr":"0.987","top50":"92%","up":"Gurnoor Brar (+6.6), M Prasidh Krishna (+4.9), Harshit Rana (+4.8), S Joseph (+4.7), Ali Naseer (+4.0)","down":"Jay Odedra (-6.6), K Juma (-5.5), A Roy (-4.8), Aamir Kaleem (-4.7), BAD Manenti (-4.1)"},{"group":"Female \u00b7 one-day bat","players":116,"rank_corr":"0.996","top50":"98%","up":"ML Green (+4.8), CE Dean (+3.0), BM Halliday (+2.8), GE Plimmer (+2.6), H Karunaratne (+2.4)","down":"RMAU Grimmond (-3.9), T Ruma (-3.6), JI Rodrigues (-3.5), Pratika Rawal (-3.2), A Hunter (-2.8)"},{"group":"Female \u00b7 one-day bowl","players":139,"rank_corr":"0.989","top50":"90%","up":"N Shangase (+3.9), S Rana (+3.8), Priya Mishra (+3.7), N Shree Charani (+3.4), RP Yadav (+3.3)","down":"NH Patel (-4.5), RA Mair (-3.6), M Mavunga (-3.1), O Kamchomphu (-3.0), BG Illing (-2.7)"}]},{"title":"How much a day matters: spread of the match effects","columns":[["group","Group"],["matches","Matches"],["bat_sd","Batting conditions sd, runs per 100 balls"],["bowl_sd","Bowling sd"],["p10_p90","Batting 10th\u201390th percentile"]],"rows":[{"group":"Male \u00b7 T20","matches":3832,"bat_sd":"8.9","bowl_sd":"8.8","p10_p90":"-10.1 to +10.4"},{"group":"Female \u00b7 T20","matches":2263,"bat_sd":"7.6","bowl_sd":"7.3","p10_p90":"-8.9 to +9.1"},{"group":"Male \u00b7 one-day","matches":3051,"bat_sd":"6.1","bowl_sd":"6.0","p10_p90":"-5.0 to +5.1"},{"group":"Female \u00b7 one-day","matches":644,"bat_sd":"7.7","bowl_sd":"7.5","p10_p90":"-9.4 to +8.4"}]}],"method":["Same weighted ridge as the published ratings (cricket_value) with one more block: an effect per match, penalised like a player with 100 average balls, estimated jointly with player, team, venue, year and home effects.","Walk-forward as in docs/CRICKET_INTERNATIONAL.md: each year's internationals predicted from fits on matches released before 1 January, both fits given identical inputs; previous released elevens; paired Brier with a calendar-week block bootstrap, 2,000 resamples.","Rankings comparison at the current date: players with 200 weighted balls in the last two years; Spearman correlation and top-50 overlap between the two fits.","Data: Cricsheet ball-by-ball internationals, T20I and ODI, men and women separately."],"deviations":[],"data":{"results":"docs/research/conditions_results.json","code":"src/predmarkets/cricket_conditions.py, scripts/research_conditions.py"}}</script>
+<script>
+(function(){
+  "use strict";
+  var N = JSON.parse(document.getElementById("data").textContent);
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  $("kicker").textContent = N.kicker; $("title").textContent = N.title;
+  $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
+  $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.';
+  $("question").textContent = N.question;
+  if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
+  // Dot plots, one per group of findings.
+  var groups = {};
+  (N.findings||[]).forEach(function(f){ (groups[f.group]=groups[f.group]||[]).push(f); });
+  var html = "";
+  Object.keys(groups).forEach(function(g){
+    var rows = groups[g], W=820, L=330, R=20, rowH=26, H=rows.length*rowH+40;
+    var lo=Math.min(0, Math.min.apply(null, rows.map(function(r){return r.lo;}))), hi=Math.max(0, Math.max.apply(null, rows.map(function(r){return r.hi;})));
+    var pad=(hi-lo)*0.08||1; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var s='<h3 style="font-size:14px;margin:18px 0 4px;color:var(--ink2)">'+esc(rows[0].unit)+'</h3><svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img">';
+    s+='<line class="zero" x1="'+X(0)+'" x2="'+X(0)+'" y1="8" y2="'+(H-28)+'"/>';
+    rows.forEach(function(r,i){ var y=20+i*rowH, sig=(r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0);
+      s+='<text x="'+(L-10)+'" y="'+(y+4)+'" text-anchor="end">'+esc(r.label)+'</text><line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo)+'" x2="'+X(r.hi)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":"")+'" cx="'+X(r.estimate)+'" cy="'+y+'" r="4"/>'; });
+    [lo+pad, 0, hi-pad].forEach(function(v){ s+='<text x="'+X(v)+'" y="'+(H-8)+'" text-anchor="middle">'+(Math.abs(v)<1e-9?"0":v.toFixed(1))+'</text>'; });
+    html += s+'</svg>';
+  });
+  $("charts").innerHTML = html;
+  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; return '<h2>'+esc(t.title)+'</h2><div class="scroll"><table><thead><tr>'+t.columns.map(function(c){return '<th>'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; return '<td class="'+(i&&/^[+\-\d]/.test(String(v))?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+  $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2>Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else { $("deviations").innerHTML='<h2>Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: Cricsheet ball-by-ball (CC BY 4.0). Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.';
+})();
+</script>
+</body>
+</html>

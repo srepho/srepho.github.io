@@ -1,5 +1,14 @@
 [
  {
+  "key": "conditions",
+  "slug": "conditions.html",
+  "title": "Should the ratings allow for the conditions of the day?",
+  "blurb": "A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?",
+  "section": "Research",
+  "date": "2026-10-09",
+  "published": "2026-10-09 13:10 UTC"
+ },
+ {
   "key": "cricket",
   "slug": "cricket.html",
   "title": "Cricket rankings and predictions",
