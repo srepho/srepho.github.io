@@ -21,6 +21,9 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
+### [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026)
+The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
+
 ### [Can Duckworth–Lewis be improved?](/predictions/dls.html) (Saturday 10 October 2026)
 A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.
 
