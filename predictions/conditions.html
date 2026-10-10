@@ -7,88 +7,284 @@
 <title>Should the ratings allow for the conditions of the day?</title>
 <meta name="description" content="A pre-registered research note with its design, findings, method and data.">
 <style>
-:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#4b535d;--muted:#7b8591;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--serif:Georgia,"Times New Roman",serif}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#b8bcc4;--muted:#8a919b;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#b8bcc4;--muted:#8a919b;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;color-scheme:dark}
-html{background:var(--bg)}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 var(--sans)}
-.wrap{max-width:820px;margin:0 auto;padding:28px 16px 64px}
-.kicker{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#464e58;--muted:#5f6873;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;--focus:#1f5fc4;
+  --s1:#1f5fc4;--s2:#d2540e;--s3:#8b44e0;--s4:#0d8a6a;
+  --ramp:#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);color:var(--ink);padding:8px 12px;border:2px solid var(--focus);border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
-h2{font-size:18px;font-weight:600;margin:32px 0 8px}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;font-weight:600;margin:0 0 2px;color:var(--ink)}
 .asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
-.asof span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
-.meta{color:var(--muted);font-size:12px}
-.lede{font-size:17px;line-height:1.5;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+.asof span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.lede{font-size:17px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
 p{max-width:72ch}
-.scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:13px}
-th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+nav.toc{margin:14px 0 0;font-size:14px}
+nav.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc li{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 4px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tile .l{font-size:13px;color:var(--muted);margin:0}
+.tile .v{font-size:26px;font-weight:600;margin:2px 0 0;line-height:1.2}
+.tile .n{font-size:13px;color:var(--ink2);margin:2px 0 0}
+figure.fig{margin:22px 0;padding:0}
+figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
+figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
+@media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+.legend .sw.dot{width:9px;height:9px;border-radius:50%}
+.legend .sw.hollow{background:transparent!important;border:2px solid currentColor;width:7px;height:7px}
+details.tbl{margin:4px 0 0;font-size:14px}
+details.tbl summary{cursor:pointer;color:var(--accent);font-size:14px}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll:focus-visible{outline-offset:-3px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+caption{text-align:left;font-size:17px;font-weight:600;margin:32px 0 8px;caption-side:top;color:var(--ink)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
 td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
 td:first-child,td:nth-child(2){white-space:nowrap}
-td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
-svg text{fill:var(--ink2);font-size:12px;font-family:var(--sans)}
-svg .axis{stroke:var(--line)}svg .zero{stroke:var(--muted);stroke-dasharray:3 3}
-svg .ci{stroke:var(--accent);stroke-width:2}svg .pt{fill:var(--accent)}
+td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+details.tbl table{font-size:13px}details.tbl caption{font-size:14px;margin:6px 0 4px}
+svg text{fill:var(--ink2);font-size:13px;font-family:var(--sans)}
+svg text.v{font-family:var(--mono);fill:var(--ink);font-size:12px}
+svg text.t{fill:var(--muted);font-size:12px}
+svg .axis{stroke:var(--line);stroke-width:1}svg .grid{stroke:var(--grid);stroke-width:1}svg .zero{stroke:var(--muted);stroke-width:1}
+svg .ci{stroke:var(--accent);stroke-width:2;stroke-linecap:round}svg .pt{fill:var(--accent);stroke:var(--card);stroke-width:2}
 svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+svg .pt.hollow{fill:var(--card);stroke:var(--accent);stroke-width:2.5}
+svg .ident{stroke:var(--muted);stroke-width:1}
+svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+svg .mk{stroke:var(--card);stroke-width:2}
+svg .hit{fill:transparent;cursor:default}
+svg .hit:focus{outline:none}
+svg .hit:focus + .mk, svg .hit:hover + .mk{stroke:var(--ink);stroke-width:2}
+svg .bar{stroke:none}
+svg .bar:hover,svg .bar:focus{filter:brightness(1.15);outline:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 9px;border-radius:6px;max-width:300px;z-index:20;display:none;white-space:pre-line}
 ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
 a{color:var(--accent)}
-footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="wrap">
+<main id="main">
   <p class="kicker" id="kicker"></p>
   <h1 id="title"></h1>
   <div class="asof" id="asof"></div>
   <p class="meta" id="reg"></p>
-  <h2>Question</h2><p id="question"></p>
+  <nav class="toc" aria-label="Contents"><ul id="toc"></ul></nav>
+  <h2 id="question-h">Question</h2><p id="question"></p>
+  <h2 id="brief-h">In brief</h2>
   <div class="lede" id="headline"></div>
-  <h2>Findings</h2>
-  <p class="meta">Point estimates and uncertainty intervals; the sampling unit and method are stated for each analysis. Green: the interval excludes zero.</p>
+  <div class="tiles" id="tiles"></div>
+  <h2 id="findings-h">Findings</h2>
+  <p class="meta">Point estimates with uncertainty intervals; the sampling unit and method are stated on each chart. A filled green marker means the interval excludes zero; a hollow marker means it does not. Every chart has a data table beneath it.</p>
   <div id="charts"></div>
+  <div id="figures"></div>
   <div id="tables"></div>
-  <h2>Method</h2><ul id="method"></ul>
+  <h2 id="method-h">Method</h2><ul id="method"></ul>
   <div id="deviations"></div>
   <footer id="foot"></footer>
+</main>
 </div>
-<script type="application/json" id="data">{"title":"Should the ratings allow for the conditions of the day?","slug":"conditions.html","kicker":"Research note \u00b7 cricket","registered":{"date":"2026-10-09","commit":"6796c22","path":"docs/research/CONDITIONS_PREREG.md"},"generated":"2026-10-09 23:58 AEDT","as_of":"2026-10-09","question":"The rating model adjusts each ball for the opponent, the teams, the venue, the year and the home side, but not for the day: the pitch, the light, the ball. Adding one effect per match, estimated jointly from everyone's balls in it, credits a batter relative to how the other players fared that day. Does that produce ratings that predict matches better? Decision rule, fixed in advance: adopt for a new live study only if the pooled previous-eleven Brier change is negative with an interval excluding zero.","headline":"Conditions matter a great deal on the day and hardly at all in the rankings. One effect per match, fitted jointly from everyone's balls, has a spread of 6 to 9 runs per 100 balls across matches (the 10th-to-90th percentile day in men's T20Is runs from \u221210 to +10), about the gap between a good batter and an average one. But a career rating averages over many days, so adding the effects moves the rankings very little (rank correlation 0.99 or better, 90\u201398% of the top 50 unchanged; the biggest moves, \u00b14 to \u00b18 per 100 balls, are players with few matches) and does not change match prediction: the pooled Brier change is +2 \u00d7 10\u207b\u2074 with an interval of \u22122 to +5, so by the rule fixed in advance the fit is not adopted for the live model. The effects are worth keeping for a different job: judging a single innings against the day it was played on.","findings":[{"label":"Male \u00b7 T20 \u00b7 previous-eleven forecast","estimate":2.0439424863403364,"lo":-1.356446066530222,"hi":5.454730357100169,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 T20 \u00b7 team-only forecast","estimate":1.5036924077342717,"lo":-1.394054968700369,"hi":4.440963771609598,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 previous-eleven forecast","estimate":0.7317115438631728,"lo":-5.831243602109779,"hi":6.779935346628127,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 team-only forecast","estimate":-1.5922995765011376,"lo":-8.423606479666654,"hi":4.949171544059369,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 previous-eleven forecast","estimate":-0.7087590582019152,"lo":-15.322165084503354,"hi":13.643013493247572,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 team-only forecast","estimate":-1.2673960458229752,"lo":-11.972432752291885,"hi":10.56143528625318,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 previous-eleven forecast","estimate":7.019487683757931,"lo":-7.093526767979109,"hi":21.11173333644731,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 team-only forecast","estimate":3.9803536194639766,"lo":-8.462387916104417,"hi":16.757666395584824,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"All four groups pooled \u00b7 previous-eleven","estimate":1.5535017179469819,"lo":-2.1944472111288538,"hi":5.233585836010344,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"}],"tables":[{"title":"Primary: walk-forward 2023\u201325, previous-eleven forecast","columns":[["analysis","Group"],["matches","Matches"],["current","Brier, current fit"],["conditions","Brier, conditions fit"],["diff","Change \u00d7 10\u2074 [95% week-block]"],["team_diff","Team-only change \u00d7 10\u2074 [95%]"]],"rows":[{"analysis":"Male \u00b7 T20","matches":1436,"current":"0.1814","conditions":"0.1816","diff":"+2.04 [-1.36, +5.45]","team_diff":"+1.50 [-1.39, +4.44]"},{"analysis":"Female \u00b7 T20","matches":1004,"current":"0.1817","conditions":"0.1818","diff":"+0.73 [-5.83, +6.78]","team_diff":"-1.59 [-8.42, +4.95]"},{"analysis":"Male \u00b7 one-day","matches":425,"current":"0.2103","conditions":"0.2103","diff":"-0.71 [-15.32, +13.64]","team_diff":"-1.27 [-11.97, +10.56]"},{"analysis":"Female \u00b7 one-day","matches":198,"current":"0.1771","conditions":"0.1778","diff":"+7.02 [-7.09, +21.11]","team_diff":"+3.98 [-8.46, +16.76]"},{"analysis":"Pooled","matches":3063,"current":"0.1852","conditions":"0.1854","diff":"+1.55 [-2.19, +5.23]","team_diff":""}]},{"title":"How much the current rankings move","columns":[["group","Group"],["players","Players"],["rank_corr","Rank correlation"],["top50","Top-50 overlap"],["up","Rise most (runs per 100 balls)"],["down","Fall most"]],"rows":[{"group":"Male \u00b7 T20 bat","players":419,"rank_corr":"0.999","top50":"98%","up":"S Mathur (+4.6), Shahid Wasif (+4.1), M Syahadat Ramli (+3.5), SM Curran (+3.4), Yasim Murtaza (+3.3)","down":"SV Samson (-5.4), H Carlyon (-4.3), MS Chapman (-4.1), Hassan Nawaz (-4.0), S Houghton (-4.0)"},{"group":"Male \u00b7 T20 bowl","players":462,"rank_corr":"0.998","top50":"94%","up":"Aayan Afzal Khan (+4.8), Shahid Afridi (+4.2), SA Ahmad (+3.6), MJ Henry (+3.4), JN Loftie-Eaton (+3.3)","down":"Taranjit Singh (-4.1), Mohammad Ghazanfar (-3.8), G Coetzee (-3.6), Shah Faisal (-3.5), H Venkataram (-3.4)"},{"group":"Female \u00b7 T20 bat","players":292,"rank_corr":"0.999","top50":"98%","up":"MK Amusa (+3.2), NN Saidi (+3.0), HJ Thomas (+2.7), C Chukwuonye (+2.6), NJ Pius (+2.5)","down":"F Utagushimaninde (-7.9), LV Boas (-5.2), B Ichinkhorloo (-4.3), L Agatha (-3.9), G Ishimwe (-3.6)"},{"group":"Female \u00b7 T20 bowl","players":358,"rank_corr":"0.999","top50":"96%","up":"L Moises (+4.3), Rameen Shamim (+3.8), CS Nascimento (+3.4), M Ayodhya (+3.2), K Kavindi (+3.2)","down":"TI Gajanayake (-3.1), A Dcosta (-2.5), U Peace (-2.2), HMD Rasangika (-2.2), Afida Afthab (-2.1)"},{"group":"Male \u00b7 one-day bat","players":232,"rank_corr":"0.994","top50":"96%","up":"Shadab Khan (+4.9), MS Chapman (+4.5), J Ramanandi (+4.1), AM Tribe (+4.0), MJ Santner (+3.7)","down":"RD Gaikwad (-7.1), Muhammad Shahdad (-5.5), Ali Zaheer (-4.8), Meet Bhavsar (-4.7), T Bavuma (-4.4)"},{"group":"Male \u00b7 one-day bowl","players":256,"rank_corr":"0.987","top50":"92%","up":"Gurnoor Brar (+6.6), M Prasidh Krishna (+4.9), Harshit Rana (+4.8), S Joseph (+4.7), Ali Naseer (+4.0)","down":"Jay Odedra (-6.6), K Juma (-5.5), A Roy (-4.8), Aamir Kaleem (-4.7), BAD Manenti (-4.1)"},{"group":"Female \u00b7 one-day bat","players":116,"rank_corr":"0.996","top50":"98%","up":"ML Green (+4.8), CE Dean (+3.0), BM Halliday (+2.8), GE Plimmer (+2.6), H Karunaratne (+2.4)","down":"RMAU Grimmond (-3.9), T Ruma (-3.6), JI Rodrigues (-3.5), Pratika Rawal (-3.2), A Hunter (-2.8)"},{"group":"Female \u00b7 one-day bowl","players":139,"rank_corr":"0.989","top50":"90%","up":"N Shangase (+3.9), S Rana (+3.8), Priya Mishra (+3.7), N Shree Charani (+3.4), RP Yadav (+3.3)","down":"NH Patel (-4.5), RA Mair (-3.6), M Mavunga (-3.1), O Kamchomphu (-3.0), BG Illing (-2.7)"}]},{"title":"How much a day matters: spread of the match effects","columns":[["group","Group"],["matches","Matches"],["bat_sd","Batting conditions sd, runs per 100 balls"],["bowl_sd","Bowling sd"],["p10_p90","Batting 10th\u201390th percentile"]],"rows":[{"group":"Male \u00b7 T20","matches":3832,"bat_sd":"8.9","bowl_sd":"8.8","p10_p90":"-10.1 to +10.4"},{"group":"Female \u00b7 T20","matches":2263,"bat_sd":"7.6","bowl_sd":"7.3","p10_p90":"-8.9 to +9.1"},{"group":"Male \u00b7 one-day","matches":3051,"bat_sd":"6.1","bowl_sd":"6.0","p10_p90":"-5.0 to +5.1"},{"group":"Female \u00b7 one-day","matches":644,"bat_sd":"7.7","bowl_sd":"7.5","p10_p90":"-9.4 to +8.4"}]}],"method":["Same weighted ridge as the published ratings (cricket_value) with one more block: an effect per match, penalised like a player with 100 average balls, estimated jointly with player, team, venue, year and home effects.","Walk-forward as in docs/CRICKET_INTERNATIONAL.md: each year's internationals predicted from fits on matches released before 1 January, both fits given identical inputs; previous released elevens; paired Brier with a calendar-week block bootstrap, 2,000 resamples.","Rankings comparison at the current date: players with 200 weighted balls in the last two years; Spearman correlation and top-50 overlap between the two fits.","Data: Cricsheet ball-by-ball internationals, T20I and ODI, men and women separately."],"deviations":[],"data":{"results":"docs/research/conditions_results.json","code":"src/predmarkets/cricket_conditions.py, scripts/research_conditions.py"}}</script>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"title":"Should the ratings allow for the conditions of the day?","slug":"conditions.html","kicker":"Research note \u00b7 cricket","registered":{"date":"2026-10-09","commit":"6796c22","path":"docs/research/CONDITIONS_PREREG.md"},"generated":"2026-10-09 23:58 AEDT","as_of":"2026-10-09","charts":[{"type":"bars","title":"How much a day matters: spread of the per-match conditions effects","subtitle":"One standard deviation of the match effect across matches: how far a typical day moves everyone's scoring.","x":["Male \u00b7 T20","Female \u00b7 T20","Male \u00b7 one-day","Female \u00b7 one-day"],"series":[{"name":"batting sd","values":[8.882120788744807,7.601017576239047,6.113938685126068,7.6964011440866535],"n":[3832,2263,3051,644]},{"name":"bowling sd","values":[8.778553353957678,7.286258958957729,6.010651101325432,7.5482569459145115],"n":[3832,2263,3051,644]}],"xlabel":"","ylabel":"runs per 100 balls","reference":null,"referenceLabel":""},{"type":"bars","title":"How much the rankings move when conditions are allowed for","subtitle":"Spearman correlation of the two fits' ratings, and the share of the top 50 that is the same under both.","x":["Male \u00b7 T20 bat","Male \u00b7 T20 bowl","Female \u00b7 T20 bat","Female \u00b7 T20 bowl","Male \u00b7 one-day bat","Male \u00b7 one-day bowl","Female \u00b7 one-day bat","Female \u00b7 one-day bowl"],"series":[{"name":"rank correlation","values":[0.999,0.998,0.999,0.999,0.994,0.987,0.996,0.989]},{"name":"top-50 overlap","values":[0.98,0.94,0.98,0.96,0.96,0.92,0.98,0.9]}],"xlabel":"","ylabel":"share (1 = unchanged)","reference":null,"referenceLabel":""}],"question":"The rating model adjusts each ball for the opponent, the teams, the venue, the year and the home side, but not for the day: the pitch, the light, the ball. Adding one effect per match, estimated jointly from everyone's balls in it, credits a batter relative to how the other players fared that day. Does that produce ratings that predict matches better? Decision rule, fixed in advance: adopt for a new live study only if the pooled previous-eleven Brier change is negative with an interval excluding zero.","headline":"Conditions matter a great deal on the day and hardly at all in the rankings. One effect per match, fitted jointly from everyone's balls, has a spread of 6 to 9 runs per 100 balls across matches (the 10th-to-90th percentile day in men's T20Is runs from \u221210 to +10), about the gap between a good batter and an average one. But a career rating averages over many days, so adding the effects moves the rankings very little (rank correlation 0.99 or better, 90\u201398% of the top 50 unchanged; the biggest moves, \u00b14 to \u00b18 per 100 balls, are players with few matches) and does not change match prediction: the pooled Brier change is +2 \u00d7 10\u207b\u2074 with an interval of \u22122 to +5, so by the rule fixed in advance the fit is not adopted for the live model. The effects are worth keeping for a different job: judging a single innings against the day it was played on.","findings":[{"label":"Male \u00b7 T20 \u00b7 previous-eleven forecast","estimate":2.0439424863403364,"lo":-1.356446066530222,"hi":5.454730357100169,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 T20 \u00b7 team-only forecast","estimate":1.5036924077342717,"lo":-1.394054968700369,"hi":4.440963771609598,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 previous-eleven forecast","estimate":0.7317115438631728,"lo":-5.831243602109779,"hi":6.779935346628127,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 T20 \u00b7 team-only forecast","estimate":-1.5922995765011376,"lo":-8.423606479666654,"hi":4.949171544059369,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 previous-eleven forecast","estimate":-0.7087590582019152,"lo":-15.322165084503354,"hi":13.643013493247572,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Male \u00b7 one-day \u00b7 team-only forecast","estimate":-1.2673960458229752,"lo":-11.972432752291885,"hi":10.56143528625318,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 previous-eleven forecast","estimate":7.019487683757931,"lo":-7.093526767979109,"hi":21.11173333644731,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"Female \u00b7 one-day \u00b7 team-only forecast","estimate":3.9803536194639766,"lo":-8.462387916104417,"hi":16.757666395584824,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"},{"label":"All four groups pooled \u00b7 previous-eleven","estimate":1.5535017179469819,"lo":-2.1944472111288538,"hi":5.233585836010344,"unit":"Brier change \u00d7 10\u2074, conditions fit minus current fit (negative = conditions help)","group":"brier"}],"tables":[{"title":"Primary: walk-forward 2023\u201325, previous-eleven forecast","columns":[["analysis","Group"],["matches","Matches"],["current","Brier, current fit"],["conditions","Brier, conditions fit"],["diff","Change \u00d7 10\u2074 [95% week-block]"],["team_diff","Team-only change \u00d7 10\u2074 [95%]"]],"rows":[{"analysis":"Male \u00b7 T20","matches":1436,"current":"0.1814","conditions":"0.1816","diff":"+2.04 [-1.36, +5.45]","team_diff":"+1.50 [-1.39, +4.44]"},{"analysis":"Female \u00b7 T20","matches":1004,"current":"0.1817","conditions":"0.1818","diff":"+0.73 [-5.83, +6.78]","team_diff":"-1.59 [-8.42, +4.95]"},{"analysis":"Male \u00b7 one-day","matches":425,"current":"0.2103","conditions":"0.2103","diff":"-0.71 [-15.32, +13.64]","team_diff":"-1.27 [-11.97, +10.56]"},{"analysis":"Female \u00b7 one-day","matches":198,"current":"0.1771","conditions":"0.1778","diff":"+7.02 [-7.09, +21.11]","team_diff":"+3.98 [-8.46, +16.76]"},{"analysis":"Pooled","matches":3063,"current":"0.1852","conditions":"0.1854","diff":"+1.55 [-2.19, +5.23]","team_diff":""}]},{"title":"How much the current rankings move","columns":[["group","Group"],["players","Players"],["rank_corr","Rank correlation"],["top50","Top-50 overlap"],["up","Rise most (runs per 100 balls)"],["down","Fall most"]],"rows":[{"group":"Male \u00b7 T20 bat","players":419,"rank_corr":"0.999","top50":"98%","up":"S Mathur (+4.6), Shahid Wasif (+4.1), M Syahadat Ramli (+3.5), SM Curran (+3.4), Yasim Murtaza (+3.3)","down":"SV Samson (-5.4), H Carlyon (-4.3), MS Chapman (-4.1), Hassan Nawaz (-4.0), S Houghton (-4.0)"},{"group":"Male \u00b7 T20 bowl","players":462,"rank_corr":"0.998","top50":"94%","up":"Aayan Afzal Khan (+4.8), Shahid Afridi (+4.2), SA Ahmad (+3.6), MJ Henry (+3.4), JN Loftie-Eaton (+3.3)","down":"Taranjit Singh (-4.1), Mohammad Ghazanfar (-3.8), G Coetzee (-3.6), Shah Faisal (-3.5), H Venkataram (-3.4)"},{"group":"Female \u00b7 T20 bat","players":292,"rank_corr":"0.999","top50":"98%","up":"MK Amusa (+3.2), NN Saidi (+3.0), HJ Thomas (+2.7), C Chukwuonye (+2.6), NJ Pius (+2.5)","down":"F Utagushimaninde (-7.9), LV Boas (-5.2), B Ichinkhorloo (-4.3), L Agatha (-3.9), G Ishimwe (-3.6)"},{"group":"Female \u00b7 T20 bowl","players":358,"rank_corr":"0.999","top50":"96%","up":"L Moises (+4.3), Rameen Shamim (+3.8), CS Nascimento (+3.4), M Ayodhya (+3.2), K Kavindi (+3.2)","down":"TI Gajanayake (-3.1), A Dcosta (-2.5), U Peace (-2.2), HMD Rasangika (-2.2), Afida Afthab (-2.1)"},{"group":"Male \u00b7 one-day bat","players":232,"rank_corr":"0.994","top50":"96%","up":"Shadab Khan (+4.9), MS Chapman (+4.5), J Ramanandi (+4.1), AM Tribe (+4.0), MJ Santner (+3.7)","down":"RD Gaikwad (-7.1), Muhammad Shahdad (-5.5), Ali Zaheer (-4.8), Meet Bhavsar (-4.7), T Bavuma (-4.4)"},{"group":"Male \u00b7 one-day bowl","players":256,"rank_corr":"0.987","top50":"92%","up":"Gurnoor Brar (+6.6), M Prasidh Krishna (+4.9), Harshit Rana (+4.8), S Joseph (+4.7), Ali Naseer (+4.0)","down":"Jay Odedra (-6.6), K Juma (-5.5), A Roy (-4.8), Aamir Kaleem (-4.7), BAD Manenti (-4.1)"},{"group":"Female \u00b7 one-day bat","players":116,"rank_corr":"0.996","top50":"98%","up":"ML Green (+4.8), CE Dean (+3.0), BM Halliday (+2.8), GE Plimmer (+2.6), H Karunaratne (+2.4)","down":"RMAU Grimmond (-3.9), T Ruma (-3.6), JI Rodrigues (-3.5), Pratika Rawal (-3.2), A Hunter (-2.8)"},{"group":"Female \u00b7 one-day bowl","players":139,"rank_corr":"0.989","top50":"90%","up":"N Shangase (+3.9), S Rana (+3.8), Priya Mishra (+3.7), N Shree Charani (+3.4), RP Yadav (+3.3)","down":"NH Patel (-4.5), RA Mair (-3.6), M Mavunga (-3.1), O Kamchomphu (-3.0), BG Illing (-2.7)"}]},{"title":"How much a day matters: spread of the match effects","columns":[["group","Group"],["matches","Matches"],["bat_sd","Batting conditions sd, runs per 100 balls"],["bowl_sd","Bowling sd"],["p10_p90","Batting 10th\u201390th percentile"]],"rows":[{"group":"Male \u00b7 T20","matches":3832,"bat_sd":"8.9","bowl_sd":"8.8","p10_p90":"-10.1 to +10.4"},{"group":"Female \u00b7 T20","matches":2263,"bat_sd":"7.6","bowl_sd":"7.3","p10_p90":"-8.9 to +9.1"},{"group":"Male \u00b7 one-day","matches":3051,"bat_sd":"6.1","bowl_sd":"6.0","p10_p90":"-5.0 to +5.1"},{"group":"Female \u00b7 one-day","matches":644,"bat_sd":"7.7","bowl_sd":"7.5","p10_p90":"-9.4 to +8.4"}]}],"method":["Same weighted ridge as the published ratings (cricket_value) with one more block: an effect per match, penalised like a player with 100 average balls, estimated jointly with player, team, venue, year and home effects.","Walk-forward as in docs/CRICKET_INTERNATIONAL.md: each year's internationals predicted from fits on matches released before 1 January, both fits given identical inputs; previous released elevens; paired Brier with a calendar-week block bootstrap, 2,000 resamples.","Rankings comparison at the current date: players with 200 weighted balls in the last two years; Spearman correlation and top-50 overlap between the two fits.","Data: Cricsheet ball-by-ball internationals, T20I and ODI, men and women separately."],"deviations":[],"data":{"results":"docs/research/conditions_results.json","code":"src/predmarkets/cricket_conditions.py, scripts/research_conditions.py"}}</script>
 <script>
 (function(){
   "use strict";
   var N = JSON.parse(document.getElementById("data").textContent);
+  var SERIES = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)"];
+  var RAMP = getComputedStyle(document.documentElement).getPropertyValue("--ramp").split(",").map(function(s){return s.trim();});
+  var uid = 0;
   function $(id){ return document.getElementById(id); }
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
   function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  function fmt(v, d){ if(v==null||isNaN(v)) return "–"; if(d==null){ var a=Math.abs(v); d = a>=100?0:a>=10?1:a>=1?2:3; } return Number(v).toFixed(d); }
+  function niceStep(span, n){ var raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), r=raw/mag; var s=r<1.5?1:r<3.5?2:r<7.5?5:10; return s*mag; }
+  function ticks(lo, hi, n){ var st=niceStep(hi-lo||1, n||5), out=[], v=Math.ceil(lo/st)*st; for(;v<=hi+1e-9;v+=st){ out.push(Math.abs(v)<1e-9?0:+v.toFixed(10)); } return out; }
+  function tickLabel(v){ var a=Math.abs(v); return a>=1000? v.toLocaleString("en-AU"): a>=10||a===0? String(Math.round(v*10)/10): a>=1? String(Math.round(v*100)/100): String(Math.round(v*1000)/1000); }
+  function wrap(s, width){ var words=String(s).split(" "), lines=[], cur=""; words.forEach(function(w){ if((cur+" "+w).trim().length>width && cur){ lines.push(cur); cur=w; } else { cur=(cur+" "+w).trim(); } }); if(cur) lines.push(cur); return lines.slice(0,3); }
+  function seriesColor(i, n, ramp){ if(ramp){ var k=Math.round(i*(RAMP.length-1)/Math.max(1,n-1)); return RAMP[k]; } return SERIES[i % SERIES.length]; }
+
+  // Tooltip: one element, shown on hover and on keyboard focus of any element carrying data-tip.
+  var tip = $("tip");
+  function showTip(el){ var t=el.getAttribute("data-tip"); if(!t) return; tip.textContent=t; tip.style.display="block";
+    var r=el.getBoundingClientRect(), x=window.scrollX+r.left+r.width/2, y=window.scrollY+r.top-8;
+    tip.style.left=Math.max(8, Math.min(x - tip.offsetWidth/2, window.scrollX+document.documentElement.clientWidth-tip.offsetWidth-8))+"px";
+    tip.style.top=(y - tip.offsetHeight)+"px"; }
+  function hideTip(){ tip.style.display="none"; }
+  document.addEventListener("mouseover", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("mouseout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+  document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+
+  function figure(title, sub, inner, legend, table){
+    var id="fig"+(++uid);
+    return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
+      + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
+  }
+  function legendHtml(items){ if(!items||items.length<2) return ""; return '<ul class="legend" aria-label="Legend">'+items.map(function(it){ return '<li><span class="sw'+(it.kind?" "+it.kind:"")+'" style="background:'+it.color+';color:'+it.color+'"></span>'+esc(it.name)+'</li>'; }).join("")+'</ul>'; }
+  function tableHtml(caption, cols, rows){ return '<table><caption class="sr">'+esc(caption)+'</caption><thead><tr>'+cols.map(function(c,i){ return '<th scope="col"'+(i?' class="n"':"")+'>'+esc(c)+'</th>'; }).join("")+'</tr></thead><tbody>'
+    + rows.map(function(r){ return '<tr>'+r.map(function(v,i){ return i? '<td class="n">'+esc(v)+'</td>' : '<th scope="row" style="font-weight:500;color:var(--ink)">'+esc(v)+'</th>'; }).join("")+'</tr>'; }).join("")+'</tbody></table>'; }
+  function svgOpen(W, H, title, desc){ var id="svg"+(++uid); return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+id+'-t '+id+'-d"><title id="'+id+'-t">'+esc(title)+'</title><desc id="'+id+'-d">'+esc(desc)+'</desc>'; }
+
+  // ---- Dot plot: estimates with intervals, one row each (the pre-registered findings).
+  function dots(rows, opts){
+    opts = opts||{};
+    var W=860, R=190, rowH=30, labelW=42, lines=rows.map(function(r){ return wrap(r.label, labelW); });
+    var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
+    var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
+    var top=14, H=rows.length*rowH+top+44;
+    var lo=Math.min(0, Math.min.apply(null, rows.map(function(r){return r.lo;}))), hi=Math.max(0, Math.max.apply(null, rows.map(function(r){return r.hi;})));
+    if(hi-lo===0){ hi+=1; lo-=1; }
+    var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var tk=ticks(lo, hi, 5);
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    var s=svgOpen(W, H, opts.title||"", desc);
+    tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
+    rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=(r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0), ls=lines[i];
+      var ty = y + 5 - (ls.length-1)*9;
+      s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      var tipText = r.label+"\n"+fmt(r.estimate)+"  ["+fmt(r.lo)+", "+fmt(r.hi)+"]"+(sig?"\ninterval excludes zero":"\ninterval includes zero");
+      s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
+      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":" hollow")+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate)+"  ["+fmt(r.lo)+", "+fmt(r.hi)+"]")+'</text>';
+    });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
+    tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
+    if(opts.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(opts.xlabel)+'</text>';
+    s+='</svg>';
+    var table = tableHtml(opts.title||"Findings", ["Analysis","Estimate","Lower","Upper"], rows.map(function(r){ return [r.label, fmt(r.estimate), fmt(r.lo), fmt(r.hi)]; }));
+    return {svg:s, table:table};
+  }
+
+  // ---- Lines over a shared x (numeric or categorical); several series; legend + end labels; identity line optional.
+  function lines(c){
+    var W=c.width||420, H=c.height||260, L=56, R=c.endLabels===false?16:92, T=12, B=44;
+    var cat = typeof c.x[0]==="string";
+    var xs = cat? c.x.map(function(_,i){return i;}): c.x;
+    var allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.identity){ allY=allY.concat(xs); }
+    var ylo=c.yzero? Math.min(0, Math.min.apply(null, allY)): Math.min.apply(null, allY), yhi=Math.max.apply(null, allY);
+    if(c.ymin!=null) ylo=Math.min(ylo, c.ymin); if(c.ymax!=null) yhi=Math.max(yhi, c.ymax);
+    if(yhi-ylo===0){ yhi+=1; ylo-=1; } var yp=(yhi-ylo)*0.08; if(!c.yzero||ylo<0) ylo-=yp; yhi+=yp;
+    var xlo=Math.min.apply(null, xs), xhi=Math.max.apply(null, xs); if(xhi===xlo){ xhi+=1; }
+    if(cat){ xlo-=0.5; xhi+=0.5; } else if(c.identity){ xlo=ylo; xhi=yhi; }
+    function X(v){ return L+(W-L-R)*(v-xlo)/(xhi-xlo); } function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var yt=ticks(ylo, yhi, 4), xt=cat? xs: ticks(xlo, xhi, 5);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return (cat?c.x[i]:tickLabel(xs[i]))+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(ylo).toFixed(1)+'" y2="'+Y(ylo).toFixed(1)+'"/>';
+    xt.forEach(function(v,i){ var lab=cat? c.x[i]: tickLabel(v); s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(lab)+'</text>'; });
+    if(c.identity){ var a=Math.max(xlo,ylo), b=Math.min(xhi,yhi); s+='<line class="ident" x1="'+X(a).toFixed(1)+'" y1="'+Y(a).toFixed(1)+'" x2="'+X(b).toFixed(1)+'" y2="'+Y(b).toFixed(1)+'"/>'; }
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'; }
+    var n=c.series.length, ends=[];
+    c.series.forEach(function(sr,k){ var col=sr.color||seriesColor(k, n, c.ramp), pts=[];
+      sr.values.forEach(function(v,i){ if(v!=null) pts.push([X(xs[i]), Y(v), i]); });
+      if(sr.line!==false && pts.length>1) s+='<path class="ln" style="stroke:'+col+'" d="M'+pts.map(function(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }).join("L")+'"/>';
+      if(sr.markers!==false || pts.length===1) pts.forEach(function(p){ var t=sr.name+"\n"+(cat?c.x[p[2]]:(c.xlabel||"x")+" "+tickLabel(xs[p[2]]))+": "+fmt(sr.values[p[2]])+(sr.n&&sr.n[p[2]]!=null?"  (n="+sr.n[p[2]]+")":"");
+        s+='<circle class="hit" tabindex="0" data-tip="'+esc(t)+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="12"/><circle class="mk" style="fill:'+col+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>'; });
+      if(pts.length&&c.endLabels!==false&&n<=4) ends.push({y:pts[pts.length-1][1], name:sr.name});
+    });
+    ends.sort(function(a,b){ return a.y-b.y; }); for(var i=1;i<ends.length;i++){ if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14; }
+    ends.forEach(function(e){ s+='<text x="'+(W-R+8)+'" y="'+(e.y+4).toFixed(1)+'" style="font-size:12px">'+esc(e.name)+'</text>'; });
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n, c.ramp), kind: sr.line===false?"dot":""}; }));
+    var table = tableHtml(c.title, [c.xlabel||"x"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [cat?x:tickLabel(x)].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Grouped bars over categories (<= 3 series), optional reference line.
+  function bars(c){
+    var W=c.width||420, H=c.height||240, L=56, R=16, T=12, B=44;
+    var n=c.series.length, m=c.x.length, allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.reference!=null) allY.push(c.reference);
+    var ylo=Math.min(0, Math.min.apply(null, allY)), yhi=Math.max(0, Math.max.apply(null, allY)); if(yhi-ylo===0) yhi=ylo+1; var yp=(yhi-ylo)*0.08; yhi+=yp; if(ylo<0) ylo-=yp;
+    function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var slot=(W-L-R)/m, bw=Math.min(24, (slot*0.7-2*(n-1))/n);
+    var yt=ticks(ylo, yhi, 4);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return c.x[i]+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    c.x.forEach(function(lab,i){ var cx=L+slot*(i+0.5), ls=wrap(lab, Math.max(8, Math.floor(slot/7)));
+      s+='<text class="t" x="'+cx.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle">'+ls.map(function(t,k){ return '<tspan x="'+cx.toFixed(1)+'" dy="'+(k?13:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      c.series.forEach(function(sr,k){ var v=sr.values[i]; if(v==null) return; var col=sr.color||seriesColor(k, n);
+        var x=cx-(n*bw+2*(n-1))/2+k*(bw+2), y0=Y(0), y1=Y(v), top=Math.min(y0,y1), h=Math.abs(y0-y1), r=Math.min(4, h/2);
+        var d = v>=0? 'M'+x+','+y0+'v'+(-(h-r))+'a'+r+','+r+' 0 0 1 '+r+','+(-r)+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 1 '+r+','+r+'v'+(h-r)+'z'
+                    : 'M'+x+','+y0+'v'+(h-r)+'a'+r+','+r+' 0 0 0 '+r+','+r+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 0 '+r+','+(-r)+'v'+(-(h-r))+'z';
+        s+='<path class="bar" tabindex="0" data-tip="'+esc(sr.name+"\n"+lab+": "+fmt(v)+(sr.n&&sr.n[i]!=null?"  (n="+sr.n[i]+")":""))+'" style="fill:'+col+'" d="'+d+'"/>'; });
+    });
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'+(c.referenceLabel?'<text class="t" x="'+(L+4)+'" y="'+(Y(c.reference)-4).toFixed(1)+'" text-anchor="start">'+esc(c.referenceLabel)+'</text>':""); }
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n), kind:"dot"}; }));
+    var table = tableHtml(c.title, [c.xlabel||"category"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [x].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  function renderChart(c){
+    if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
+    if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
+      return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
+    }
+    if(!c.width){ c.width=860; c.height=c.height||300; }          // standalone charts span the column; panels are 420 wide
+    var r = c.type==="bars"? bars(c): lines(c);
+    return figure(c.title, c.subtitle, r.svg, r.legend, r.table);
+  }
+
+  // ---- Page
   $("kicker").textContent = N.kicker; $("title").textContent = N.title;
   $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
   $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.';
   $("question").textContent = N.question;
   if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
-  // Dot plots, one per group of findings.
-  var groups = {};
-  (N.findings||[]).forEach(function(f){ (groups[f.group]=groups[f.group]||[]).push(f); });
-  var html = "";
-  Object.keys(groups).forEach(function(g){
-    var rows = groups[g], W=820, L=330, R=20, rowH=26, H=rows.length*rowH+40;
-    var lo=Math.min(0, Math.min.apply(null, rows.map(function(r){return r.lo;}))), hi=Math.max(0, Math.max.apply(null, rows.map(function(r){return r.hi;})));
-    var pad=(hi-lo)*0.08||1; lo-=pad; hi+=pad;
-    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
-    var s='<h3 style="font-size:14px;margin:18px 0 4px;color:var(--ink2)">'+esc(rows[0].unit)+'</h3><svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img">';
-    s+='<line class="zero" x1="'+X(0)+'" x2="'+X(0)+'" y1="8" y2="'+(H-28)+'"/>';
-    rows.forEach(function(r,i){ var y=20+i*rowH, sig=(r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0);
-      s+='<text x="'+(L-10)+'" y="'+(y+4)+'" text-anchor="end">'+esc(r.label)+'</text><line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo)+'" x2="'+X(r.hi)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":"")+'" cx="'+X(r.estimate)+'" cy="'+y+'" r="4"/>'; });
-    [lo+pad, 0, hi-pad].forEach(function(v){ s+='<text x="'+X(v)+'" y="'+(H-8)+'" text-anchor="middle">'+(Math.abs(v)<1e-9?"0":v.toFixed(1))+'</text>'; });
-    html += s+'</svg>';
-  });
-  $("charts").innerHTML = html;
-  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; return '<h2>'+esc(t.title)+'</h2><div class="scroll"><table><thead><tr>'+t.columns.map(function(c){return '<th>'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
+  var groups = {}, order = [];
+  (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
+  $("charts").innerHTML = order.map(function(g){ var rows=groups[g]; var unit=rows[0].unit||""; var parts=unit.split(/:\s(.+)/);
+    var title = parts.length>1? parts[0]: unit, sub = parts.length>1? parts[1]: "";
+    return renderChart({type:"dots", title:title, subtitle:sub, rows:rows, xlabel: rows[0].xlabel||""}); }).join("");
+  if(N.charts&&N.charts.length){ $("figures").innerHTML = '<h2 id="figures-h">Checks and detail</h2>' + N.charts.map(renderChart).join(""); }
+  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+    return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
     + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; return '<td class="'+(i&&/^[+\-\d]/.test(String(v))?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
   $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
-  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2>Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
-  else { $("deviations").innerHTML='<h2>Deviations from the pre-registration</h2><p>None.</p>'; }
-  $("foot").innerHTML = 'Data: Cricsheet ball-by-ball (CC BY 4.0). Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
-    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '');
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else { $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: '+esc(N.data.source||"Cricsheet ball-by-ball (CC BY 4.0)")+'. Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
+    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
+    + ' <a href="index.html">All forecasts and notes</a>.';
+  // Contents: every h2 on the page, in order.
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
 })();
 </script>
 </body>

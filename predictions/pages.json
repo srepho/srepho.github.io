@@ -6,7 +6,7 @@
   "blurb": "The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 00:35 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "conditions",
@@ -15,7 +15,7 @@
   "blurb": "A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-09 21:34 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "cricket",
@@ -33,7 +33,7 @@
   "blurb": "A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-09 21:34 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "carryover",
@@ -42,7 +42,7 @@
   "blurb": "A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-09 21:34 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "hothand",
@@ -51,7 +51,7 @@
   "blurb": "A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-09 21:34 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "ideas",
@@ -60,7 +60,7 @@
   "blurb": "Questions worth testing, by sport, with links to the write-ups as each is done.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 01:57 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "nba",
@@ -78,7 +78,7 @@
   "blurb": "A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-09 21:34 UTC"
+  "published": "2026-10-10 12:58 UTC"
  },
  {
   "key": "upcoming",
@@ -101,10 +101,10 @@
  {
   "key": "wickets",
   "slug": "wickets-in-hand.html",
-  "title": "Wickets in hand: a confirmatory par for wickets",
-  "blurb": "The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance.",
+  "title": "Wickets in hand: a Bayesian par for wickets",
+  "blurb": "The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 01:57 UTC"
+  "published": "2026-10-10 12:58 UTC"
  }
 ]
