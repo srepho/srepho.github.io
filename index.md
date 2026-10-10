@@ -39,14 +39,14 @@ A pre-registered test of whether a player's recent form in T20 predicts their ne
 ### [Is there a hot hand in cricket?](/predictions/hot-hand.html) (Saturday 10 October 2026)
 A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?
 
+### [Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights](/predictions/sports-extensions.html) (Saturday 10 October 2026)
+Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.
+
 ### [Test innings, session by session: above or below expectation?](/predictions/test-sessions.html) (Saturday 10 October 2026)
 A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.
 
 ### [Wickets in hand: a Bayesian par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026)
 The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).
-
-### [Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights](/predictions/sports-extensions.html) (Saturday 10 October 2026)
-Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.
 
 ### [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026)
 A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
