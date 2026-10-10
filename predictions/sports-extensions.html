@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="forecast-date" content="2026-10-10">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four sports extensions: a dynamic Test par, possession totals, portable T20 ratings, WNBA weights</title>
+<meta name="description" content="A pre-registered research note with its design, findings, method and data.">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#464e58;--muted:#5f6873;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;--focus:#1f5fc4;
+  --s1:#1f5fc4;--s2:#d2540e;--s3:#8b44e0;--s4:#0d8a6a;
+  --ramp:#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);color:var(--ink);padding:8px 12px;border:2px solid var(--focus);border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;font-weight:600;margin:0 0 2px;color:var(--ink)}
+.asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
+.asof span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.lede{font-size:17px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+p{max-width:72ch}
+nav.toc{margin:14px 0 0;font-size:14px}
+nav.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc li{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 4px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tile .l{font-size:13px;color:var(--muted);margin:0}
+.tile .v{font-size:26px;font-weight:600;margin:2px 0 0;line-height:1.2}
+.tile .n{font-size:13px;color:var(--ink2);margin:2px 0 0}
+figure.fig{margin:22px 0;padding:0}
+figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
+figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
+@media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+.legend .sw.dot{width:9px;height:9px;border-radius:50%}
+.legend .sw.hollow{background:transparent!important;border:2px solid currentColor;width:7px;height:7px}
+details.tbl{margin:4px 0 0;font-size:14px}
+details.tbl summary{cursor:pointer;color:var(--accent);font-size:14px}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll:focus-visible{outline-offset:-3px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+caption{text-align:left;font-size:17px;font-weight:600;margin:32px 0 8px;caption-side:top;color:var(--ink)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td:first-child,td:nth-child(2){white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+details.tbl table{font-size:13px}details.tbl caption{font-size:14px;margin:6px 0 4px}
+svg text{fill:var(--ink2);font-size:13px;font-family:var(--sans)}
+svg text.v{font-family:var(--mono);fill:var(--ink);font-size:12px}
+svg text.t{fill:var(--muted);font-size:12px}
+svg .axis{stroke:var(--line);stroke-width:1}svg .grid{stroke:var(--grid);stroke-width:1}svg .zero{stroke:var(--muted);stroke-width:1}
+svg .ci{stroke:var(--accent);stroke-width:2;stroke-linecap:round}svg .pt{fill:var(--accent);stroke:var(--card);stroke-width:2}
+svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+svg .pt.hollow{fill:var(--card);stroke:var(--accent);stroke-width:2.5}
+svg .ident{stroke:var(--muted);stroke-width:1}
+svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+svg .mk{stroke:var(--card);stroke-width:2}
+svg .hit{fill:transparent;cursor:default}
+svg .hit:focus{outline:none}
+svg .hit:focus + .mk, svg .hit:hover + .mk{stroke:var(--ink);stroke-width:2}
+svg .bar{stroke:none}
+svg .bar:hover,svg .bar:focus{filter:brightness(1.15);outline:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 9px;border-radius:6px;max-width:300px;z-index:20;display:none;white-space:pre-line}
+ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
+a{color:var(--accent)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<main id="main">
+  <p class="kicker" id="kicker"></p>
+  <h1 id="title"></h1>
+  <div class="asof" id="asof"></div>
+  <p class="meta" id="reg"></p>
+  <nav class="toc" aria-label="Contents"><ul id="toc"></ul></nav>
+  <h2 id="question-h">Question</h2><p id="question"></p>
+  <h2 id="brief-h">In brief</h2>
+  <div class="lede" id="headline"></div>
+  <div class="tiles" id="tiles"></div>
+  <h2 id="findings-h">Findings</h2>
+  <p class="meta">Point estimates with uncertainty intervals; the sampling unit and method are stated on each chart. A filled green marker means the interval excludes zero; a hollow marker means it does not. Every chart has a data table beneath it.</p>
+  <div id="charts"></div>
+  <div id="figures"></div>
+  <div id="tables"></div>
+  <h2 id="method-h">Method</h2><ul id="method"></ul>
+  <div id="deviations"></div>
+  <footer id="foot"></footer>
+</main>
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"title":"Four sports extensions: a dynamic Test par, possession totals, portable T20 ratings, WNBA weights","slug":"sports-extensions.html","kicker":"Research note \u00b7 cricket and basketball","registered":{"date":"2026-10-10","commit":"1386f51","path":"docs/research/SPORTS_EXTENSIONS_V1_PREREG.md"},"as_of":"2026-10-10","generated":"2026-10-10 22:54 AEDT (results file carries no timestamp)","summary":[{"label":"Dynamic par: MAE change, all blocks","value":"-0.14","note":"runs per block [95%]: [-0.46, +0.18]"},{"label":"Dynamic par: zero wickets down","value":"-0.74","note":"runs per block [95%]: [-1.23, -0.29]"},{"label":"Best basketball-totals arm v baseline","value":"-0.003","note":"NBA CRPS, points; interval includes zero"},{"label":"Baselines retained","value":"4 of 4","note":"no interval excludes zero in the registered direction"}],"charts":[{"type":"bars","title":"Runs above par at zero wickets down, by held-out year: static v dynamic","subtitle":"The annual random walk removes most of the shortfall from 2023 on but overshoots in 2022; the gain is not uniform.","x":["2022","2023","2024","2025"],"series":[{"name":"static par","values":[4.029774087207749,9.207984220013591,14.612446110437606,12.172900134402365],"n":[172,133,193,161]},{"name":"dynamic par","values":[8.619725244042257,7.741533484264393,9.533967466911342,5.512715742873917],"n":[172,133,193,161]}],"xlabel":"held-out year","ylabel":"actual minus par, runs per block","reference":null,"referenceLabel":""},{"type":"panels","title":"Posterior predictive check on held-out blocks: static v dynamic par","subtitle":"Flat is calibrated. Both pars still pile up in the top bin: outcomes ran above the model.","panels":[{"type":"bars","title":"static par","subtitle":"","x":["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"],"series":[{"name":"blocks","values":[132,140,141,155,160,172,174,183,196,269]}],"xlabel":"PIT bin (upper edge)","ylabel":"held-out blocks","reference":172.2,"referenceLabel":"uniform"},{"type":"bars","title":"dynamic par","subtitle":"","x":["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"],"series":[{"name":"blocks","values":[143,142,169,171,145,188,168,183,161,252]}],"xlabel":"PIT bin (upper edge)","ylabel":"held-out blocks","reference":172.2,"referenceLabel":"uniform"}]},{"type":"panels","title":"Basketball totals: CRPS by arm (points, lower is better)","subtitle":"All four arms are within a tenth of a point of each other.","panels":[{"type":"bars","title":"NBA","subtitle":"","x":["points-total ridge (baseline)","possessions \u00d7 efficiency","with expected rotation profile","with minutes-scenario variance"],"series":[{"name":"CRPS","values":[10.390396159776087,10.387140607119585,10.427354821433727,10.427646654897663]}],"xlabel":"","ylabel":"CRPS, points","reference":null,"referenceLabel":"","height":260},{"type":"bars","title":"WNBA","subtitle":"","x":["points-total ridge (baseline)","possessions \u00d7 efficiency","with expected rotation profile","with minutes-scenario variance"],"series":[{"name":"CRPS","values":[9.139156928671575,9.09283457066056,9.133800487713893,9.133615541621387]}],"xlabel":"","ylabel":"CRPS, points","reference":null,"referenceLabel":"","height":260}]},{"type":"panels","title":"Franchise T20 reliability, women: first and last arm (bins with 20+ matches)","subtitle":"Points on the line are calibrated. The spread of forecasts is narrow (most sit between 30% and 70%), which caps how much any player-level arm can add.","panels":[{"type":"lines","title":"team ratings only","subtitle":"","x":[0.2625102170154578,0.3630270085313106,0.46748729041440307,0.5463195000545756,0.6375415048750575,0.7454454849471703],"series":[{"name":"observed","values":[0.3333333333333333,0.2631578947368421,0.4779874213836478,0.5392156862745098,0.6153846153846154,0.8260869565217391],"n":[21,57,159,102,39,23],"line":false}],"xlabel":"forecast probability (bin mean)","ylabel":"observed win rate","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280},{"type":"lines","title":"with competition and role/phase","subtitle":"","x":[0.35752499220440936,0.4594266274256728,0.5410406241489406,0.6388173994569578],"series":[{"name":"observed","values":[0.32727272727272727,0.45161290322580644,0.49074074074074076,0.7083333333333334],"n":[55,155,108,48],"line":false}],"xlabel":"forecast probability (bin mean)","ylabel":"observed win rate","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280}]},{"type":"panels","title":"Franchise T20 reliability, men: first and last arm (bins with 20+ matches)","subtitle":"Points on the line are calibrated. The spread of forecasts is narrow (most sit between 30% and 70%), which caps how much any player-level arm can add.","panels":[{"type":"lines","title":"team ratings only","subtitle":"","x":[0.25227062569508923,0.36465152586730415,0.4659732976714986,0.5437435303295938,0.6369961060519026,0.7395852666603143],"series":[{"name":"observed","values":[0.30303030303030304,0.4079601990049751,0.43768545994065283,0.49795918367346936,0.5578947368421052,0.5135135135135135],"n":[33,201,674,490,190,37],"line":false}],"xlabel":"forecast probability (bin mean)","ylabel":"observed win rate","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280},{"type":"lines","title":"with competition and role/phase","subtitle":"","x":[0.2583578811009071,0.36378822478137346,0.45862861796544563,0.545085406835143,0.6382460287383687,0.7471966984700567],"series":[{"name":"observed","values":[0.24242424242424243,0.4077669902912621,0.4292763157894737,0.5064695009242144,0.5431472081218274,0.5641025641025641],"n":[33,206,608,541,197,39],"line":false}],"xlabel":"forecast probability (bin mean)","ylabel":"observed win rate","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280}]},{"type":"panels","title":"WNBA weights reliability (bins with 15+ games)","subtitle":"The transferred and WNBA-only mappings calibrate alike; the difference between them is noise at 526 games.","panels":[{"type":"lines","title":"NBA-transferred coefficients","subtitle":"","x":[0.1699412515609089,0.25124205907992103,0.3529042612883571,0.44785253747273185,0.5506315183372128,0.6503664572741976,0.7538795479141971,0.8467739950479158],"series":[{"name":"observed","values":[0.35294117647058826,0.30434782608695654,0.29577464788732394,0.4044943820224719,0.5324675324675324,0.6024096385542169,0.7948717948717948,0.8490566037735849],"n":[17,46,71,89,77,83,78,53],"line":false}],"xlabel":"forecast home-win probability (bin mean)","ylabel":"observed","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280},{"type":"lines","title":"WNBA-only coefficients","subtitle":"","x":[0.16592102955630686,0.2481094306898452,0.3543747505664063,0.4437672769873924,0.5477337855263475,0.6518894386135771,0.7486513207517117,0.8521341339544873,0.921893250051284],"series":[{"name":"observed","values":[0.3333333333333333,0.2553191489361702,0.33783783783783783,0.4166666666666667,0.48717948717948717,0.6282051282051282,0.7710843373493976,0.8333333333333334,0.8823529411764706],"n":[21,47,74,72,78,78,83,54,17],"line":false}],"xlabel":"forecast home-win probability (bin mean)","ylabel":"observed","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false,"ymin":0.0,"ymax":1.0,"height":280}]}],"question":"Four isolated extensions to existing models, each a chronological development test on years already inspected in earlier notes (not fresh confirmation data). 1. Does a calendar random walk in the Bayesian Test par (an annual scoring level) fix the shortfall at the start of an innings? 2. Do NBA and WNBA game totals improve when possessions and efficiency are forecast separately, with expected rotations and minutes uncertainty? 3. Do club player ratings, pooled with internationals and adjusted for competition and role, beat team-only ratings in franchise T20? 4. Do WNBA-specific player-stat weights beat coefficients transferred from the NBA? The registered standard for a prospective candidate is a paired interval excluding zero in the model's favour.","headline":"None of the four extensions clears the registered bar, so every baseline stays. The dynamic Test par is the only one with a signal: it cuts the error on blocks that start with no wicket down (-0.74 runs per block [-1.23, -0.29]) but the change over all blocks is -0.14 [-0.46, +0.18], and the annual level it learns overshoots in 2022 before helping in 2023\u201325. Forecasting basketball totals through possessions and efficiency moves the NBA CRPS by -0.003 points [-0.073, +0.074] and the WNBA by -0.046 [-0.148, +0.049]; rotation profiles and minutes-scenario variance add nothing. In franchise T20, club player ratings, pooling with internationals and competition/role adjustments all sit within \u00b10.001 Brier of team-only ratings for men and women. WNBA-specific weights are +0.0011 Brier [-0.0021, +0.0042] worse than NBA-transferred ones on the same 526 games. All held-out years were inspected in earlier notes, so this is development evidence; the dynamic par is a candidate for a frozen prospective study, not a replacement.","findings":[{"label":"All blocks","estimate":-0.13904349165065175,"lo":-0.45718791848714607,"hi":0.18144444204751126,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"Zero wickets down at the start","estimate":-0.7443398648896975,"lo":-1.2304341883243402,"hi":-0.2902062153948634,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"All blocks, 2022","estimate":0.24451002393720647,"lo":-0.27226907414849355,"hi":0.7781174777117187,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"All blocks, 2023","estimate":-0.10130062161051047,"lo":-0.22848266135529072,"hi":0.00507225229446517,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"All blocks, 2024","estimate":-0.6107575819929093,"lo":-1.0597568957670294,"hi":-0.13322078527211853,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"All blocks, 2025","estimate":-0.04563406024270457,"lo":-1.0575370159447144,"hi":0.8376690829972563,"unit":"1. Dynamic Test par: held-out runs MAE change per block, dynamic minus static, 2022\u201325 (negative = dynamic closer); bootstrap by match","group":"dyn"},{"label":"possessions \u00d7 efficiency","estimate":-0.0032555526565015663,"lo":-0.07272795934430132,"hi":0.07379140257526894,"unit":"2. NBA totals: CRPS change v the points-total baseline, points (negative = better), 2460 games 2024\u201325; bootstrap by UTC date","group":"tot_nba"},{"label":"with expected rotation profile","estimate":0.03695866165764077,"lo":-0.06396832661506399,"hi":0.13929761107882993,"unit":"2. NBA totals: CRPS change v the points-total baseline, points (negative = better), 2460 games 2024\u201325; bootstrap by UTC date","group":"tot_nba"},{"label":"with minutes-scenario variance","estimate":0.03725049512157478,"lo":-0.0636112770513337,"hi":0.13952458817263266,"unit":"2. NBA totals: CRPS change v the points-total baseline, points (negative = better), 2460 games 2024\u201325; bootstrap by UTC date","group":"tot_nba"},{"label":"possessions \u00d7 efficiency","estimate":-0.046322358011015696,"lo":-0.1484047592545077,"hi":0.048571531081497296,"unit":"2. WNBA totals: CRPS change v the points-total baseline, points (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"tot_wnba"},{"label":"with expected rotation profile","estimate":-0.005356440957682172,"lo":-0.1468899256562558,"hi":0.1264336536005035,"unit":"2. WNBA totals: CRPS change v the points-total baseline, points (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"tot_wnba"},{"label":"with minutes-scenario variance","estimate":-0.00554138705018822,"lo":-0.147157230011959,"hi":0.1259880247391255,"unit":"2. WNBA totals: CRPS change v the points-total baseline, points (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"tot_wnba"},{"label":"club player ratings","estimate":-6.3029969107023796,"lo":-34.64188794822854,"hi":19.732420550622514,"unit":"3. Franchise T20, women: Brier change \u00d7 10\u2074 v team ratings (negative = better), 409 matches 2023\u201325; bootstrap by match","group":"fr_female"},{"label":"club + international pooled","estimate":-2.991089456394927,"lo":-36.19309414751446,"hi":28.53013841887709,"unit":"3. Franchise T20, women: Brier change \u00d7 10\u2074 v team ratings (negative = better), 409 matches 2023\u201325; bootstrap by match","group":"fr_female"},{"label":"with competition and role/phase","estimate":0.24765069094926137,"lo":-33.88227588930487,"hi":32.88391664527395,"unit":"3. Franchise T20, women: Brier change \u00d7 10\u2074 v team ratings (negative = better), 409 matches 2023\u201325; bootstrap by match","group":"fr_female"},{"label":"club player ratings","estimate":-0.9651386573206386,"lo":-19.259789072859334,"hi":17.92006946331864,"unit":"3. Franchise T20, men: Brier change \u00d7 10\u2074 v team ratings (negative = better), 1654 matches 2023\u201325; bootstrap by match","group":"fr_male"},{"label":"club + international pooled","estimate":2.1757711579137067,"lo":-16.35781568874958,"hi":22.691369398893332,"unit":"3. Franchise T20, men: Brier change \u00d7 10\u2074 v team ratings (negative = better), 1654 matches 2023\u201325; bootstrap by match","group":"fr_male"},{"label":"with competition and role/phase","estimate":6.203691177987823,"lo":-13.743890532706745,"hi":27.65003828801552,"unit":"3. Franchise T20, men: Brier change \u00d7 10\u2074 v team ratings (negative = better), 1654 matches 2023\u201325; bootstrap by match","group":"fr_male"},{"label":"points-total ridge (baseline)","estimate":14.847675866892908,"lo":-5.798461875382482,"hi":35.44088746190086,"unit":"4. WNBA weights: Brier change \u00d7 10\u2074 v NBA-transferred coefficients (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"wt"},{"label":"WNBA-only coefficients","estimate":11.141217024268872,"lo":-20.937001331396893,"hi":42.122569471005875,"unit":"4. WNBA weights: Brier change \u00d7 10\u2074 v NBA-transferred coefficients (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"wt"},{"label":"WNBA shrunk toward NBA","estimate":7.285112805936154,"lo":-20.284238325396164,"hi":32.88784947302856,"unit":"4. WNBA weights: Brier change \u00d7 10\u2074 v NBA-transferred coefficients (negative = better), 526 games 2024\u201325; bootstrap by UTC date","group":"wt"}],"tables":[{"title":"1. Dynamic Test par against the static Bayesian par (held out 2022\u201325)","columns":[["scope","Scope"],["arm","Par"],["n","Blocks"],["mae","Runs MAE"],["lpd","Mean log predictive density"],["c50","In central 50%"],["c90","In central 90%"],["bias","Actual minus par"],["diff","MAE change, dynamic minus static [95% by match]"]],"rows":[{"scope":"all blocks","arm":"static","n":1722,"mae":"19.655","lpd":"-4.646","c50":"49%","c90":"87%","bias":"+5.18","diff":""},{"scope":"all blocks","arm":"dynamic","n":1722,"mae":"19.516","lpd":"-4.635","c50":"51%","c90":"88%","bias":"+3.19","diff":"-0.139 [-0.457, +0.181]"},{"scope":"zero wickets down","arm":"static","n":659,"mae":"21.553","lpd":"-4.789","c50":"47%","c90":"85%","bias":"+10.16","diff":""},{"scope":"zero wickets down","arm":"dynamic","n":659,"mae":"20.809","lpd":"-4.738","c50":"49%","c90":"87%","bias":"+7.95","diff":"-0.744 [-1.230, -0.290]"},{"scope":"all blocks, 2022","arm":"static","n":473,"mae":"19.275","lpd":"-4.589","c50":"46%","c90":"88%","bias":"+2.16","diff":""},{"scope":"all blocks, 2022","arm":"dynamic","n":473,"mae":"19.520","lpd":"-4.632","c50":"46%","c90":"87%","bias":"+6.64","diff":"+0.245 [-0.272, +0.778]"},{"scope":"all blocks, 2023","arm":"static","n":350,"mae":"20.559","lpd":"-4.663","c50":"48%","c90":"86%","bias":"+5.58","diff":""},{"scope":"all blocks, 2023","arm":"dynamic","n":350,"mae":"20.458","lpd":"-4.651","c50":"50%","c90":"87%","bias":"+4.24","diff":"-0.101 [-0.228, +0.005]"},{"scope":"all blocks, 2024","arm":"static","n":493,"mae":"19.535","lpd":"-4.694","c50":"52%","c90":"86%","bias":"+7.68","diff":""},{"scope":"all blocks, 2024","arm":"dynamic","n":493,"mae":"18.924","lpd":"-4.642","c50":"55%","c90":"88%","bias":"+2.84","diff":"-0.611 [-1.060, -0.133]"},{"scope":"all blocks, 2025","arm":"static","n":406,"mae":"19.463","lpd":"-4.638","c50":"50%","c90":"88%","bias":"+5.31","diff":""},{"scope":"all blocks, 2025","arm":"dynamic","n":406,"mae":"19.418","lpd":"-4.616","c50":"52%","c90":"88%","bias":"-1.30","diff":"-0.046 [-1.058, +0.838]"}]},{"title":"Prior predictive check: annual rate change, annual increments N(0,sigma), sigma HalfNormal(0,.05)","columns":[["q","Quantity"],["v","2.5% / 50% / 97.5%"]],"rows":[{"q":"one-year change in scoring rate","v":"-10.4% / -0.0% / +11.5%"},{"q":"fifteen-year change","v":"-34.5% / +0.0% / +52.5%"}]},{"title":"2. Basketball totals by arm (2024\u201325, same games for every arm)","columns":[["league","League"],["arm","Arm"],["n","Games"],["crps","CRPS"],["mae","MAE"],["hit80","In 80% interval"],["w80","80% width"],["bias","Actual minus forecast"],["diff","CRPS change v baseline [95% by date]"]],"rows":[{"league":"NBA","arm":"points-total ridge (baseline)","n":2460,"crps":"10.390","mae":"14.75","hit80":"81%","w80":"47.8","bias":"+0.75","diff":"reference"},{"league":"NBA","arm":"possessions \u00d7 efficiency","n":2460,"crps":"10.387","mae":"14.78","hit80":"82%","w80":"47.9","bias":"-0.47","diff":"-0.0033 [-0.0727, +0.0738]"},{"league":"NBA","arm":"with expected rotation profile","n":2460,"crps":"10.427","mae":"14.83","hit80":"81%","w80":"47.8","bias":"-1.70","diff":"+0.0370 [-0.0640, +0.1393]"},{"league":"NBA","arm":"with minutes-scenario variance","n":2460,"crps":"10.428","mae":"14.83","hit80":"81%","w80":"47.9","bias":"-1.70","diff":"+0.0373 [-0.0636, +0.1395]"},{"league":"WNBA","arm":"points-total ridge (baseline)","n":526,"crps":"9.139","mae":"12.90","hit80":"82%","w80":"42.3","bias":"+0.34","diff":"reference"},{"league":"WNBA","arm":"possessions \u00d7 efficiency","n":526,"crps":"9.093","mae":"12.76","hit80":"83%","w80":"42.2","bias":"-0.63","diff":"-0.0463 [-0.1484, +0.0486]"},{"league":"WNBA","arm":"with expected rotation profile","n":526,"crps":"9.134","mae":"12.80","hit80":"83%","w80":"42.7","bias":"+0.08","diff":"-0.0054 [-0.1469, +0.1264]"},{"league":"WNBA","arm":"with minutes-scenario variance","n":526,"crps":"9.134","mae":"12.80","hit80":"83%","w80":"42.8","bias":"+0.08","diff":"-0.0055 [-0.1472, +0.1260]"}]},{"title":"3. Franchise T20 by arm (2023\u201325)","columns":[["group","Group"],["arm","Arm"],["n","Matches"],["xi","Both previous elevens known"],["brier","Brier"],["ll","Log loss"],["diff","Brier change \u00d7 10\u2074 v team [95% by match]"]],"rows":[{"group":"women","arm":"team ratings only","n":409,"xi":"395/409","brier":"0.2345","ll":"0.6610","diff":"reference"},{"group":"women","arm":"club player ratings","n":409,"xi":"395/409","brier":"0.2338","ll":"0.6598","diff":"-6.30 [-34.64, +19.73]"},{"group":"women","arm":"club + international pooled","n":409,"xi":"395/409","brier":"0.2342","ll":"0.6606","diff":"-2.99 [-36.19, +28.53]"},{"group":"women","arm":"with competition and role/phase","n":409,"xi":"395/409","brier":"0.2345","ll":"0.6612","diff":"+0.25 [-33.88, +32.88]"},{"group":"men","arm":"team ratings only","n":1654,"xi":"1590/1654","brier":"0.2446","ll":"0.6813","diff":"reference"},{"group":"men","arm":"club player ratings","n":1654,"xi":"1590/1654","brier":"0.2445","ll":"0.6812","diff":"-0.97 [-19.26, +17.92]"},{"group":"men","arm":"club + international pooled","n":1654,"xi":"1590/1654","brier":"0.2448","ll":"0.6819","diff":"+2.18 [-16.36, +22.69]"},{"group":"men","arm":"with competition and role/phase","n":1654,"xi":"1590/1654","brier":"0.2452","ll":"0.6827","diff":"+6.20 [-13.74, +27.65]"}]},{"title":"3. Franchise T20: each step against the previous arm","columns":[["group","Group"],["step","Step"],["diff","Brier change \u00d7 10\u2074 [95%]"]],"rows":[{"group":"women","step":"club player ratings v team ratings only","diff":"-6.30 [-34.64, +19.73]"},{"group":"women","step":"club + international pooled v club player ratings","diff":"+3.31 [-10.64, +18.20]"},{"group":"women","step":"with competition and role/phase v club + international pooled","diff":"+3.24 [-1.41, +7.89]"},{"group":"men","step":"club player ratings v team ratings only","diff":"-0.97 [-19.26, +17.92]"},{"group":"men","step":"club + international pooled v club player ratings","diff":"+3.14 [-4.69, +11.03]"},{"group":"men","step":"with competition and role/phase v club + international pooled","diff":"+4.03 [-0.41, +8.55]"}]},{"title":"4. WNBA weights by arm (526 games, 2024\u201325)","columns":[["arm","Arm"],["crps","Margin CRPS"],["brier","Brier"],["ll","Log loss"],["hit80","In 80% interval"],["diff","Brier change \u00d7 10\u2074 v transferred [95% by date]"]],"rows":[{"arm":"points-total ridge (baseline)","crps":"7.112","brier":"0.2111","ll":"0.6102","hit80":"81%","diff":"+14.85 [-5.80, +35.44]"},{"arm":"NBA-transferred coefficients","crps":"7.093","brier":"0.2096","ll":"0.6078","hit80":"82%","diff":"reference"},{"arm":"WNBA-only coefficients","crps":"7.148","brier":"0.2107","ll":"0.6104","hit80":"81%","diff":"+11.14 [-20.94, +42.12]"},{"arm":"WNBA shrunk toward NBA","crps":"7.137","brier":"0.2104","ll":"0.6094","hit80":"81%","diff":"+7.29 [-20.28, +32.89]"}]},{"title":"Sampler diagnostics, dynamic par (R-hat < 1.01, no divergences, bulk ESS > 400; one registered retry)","columns":[["fit","Fit"],["attempt","Attempt"],["train","Training blocks"],["test","Held-out blocks"],["rhat","Max R-hat"],["ess","Min bulk ESS"],["div","Divergences"],["ok","Passed"]],"rows":[{"fit":"dynamic runs 2022","attempt":1,"train":5707,"test":473,"rhat":"1.0051","ess":"1041","div":0,"ok":"yes"},{"fit":"dynamic runs 2023","attempt":1,"train":6180,"test":350,"rhat":"1.0064","ess":"1045","div":1,"ok":"NO"},{"fit":"dynamic runs 2023","attempt":2,"train":6180,"test":350,"rhat":"1.0037","ess":"2060","div":0,"ok":"yes"},{"fit":"dynamic runs 2024","attempt":1,"train":6530,"test":493,"rhat":"1.0047","ess":"1047","div":0,"ok":"yes"},{"fit":"dynamic runs 2025","attempt":1,"train":7023,"test":406,"rhat":"1.0057","ess":"984","div":0,"ok":"yes"}]},{"title":"Basketball input audit: canonical games, games excluded for missing or inconsistent boxes, fold sizes","columns":[["league","League"],["games","Canonical games"],["excluded","Excluded"],["2024_train","2024 train"],["2024_test","2024 test"],["2025_train","2025 train"],["2025_test","2025 test"]],"rows":[{"league":"NBA","games":13271,"excluded":66,"2024_train":9516,"2024_test":1230,"2025_train":10746,"2025_test":1230},{"league":"WNBA","games":2334,"excluded":10,"2024_train":1594,"2024_test":240,"2025_train":1834,"2025_test":286}]}],"method":["1. The corrected block table of the Bayesian-par note (negative-binomial runs per over with state features and partially pooled batting, bowling and venue effects) plus a log-rate Gaussian random walk over calendar years anchored at zero in 2010, increments Normal(0, \u03c3_year), \u03c3_year ~ HalfNormal(0.05). A held-out year carries the last level forward plus a fresh innovation, never estimated from that year's outcomes. CmdStan NUTS, 4 chains \u00d7 1000/1000, adapt_delta 0.9; one registered retry at 2000/2000 and 0.95. Paired MAE and log predictive density with a match bootstrap (1,000 resamples).","2. Regular-season box scores through 2025 (sportsdataverse mirrors); a game is usable only when its date plus two days precedes the forecast date. Possessions = FGA \u2212 ORB + TOV + 0.44 FTA; team EWM levels (\u03b1 0.1) with home, rest and season terms; efficiency per 100 possessions forecast per side; spread from the previous season's forward residuals. Rotation profiles from the five most recent released rotations, player rates shrunk by 500 minutes toward the league rate. Ridge penalty 10. Primary endpoint CRPS of the full-game total, paired by UTC date.","3. Cricsheet club T20, standard 20-over matches with a decisive result, men and women separately; training matches released before 1 January of each held-out year. Team-only baseline; previous-eleven player ratings fitted on club deliveries only, then pooled with internationals, then with competition (penalty 200) and batting-position / bowling-phase (penalty 300) adjustments. Strength differences converted at a fixed 150 runs per win. Primary endpoint paired Brier by match.","4. The same rotation profiles for the WNBA: a team/rest baseline, NBA-trained coefficients applied unchanged, WNBA-only ridge (10) coefficients, and WNBA coefficients shrunk toward the NBA mapping (ridge 100, prior mean fixed). Antisymmetric difference features with the home indicator reversing on swaps. Margin CRPS and Brier paired by UTC date on identical games and cutoffs.","Every arm reports its diagnostics, exclusions and aborted attempts; source and input hashes are kept in the results file and the receipts it references. No live model, automatic study or production baseline was changed."],"deviations":["The first two dynamic-par warm-up jobs were stopped before scoring to correct a convergence check that treated the deterministic 2010 anchor as a sampled parameter. Model, priors and sampling protocol were unchanged; the incomplete chains remain in the cache and are listed in the results file.","The franchise T20 run was restarted before interpretation because some shortened chases keep a 20-over match header; eligibility now excludes any match with a non-120-ball innings allocation. The discarded prototype's files are hashed in the results.","The 2023 dynamic fit needed the registered retry (one divergence on the first attempt); the retry passed.","The static baseline's first sampler attempt used adapt_delta 0.8 and the dynamic arm 0.9, so the two arms were not run under identical sampler settings; both pass the same diagnostic thresholds.","Historical injury announcements are unavailable, so the basketball arms could not be given an injury-announcement feature; nothing was backfilled from later information.","The minutes-uncertainty arm adds rotation-scenario variance to a residual scale that already contains it, so it can double-count uncertainty; it is reported as registered.","A legacy defect was found but not fixed here: nba_roster.player_games still filters player rows to team_id <= 30 even when explicit WNBA teams are supplied (all 518 Valkyries rows in 2025 are dropped). The new study builder keeps canonical ids and has a regression test; the frozen helper needs its own versioned migration, so these results are not a corrected replication of the old RPM roster backtest.","The dynamic par conditions on the observed block duration; a stopping/duration model remains future work."],"data":{"results":"docs/research/sports_extensions_v1_results.json","source":"Cricsheet ball-by-ball (CC BY 4.0); ESPN box scores via sportsdataverse","code":"src/predmarkets/research_dynamic_par.py, research_basketball_extensions.py, research_franchise_t20.py, research_sports_report.py, stan/block_par_dynamic.stan"}}</script>
+<script>
+(function(){
+  "use strict";
+  var N = JSON.parse(document.getElementById("data").textContent);
+  var SERIES = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)"];
+  var RAMP = getComputedStyle(document.documentElement).getPropertyValue("--ramp").split(",").map(function(s){return s.trim();});
+  var uid = 0;
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  function fmt(v, d){ if(v==null||isNaN(v)) return "–"; if(d==null){ var a=Math.abs(v); d = a>=100?0:a>=10?1:a>=1?2:3; } return Number(v).toFixed(d); }
+  function niceStep(span, n){ var raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), r=raw/mag; var s=r<1.5?1:r<3.5?2:r<7.5?5:10; return s*mag; }
+  function ticks(lo, hi, n){ var st=niceStep(hi-lo||1, n||5), out=[], v=Math.ceil(lo/st)*st; for(;v<=hi+1e-9;v+=st){ out.push(Math.abs(v)<1e-9?0:+v.toFixed(10)); } return out; }
+  function tickLabel(v){ var a=Math.abs(v); return a>=1000? v.toLocaleString("en-AU"): a>=10||a===0? String(Math.round(v*10)/10): a>=1? String(Math.round(v*100)/100): String(Math.round(v*1000)/1000); }
+  function wrap(s, width){ var words=String(s).split(" "), lines=[], cur=""; words.forEach(function(w){ if((cur+" "+w).trim().length>width && cur){ lines.push(cur); cur=w; } else { cur=(cur+" "+w).trim(); } }); if(cur) lines.push(cur); return lines.slice(0,3); }
+  function seriesColor(i, n, ramp){ if(ramp){ var k=Math.round(i*(RAMP.length-1)/Math.max(1,n-1)); return RAMP[k]; } return SERIES[i % SERIES.length]; }
+
+  // Tooltip: one element, shown on hover and on keyboard focus of any element carrying data-tip.
+  var tip = $("tip");
+  function showTip(el){ var t=el.getAttribute("data-tip"); if(!t) return; tip.textContent=t; tip.style.display="block";
+    var r=el.getBoundingClientRect(), x=window.scrollX+r.left+r.width/2, y=window.scrollY+r.top-8;
+    tip.style.left=Math.max(8, Math.min(x - tip.offsetWidth/2, window.scrollX+document.documentElement.clientWidth-tip.offsetWidth-8))+"px";
+    tip.style.top=(y - tip.offsetHeight)+"px"; }
+  function hideTip(){ tip.style.display="none"; }
+  document.addEventListener("mouseover", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("mouseout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+  document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+
+  function figure(title, sub, inner, legend, table){
+    var id="fig"+(++uid);
+    return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
+      + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
+  }
+  function legendHtml(items){ if(!items||items.length<2) return ""; return '<ul class="legend" aria-label="Legend">'+items.map(function(it){ return '<li><span class="sw'+(it.kind?" "+it.kind:"")+'" style="background:'+it.color+';color:'+it.color+'"></span>'+esc(it.name)+'</li>'; }).join("")+'</ul>'; }
+  function tableHtml(caption, cols, rows){ return '<table><caption class="sr">'+esc(caption)+'</caption><thead><tr>'+cols.map(function(c,i){ return '<th scope="col"'+(i?' class="n"':"")+'>'+esc(c)+'</th>'; }).join("")+'</tr></thead><tbody>'
+    + rows.map(function(r){ return '<tr>'+r.map(function(v,i){ return i? '<td class="n">'+esc(v)+'</td>' : '<th scope="row" style="font-weight:500;color:var(--ink)">'+esc(v)+'</th>'; }).join("")+'</tr>'; }).join("")+'</tbody></table>'; }
+  function svgOpen(W, H, title, desc){ var id="svg"+(++uid); return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+id+'-t '+id+'-d"><title id="'+id+'-t">'+esc(title)+'</title><desc id="'+id+'-d">'+esc(desc)+'</desc>'; }
+
+  // ---- Dot plot: estimates with intervals, one row each (the pre-registered findings).
+  function dots(rows, opts){
+    opts = opts||{};
+    var W=860, R=190, rowH=30, labelW=42, lines=rows.map(function(r){ return wrap(r.label, labelW); });
+    var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
+    var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
+    var top=14, H=rows.length*rowH+top+44;
+    var lo=Math.min(0, Math.min.apply(null, rows.map(function(r){return r.lo;}))), hi=Math.max(0, Math.max.apply(null, rows.map(function(r){return r.hi;})));
+    if(hi-lo===0){ hi+=1; lo-=1; }
+    var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var tk=ticks(lo, hi, 5);
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    var s=svgOpen(W, H, opts.title||"", desc);
+    tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
+    rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=(r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0), ls=lines[i];
+      var ty = y + 5 - (ls.length-1)*9;
+      s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      var tipText = r.label+"\n"+fmt(r.estimate)+"  ["+fmt(r.lo)+", "+fmt(r.hi)+"]"+(sig?"\ninterval excludes zero":"\ninterval includes zero");
+      s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
+      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":" hollow")+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate)+"  ["+fmt(r.lo)+", "+fmt(r.hi)+"]")+'</text>';
+    });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
+    tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
+    if(opts.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(opts.xlabel)+'</text>';
+    s+='</svg>';
+    var table = tableHtml(opts.title||"Findings", ["Analysis","Estimate","Lower","Upper"], rows.map(function(r){ return [r.label, fmt(r.estimate), fmt(r.lo), fmt(r.hi)]; }));
+    return {svg:s, table:table};
+  }
+
+  // ---- Lines over a shared x (numeric or categorical); several series; legend + end labels; identity line optional.
+  function lines(c){
+    var W=c.width||420, H=c.height||260, L=56, R=c.endLabels===false?16:92, T=12, B=44;
+    var cat = typeof c.x[0]==="string";
+    var xs = cat? c.x.map(function(_,i){return i;}): c.x;
+    var allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.identity){ allY=allY.concat(xs); }
+    var ylo=c.yzero? Math.min(0, Math.min.apply(null, allY)): Math.min.apply(null, allY), yhi=Math.max.apply(null, allY);
+    if(c.ymin!=null) ylo=Math.min(ylo, c.ymin); if(c.ymax!=null) yhi=Math.max(yhi, c.ymax);
+    if(yhi-ylo===0){ yhi+=1; ylo-=1; } var yp=(yhi-ylo)*0.08; if(!c.yzero||ylo<0) ylo-=yp; yhi+=yp;
+    var xlo=Math.min.apply(null, xs), xhi=Math.max.apply(null, xs); if(xhi===xlo){ xhi+=1; }
+    if(cat){ xlo-=0.5; xhi+=0.5; } else if(c.identity){ xlo=ylo; xhi=yhi; }
+    function X(v){ return L+(W-L-R)*(v-xlo)/(xhi-xlo); } function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var yt=ticks(ylo, yhi, 4), xt=cat? xs: ticks(xlo, xhi, 5);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return (cat?c.x[i]:tickLabel(xs[i]))+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(ylo).toFixed(1)+'" y2="'+Y(ylo).toFixed(1)+'"/>';
+    xt.forEach(function(v,i){ var lab=cat? c.x[i]: tickLabel(v); s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(lab)+'</text>'; });
+    if(c.identity){ var a=Math.max(xlo,ylo), b=Math.min(xhi,yhi); s+='<line class="ident" x1="'+X(a).toFixed(1)+'" y1="'+Y(a).toFixed(1)+'" x2="'+X(b).toFixed(1)+'" y2="'+Y(b).toFixed(1)+'"/>'; }
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'; }
+    var n=c.series.length, ends=[];
+    c.series.forEach(function(sr,k){ var col=sr.color||seriesColor(k, n, c.ramp), pts=[];
+      sr.values.forEach(function(v,i){ if(v!=null) pts.push([X(xs[i]), Y(v), i]); });
+      if(sr.line!==false && pts.length>1) s+='<path class="ln" style="stroke:'+col+'" d="M'+pts.map(function(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }).join("L")+'"/>';
+      if(sr.markers!==false || pts.length===1) pts.forEach(function(p){ var t=sr.name+"\n"+(cat?c.x[p[2]]:(c.xlabel||"x")+" "+tickLabel(xs[p[2]]))+": "+fmt(sr.values[p[2]])+(sr.n&&sr.n[p[2]]!=null?"  (n="+sr.n[p[2]]+")":"");
+        s+='<circle class="hit" tabindex="0" data-tip="'+esc(t)+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="12"/><circle class="mk" style="fill:'+col+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>'; });
+      if(pts.length&&c.endLabels!==false&&n<=4) ends.push({y:pts[pts.length-1][1], name:sr.name});
+    });
+    ends.sort(function(a,b){ return a.y-b.y; }); for(var i=1;i<ends.length;i++){ if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14; }
+    ends.forEach(function(e){ s+='<text x="'+(W-R+8)+'" y="'+(e.y+4).toFixed(1)+'" style="font-size:12px">'+esc(e.name)+'</text>'; });
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n, c.ramp), kind: sr.line===false?"dot":""}; }));
+    var table = tableHtml(c.title, [c.xlabel||"x"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [cat?x:tickLabel(x)].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Grouped bars over categories (<= 3 series), optional reference line.
+  function bars(c){
+    var W=c.width||420, H=c.height||240, L=56, R=16, T=12, B=44;
+    var n=c.series.length, m=c.x.length, allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.reference!=null) allY.push(c.reference);
+    var ylo=Math.min(0, Math.min.apply(null, allY)), yhi=Math.max(0, Math.max.apply(null, allY)); if(yhi-ylo===0) yhi=ylo+1; var yp=(yhi-ylo)*0.08; yhi+=yp; if(ylo<0) ylo-=yp;
+    function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var slot=(W-L-R)/m, bw=Math.min(24, (slot*0.7-2*(n-1))/n);
+    var yt=ticks(ylo, yhi, 4);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return c.x[i]+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    c.x.forEach(function(lab,i){ var cx=L+slot*(i+0.5), ls=wrap(lab, Math.max(8, Math.floor(slot/7)));
+      s+='<text class="t" x="'+cx.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle">'+ls.map(function(t,k){ return '<tspan x="'+cx.toFixed(1)+'" dy="'+(k?13:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      c.series.forEach(function(sr,k){ var v=sr.values[i]; if(v==null) return; var col=sr.color||seriesColor(k, n);
+        var x=cx-(n*bw+2*(n-1))/2+k*(bw+2), y0=Y(0), y1=Y(v), top=Math.min(y0,y1), h=Math.abs(y0-y1), r=Math.min(4, h/2);
+        var d = v>=0? 'M'+x+','+y0+'v'+(-(h-r))+'a'+r+','+r+' 0 0 1 '+r+','+(-r)+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 1 '+r+','+r+'v'+(h-r)+'z'
+                    : 'M'+x+','+y0+'v'+(h-r)+'a'+r+','+r+' 0 0 0 '+r+','+r+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 0 '+r+','+(-r)+'v'+(-(h-r))+'z';
+        s+='<path class="bar" tabindex="0" data-tip="'+esc(sr.name+"\n"+lab+": "+fmt(v)+(sr.n&&sr.n[i]!=null?"  (n="+sr.n[i]+")":""))+'" style="fill:'+col+'" d="'+d+'"/>'; });
+    });
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'+(c.referenceLabel?'<text class="t" x="'+(L+4)+'" y="'+(Y(c.reference)-4).toFixed(1)+'" text-anchor="start">'+esc(c.referenceLabel)+'</text>':""); }
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n), kind:"dot"}; }));
+    var table = tableHtml(c.title, [c.xlabel||"category"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [x].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  function renderChart(c){
+    if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
+    if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
+      return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
+    }
+    if(!c.width){ c.width=860; c.height=c.height||300; }          // standalone charts span the column; panels are 420 wide
+    var r = c.type==="bars"? bars(c): lines(c);
+    return figure(c.title, c.subtitle, r.svg, r.legend, r.table);
+  }
+
+  // ---- Page
+  $("kicker").textContent = N.kicker; $("title").textContent = N.title;
+  $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
+  $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.';
+  $("question").textContent = N.question;
+  if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
+  var groups = {}, order = [];
+  (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
+  $("charts").innerHTML = order.map(function(g){ var rows=groups[g]; var unit=rows[0].unit||""; var parts=unit.split(/:\s(.+)/);
+    var title = parts.length>1? parts[0]: unit, sub = parts.length>1? parts[1]: "";
+    return renderChart({type:"dots", title:title, subtitle:sub, rows:rows, xlabel: rows[0].xlabel||""}); }).join("");
+  if(N.charts&&N.charts.length){ $("figures").innerHTML = '<h2 id="figures-h">Checks and detail</h2>' + N.charts.map(renderChart).join(""); }
+  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+    return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; return '<td class="'+(i&&/^[+\-\d]/.test(String(v))?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+  $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else { $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: '+esc(N.data.source||"Cricsheet ball-by-ball (CC BY 4.0)")+'. Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
+    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
+    + ' <a href="index.html">All forecasts and notes</a>.';
+  // Contents: every h2 on the page, in order.
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+})();
+</script>
+</body>
+</html>
