@@ -60,7 +60,7 @@
   "blurb": "Questions worth testing, by sport, with links to the write-ups as each is done.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 00:32 UTC"
+  "published": "2026-10-10 01:57 UTC"
  },
  {
   "key": "nba",
@@ -97,5 +97,14 @@
   "section": "Elections",
   "date": "2026-10-07",
   "published": "2026-10-07 12:02 UTC"
+ },
+ {
+  "key": "wickets",
+  "slug": "wickets-in-hand.html",
+  "title": "Wickets in hand: a confirmatory par for wickets",
+  "blurb": "The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance.",
+  "section": "Research",
+  "date": "2026-10-10",
+  "published": "2026-10-10 01:57 UTC"
  }
 ]

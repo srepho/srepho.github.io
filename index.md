@@ -39,6 +39,9 @@ Questions worth testing, by sport, with links to the write-ups as each is done.
 ### [Test innings, session by session: above or below expectation?](/predictions/test-sessions.html) (Saturday 10 October 2026)
 A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.
 
+### [Wickets in hand: a confirmatory par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026)
+The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance.
+
 ### [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026)
 A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
 
