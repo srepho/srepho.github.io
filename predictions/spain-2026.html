@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="forecast-date" content="2026-10-11">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spain 2026: Congress seat forecast</title>
+<meta name="description" content="A pre-registered research note with its design, findings, method and data.">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#464e58;--muted:#5f6873;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;--focus:#1f5fc4;
+  --s1:#1f5fc4;--s2:#d2540e;--s3:#8b44e0;--s4:#0d8a6a;
+  --ramp:#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);color:var(--ink);padding:8px 12px;border:2px solid var(--focus);border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;font-weight:600;margin:0 0 2px;color:var(--ink)}
+.asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
+.asof span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.lede{font-size:17px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+p{max-width:72ch}
+nav.toc{margin:14px 0 0;font-size:14px}
+nav.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc li{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 4px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tile .l{font-size:13px;color:var(--muted);margin:0}
+.tile .v{font-size:26px;font-weight:600;margin:2px 0 0;line-height:1.2}
+.tile .n{font-size:13px;color:var(--ink2);margin:2px 0 0}
+figure.fig{margin:22px 0;padding:0}
+figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
+figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
+.row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
+@media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+.legend .sw.dot{width:9px;height:9px;border-radius:50%}
+.legend .sw.hollow{background:transparent!important;border:2px solid currentColor;width:7px;height:7px}
+details.tbl{margin:4px 0 0;font-size:14px}
+details.tbl summary{cursor:pointer;color:var(--accent);font-size:14px}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll:focus-visible{outline-offset:-3px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+caption{text-align:left;font-size:17px;font-weight:600;margin:32px 0 8px;caption-side:top;color:var(--ink)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td:first-child,td:nth-child(2){white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+details.tbl table{font-size:13px}details.tbl caption{font-size:14px;margin:6px 0 4px}
+svg text{fill:var(--ink2);font-size:13px;font-family:var(--sans)}
+svg text.v{font-family:var(--mono);fill:var(--ink);font-size:12px}
+svg text.t{fill:var(--muted);font-size:12px}
+svg .axis{stroke:var(--line);stroke-width:1}svg .grid{stroke:var(--grid);stroke-width:1}svg .zero{stroke:var(--muted);stroke-width:1}
+svg .ci{stroke:var(--accent);stroke-width:2;stroke-linecap:round}svg .pt{fill:var(--accent);stroke:var(--card);stroke-width:2}
+svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+svg .pt.hollow{fill:var(--card);stroke:var(--accent);stroke-width:2.5}
+svg .ident{stroke:var(--muted);stroke-width:1}
+svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+svg .mk{stroke:var(--card);stroke-width:2}
+svg .hit{fill:transparent;cursor:default}
+svg .hit:focus{outline:none}
+svg .hit:focus + .mk, svg .hit:hover + .mk{stroke:var(--ink);stroke-width:2}
+svg .bar{stroke:none}
+svg .bar:hover,svg .bar:focus{filter:brightness(1.15);outline:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 9px;border-radius:6px;max-width:300px;z-index:20;display:none;white-space:pre-line}
+ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
+a{color:var(--accent)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<main id="main">
+  <p class="kicker" id="kicker"></p>
+  <h1 id="title"></h1>
+  <div class="asof" id="asof"></div>
+  <p class="meta" id="reg"></p>
+  <nav class="toc" aria-label="Contents"><ul id="toc"></ul></nav>
+  <h2 id="question-h">Question</h2><p id="question"></p>
+  <h2 id="brief-h">In brief</h2>
+  <div class="lede" id="headline"></div>
+  <div class="tiles" id="tiles"></div>
+  <h2 id="findings-h">Findings</h2>
+  <p class="meta">Point estimates with uncertainty intervals; the sampling unit and method are stated on each chart. A filled green marker means the interval excludes zero; a hollow marker means it does not. Every chart has a data table beneath it.</p>
+  <div id="charts"></div>
+  <div id="figures"></div>
+  <div id="tables"></div>
+  <h2 id="method-h">Method</h2><ul id="method"></ul>
+  <div id="deviations"></div>
+  <footer id="foot"></footer>
+</main>
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"title":"Spain 2026: Congress seat forecast","slug":"spain-2026.html","kicker":"Election forecast \u00b7 Spain \u00b7 29 November 2026","generated":"2026-10-11 17:27 AEDT","as_of":"2026-10-11","headline":"52 days out, the poll average is PP 32.4%, PSOE 26.6%, Vox 18.6%, Sumar 6.0%. Projected province by province that is a median of PP 136, PSOE 108, Vox 65 and Sumar 7 seats. PP and Vox together reach 176 in 96% of simulations; PP is the largest party in 86%. The 2023 backtest below shows what polls missed last time: PSOE by three points.","summary":[{"label":"PP + Vox reach 176","value":"96%","note":"an outright right majority"},{"label":"PP largest party","value":"86%","note":""},{"label":"Feij\u00f3o investiture arithmetic","value":"97%","note":"PP + Vox (+ UPN, CC), or PP with PNV, CC and UPN"},{"label":"No majority either way","value":"0%","note":"repeat election or a minority deal"}],"findings":[],"findings_label":"Forecast","findings_note":"","charts":[{"type":"dots","title":"Seats by party: median and 80% interval","subtitle":"20,000 simulations from the poll average of 2026-10-08 with the error model described under Method. Parties that may miss the threshold show a wide interval reaching zero.","rows":[{"label":"People's Party","estimate":136.0,"lo":116.0,"hi":155.0},{"label":"PSOE","estimate":108.0,"lo":89.0,"hi":126.0},{"label":"Vox","estimate":65.0,"lo":50.0,"hi":81.0},{"label":"ERC","estimate":8.0,"lo":4.0,"hi":13.0},{"label":"Sumar","estimate":7.0,"lo":4.0,"hi":15.0},{"label":"EH Bildu","estimate":7.0,"lo":3.0,"hi":11.0},{"label":"Junts","estimate":5.0,"lo":1.0,"hi":9.0},{"label":"PNV","estimate":5.0,"lo":1.0,"hi":7.0},{"label":"Podemos","estimate":2.0,"lo":0.0,"hi":5.0},{"label":"BNG","estimate":2.0,"lo":0.0,"hi":6.0},{"label":"Coalici\u00f3n Canaria","estimate":1.0,"lo":0.0,"hi":3.0},{"label":"UPN","estimate":1.0,"lo":0.0,"hi":2.0},{"label":"Se Acab\u00f3 La Fiesta","estimate":0.0,"lo":0.0,"hi":1.0}],"xlabel":"seats","nosig":true,"nozero":true,"digits":0,"reference":null,"referenceLabel":""},{"type":"panels","title":"Bloc seat distributions (majority is 176 of 350)","subtitle":"Each bar is the share of simulations ending on that seat count for the bloc.","panels":[{"type":"bars","title":"PP + Vox: 96% reach 176","subtitle":"","x":["141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258"],"series":[{"name":"share of simulations","values":[0.0,0.005,0.0,0.0,0.0,0.0,0.01,0.02,0.005,0.015,0.015,0.015,0.02,0.025,0.045,0.025,0.06,0.05,0.02,0.06,0.075,0.095,0.065,0.155,0.13,0.165,0.165,0.25,0.24,0.305,0.315,0.315,0.455,0.535,0.53,0.61,0.725,0.855,0.86,0.915,0.96,1.055,1.29,1.275,1.435,1.67,1.71,1.81,1.87,2.145,2.175,2.365,2.225,2.265,2.525,2.565,2.84,2.845,2.595,2.635,2.75,3.0,2.7,2.875,2.665,2.525,2.595,2.375,2.36,2.225,2.06,2.03,2.035,1.69,1.615,1.71,1.43,1.34,1.235,1.18,1.13,0.905,0.775,0.735,0.715,0.705,0.555,0.495,0.365,0.405,0.305,0.285,0.28,0.27,0.205,0.2,0.105,0.115,0.12,0.09,0.1,0.075,0.065,0.03,0.05,0.02,0.0,0.01,0.015,0.025,0.005,0.01,0.015,0.005,0.005,0.005,0.005,0.0]}],"xlabel":"seats","ylabel":"% of simulations","reference":null,"referenceLabel":"","height":240},{"type":"bars","title":"PP alone: 0% reach 176","subtitle":"","x":["70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191"],"series":[{"name":"share of simulations","values":[0.0,0.005,0.0,0.0,0.005,0.005,0.005,0.005,0.005,0.0,0.0,0.005,0.01,0.005,0.005,0.01,0.01,0.02,0.02,0.02,0.015,0.035,0.055,0.055,0.055,0.06,0.095,0.1,0.125,0.145,0.15,0.18,0.235,0.255,0.285,0.315,0.325,0.39,0.435,0.54,0.635,0.73,0.735,0.84,1.02,1.03,1.045,1.22,1.375,1.48,1.55,1.76,1.955,1.93,2.015,2.18,2.175,2.29,2.25,2.26,2.595,2.51,2.565,2.535,2.375,2.72,2.6,2.5,2.585,2.695,2.74,2.565,2.295,2.205,2.335,2.24,2.01,1.885,1.725,1.745,1.725,1.495,1.28,1.4,1.275,1.145,1.08,1.055,0.94,0.735,0.69,0.69,0.635,0.62,0.58,0.41,0.355,0.345,0.215,0.275,0.19,0.13,0.15,0.125,0.11,0.06,0.06,0.045,0.05,0.04,0.055,0.02,0.035,0.03,0.015,0.015,0.015,0.015,0.005,0.0,0.005,0.0]}],"xlabel":"seats","ylabel":"% of simulations","reference":null,"referenceLabel":"","height":240},{"type":"bars","title":"2023 investiture bloc: 3% reach 176","subtitle":"","x":["92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207"],"series":[{"name":"share of simulations","values":[0.0,0.015,0.0,0.005,0.005,0.025,0.005,0.015,0.01,0.015,0.02,0.02,0.04,0.05,0.045,0.075,0.11,0.12,0.11,0.095,0.145,0.165,0.22,0.285,0.275,0.285,0.345,0.385,0.39,0.475,0.645,0.73,0.705,0.695,0.785,0.885,1.145,1.14,1.27,1.395,1.405,1.655,1.705,1.8,1.86,1.94,2.255,2.275,2.275,2.31,2.57,2.665,2.78,2.645,2.785,2.81,2.705,2.82,2.715,2.69,2.79,2.615,2.44,2.34,2.31,2.085,2.28,2.14,1.81,1.735,1.69,1.77,1.445,1.34,1.16,1.195,0.9,0.93,0.79,0.725,0.82,0.64,0.555,0.465,0.535,0.375,0.315,0.27,0.275,0.165,0.205,0.195,0.13,0.105,0.09,0.07,0.075,0.085,0.04,0.025,0.055,0.03,0.045,0.03,0.035,0.01,0.015,0.005,0.005,0.01,0.015,0.005,0.0,0.0,0.005,0.0]}],"xlabel":"seats","ylabel":"% of simulations","reference":null,"referenceLabel":"","height":240},{"type":"bars","title":"PSOE + Sumar + Podemos: 0% reach 176","subtitle":"","x":["55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181"],"series":[{"name":"share of simulations","values":[0.0,0.005,0.0,0.0,0.0,0.005,0.005,0.0,0.005,0.0,0.01,0.025,0.01,0.015,0.03,0.025,0.015,0.03,0.01,0.035,0.025,0.07,0.06,0.06,0.1,0.09,0.165,0.17,0.2,0.245,0.235,0.32,0.315,0.335,0.31,0.35,0.48,0.56,0.55,0.605,0.765,0.865,0.765,1.095,1.095,1.1,1.18,1.445,1.62,1.62,1.735,1.94,1.93,1.935,2.195,2.18,2.41,2.54,2.39,2.555,2.69,2.675,2.74,2.58,2.42,2.61,2.695,2.565,2.57,2.54,2.285,2.48,2.485,2.145,1.93,1.9,2.025,1.795,1.675,1.53,1.39,1.37,1.325,1.1,0.945,0.86,0.87,0.845,0.87,0.54,0.495,0.52,0.485,0.49,0.36,0.37,0.39,0.185,0.13,0.155,0.14,0.21,0.125,0.095,0.06,0.095,0.045,0.08,0.05,0.035,0.03,0.045,0.015,0.025,0.02,0.015,0.01,0.01,0.01,0.0,0.005,0.005,0.005,0.0,0.005,0.005,0.0]}],"xlabel":"seats","ylabel":"% of simulations","reference":null,"referenceLabel":"","height":240}]},{"type":"lines","title":"Poll average over time (implied seats)","subtitle":"The same exponentially weighted average computed at each date from the polls then available; top parties only.","x":["2026-04-09","2026-04-16","2026-04-23","2026-04-30","2026-05-07","2026-05-14","2026-05-21","2026-05-28","2026-06-04","2026-06-11","2026-06-18","2026-06-25","2026-07-02","2026-07-09","2026-07-16","2026-07-23","2026-07-30","2026-08-06","2026-08-13","2026-08-20","2026-08-27","2026-09-03","2026-09-10","2026-09-17","2026-09-24","2026-10-01","2026-10-08"],"series":[{"name":"People's Party","values":[31.1,30.1,30.8,31.2,31.2,31.3,30.3,31.5,31.3,31.5,31.7,31.8,32.3,31.2,31.3,31.8,31.9,32.3,32.3,32.6,32.6,32.1,31.4,31.5,32.0,32.2,32.4],"markers":false},{"name":"PSOE","values":[28.2,29.5,29.1,28.7,28.7,28.7,29.9,28.5,28.6,28.3,28.0,27.9,27.7,27.7,27.7,27.3,27.3,26.9,26.8,26.4,26.2,26.2,26.6,26.6,26.4,26.3,26.6],"markers":false},{"name":"Vox","values":[18.4,17.7,17.6,17.6,17.6,17.6,17.6,17.7,17.3,17.4,17.5,17.6,17.8,17.5,17.5,17.5,17.6,17.6,17.9,18.2,17.9,18.5,18.3,18.3,18.3,18.4,18.6],"markers":false},{"name":"Sumar","values":[6.1,5.9,6.0,6.2,6.2,6.2,6.1,6.0,6.1,6.2,6.3,6.2,6.6,6.6,6.6,6.5,6.4,6.3,6.3,6.2,6.3,6.3,6.3,6.3,6.2,6.3,6.0],"markers":false},{"name":"Podemos","values":[3.3,2.9,3.1,3.2,3.2,3.3,2.9,3.1,3.0,3.1,3.1,3.2,3.1,3.1,3.1,3.2,3.2,3.2,3.3,3.5,3.4,3.3,3.4,3.4,3.4,3.4,3.3],"markers":false},{"name":"ERC","values":[1.9,2.0,2.0,1.9,1.9,1.9,2.0,2.0,2.0,1.9,1.9,1.9,1.9,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.1,2.0,2.1,2.1,2.0,2.1,2.1],"markers":false}],"xlabel":"date","ylabel":"seats","identity":false,"reference":null,"ramp":false,"yzero":true,"endLabels":true}],"tables":[{"title":"Seats by party","columns":[["party","Party"],["leader","Leader"],["share","Poll average"],["median","Median seats"],["range","80% range"],["mean","Mean"],["p_any","Wins a seat"],["latest","Last election"]],"rows":[{"party":"People's Party","leader":"Alberto N\u00fa\u00f1ez Feij\u00f3o","share":"32.4%","median":"136","range":"116\u2013155","mean":"135.6","p_any":"100%","latest":137},{"party":"PSOE","leader":"Pedro S\u00e1nchez","share":"26.6%","median":"108","range":"89\u2013126","mean":"107.7","p_any":"100%","latest":121},{"party":"Vox","leader":"Santiago Abascal","share":"18.6%","median":"65","range":"50\u201381","mean":"65.4","p_any":"100%","latest":33},{"party":"ERC","leader":"","share":"2.1%","median":"8","range":"4\u201313","mean":"8.3","p_any":"99%","latest":7},{"party":"Sumar","leader":"Yolanda D\u00edaz","share":"6.0%","median":"7","range":"4\u201315","mean":"8.5","p_any":"99%","latest":31},{"party":"EH Bildu","leader":"","share":"1.4%","median":"7","range":"3\u201311","mean":"6.9","p_any":"98%","latest":6},{"party":"Junts","leader":"","share":"1.3%","median":"5","range":"1\u20139","mean":"5.2","p_any":"93%","latest":7},{"party":"PNV","leader":"","share":"1.0%","median":"5","range":"1\u20137","mean":"4.6","p_any":"95%","latest":5},{"party":"Podemos","leader":"Ione Belarra","share":"3.3%","median":"2","range":"0\u20135","mean":"2.7","p_any":"85%","latest":0},{"party":"BNG","leader":"","share":"0.9%","median":"2","range":"0\u20136","mean":"2.6","p_any":"83%","latest":1},{"party":"Coalici\u00f3n Canaria","leader":"","share":"0.4%","median":"1","range":"0\u20133","mean":"1.4","p_any":"76%","latest":1},{"party":"UPN","leader":"","share":"0.2%","median":"1","range":"0\u20132","mean":"0.9","p_any":"61%","latest":1},{"party":"Se Acab\u00f3 La Fiesta","leader":"Alvise P\u00e9rez","share":"1.7%","median":"0","range":"0\u20131","mean":"0.1","p_any":"10%","latest":0},{"party":"Adelante Andaluc\u00eda","leader":"","share":"0.9%","median":"0","range":"0\u20130","mean":"0.0","p_any":"0%","latest":0},{"party":"Alian\u00e7a Catalana","leader":"","share":"1.1%","median":"0","range":"0\u20130","mean":"0.0","p_any":"0%","latest":0}]},{"title":"Outcomes","columns":[["outcome","Outcome"],["p","Probability"],["note","Note"]],"rows":[{"outcome":"PP largest party","p":"86%","note":""},{"outcome":"PSOE largest party","p":"14%","note":""},{"outcome":"PP alone \u2265 176","p":"0%","note":""},{"outcome":"PP + Vox \u2265 176","p":"96%","note":""},{"outcome":"PP + Vox + UPN + CC \u2265 176","p":"97%","note":""},{"outcome":"PP + PNV + CC + UPN \u2265 176 (no Vox)","p":"2%","note":""},{"outcome":"2023 investiture bloc \u2265 176 (PSOE, Sumar, Podemos, ERC, Junts, Bildu, PNV, BNG, CC)","p":"3%","note":""},{"outcome":"Feij\u00f3o investiture arithmetic (PP + Vox + UPN + CC, or PP + PNV + CC + UPN)","p":"97%","note":"rule, see Method"},{"outcome":"S\u00e1nchez investiture arithmetic (2023 bloc \u2265 176) and no Feij\u00f3o majority","p":"3%","note":"rule"},{"outcome":"No investiture majority either way","p":"0%","note":"repeat election or a minority deal"},{"outcome":"PSOE finishes second in seats","p":"83%","note":""},{"outcome":"Vox finishes second in seats","p":"3%","note":""}]},{"title":"Against the markets (snapshot 2026-10-11 01:05 UTC)","columns":[["market","Market"],["platform","Platform"],["price","Price"],["model","Model"],["gap","Model \u2212 price (points)"],["note","Note"]],"rows":[{"market":"Feij\u00f3o next PM","platform":"Polymarket","price":"80%","model":"97%","gap":"+17","note":"model: investiture rule, see Method"},{"market":"S\u00e1nchez next PM","platform":"Polymarket","price":"17%","model":"3%","gap":"-14","note":"model: investiture rule, see Method"},{"market":"Feij\u00f3o PM after the election","platform":"Kalshi","price":"80%","model":"97%","gap":"+17","note":"same rule"},{"market":"S\u00e1nchez PM after the election","platform":"Kalshi","price":"16%","model":"3%","gap":"-13","note":"same rule"},{"market":"PP most seats","platform":"Polymarket","price":"84%","model":"86%","gap":"+3","note":""},{"market":"PSOE most seats","platform":"Polymarket","price":"16%","model":"14%","gap":"-3","note":""},{"market":"PP wins (most seats)","platform":"Kalshi","price":"84%","model":"86%","gap":"+2","note":""},{"market":"PSOE wins (most seats)","platform":"Kalshi","price":"18%","model":"14%","gap":"-4","note":""},{"market":"PSOE finishes second","platform":"Kalshi","price":"86%","model":"83%","gap":"-2","note":""},{"market":"PP at least 30% of the vote","platform":"Kalshi","price":"78%","model":"69%","gap":"-8","note":"national vote share"},{"market":"PP at least 32% of the vote","platform":"Kalshi","price":"52%","model":"48%","gap":"-3","note":"national vote share"},{"market":"PP at least 34% of the vote","platform":"Kalshi","price":"30%","model":"27%","gap":"-4","note":"national vote share"},{"market":"PP at least 36% of the vote","platform":"Kalshi","price":"11%","model":"12%","gap":"+1","note":"national vote share"},{"market":"PSOE at least 24% of the vote","platform":"Kalshi","price":"84%","model":"74%","gap":"-10","note":"national vote share"},{"market":"PSOE at least 26% of the vote","platform":"Kalshi","price":"62%","model":"51%","gap":"-10","note":"national vote share"},{"market":"PSOE at least 28% of the vote","platform":"Kalshi","price":"36%","model":"27%","gap":"-8","note":"national vote share"},{"market":"PSOE at least 30% of the vote","platform":"Kalshi","price":"12%","model":"11%","gap":"-2","note":"national vote share"},{"market":"VOX at least 15% of the vote","platform":"Kalshi","price":"92%","model":"89%","gap":"-3","note":"national vote share"},{"market":"VOX at least 17% of the vote","platform":"Kalshi","price":"69%","model":"68%","gap":"-1","note":"national vote share"},{"market":"VOX at least 19% of the vote","platform":"Kalshi","price":"43%","model":"39%","gap":"-4","note":"national vote share"},{"market":"VOX at least 21% of the vote","platform":"Kalshi","price":"12%","model":"15%","gap":"+3","note":"national vote share"},{"market":"PP margin 0\u20133 points","platform":"Kalshi","price":"18%","model":"17%","gap":"-1","note":"vote margin"},{"market":"PP margin 3\u20136","platform":"Kalshi","price":"30%","model":"22%","gap":"-8","note":"vote margin"},{"market":"PP margin 6\u20139","platform":"Kalshi","price":"28%","model":"21%","gap":"-6","note":"vote margin"},{"market":"PP margin 9\u201312","platform":"Kalshi","price":"11%","model":"15%","gap":"+4","note":"vote margin"},{"market":"PP margin \u2265 12","platform":"Kalshi","price":"6%","model":"12%","gap":"+5","note":"vote margin"},{"market":"PSOE wins the vote by 0\u20133","platform":"Kalshi","price":"10%","model":"9%","gap":"-1","note":"vote margin"}]},{"title":"Recent polls (35 in the 45-day window; latest 2026-10-08)","columns":[["end","Fieldwork end"],["firm","Pollster"],["sample","Sample"],["People's Party","People's Party"],["PSOE","PSOE"],["Vox","Vox"],["Sumar","Sumar"],["Podemos","Podemos"],["Se Acab\u00f3 La Fiesta","Se Acab\u00f3 La Fiesta"],["ERC","ERC"],["Junts","Junts"],["EH Bildu","EH Bildu"],["PNV","PNV"]],"rows":[{"end":"2026-10-08","firm":"40dB/Prisa","sample":"800","People's Party":"31.9","PSOE":"28.1","Vox":"18.9","Sumar":"5.3","Podemos":"2.3","Se Acab\u00f3 La Fiesta":"1.8","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"},{"end":"2026-10-08","firm":"InvyMark/laSexta","sample":"","People's Party":"32.8","PSOE":"28.0","Vox":"18.8","Sumar":"6.3","Podemos":"3.2","Se Acab\u00f3 La Fiesta":"1.8","ERC":"1.9","Junts":"1.2","EH Bildu":"1.5","PNV":"1.1"},{"end":"2026-10-07","firm":"IMOP/El Confidencial","sample":"900","People's Party":"30.4","PSOE":"26.5","Vox":"19.0","Sumar":"7.6","Podemos":"2.3","Se Acab\u00f3 La Fiesta":"1.9","ERC":"2.2","Junts":"1.1","EH Bildu":"1.3","PNV":"0.9"},{"end":"2026-10-07","firm":"DYM/Henneo","sample":"1011","People's Party":"34.0","PSOE":"28.2","Vox":"18.2","Sumar":"3.6","Podemos":"3.6","Se Acab\u00f3 La Fiesta":"0.5","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"},{"end":"2026-10-06","firm":"NC Report/La Raz\u00f3n","sample":"1000","People's Party":"34.1","PSOE":"25.0","Vox":"18.2","Sumar":"5.3","Podemos":"3.9","Se Acab\u00f3 La Fiesta":"\u2013","ERC":"1.8","Junts":"2.9","EH Bildu":"1.4","PNV":"0.9"},{"end":"2026-10-05","firm":"SocioM\u00e9trica/PP","sample":"","People's Party":"\u2013","PSOE":"\u2013","Vox":"\u2013","Sumar":"\u2013","Podemos":"\u2013","Se Acab\u00f3 La Fiesta":"\u2013","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"},{"end":"2026-10-05","firm":"PSOE","sample":"7000","People's Party":"\u2013","PSOE":"\u2013","Vox":"\u2013","Sumar":"\u2013","Podemos":"\u2013","Se Acab\u00f3 La Fiesta":"\u2013","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"},{"end":"2026-10-03","firm":"EM-Analytics/Electoman\u00eda","sample":"8171","People's Party":"31.3","PSOE":"26.9","Vox":"19.4","Sumar":"6.3","Podemos":"3.4","Se Acab\u00f3 La Fiesta":"1.7","ERC":"2.0","Junts":"1.1","EH Bildu":"1.4","PNV":"1.1"},{"end":"2026-10-03","firm":"SocioM\u00e9trica/El Espa\u00f1ol","sample":"1000","People's Party":"33.4","PSOE":"26.5","Vox":"18.1","Sumar":"5.3","Podemos":"3.1","Se Acab\u00f3 La Fiesta":"2.2","ERC":"2.2","Junts":"1.2","EH Bildu":"1.3","PNV":"1.0"},{"end":"2026-10-02","firm":"Data10/Okdiario","sample":"1000","People's Party":"34.0","PSOE":"26.1","Vox":"18.6","Sumar":"5.2","Podemos":"4.3","Se Acab\u00f3 La Fiesta":"1.4","ERC":"1.9","Junts":"1.5","EH Bildu":"1.4","PNV":"0.8"},{"end":"2026-10-01","firm":"Winston/Art\u00edculo14","sample":"1201","People's Party":"31.3","PSOE":"24.9","Vox":"19.1","Sumar":"6.8","Podemos":"3.9","Se Acab\u00f3 La Fiesta":"\u2013","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"},{"end":"2026-10-01","firm":"Ateneo del Dato/elDiario.es","sample":"1500","People's Party":"33.2","PSOE":"27.5","Vox":"19.2","Sumar":"7.0","Podemos":"3.3","Se Acab\u00f3 La Fiesta":"\u2013","ERC":"\u2013","Junts":"\u2013","EH Bildu":"\u2013","PNV":"\u2013"}]},{"title":"Backtest: 2023 election from the November 2019 provincial results and the polls to 2023-07-18 (the five-day publication ban)","columns":[["party","Party"],["forecast","Forecast median"],["range","80% range"],["actual","Actual"],["err","Error"]],"rows":[{"party":"PP","forecast":"140","range":"124\u2013155","actual":137,"err":"+3"},{"party":"PSOE","forecast":"108","range":"94\u2013125","actual":121,"err":"-13"},{"party":"VOX","forecast":"36","range":"25\u201346","actual":33,"err":"+3"},{"party":"SUMAR","forecast":"35","range":"25\u201343","actual":31,"err":"+4"},{"party":"PODEMOS","forecast":"0","range":"0\u20130","actual":0,"err":"+0"},{"party":"ERC","forecast":"9","range":"6\u201313","actual":7,"err":"+2"},{"party":"JUNTS","forecast":"8","range":"5\u201312","actual":7,"err":"+1"},{"party":"BILDU","forecast":"6","range":"3\u20138","actual":6,"err":"+0"},{"party":"PNV","forecast":"6","range":"3\u20137","actual":5,"err":"+1"},{"party":"BNG","forecast":"1","range":"0\u20132","actual":1,"err":"+0"},{"party":"CC","forecast":"1","range":"0\u20132","actual":1,"err":"+0"},{"party":"UPN","forecast":"0","range":"0\u20130","actual":1,"err":"-1"}]},{"title":"Backtest summary","columns":[["k","Quantity"],["v","Value"]],"rows":[{"k":"Mean absolute seat error","v":"2.33"},{"k":"Parties inside the 80% interval","v":"11 of 12"},{"k":"P(PP + Vox \u2265 176) before the election","v":"53% (they won 169)"},{"k":"Error scale factor","v":"1"}]}],"method":["Polls: national voting intention from Wikipedia's polling page (35 polls in the last 45 days, 22 pollsters), exponential average with a 14-day half-life and square-root sample weights; a pollster that does not list a small party does not count it as zero.","Vote simulation: each party's national share gets a normal error with sd 0.80 + 0.06 \u00d7 share (points) plus 0.60 per \u221a(days/30) of drift, capped at 0.2 \u00d7 share + 0.15 for small parties, combined with half the spread between pollsters' latest polls (sd across firms), and a common relative shock (sd 5% of each member's share) within the right (PP, Vox, SALF, UPN), the left (PSOE, Sumar, Podemos) and the regional parties.","Provinces: each party's 2023 share in each of the 52 constituencies moves by the ratio of its drawn national share to its 2023 national share (proportional swing), with lognormal provincial noise (sd 0.10). Podemos, which ran inside Sumar in 2023, is placed on Sumar's geography; Alian\u00e7a Catalana on Junts'; SALF uniformly. Seats by D'Hondt within each constituency with the 3% threshold, on the 2026 apportionment (Madrid 38, Barcelona 32, \u2026).","Outcomes use seat totals; the market tables also use the national vote draws (vote-share and margin markets). Prime-minister probabilities follow a rule, not a model: Feij\u00f3o if PP + Vox (with UPN and CC) reach 176, or PP with PNV, CC and UPN reach 176; S\u00e1nchez if the 2023 investiture bloc reaches 176; otherwise no majority (a repeat election or a minority investiture), reported as its own outcome.","Backtest: the same pipeline for 2023 from the November 2019 provincial results and the polls published before the five-day ban, with Sumar placed on the Unidas Podemos plus M\u00e1s Pa\u00eds geography."],"deviations":[],"data":{"results":"data/elections/spain/forecast.json","source":"Wikipedia opinion-polling and results pages (CC BY-SA); Kalshi and Polymarket snapshots","code":"src/predmarkets/spain_model.py, pr_model.py, spain_data.py, election_pr_page.py"}}</script>
+<script>
+(function(){
+  "use strict";
+  var N = JSON.parse(document.getElementById("data").textContent);
+  var SERIES = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)"];
+  var RAMP = getComputedStyle(document.documentElement).getPropertyValue("--ramp").split(",").map(function(s){return s.trim();});
+  var uid = 0;
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  function fmt(v, d){ if(v==null||isNaN(v)) return "–"; if(d==null){ var a=Math.abs(v); d = a>=100?0:a>=10?1:a>=1?2:3; } return Number(v).toFixed(d); }
+  function niceStep(span, n){ var raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), r=raw/mag; var s=r<1.5?1:r<3.5?2:r<7.5?5:10; return s*mag; }
+  function ticks(lo, hi, n){ var st=niceStep(hi-lo||1, n||5), out=[], v=Math.ceil(lo/st)*st; for(;v<=hi+1e-9;v+=st){ out.push(Math.abs(v)<1e-9?0:+v.toFixed(10)); } return out; }
+  function tickLabel(v){ var a=Math.abs(v); return a>=1000? v.toLocaleString("en-AU"): a>=10||a===0? String(Math.round(v*10)/10): a>=1? String(Math.round(v*100)/100): String(Math.round(v*1000)/1000); }
+  function wrap(s, width){ var words=String(s).split(" "), lines=[], cur=""; words.forEach(function(w){ if((cur+" "+w).trim().length>width && cur){ lines.push(cur); cur=w; } else { cur=(cur+" "+w).trim(); } }); if(cur) lines.push(cur); return lines.slice(0,3); }
+  function seriesColor(i, n, ramp){ if(ramp){ var k=Math.round(i*(RAMP.length-1)/Math.max(1,n-1)); return RAMP[k]; } return SERIES[i % SERIES.length]; }
+
+  // Tooltip: one element, shown on hover and on keyboard focus of any element carrying data-tip.
+  var tip = $("tip");
+  function showTip(el){ var t=el.getAttribute("data-tip"); if(!t) return; tip.textContent=t; tip.style.display="block";
+    var r=el.getBoundingClientRect(), x=window.scrollX+r.left+r.width/2, y=window.scrollY+r.top-8;
+    tip.style.left=Math.max(8, Math.min(x - tip.offsetWidth/2, window.scrollX+document.documentElement.clientWidth-tip.offsetWidth-8))+"px";
+    tip.style.top=(y - tip.offsetHeight)+"px"; }
+  function hideTip(){ tip.style.display="none"; }
+  document.addEventListener("mouseover", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("mouseout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+  document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+
+  function figure(title, sub, inner, legend, table){
+    var id="fig"+(++uid);
+    return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
+      + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
+  }
+  function legendHtml(items){ if(!items||items.length<2) return ""; return '<ul class="legend" aria-label="Legend">'+items.map(function(it){ return '<li><span class="sw'+(it.kind?" "+it.kind:"")+'" style="background:'+it.color+';color:'+it.color+'"></span>'+esc(it.name)+'</li>'; }).join("")+'</ul>'; }
+  function tableHtml(caption, cols, rows){ return '<table><caption class="sr">'+esc(caption)+'</caption><thead><tr>'+cols.map(function(c,i){ return '<th scope="col"'+(i?' class="n"':"")+'>'+esc(c)+'</th>'; }).join("")+'</tr></thead><tbody>'
+    + rows.map(function(r){ return '<tr>'+r.map(function(v,i){ return i? '<td class="n">'+esc(v)+'</td>' : '<th scope="row" style="font-weight:500;color:var(--ink)">'+esc(v)+'</th>'; }).join("")+'</tr>'; }).join("")+'</tbody></table>'; }
+  function svgOpen(W, H, title, desc){ var id="svg"+(++uid); return '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+id+'-t '+id+'-d"><title id="'+id+'-t">'+esc(title)+'</title><desc id="'+id+'-d">'+esc(desc)+'</desc>'; }
+
+  // ---- Dot plot: estimates with intervals, one row each (the pre-registered findings).
+  function dots(rows, opts){
+    opts = opts||{};
+    var W=860, R=190, rowH=30, labelW=42, lines=rows.map(function(r){ return wrap(r.label, labelW); });
+    var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
+    var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
+    var top=14, H=rows.length*rowH+top+44;
+    var lo=Math.min.apply(null, rows.map(function(r){return r.lo;})), hi=Math.max.apply(null, rows.map(function(r){return r.hi;}));
+    if(!opts.nozero){ lo=Math.min(0, lo); hi=Math.max(0, hi); }
+    if(hi-lo===0){ hi+=1; lo-=1; }
+    var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var tk=ticks(lo, hi, 5);
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    var s=svgOpen(W, H, opts.title||"", desc);
+    tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
+    if(opts.reference!=null&&opts.reference>lo&&opts.reference<hi){ s+='<line class="zero" x1="'+X(opts.reference).toFixed(1)+'" x2="'+X(opts.reference).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/><text class="t" x="'+X(opts.reference).toFixed(1)+'" y="'+(top-2)+'" text-anchor="middle">'+esc(opts.referenceLabel||"")+'</text>'; }
+    rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=!opts.nosig&&((r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0)), ls=lines[i];
+      var ty = y + 5 - (ls.length-1)*9;
+      s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]"+(opts.nosig?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
+      s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
+      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]")+'</text>';
+    });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
+    tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
+    if(opts.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(opts.xlabel)+'</text>';
+    s+='</svg>';
+    var table = tableHtml(opts.title||"Findings", ["Analysis","Estimate","Lower","Upper"], rows.map(function(r){ return [r.label, fmt(r.estimate), fmt(r.lo), fmt(r.hi)]; }));
+    return {svg:s, table:table};
+  }
+
+  // ---- Lines over a shared x (numeric or categorical); several series; legend + end labels; identity line optional.
+  function lines(c){
+    var W=c.width||420, H=c.height||260, L=56, R=c.endLabels===false?16:92, T=12, B=44;
+    var cat = typeof c.x[0]==="string";
+    var xs = cat? c.x.map(function(_,i){return i;}): c.x;
+    var allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.identity){ allY=allY.concat(xs); }
+    var ylo=c.yzero? Math.min(0, Math.min.apply(null, allY)): Math.min.apply(null, allY), yhi=Math.max.apply(null, allY);
+    if(c.ymin!=null) ylo=Math.min(ylo, c.ymin); if(c.ymax!=null) yhi=Math.max(yhi, c.ymax);
+    if(yhi-ylo===0){ yhi+=1; ylo-=1; } var yp=(yhi-ylo)*0.08; if(!c.yzero||ylo<0) ylo-=yp; yhi+=yp;
+    var xlo=Math.min.apply(null, xs), xhi=Math.max.apply(null, xs); if(xhi===xlo){ xhi+=1; }
+    if(cat){ xlo-=0.5; xhi+=0.5; } else if(c.identity){ xlo=ylo; xhi=yhi; }
+    function X(v){ return L+(W-L-R)*(v-xlo)/(xhi-xlo); } function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var yt=ticks(ylo, yhi, 4), xt=cat? xs: ticks(xlo, xhi, 5);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return (cat?c.x[i]:tickLabel(xs[i]))+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(ylo).toFixed(1)+'" y2="'+Y(ylo).toFixed(1)+'"/>';
+    var every = cat? Math.max(1, Math.ceil(xt.length/8)): 1;
+    xt.forEach(function(v,i){ if(cat && i%every!==0 && i!==xt.length-1) return; var lab=cat? c.x[i]: tickLabel(v); s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(lab)+'</text>'; });
+    if(c.identity){ var a=Math.max(xlo,ylo), b=Math.min(xhi,yhi); s+='<line class="ident" x1="'+X(a).toFixed(1)+'" y1="'+Y(a).toFixed(1)+'" x2="'+X(b).toFixed(1)+'" y2="'+Y(b).toFixed(1)+'"/>'; }
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'; }
+    var n=c.series.length, ends=[];
+    c.series.forEach(function(sr,k){ var col=sr.color||seriesColor(k, n, c.ramp), pts=[];
+      sr.values.forEach(function(v,i){ if(v!=null) pts.push([X(xs[i]), Y(v), i]); });
+      if(sr.line!==false && pts.length>1) s+='<path class="ln" style="stroke:'+col+'" d="M'+pts.map(function(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }).join("L")+'"/>';
+      if(sr.markers!==false || pts.length===1) pts.forEach(function(p){ var t=sr.name+"\n"+(cat?c.x[p[2]]:(c.xlabel||"x")+" "+tickLabel(xs[p[2]]))+": "+fmt(sr.values[p[2]])+(sr.n&&sr.n[p[2]]!=null?"  (n="+sr.n[p[2]]+")":"");
+        s+='<circle class="hit" tabindex="0" data-tip="'+esc(t)+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="12"/><circle class="mk" style="fill:'+col+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>'; });
+      if(pts.length&&c.endLabels!==false&&n<=4) ends.push({y:pts[pts.length-1][1], name:sr.name});
+    });
+    ends.sort(function(a,b){ return a.y-b.y; }); for(var i=1;i<ends.length;i++){ if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14; }
+    ends.forEach(function(e){ s+='<text x="'+(W-R+8)+'" y="'+(e.y+4).toFixed(1)+'" style="font-size:12px">'+esc(e.name)+'</text>'; });
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n, c.ramp), kind: sr.line===false?"dot":""}; }));
+    var table = tableHtml(c.title, [c.xlabel||"x"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [cat?x:tickLabel(x)].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Grouped bars over categories (<= 3 series), optional reference line.
+  function bars(c){
+    var W=c.width||420, H=c.height||240, L=56, R=16, T=12, B=44;
+    var n=c.series.length, m=c.x.length, allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.reference!=null) allY.push(c.reference);
+    var ylo=Math.min(0, Math.min.apply(null, allY)), yhi=Math.max(0, Math.max.apply(null, allY)); if(yhi-ylo===0) yhi=ylo+1; var yp=(yhi-ylo)*0.08; yhi+=yp; if(ylo<0) ylo-=yp;
+    function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var slot=(W-L-R)/m, bw=Math.min(24, (slot*0.7-2*(n-1))/n);
+    var yt=ticks(ylo, yhi, 4);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return c.x[i]+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    var everyB = Math.max(1, Math.ceil(m/10));
+    c.x.forEach(function(lab,i){ var cx=L+slot*(i+0.5), ls=wrap(lab, Math.max(8, Math.floor(slot/7)));
+      if(i%everyB===0 || i===m-1) s+='<text class="t" x="'+cx.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle">'+ls.map(function(t,k){ return '<tspan x="'+cx.toFixed(1)+'" dy="'+(k?13:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      c.series.forEach(function(sr,k){ var v=sr.values[i]; if(v==null) return; var col=sr.color||seriesColor(k, n);
+        var x=cx-(n*bw+2*(n-1))/2+k*(bw+2), y0=Y(0), y1=Y(v), top=Math.min(y0,y1), h=Math.abs(y0-y1), r=Math.min(4, h/2);
+        var d = v>=0? 'M'+x+','+y0+'v'+(-(h-r))+'a'+r+','+r+' 0 0 1 '+r+','+(-r)+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 1 '+r+','+r+'v'+(h-r)+'z'
+                    : 'M'+x+','+y0+'v'+(h-r)+'a'+r+','+r+' 0 0 0 '+r+','+r+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 0 '+r+','+(-r)+'v'+(-(h-r))+'z';
+        s+='<path class="bar" tabindex="0" data-tip="'+esc(sr.name+"\n"+lab+": "+fmt(v)+(sr.n&&sr.n[i]!=null?"  (n="+sr.n[i]+")":""))+'" style="fill:'+col+'" d="'+d+'"/>'; });
+    });
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'+(c.referenceLabel?'<text class="t" x="'+(L+4)+'" y="'+(Y(c.reference)-4).toFixed(1)+'" text-anchor="start">'+esc(c.referenceLabel)+'</text>':""); }
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n), kind:"dot"}; }));
+    var table = tableHtml(c.title, [c.xlabel||"category"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [x].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  function renderChart(c){
+    if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
+    if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
+      return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
+    }
+    if(!c.width){ c.width=860; c.height=c.height||300; }          // standalone charts span the column; panels are 420 wide
+    var r = c.type==="bars"? bars(c): lines(c);
+    return figure(c.title, c.subtitle, r.svg, r.legend, r.table);
+  }
+
+  // ---- Page
+  $("kicker").textContent = N.kicker; $("title").textContent = N.title;
+  $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
+  if(N.registered){ $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.'; }
+  else { $("reg").textContent = 'Generated '+N.generated+'.'; }
+  if(N.question){ $("question").textContent = N.question; } else { $("question").style.display="none"; $("question-h").style.display="none"; }
+  if(N.findings_label){ $("findings-h").textContent = N.findings_label; }
+  if(N.findings_note===""){ document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(!(N.findings&&N.findings.length)){ $("findings-h").style.display="none"; document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
+  var groups = {}, order = [];
+  (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
+  $("charts").innerHTML = order.map(function(g){ var rows=groups[g]; var unit=rows[0].unit||""; var parts=unit.split(/:\s(.+)/);
+    var title = parts.length>1? parts[0]: unit, sub = parts.length>1? parts[1]: "";
+    return renderChart({type:"dots", title:title, subtitle:sub, rows:rows, xlabel: rows[0].xlabel||""}); }).join("");
+  if(N.charts&&N.charts.length){ $("figures").innerHTML = '<h2 id="figures-h">Checks and detail</h2>' + N.charts.map(renderChart).join(""); }
+  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+    return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; return '<td class="'+(i&&/^[+\-\d]/.test(String(v))?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+  $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else if(N.registered){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: '+esc(N.data.source||"Cricsheet ball-by-ball (CC BY 4.0)")+'. Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
+    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
+    + ' <a href="index.html">All forecasts and notes</a>.';
+  // Contents: every h2 on the page, in order.
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+})();
+</script>
+</body>
+</html>

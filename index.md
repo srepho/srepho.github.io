@@ -24,11 +24,17 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### [Ideas for experiments](/predictions/ideas.html) (Sunday 11 October 2026)
 Questions worth testing, by sport, with links to the write-ups as each is done.
 
+### [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026)
+The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+
 ### [Upcoming predictions](/predictions/upcoming.html) (Sunday 11 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
-### [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026)
-The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+### [Israel 2026: Knesset seat forecast](/predictions/israel-2026.html) (Sunday 11 October 2026)
+Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader–Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.
+
+### [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Sunday 11 October 2026)
+National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
 
 ### [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026)
 The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
