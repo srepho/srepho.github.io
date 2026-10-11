@@ -69,7 +69,7 @@
   "blurb": "Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader\u2013Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.",
   "section": "Elections",
   "date": "2026-10-11",
-  "published": "2026-10-11 06:32 UTC"
+  "published": "2026-10-11 08:47 UTC"
  },
  {
   "key": "livepar",
@@ -78,7 +78,7 @@
   "blurb": "The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.",
   "section": "Cricket",
   "date": "2026-10-11",
-  "published": "2026-10-11 05:31 UTC"
+  "published": "2026-10-11 08:47 UTC"
  },
  {
   "key": "nba",
@@ -96,7 +96,7 @@
   "blurb": "National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.",
   "section": "Elections",
   "date": "2026-10-11",
-  "published": "2026-10-11 06:32 UTC"
+  "published": "2026-10-11 08:47 UTC"
  },
  {
   "key": "extensions",
