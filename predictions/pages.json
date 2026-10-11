@@ -1,5 +1,14 @@
 [
  {
+  "key": "australia",
+  "slug": "australia-next.html",
+  "title": "Australia: next federal election forecast",
+  "blurb": "Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.",
+  "section": "Elections",
+  "date": "2026-10-11",
+  "published": "2026-10-11 09:16 UTC"
+ },
+ {
   "key": "bayespar",
   "slug": "bayes-par.html",
   "title": "A Bayesian par for Test blocks",
@@ -43,6 +52,24 @@
   "section": "Research",
   "date": "2026-10-10",
   "published": "2026-10-10 13:19 UTC"
+ },
+ {
+  "key": "france",
+  "slug": "france-2027.html",
+  "title": "France 2027: presidential forecast",
+  "blurb": "First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a d\u00e9partement map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.",
+  "section": "Elections",
+  "date": "2026-10-11",
+  "published": "2026-10-11 09:16 UTC"
+ },
+ {
+  "key": "germany",
+  "slug": "germany-next.html",
+  "title": "Germany: next Bundestag forecast",
+  "blurb": "National polls simulated with a backtested error model and allocated by Sainte-Lagu\u00eb with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.",
+  "section": "Elections",
+  "date": "2026-10-11",
+  "published": "2026-10-11 09:16 UTC"
  },
  {
   "key": "hothand",
@@ -115,6 +142,15 @@
   "section": "Research",
   "date": "2026-10-10",
   "published": "2026-10-10 13:19 UTC"
+ },
+ {
+  "key": "uk",
+  "slug": "uk-next.html",
+  "title": "United Kingdom: next general election forecast",
+  "blurb": "GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.",
+  "section": "Elections",
+  "date": "2026-10-11",
+  "published": "2026-10-11 09:16 UTC"
  },
  {
   "key": "upcoming",

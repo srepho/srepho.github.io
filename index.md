@@ -36,6 +36,18 @@ National polls projected province by province (proportional swing from 2023) and
 ### [Upcoming predictions](/predictions/upcoming.html) (Sunday 11 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
+### [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 11 October 2026)
+National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
+
+### [United Kingdom: next general election forecast](/predictions/uk-next.html) (Sunday 11 October 2026)
+GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.
+
+### [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 11 October 2026)
+First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
+
+### [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 11 October 2026)
+Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
+
 ### [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026)
 The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
 
