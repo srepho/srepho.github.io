@@ -24,7 +24,7 @@
   "blurb": "Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.",
   "section": "Cricket",
   "date": "2026-10-09",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-11 05:31 UTC"
  },
  {
   "key": "dls",
@@ -61,6 +61,15 @@
   "section": "Research",
   "date": "2026-10-11",
   "published": "2026-10-10 15:53 UTC"
+ },
+ {
+  "key": "livepar",
+  "slug": "live-test-par.html",
+  "title": "Live Test: block by block against par",
+  "blurb": "The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.",
+  "section": "Cricket",
+  "date": "2026-10-11",
+  "published": "2026-10-11 05:31 UTC"
  },
  {
   "key": "nba",

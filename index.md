@@ -27,6 +27,9 @@ Questions worth testing, by sport, with links to the write-ups as each is done.
 ### [Upcoming predictions](/predictions/upcoming.html) (Sunday 11 October 2026)
 Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
+### [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026)
+The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+
 ### [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026)
 The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
 
