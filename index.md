@@ -21,68 +21,41 @@ Browser-based learning interface for Anthropic's GPU performance engineering cha
 
 Model forecasts for elections, sports and markets ([all forecasts](/predictions/)). Each page shows the date it was made.
 
-### [Ideas for experiments](/predictions/ideas.html) (Sunday 11 October 2026)
-Questions worth testing, by sport, with links to the write-ups as each is done.
+### All forecasts
 
-### [Israel 2026: Knesset seat forecast](/predictions/israel-2026.html) (Sunday 11 October 2026)
-Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader–Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.
+- [Upcoming predictions](/predictions/upcoming.html) (Sunday 11 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
-### [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026)
-The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+### Elections
 
-### [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Sunday 11 October 2026)
-National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
+- [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 11 October 2026) — Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
+- [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 11 October 2026) — First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
+- [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 11 October 2026) — National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
+- [Israel 2026: Knesset seat forecast](/predictions/israel-2026.html) (Sunday 11 October 2026) — Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader–Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.
+- [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Sunday 11 October 2026) — National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
+- [United Kingdom: next general election forecast](/predictions/uk-next.html) (Sunday 11 October 2026) — GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.
+- [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 7 October 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
+- [US midterms 2026: what the markets say](/predictions/us-midterms-2026.html) (Sunday 27 September 2026) — Polymarket and Kalshi prices for Senate and House control, balance of power and every Senate and governor race, from six-hourly snapshots.
 
-### [Upcoming predictions](/predictions/upcoming.html) (Sunday 11 October 2026)
-Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
+### Cricket
 
-### [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 11 October 2026)
-National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
+- [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+- [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026) — Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 
-### [United Kingdom: next general election forecast](/predictions/uk-next.html) (Sunday 11 October 2026)
-GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.
+### Basketball
 
-### [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 11 October 2026)
-First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
+- [NBA 2026–27 season outlook](/predictions/nba-2026-27.html) (Wednesday 7 October 2026) — Win totals, offence and defence ranks, seeding odds and games-played forecasts for every team, against the Kalshi win-total markets; luck and player WAR.
 
-### [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 11 October 2026)
-Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
+### Research
 
-### [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026)
-The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
-
-### [Can Duckworth–Lewis be improved?](/predictions/dls.html) (Saturday 10 October 2026)
-A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.
-
-### [Does form carry over between cricket formats?](/predictions/form-carryover.html) (Saturday 10 October 2026)
-A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.
-
-### [Is there a hot hand in cricket?](/predictions/hot-hand.html) (Saturday 10 October 2026)
-A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?
-
-### [Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights](/predictions/sports-extensions.html) (Saturday 10 October 2026)
-Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.
-
-### [Test innings, session by session: above or below expectation?](/predictions/test-sessions.html) (Saturday 10 October 2026)
-A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.
-
-### [Wickets in hand: a Bayesian par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026)
-The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).
-
-### [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026)
-A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
-
-### [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026)
-Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
-
-### [NBA 2026–27 season outlook](/predictions/nba-2026-27.html) (Wednesday 7 October 2026)
-Win totals, offence and defence ranks, seeding odds and games-played forecasts for every team, against the Kalshi win-total markets; luck and player WAR.
-
-### [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 7 October 2026)
-All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
-
-### [US midterms 2026: what the markets say](/predictions/us-midterms-2026.html) (Sunday 27 September 2026)
-Polymarket and Kalshi prices for Senate and House control, balance of power and every Senate and governor race, from six-hourly snapshots.
+- [Ideas for experiments](/predictions/ideas.html) (Sunday 11 October 2026) — Questions worth testing, by sport, with links to the write-ups as each is done.
+- [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026) — The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
+- [Can Duckworth–Lewis be improved?](/predictions/dls.html) (Saturday 10 October 2026) — A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.
+- [Does form carry over between cricket formats?](/predictions/form-carryover.html) (Saturday 10 October 2026) — A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.
+- [Is there a hot hand in cricket?](/predictions/hot-hand.html) (Saturday 10 October 2026) — A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?
+- [Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights](/predictions/sports-extensions.html) (Saturday 10 October 2026) — Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.
+- [Test innings, session by session: above or below expectation?](/predictions/test-sessions.html) (Saturday 10 October 2026) — A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.
+- [Wickets in hand: a Bayesian par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026) — The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).
+- [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026) — A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
 
 ---
 <!-- forecasts:end -->
