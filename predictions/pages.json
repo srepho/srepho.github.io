@@ -1,5 +1,14 @@
 [
  {
+  "key": "aumacro",
+  "slug": "australia-economy.html",
+  "title": "Australia: economic indicators",
+  "blurb": "Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.",
+  "section": "Economy",
+  "date": "2026-10-11",
+  "published": "2026-10-11 10:07 UTC"
+ },
+ {
   "key": "australia",
   "slug": "australia-next.html",
   "title": "Australia: next federal election forecast",

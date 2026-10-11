@@ -36,6 +36,10 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 7 October 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
 - [US midterms 2026: what the markets say](/predictions/us-midterms-2026.html) (Sunday 27 September 2026) — Polymarket and Kalshi prices for Senate and House control, balance of power and every Senate and governor race, from six-hourly snapshots.
 
+### Economy
+
+- [Australia: economic indicators](/predictions/australia-economy.html) (Sunday 11 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
+
 ### Cricket
 
 - [Live Test: block by block against par](/predictions/live-test-par.html) (Sunday 11 October 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
