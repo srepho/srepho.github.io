@@ -69,6 +69,9 @@ Win totals, offence and defence ranks, seeding odds and games-played forecasts f
 ### [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 7 October 2026)
 All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
 
+### [US midterms 2026: what the markets say](/predictions/us-midterms-2026.html) (Sunday 27 September 2026)
+Polymarket and Kalshi prices for Senate and House control, balance of power and every Senate and governor race, from six-hourly snapshots.
+
 ---
 <!-- forecasts:end -->
 

@@ -96,7 +96,7 @@
   "blurb": "National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.",
   "section": "Elections",
   "date": "2026-10-11",
-  "published": "2026-10-11 08:47 UTC"
+  "published": "2026-10-11 08:56 UTC"
  },
  {
   "key": "extensions",
@@ -124,6 +124,15 @@
   "section": "All forecasts",
   "date": "2026-10-11",
   "published": "2026-10-10 13:19 UTC"
+ },
+ {
+  "key": "midterms",
+  "slug": "us-midterms-2026.html",
+  "title": "US midterms 2026: what the markets say",
+  "blurb": "Polymarket and Kalshi prices for Senate and House control, balance of power and every Senate and governor race, from six-hourly snapshots.",
+  "section": "Elections",
+  "date": "2026-09-27",
+  "published": "2026-10-11 08:56 UTC"
  },
  {
   "key": "vic",
