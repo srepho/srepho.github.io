@@ -27,6 +27,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Elections
 
+- [New South Wales 2027: seat forecast](/predictions/nsw-2027.html) (Tuesday 13 October 2026) — Legislative Assembly, 27 March 2027: the 2023 result swung by the poll average with One Nation placed from federal booths, optional-preferential exhaustion, a district map, seat distributions and Kalshi's Labor-majority contract; backtested on 2023.
 - [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 11 October 2026) — Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
 - [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 11 October 2026) — First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
 - [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 11 October 2026) — National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
