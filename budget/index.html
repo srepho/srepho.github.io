@@ -249,10 +249,19 @@ td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
 
 <figure class="fig" id="fh-fig">
   <figcaption>How the spending mix has changed</figcaption>
-  <p class="fsub" id="fh-sub">Each function's share of total expenses. Pick a function to highlight it; the others stay in grey for context.</p>
+  <p class="fsub" id="fh-sub"></p>
+  <div class="controls"><span><span class="ctl-label" id="fu-l">Show</span><span class="seg" id="fh-units" role="group" aria-labelledby="fu-l">
+    <button type="button" data-u="share" aria-pressed="true">Share of spending</button>
+    <button type="button" data-u="nom">Nominal $ billion</button>
+  </span></span></div>
   <div class="fnpick" id="fh-pick" role="group" aria-label="Highlight a function"></div>
   <div class="chart" id="h-fn"></div>
-  <p class="meta" id="fh-note"></p>
+  <div id="fh-subwrap" class="hide">
+    <h3 id="fh-subtitle"></h3>
+    <p class="fsub">Sub-functions in nominal $ billion, as each year's Budget classified them. Pick one to highlight it.</p>
+    <div class="fnpick" id="fh-subpick" role="group" aria-label="Highlight a sub-function"></div>
+    <div class="chart" id="h-subfn"></div>
+  </div>
 </figure>
 
 <details class="tbl"><summary>Show the history as a table</summary><div class="scroll" id="h-table"></div></details>
@@ -265,7 +274,7 @@ td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
 <li><b>Program detail</b> (the third level) is published only for the budget year and forward estimates, and only for the larger sub-functions; elsewhere the drill-down stops at sub-function.</li>
 <li><b>Tax receipt.</b> 2026–27 resident rates: nil to $18,200, 15% to $45,000, 30% to $135,000, 37% to $190,000 and 45% above; the low income tax offset (up to $700); the Medicare levy at 2% with the singles low-income threshold of $28,011 phased in at 10 cents in the dollar; and, if ticked, the $1,000 instant deduction for work income from 2026–27. It ignores other offsets, the Medicare levy surcharge, HELP repayments and family thresholds. Taxes are not earmarked; the receipt shares your tax across government in proportion to 2026–27 expenses, leaving out GST passed to the states and the contingency reserve, as the ATO's own tax receipt does with GST.</li>
 <li><b>Real per person</b> figures are Treasury's, in 2024–25 dollars deflated by the CPI (Table 11.11).</li>
-<li id="fh-source-note" class="hide"></li>
+<li><b>Spending history</b> (2000–01 to 2025–26) is the actual-outcome column of each year's Budget Paper No. 1 published two years later (Statement 6, Appendix A), the 2019–20 Final Budget Outcome for 2018–19, and the 2025–26 Final Budget Outcome for 2025–26. Sub-functions follow the classification of the budget that published them; renamed series are joined (for example, health care agreements and National Health Reform payments as assistance to the states for public hospitals). Spikes in 2008–09 to 2009–10 (stimulus), 2019–20 to 2020–21 (JobKeeper, in other economic affairs), 2024–25 (one-off health services and veterans' items) and 2025–26 (the HELP debt cut) are genuine.</li>
 </ul>
 <p class="meta">Built by <a href="/">Stephen Oates</a>. Data in <a href="data.json">data.json</a>, extracted from the Budget papers by <a href="build_data.py">build_data.py</a>.</p>
 </div>
@@ -541,7 +550,7 @@ function yearChart(host, o) {
   }
   // x labels every 5 years at decade-ish
   o.years.forEach((y, i) => {
-    if (+y.slice(0, 4) % 10 === 0) {
+    if (+y.slice(0, 4) % (n < 35 ? 5 : 10) === 0) {
       svg.append(sv('line', {class: 'axis', x1: X(i), x2: X(i), y1: m.t + ih, y2: m.t + ih + 4}));
       const t = sv('text', {class: 't', x: X(i), y: H - 6, 'text-anchor': 'middle'}); t.textContent = y.slice(0, 4); svg.append(t);
     }
@@ -847,28 +856,63 @@ function init(D) {
 
   // spending mix over time (optional data)
   const FH = D.functionHistory;
-  let fnSel = 'Social security and welfare';
+  const GPIT = 'General purpose inter-government transactions';
+  let fnSel = 'Social security and welfare', fnUnit = 'share', subSel = null;
+  const fy0 = FH ? FH.years.indexOf('2000-01') : 0;
+  const fYears = FH ? FH.years.slice(fy0) : [];
+  const cut = a => a.slice(fy0);
+  const fnAnn = [{year: '2008-09', label: 'GFC stimulus'}, {year: '2020-21', label: 'COVID (JobKeeper)', anchor: 'end'}];
+  const OP = 'Other purposes';
+  function fnValues(k) {
+    // other purposes without general purpose grants to the states (GST from 2006-07)
+    if (k === OP) return FH.functions[OP].map((v, i) => v - (FH.subfunctions[OP][GPIT][i] || 0));
+    return FH.functions[k];
+  }
   function drawFn() {
     if (!FH) { $('#fh-fig').classList.add('hide'); return; }
-    const yrs = FH.years, tot = FH.functions['Total expenses'];
+    const tot = FH.functions['Total expenses'].map((v, i) => v - (FH.subfunctions[OP][GPIT][i] || 0));
     const names = Object.keys(FH.functions).filter(k => k !== 'Total expenses');
-    const share = k => FH.functions[k].map((v, i) => v == null || !tot[i] ? null : +(100 * v / tot[i]).toFixed(2));
-    yearChart($('#h-fn'), {years: yrs, fmt: v => fmtP(v), tickFmt: v => v + '%', type: 'line', label: 'Share of total expenses by function', rightPad: 14,
-      series: names.map(k => k === fnSel ? {name: k, color: 'var(--c2)', values: share(k)} : {name: k, dim: true, values: share(k)}),
-      extraTip: i => `<div class="k"><span>Amount</span><span>${fmtM(FH.functions[fnSel][i])}</span></div>`});
+    const vals = k => fnUnit === 'share' ? cut(fnValues(k).map((v, i) => +(100 * v / tot[i]).toFixed(2))) : cut(fnValues(k));
+    const fmt = fnUnit === 'share' ? (v => fmtP(v)) : fmtM;
+    const nameOf = k => k === OP ? 'Other purposes (excl. grants to states)' : k;
+    yearChart($('#h-fn'), {years: fYears, fmt, tickFmt: fnUnit === 'share' ? (v => v + '%') : (v => '$' + v / 1000 + 'b'), type: 'line', ann: fnAnn,
+      label: (fnUnit === 'share' ? 'Share of spending' : 'Spending') + ' by function, ' + yl(fYears[0]) + ' to ' + yl(fYears.at(-1)),
+      series: names.map(k => k === fnSel ? {name: nameOf(k), color: 'var(--c2)', values: vals(k)} : {name: nameOf(k), dim: true, values: vals(k)}),
+      extraTip: i => fnUnit === 'share' ? `<div class="k"><span>Amount</span><span>${fmtM(fnValues(fnSel)[fy0 + i])}</span></div>` : `<div class="k"><span>Share</span><span>${fmtP(100 * fnValues(fnSel)[fy0 + i] / tot[fy0 + i])}</span></div>`});
     $('#fh-pick').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === fnSel)));
+    drawSub();
+  }
+  function drawSub() {
+    const subs = FH.subfunctions[fnSel], wrap = $('#fh-subwrap');
+    if (!subs) { wrap.classList.add('hide'); return; }
+    wrap.classList.remove('hide');
+    $('#fh-subtitle').textContent = 'Inside ' + fnSel.toLowerCase();
+    const keys = Object.keys(subs).filter(k => cut(subs[k]).some(v => v));
+    keys.sort((a, b) => (subs[b].at(-1) || 0) - (subs[a].at(-1) || 0));
+    if (!keys.includes(subSel)) subSel = keys[0];
+    const pick = $('#fh-subpick');
+    pick.innerHTML = '';
+    for (const k of keys) {
+      const b = el('button', {type: 'button', 'aria-pressed': String(k === subSel), text: k});
+      b.addEventListener('click', () => { subSel = k; drawSub(); const nb = [...pick.querySelectorAll('button')].find(x => x.textContent === k); if (nb) nb.focus(); });
+      pick.append(b);
+    }
+    yearChart($('#h-subfn'), {years: fYears, fmt: fmtM, tickFmt: v => '$' + v / 1000 + 'b', type: 'line', ann: fnAnn, label: 'Sub-functions of ' + fnSel,
+      series: keys.map(k => k === subSel ? {name: k, color: 'var(--c2)', values: cut(subs[k])} : {name: k, dim: true, values: cut(subs[k])})});
   }
   if (FH) {
     const names = Object.keys(FH.functions).filter(k => k !== 'Total expenses');
-    names.sort((a, b) => (FH.functions[b].at(-1) || 0) - (FH.functions[a].at(-1) || 0));
+    names.sort((a, b) => (fnValues(b).at(-1) || 0) - (fnValues(a).at(-1) || 0));
     for (const k of names) {
-      const b = el('button', {type: 'button', 'data-f': k, 'aria-pressed': 'false', text: k});
-      b.addEventListener('click', () => { fnSel = k; drawFn(); });
+      const b = el('button', {type: 'button', 'data-f': k, 'aria-pressed': 'false', text: k === OP ? 'Other purposes (excl. grants to states)' : k});
+      b.addEventListener('click', () => { fnSel = k; subSel = null; drawFn(); b.focus(); });
       $('#fh-pick').append(b);
     }
-    $('#fh-sub').textContent = `Each function's share of total expenses, ${yl(FH.years[0])} to ${yl(FH.years.at(-1))} (actual outcomes). Pick a function to highlight it; the others stay in grey for context.`;
-    if (FH.notes) { $('#fh-note').textContent = FH.notes; }
-    if (FH.sourceNote) { const n = $('#fh-source-note'); n.innerHTML = FH.sourceNote; n.classList.remove('hide'); }
+    $('#fh-units').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      $('#fh-units').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true'); fnUnit = b.dataset.u; drawFn();
+    }));
+    $('#fh-sub').textContent = `Actual spending by function, ${yl(fYears[0])} to ${yl(fYears.at(-1))}. GST passed to the states only counts as Commonwealth spending from 2006–07, so general grants to the states are left out of every year here to keep the series comparable. Pick a function to highlight it; the others stay in grey for context.`;
   }
   drawHistory();
   let lw = document.body.clientWidth;

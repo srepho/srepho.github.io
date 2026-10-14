@@ -1,4 +1,8 @@
-"""Build budget/data.json from the 2026-27 Budget Paper No. 1 text and chart CSVs."""
+"""Build budget/data.json from the 2026-27 Budget Paper No. 1 text and chart CSVs.
+
+Usage: python3 build_data.py <folder with pdftotext -layout output of bp1_bs-5/6/11 and the
+unzipped chart-data-final.zip in charts/> data.json functions_history.json
+"""
 import csv, json, re, sys
 from pathlib import Path
 
