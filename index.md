@@ -11,6 +11,9 @@ Check out my [blog posts](/blog/) for articles on data science, machine learning
 
 ## Interactive Demos
 
+### [Australia's federal budget, explained](https://srepho.github.io/budget/) (October 2026)
+Where the money goes and where it comes from in the 2026–27 Budget: a personal tax receipt, a drill-down from spending functions to programs, receipts by tax, and fifty-five years of history.
+
 ### [Anthropic Performance Challenge Simulator](https://srepho.github.io/anthropic-challenge/) (January 2026)
 Browser-based learning interface for Anthropic's GPU performance engineering challenge. Includes a CUDA kernel simulator and step-by-step tutorials for understanding matrix multiplication optimization.
 
