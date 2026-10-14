@@ -1,21 +1,13 @@
-## Welcome to the homepage of Stephen Oates
-I am a Sydney-based Data Scientist with expertise in machine learning, LLMs, and insurance analytics.
+I'm a data scientist in Sydney working on machine learning, LLMs and insurance analytics. This site collects interactive explainers, model forecasts and the open-source tools I've built.
+
+[GitHub](https://github.com/srepho) · [LinkedIn](https://www.linkedin.com/in/stephen-oates-628552282/) · [Twitter](https://twitter.com/stephenjaoates)
 
 ---
 
-## Blog
+## Interactive
 
-Check out my [blog posts](/blog/) for articles on data science, machine learning, and AI.
-
----
-
-## Interactive Demos
-
-### [Australia's federal budget, explained](https://srepho.github.io/budget/) (October 2026)
-Where the money goes and where it comes from in the 2026–27 Budget: a personal tax receipt, a drill-down from spending functions to programs, receipts by tax, and fifty-five years of history.
-
-### [Anthropic Performance Challenge Simulator](https://srepho.github.io/anthropic-challenge/) (January 2026)
-Browser-based learning interface for Anthropic's GPU performance engineering challenge. Includes a CUDA kernel simulator and step-by-step tutorials for understanding matrix multiplication optimization.
+- [**Australia's federal budget, explained**](/budget/) (October 2026) — Where the money goes and where it comes from in the 2026–27 Budget: a personal tax receipt, a drill-down from spending areas to programs, receipts by tax, and fifty-five years of history.
+- [**Anthropic performance challenge simulator**](/anthropic-challenge/) (January 2026) — A browser-based way into Anthropic's GPU performance engineering challenge, with a CUDA kernel simulator and step-by-step tutorials on optimising matrix multiplication.
 
 ---
 
@@ -70,49 +62,23 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ---
 <!-- forecasts:end -->
 
-## Recent Projects
+## Projects
 
-### AI Agents & Frameworks
+### AI agents and LLMs
 
-#### [Dory - AI Agent Framework Comparison](https://github.com/srepho/dory) (January 2026)
-Comprehensive evaluation of 11 AI agent frameworks for insurance claims processing. Includes tutorials, demos, and integration with DSPy and MLFlow.
+- [**Dory**](https://github.com/srepho/dory) (January 2026) — An evaluation of 11 AI agent frameworks on insurance claims processing, with tutorials, demos and DSPy and MLflow integration.
+- [**Australian insurance obligations extractor**](https://github.com/srepho/australian-insurance-obligations) (October 2025) — LLM extraction and validation of compliance obligations from Australian legislation: 343 obligations from 16 documents.
+- [**PromptOpt**](https://github.com/srepho/promptopt) (July 2025) — Prompt optimisation combining DSPy and GRPO approaches for systematic prompt engineering.
 
-#### [Australian Insurance Obligations Extractor](https://github.com/srepho/australian-insurance-obligations) (October 2025)
-LLM-powered system for extracting and validating insurance compliance obligations from Australian legislation. Extracted 343 obligations from 16 legislative documents.
+### Python packages
 
-#### [PromptOpt](https://github.com/srepho/promptopt) (July 2025)
-Enterprise prompt optimization framework combining DSPy and GRPO approaches for systematic prompt engineering.
+- [**Allyanonimiser**](https://github.com/srepho/Allyanonimiser) (February 2025) — Removes personal information and other sensitive fields from free text.
+- [**Freamon**](https://github.com/srepho/freamon) (March 2025) — Makes data science on tabular data easier. Named after Clarke Peters' character in *The Wire*.
+- [**Meno**](https://github.com/srepho/meno) (March 2025) — Topic modelling for free text, designed for the insurance domain.
+- [**Heraclitus**](https://github.com/srepho/heraclitus) (March 2025) — Process mining made accessible to new users; works alongside PM4Py.
 
-### Python Packages
+### Earlier write-ups (2014)
 
-#### [Allyanonimiser](https://github.com/srepho/Allyanonimiser) (February 2025)
-A Python package for removing PII and related sensitive fields from free text. Designed for data privacy compliance in production environments.
-
-#### [Freamon](https://github.com/srepho/freamon) (March 2025)
-A package to make data science projects on tabular data easier. Named after the great character from The Wire played by Clarke Peters.
-
-#### [Meno](https://github.com/srepho/meno) (March 2025)
-Topic modelling package for free text analysis, designed especially for the insurance domain.
-
-#### [Heraclitus](https://github.com/srepho/heraclitus) (March 2025)
-A library for making Process Mining accessible to new users. Works well with PM4PY while adding new features.
-
----
-
-## Classic Projects
-
-### [Customer Life Time Value Models](http://srepho.github.io/CLV/CLV) (2014)
-A discussion of CLV models based on a review of the literature.
-
-### [Churn Analysis](http://srepho.github.io/Churn/Churn) (2014)
-Using a dataset we walk through model building to predict which customers will leave in order to entice them to stay.
-
-### [Survival Analysis](http://nbviewer.ipython.org/github/srepho/srepho.github.io/blob/master/Survival/sa.ipynb) (2014)
-Using techniques originally developed in demography and biology we predict the average lifespan of customers.
-
----
-
-## Contact Me
-- [LinkedIn](https://www.linkedin.com/in/stephen-oates-628552282/)
-- [Twitter](https://twitter.com/stephenjaoates)
-- [GitHub](https://github.com/srepho)
+- [Customer lifetime value models](/CLV/CLV.html) — A review of the CLV literature and the main model families.
+- [Churn analysis](/Churn/Churn.html) — Building a model to predict which customers will leave.
+- [Survival analysis](https://nbviewer.org/github/srepho/srepho.github.io/blob/master/Survival/sa.ipynb) — Methods from demography and biology applied to customer lifetimes.
