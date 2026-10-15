@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An explainer on epistemic democracy, crowd wisdom, deliberation, prediction markets and AI, from Lippmann and Dewey to current research.">
+<meta name="author" content="Stephen Oates">
+<title>Can Crowds Govern Wisely? An Explainer on Epistemic
+Democracy · Stephen Oates</title>
+<link rel="canonical" href="https://srepho.github.io/blog/epistemic-democracy/">
+<style>
+:root{color-scheme:light dark;--paper:#fff;--ink:#252a30;--muted:#59646e;--line:#dce2e7;--wash:#f5f7f9;--link:#125f91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:1rem}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.site-nav{border-bottom:1px solid var(--line);padding:1rem max(1.25rem,calc((100% - 860px)/2));font-size:15px;background:var(--wash)}
+.site-nav a{margin-right:1.25rem}main,footer{max-width:860px;margin:auto;padding:2rem 1.25rem}
+header{margin-bottom:2rem}h1,h2,h3{line-height:1.2;letter-spacing:-.02em}h1{font-size:clamp(2rem,5vw,3rem);margin:.5rem 0 1rem}h2{font-size:1.65rem;margin-top:3rem}h3{font-size:1.2rem;margin-top:2rem}
+.byline{color:var(--muted);font-size:15px}a{color:var(--link);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--link);outline-offset:4px}
+p,li{overflow-wrap:break-word}li{margin:.5rem 0}nav#TOC{padding:1rem 1.5rem;background:var(--wash);border:1px solid var(--line);border-radius:6px;font-size:16px}#TOC h2{font-size:1.1rem;margin:0}#TOC ul{padding-left:1.25rem;margin-bottom:0}
+.table-scroll,.equation{overflow-x:auto;max-width:100%;margin:1.5rem 0;padding-bottom:.5rem}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.55;min-width:640px}th,td{border-bottom:1px solid var(--line);padding:.8rem;text-align:left;vertical-align:top}th{background:var(--wash)}table th:first-child{min-width:140px}math{font-size:1.1em;margin:1rem 0}footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.skip{position:absolute;left:-10000px}.skip:focus{position:static;display:block;padding:1rem}
+@media(prefers-color-scheme:dark){:root{--paper:#171b20;--ink:#e8ebed;--muted:#aeb9c4;--line:#37414b;--wash:#222931;--link:#8ac9f1}}
+@media(max-width:520px){body{font-size:17px}main{padding-top:1.5rem}h2{font-size:1.45rem}nav#TOC{padding:1rem}.table-scroll{border:1px solid var(--line)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body{font-size:11pt}.site-nav,#TOC,.skip{display:none}main{max-width:none;padding:0}.table-scroll,.equation{overflow:visible}table{min-width:0;font-size:9pt}h2,h3{break-after:avoid}tr{break-inside:avoid}}
+</style>
+</head>
+<body>
+<a class="skip" href="#article">Skip to article</a>
+<nav class="site-nav" aria-label="Site navigation"><a href="/">Stephen Oates</a><a href="/blog/">Blog</a></nav>
+<main id="article">
+<header><h1>Can Crowds Govern Wisely? An Explainer on Epistemic
+Democracy</h1><p class="byline"><time datetime="2026-10-06">October 6, 2026</time> · Stephen Oates</p></header>
+<nav id="TOC" aria-labelledby="contents-title"><h2 id="contents-title">In this article</h2><ul>
+<li><a href="#the-question-in-brief" id="toc-the-question-in-brief">The
+question in brief</a></li>
+<li><a href="#lippmanns-challenge-and-deweys-reply"
+id="toc-lippmanns-challenge-and-deweys-reply">Lippmann's challenge and
+Dewey's reply</a></li>
+<li><a href="#the-evidence-on-voter-knowledge"
+id="toc-the-evidence-on-voter-knowledge">The evidence on voter
+knowledge</a></li>
+<li><a href="#the-formal-case-for-crowd-wisdom"
+id="toc-the-formal-case-for-crowd-wisdom">The formal case for crowd
+wisdom</a></li>
+<li><a href="#attacks-on-the-formal-case"
+id="toc-attacks-on-the-formal-case">Attacks on the formal case</a></li>
+<li><a href="#landemores-synthesis-and-the-epistocracy-alternative"
+id="toc-landemores-synthesis-and-the-epistocracy-alternative">Landemore's
+synthesis and the epistocracy alternative</a></li>
+<li><a href="#the-experiments" id="toc-the-experiments">The
+experiments</a></li>
+<li><a href="#prediction-markets" id="toc-prediction-markets">Prediction
+markets</a></li>
+<li><a href="#where-the-argument-and-the-experiments-are-heading"
+id="toc-where-the-argument-and-the-experiments-are-heading">Where the
+argument and the experiments are heading</a></li>
+<li><a href="#bibliography" id="toc-bibliography">Bibliography</a></li>
+</ul></nav>
+<article>
+<h2 id="the-question-in-brief">The question in brief</h2>
+<p>The debate asks whether ordinary citizens, taken together, can make
+good political decisions in a world too complex for any one of them to
+understand. Walter Lippmann argued in 1922 that they cannot. A century
+of theory and experiment has neither confirmed him nor buried him.</p>
+<p>Three broad positions have emerged.</p>
+<ul>
+<li><strong>Pessimists</strong> (Lippmann, Converse, Achen and Bartels,
+Brennan) hold that voters know little and err in the same direction, so
+adding them up does not help.</li>
+<li><strong>Optimists</strong> (Dewey, Page, Landemore) hold that groups
+know more than their members, and that large, diverse, deliberating
+groups can outperform expert elites.</li>
+<li><strong>Conditionalists</strong> (most of the experimentalists) hold
+that crowd wisdom is real but fragile. It depends on independence,
+network structure and how discussion is organised.</li>
+</ul>
+<p>The current state of play is that crowds are neither wise nor foolish
+by nature. The formal results show ways in which numbers can help, and
+each rests on assumptions that politics may not meet. The experiments
+support a conditional claim: suitably structured deliberation improves
+accuracy or reasoning on some tasks and reduces polarisation on
+others.</p>
+<p>Collective intelligence is therefore an institutional achievement. It
+depends on how information, diversity, independence, expertise and
+communication are organised. The open frontier is whether markets and AI
+can supply that organisation at the scale of a whole society.</p>
+<h2 id="lippmanns-challenge-and-deweys-reply">Lippmann's challenge and
+Dewey's reply</h2>
+<p>Lippmann's claim is that citizens respond to a "pseudo-environment",
+a simplified picture assembled from news and stereotype, and not to the
+world itself (Lippmann 1922). His argument runs in three steps.</p>
+<ol type="1">
+<li><strong>The world is out of reach.</strong> Modern society is too
+large and fast to know first-hand, so people rely on reports. Reports
+are selective. Lippmann and Merz (1920) found that the <em>New York
+Times</em> announced the Bolshevik regime's collapse, or its imminent
+collapse, 91 times in two years.</li>
+<li><strong>The omnicompetent citizen is a myth.</strong> Democratic
+theory assumes a voter with an informed opinion on every public
+question. Nobody has the time or attention to be that person.</li>
+<li><strong>The remedy is organised expertise.</strong> Independent
+bureaus of experts should make the unseen facts intelligible to
+decision-makers. By <em>The Phantom Public</em> (Lippmann 1925) he had
+reduced the public's role to occasionally backing or removing the
+insiders.</li>
+</ol>
+<p>John Dewey accepted the diagnosis and rejected the cure. In <em>The
+Public and Its Problems</em> (Dewey 1927) he argued that experts cut off
+from the public become a class with private interests and partial
+knowledge. The person affected by a policy knows where it hurts, even if
+the specialist knows best how to fix it. For Dewey the real deficit was
+in communication: better methods of debate, discussion and persuasion
+would let a public find itself.</p>
+<p>One caution on the history. Schudson (2008) shows that the
+"Lippmann-Dewey debate" was largely constructed by later scholars, and
+that Lippmann wanted experts to inform elected representatives, not
+replace them.</p>
+<p>The two answers still define the research programme. Lippmann's side
+predicts that ignorance is deep and cannot be aggregated away. Dewey's
+side predicts that the right structures of communication make publics
+competent. The rest of this explainer follows how each prediction has
+been tested.</p>
+<h2 id="the-evidence-on-voter-knowledge">The evidence on voter
+knowledge</h2>
+<p>Survey research largely confirms Lippmann's picture of the individual
+voter. The live dispute is whether individual ignorance still matters
+once millions of votes are added up.</p>
+<p><strong>Individual ignorance.</strong> Converse (1964) coded
+open-ended interviews from US election surveys by how people reasoned
+about parties and candidates. Only 2.5% were "ideologues" using abstract
+principles, and another 9% were "near-ideologues". The largest group,
+42%, judged politics by which social groups would benefit.
+Re-interviewing the same people across 1956 to 1960, he found many
+policy answers changed almost at random, which he called
+"non-attitudes".</p>
+<p><strong>The aggregation rescue.</strong> Page and Shapiro (1992)
+replied that random individual error cancels out in large numbers.
+Collective opinion, they showed, is stable and responds sensibly to
+events. This is the "miracle of aggregation", and its logic is the same
+as averaging noisy measurements.</p>
+<p><strong>The rescue fails when errors are correlated.</strong> Bartels
+(1996) estimated how each demographic group would vote if fully
+informed, across six US presidential elections from 1972 to 1992. Real
+outcomes diverged from the informed simulation: incumbents did about
+five points better and Democrats about two. Althaus (1998) found the
+same pattern in policy opinion. The uninformed are not a random sample
+and do not err randomly. Caplan (2007) adds that the public's economic
+beliefs differ from economists' in consistent directions.</p>
+<p><strong>Shortcuts.</strong> Lupia (1994) studied five competing
+insurance-reform propositions on the 1988 California ballot. Voters who
+knew few details but knew which side the insurance industry backed voted
+much like the well informed. A trusted cue can stand in for
+knowledge.</p>
+<p><strong>The realist synthesis.</strong> Achen and Bartels (2016)
+argue that voters mostly follow group identity and punish incumbents for
+recent events, including ones no government controls. Their best-known
+case is the vote swing against Woodrow Wilson in New Jersey beach towns
+after the 1916 shark attacks. That result is itself contested. Fowler
+and Hall (2018) examined every fatal US shark attack from 1872 to 2012
+and found no systematic effect on elections, and Achen and Bartels
+(2018) defended their reading in reply. Cues, on the realist view, are
+only as good as the groups supplying them.</p>
+<p>What this settles is that individual ignorance is real. What it
+leaves open is whether errors are independent enough for aggregation to
+work, and whether a process such as deliberation can do what aggregation
+cannot.</p>
+<h2 id="the-formal-case-for-crowd-wisdom">The formal case for crowd
+wisdom</h2>
+<p>Three results carry the optimist case, and each buys its conclusion
+with a strong assumption.</p>
+<h3 id="condorcets-jury-theorem">Condorcet's jury theorem</h3>
+<p>If each voter is independently right with probability above one half
+on a yes-or-no question, a majority is almost certainly right once the
+group is large (Condorcet 1785).</p>
+<div class="equation" role="region" tabindex="0" aria-label="Mathematical formula — scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>P</mi><mi>n</mi></msub><mo>=</mo><munder><mo>∑</mo><mrow><mi>k</mi><mo>&gt;</mo><mi>n</mi><mi>/</mi><mn>2</mn></mrow></munder><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>n</mi><mi>k</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><msup><mi>p</mi><mi>k</mi></msup><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>n</mi><mo>−</mo><mi>k</mi></mrow></msup><mo>→</mo><mn>1</mn><mspace width="1.0em"></mspace><mrow><mtext mathvariant="normal">as </mtext><mspace width="0.333em"></mspace></mrow><mi>n</mi><mo>→</mo><mi>∞</mi><mo>,</mo><mspace width="0.278em"></mspace><mi>p</mi><mo>&gt;</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">
+P_n = \sum_{k &gt; n/2} \binom{n}{k} p^k (1-p)^{n-k} \longrightarrow 1 \quad \text{as } n \to \infty, \; p &gt; \tfrac{1}{2}
+</annotation></semantics></math></div>
+<p>The effect is strong. With individual accuracy of 51%, a majority of
+1,000 voters is right about three times in four, and a majority of
+10,000 about 98% of the time. The theorem needs three things: competence
+above chance, statistical independence between voters, and a binary
+choice. If competence falls below one half, the same maths makes large
+groups almost certainly wrong. List and Goodin (2001) extend the result
+to many options under plurality voting.</p>
+<h3 id="the-diversity-prediction-theorem">The diversity prediction
+theorem</h3>
+<p>For numerical estimates, the crowd's squared error equals the average
+individual squared error minus the variance of the estimates (Page
+2007).</p>
+<div class="equation" role="region" tabindex="0" aria-label="Mathematical formula — scroll horizontally if needed"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo>−</mo><mi>θ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>i</mi></msub><mo>−</mo><mi>θ</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup><mspace width="0.278em"></mspace><mo>−</mo><mspace width="0.278em"></mspace><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mo stretchy="false" form="prefix">(</mo><msub><mi>s</mi><mi>i</mi></msub><mo>−</mo><mi>c</mi><msup><mo stretchy="false" form="postfix">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">
+(c - \theta)^2 = \frac{1}{n}\sum_{i=1}^{n}(s_i - \theta)^2 \; - \; \frac{1}{n}\sum_{i=1}^{n}(s_i - c)^2
+</annotation></semantics></math></div>
+<p>Here the s values are individual estimates, c is their mean and theta
+is the truth. A crowd is therefore never worse than its average member,
+and it gains more the more its members disagree. This is the same
+identity as the ambiguity decomposition used for model ensembles in
+machine learning (Krogh and Vedelsby 1995). It is an accounting
+identity, so it does not say that adding diversity is free. Diversity
+helps only when it does not come at the price of much larger individual
+errors.</p>
+<h3 id="hong-and-page-diversity-trumps-ability">Hong and Page:
+"diversity trumps ability"</h3>
+<p>Hong and Page (2004) model problem solving as search. Each agent has
+a personal heuristic for hunting through a landscape of candidate
+solutions. A group works in relay, each member improving on the current
+best until nobody can.</p>
+<p>In their simulation the landscape was a ring of 2,000 points with
+random values. Each agent's heuristic was a set of three step sizes.
+Groups of 10 or 20 randomly chosen agents found better solutions than
+groups made of the 10 or 20 best individual performers. The best
+performers used similar heuristics, so they got stuck at the same local
+peaks.</p>
+<p>The accompanying theorem states conditions under which a random group
+beats the best group with probability one. The problem must be hard
+enough that no agent always solves it. The pool must be diverse enough
+that someone can always improve on a non-optimal solution. The pool and
+the groups must be large.</p>
+<p>Together these results suggest that sheer numbers, by bringing
+variety of perspective, can substitute for individual expertise. That
+inference is where the critics attack.</p>
+<h2 id="attacks-on-the-formal-case">Attacks on the formal case</h2>
+<p>The three results have different standings, and the critiques bear on
+them differently. Condorcet's theorem is valid mathematics with
+demanding assumptions. The diversity prediction theorem is an identity
+with limited causal content. Hong and Page is the contested one, both as
+a model and in its application to politics.</p>
+<p><strong>Independence.</strong> Voters read the same news, take the
+same cues and influence one another. Dietrich and Spiekermann (2013)
+replace Condorcet's independence with independence conditional on shared
+circumstances. Large-group accuracy then converges to the probability
+that the shared evidence points the right way, not to certainty. A crowd
+is capped by the quality of its common information, which is Lippmann's
+pseudo-environment in probabilistic form.</p>
+<p><strong>Competence and bias.</strong> The findings of Bartels,
+Althaus and Caplan undermine the assumption that voters' errors are
+unbiased. They do not show that individual accuracy is below one half.
+Their benchmark is how better-informed people would vote, and most
+political choices are not binary questions with an independently known
+right answer.</p>
+<p><strong>Thompson's critique of Hong and Page.</strong> Thompson
+(2014), a mathematician, made three charges. Once errors and needless
+technicalities are removed, the theorem roughly restates its own
+assumptions. The simulation is not connected to the theorem. And the
+"diverse" groups win because they are randomly drawn, not because they
+are diverse. She adds that variety of search heuristics has no shown
+link to diversity among real people.</p>
+<p><strong>The defences.</strong> Page (2015) replied that the model
+shows group performance depends on both ability and diversity, and that
+conditions can be written for either to win. Kuehn (2017) argues
+Thompson misreads how models are used in social science, while granting
+that randomisation matters. Singer (2019) reruns the model and finds
+that functional diversity, not randomness, explains the result.</p>
+<p><strong>Sensitivity to the problem.</strong> Grim et al. (2019) vary
+the landscape. On highly random landscapes diversity wins. On smoother
+ones, where skill on one part transfers to another, the best performers
+win. "Diversity trumps ability" is therefore a property of certain
+problem types.</p>
+<p><strong>Romaniega's critique.</strong> Romaniega (2023), in a
+preprint, argues the conclusion is built into the assumptions. He gives
+counterexamples when tailored hypotheses are dropped and proves a
+mirror-image "ability trumps diversity" theorem. He concludes that
+political arguments resting on the theorem are invalid.</p>
+<p>None of this refutes the theorems. The lesson most of the literature
+draws is caution about carrying them into politics. Whether diversity
+beats ability on political questions is an empirical matter, and the
+theorems identify mechanisms worth testing.</p>
+<h2
+id="landemores-synthesis-and-the-epistocracy-alternative">Landemore's
+synthesis and the epistocracy alternative</h2>
+<p>Landemore (2013) gives the fullest modern version of Dewey's reply:
+democracy is the smartest regime available because inclusion maximises
+cognitive diversity. Brennan (2016) reads the same evidence on voter
+ignorance and concludes the opposite, that the vote should be weighted
+towards the informed.</p>
+<h3 id="landemores-argument">Landemore's argument</h3>
+<ol type="1">
+<li>Politics throws up novel problems, and nobody knows in advance which
+expertise will matter.</li>
+<li>Under that uncertainty, variety of perspective matters more than
+individual ability. This step leans on Hong and Page.</li>
+<li>The most reliable way to get variety is to include more people. She
+calls this "numbers trump ability".</li>
+<li>Inclusive deliberation finds better options, and majority rule then
+aggregates what disagreement remains. This step leans on Condorcet and
+the diversity prediction theorem.</li>
+</ol>
+<p>The psychological support comes from the argumentative theory of
+reasoning (Mercier and Sperber 2011). People reasoning alone mostly
+defend what they already believe, but they are good at judging other
+people's arguments. Reasoning therefore works best in groups that
+disagree (Mercier and Landemore 2012).</p>
+<p>The institutional conclusion is sortition. In <em>Open Democracy</em>
+(Landemore 2020) and <em>Politics Without Politicians</em> (Landemore
+2026) she argues for assemblies of citizens chosen by lottery, on the
+model of ancient Athens and modern citizens' assemblies.</p>
+<h3 id="brennans-argument">Brennan's argument</h3>
+<p>Brennan sorts citizens into "hobbits" (apathetic and uninformed),
+"hooligans" (informed but tribal) and "vulcans" (dispassionate and
+rational). He holds that almost all voters are one of the first two. He
+proposes experiments in epistocracy, such as voter qualification tests,
+extra votes for the knowledgeable, or statistically simulating what an
+informed public would choose.</p>
+<p>Against Landemore directly, Brennan (2014) argues that the
+intelligence of democracy cannot be settled from theorems and has to be
+measured. Landemore (2014) replies in the same journal issue, and the
+two set out their cases side by side in Brennan and Landemore
+(2021).</p>
+<h3 id="objections-to-epistocracy">Objections to epistocracy</h3>
+<ul>
+<li><strong>The demographic objection.</strong> Political knowledge
+tracks wealth, education, sex and race, so a knowledge-weighted
+electorate would neglect the excluded (Estlund 2008). Ingham and Wiens
+(2021) generalise this. Any way of selecting the knowledgeable will
+correlate with other traits that bias outcomes, and design cannot remove
+that.</li>
+<li><strong>Power, not wisdom.</strong> Bagg (2018) argues that
+democracy's main value is resisting capture by any narrow group, experts
+included. That value holds even if voters are poorly informed.</li>
+<li><strong>No shortcuts.</strong> Lafont (2019) objects to epistocracy
+and lottery-based rule alike. Both ask most citizens to defer blindly to
+a few, whether experts or a random sample.</li>
+</ul>
+<h2 id="the-experiments">The experiments</h2>
+<p>The experimental record supports a conditional view, and the studies
+do not all measure the same thing. Some test accuracy against a known
+answer or logical correctness. Others measure polarisation, agreement or
+belief change, which are not accuracy. The table lists the studies that
+carry most of the weight, oldest first.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Experiments in crowd wisdom and deliberation — scroll horizontally for all columns"><table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Study</th>
+<th>Outcome measured</th>
+<th>Question</th>
+<th>Design</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Galton (1907)</td>
+<td>Accuracy</td>
+<td>Can a crowd estimate a quantity?</td>
+<td>787 fairgoers guessed the dressed weight of an ox</td>
+<td>Median guess 1,207 lb against a true 1,198 lb</td>
+</tr>
+<tr>
+<td>Moshman and Geil (1998)</td>
+<td>Logical correctness</td>
+<td>Do groups reason better than individuals?</td>
+<td>Students tried Wason's four-card logic task alone or in small
+groups</td>
+<td>About 9% solved it alone and about 75% in groups</td>
+</tr>
+<tr>
+<td>Schkade, Sunstein and Hastie (2007)</td>
+<td>Polarisation</td>
+<td>What happens when the like-minded deliberate?</td>
+<td>Colorado citizens from a liberal and a conservative city discussed
+three issues in like-minded groups</td>
+<td>Groups moved to more extreme positions and became more uniform</td>
+</tr>
+<tr>
+<td>Lorenz et al. (2011)</td>
+<td>Accuracy and spread of estimates</td>
+<td>Does seeing others' answers hurt?</td>
+<td>144 students revised factual estimates over five rounds, with or
+without seeing peers' answers</td>
+<td>Seeing peers narrowed the spread of answers and raised confidence
+without improving accuracy</td>
+</tr>
+<tr>
+<td>Mellers et al. (2014)</td>
+<td>Forecast accuracy</td>
+<td>What improves forecasting?</td>
+<td>Multi-year geopolitical forecasting tournament with random
+assignment to training and teams</td>
+<td>Training, teamwork and grouping the top performers each improved
+accuracy</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1073/pnas.1615978114">Becker, Brackbill
+and Centola (2017)</a></td>
+<td>Accuracy</td>
+<td>Does network shape matter?</td>
+<td>Online groups of 40 revised estimates in decentralised or
+centralised networks, against independent controls</td>
+<td>Decentralised networks became more accurate. Centralised ones rose
+or fell with the central person</td>
+</tr>
+<tr>
+<td><a href="https://arxiv.org/abs/1703.00045">Navajas et al.
+(2018)</a></td>
+<td>Accuracy</td>
+<td>Does deliberation beat aggregation?</td>
+<td>5,180 audience members answered alone, then agreed answers in groups
+of five</td>
+<td>Averaging four group answers beat averaging thousands of individual
+answers</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1017/S0003055421000642">Fishkin et al.
+(2021)</a></td>
+<td>Polarisation and opinion change</td>
+<td>Does deliberation polarise or depolarise?</td>
+<td>523 representative US voters spent a long weekend on five issues
+with moderators, against a control group</td>
+<td>Large depolarising shifts in policy views and less hostility to the
+other party</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1126/science.adq2852">Tessler et al.
+(2024)</a></td>
+<td>Agreement</td>
+<td>Can AI mediate a group?</td>
+<td>5,734 UK participants. A language model drafted group statements and
+revised them after critique</td>
+<td>AI statements preferred to human mediators' 56% of the time. Groups
+ended less divided. Repeated with a representative sample of 200</td>
+</tr>
+<tr>
+<td>Costello, Pennycook and Rand (2024)</td>
+<td>Belief change in individuals</td>
+<td>Can AI dialogue correct false beliefs?</td>
+<td>2,190 conspiracy believers held a three-round conversation with a
+language model about their evidence</td>
+<td>Belief fell by about 20%, lasting at least two months</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="what-the-pattern-shows">What the pattern shows</h3>
+<p><strong>Independence is not sacred.</strong> Lorenz et al. suggested
+any social influence damages crowd accuracy. Becker et al. and Navajas
+et al. show the damage depends on structure. Equal influence and small
+independent groups help. Hubs and open exposure to everyone's answers
+hurt.</p>
+<p><strong>Composition and format decide the direction.</strong>
+Like-minded groups left alone polarise, as in Colorado. Mixed groups
+with balanced briefings and moderators depolarise, as in Fishkin's
+experiment. The same activity, called "deliberation" in both cases,
+gives opposite results.</p>
+<p><strong>Ability and diversity are complements.</strong> The
+forecasting tournament improved accuracy by selecting good forecasters
+and by teaming them. Neither side of the Hong-Page dispute predicts that
+as cleanly as the data show it.</p>
+<p><strong>Field cases match the laboratory.</strong> Ireland's
+Citizens' Assembly of 99 randomly chosen citizens recommended repealing
+the constitutional ban on abortion, and the 2018 referendum agreed with
+66.4% (Farrell, Suiter and Harris 2019). France's Citizens' Convention
+for Climate had 150 members and produced 149 proposals, of which the
+government adopted only part (Giraudet et al. 2022). Assemblies can
+reach considered positions. The weak point is their link to power.</p>
+<h3 id="limits-of-the-evidence">Limits of the evidence</h3>
+<ul>
+<li><strong>Ground truth.</strong> The accuracy experiments use
+questions with checkable answers, such as the height of the Eiffel
+Tower. Political questions mix facts with values and rarely have a known
+answer.</li>
+<li><strong>Agreement is not accuracy.</strong> Fishkin and Tessler
+measure convergence and reduced hostility. A group can converge on a
+mistake.</li>
+<li><strong>Selection.</strong> People who accept an invitation to
+deliberate for a weekend may differ from those who decline.</li>
+<li><strong>Durability and scale.</strong> Most effects are measured
+days or weeks later, in groups of hundreds or thousands. Electorates run
+to millions.</li>
+</ul>
+<h2 id="prediction-markets">Prediction markets</h2>
+<p>Prediction markets are a third way of pooling judgement, alongside
+voting and deliberation. They forecast checkable events well, but the
+newest evidence says their accuracy comes from a skilled minority and
+not from the crowd.</p>
+<h3 id="the-idea">The idea</h3>
+<p>Traders buy and sell contracts that pay out if an event happens. A
+contract paying one dollar that trades at 62 cents is read as a 62%
+chance (Wolfers and Zitzewitz 2004). The intellectual root is Hayek
+(1945), who argued that prices gather knowledge scattered across many
+minds that no central body could collect.</p>
+<p>A market differs from a vote in three ways. It weights each voice by
+money staked. It pays people for being right and charges them for being
+wrong. And it lets the uninformed stay out. It answers Lippmann's
+attention problem with an incentive to find out.</p>
+<h3 id="the-evidence">The evidence</h3>
+<p>All five studies below measure forecast accuracy against outcomes
+that were later known.</p>
+<div class="table-scroll" role="region" tabindex="0" aria-label="Prediction market studies — scroll horizontally for all columns"><table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Study</th>
+<th>Setting</th>
+<th>Finding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rhode and Strumpf (2004)</td>
+<td>Wall Street betting on US presidential elections, 1868 to 1940</td>
+<td>Betting odds were a good guide to results before scientific polling
+existed</td>
+</tr>
+<tr>
+<td><a
+href="https://iemweb.biz.uiowa.edu/about-iem/research/prediction-market-accuracy-in-the-long-run/">Berg,
+Nelson and Rietz (2008)</a></td>
+<td>Iowa Electronic Markets against 964 polls over five US presidential
+elections</td>
+<td>The market was closer to the result 74% of the time, with the
+biggest edge more than 100 days out</td>
+</tr>
+<tr>
+<td>Dreber et al. (2015)</td>
+<td>Psychologists bet on whether 44 published findings would
+replicate</td>
+<td>Market prices called about 71% correctly, better than a survey of
+the same people</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1287/mnsc.2015.2374">Atanasov et al.
+(2017)</a></td>
+<td>More than 2,400 forecasters randomly assigned to markets or
+forecasting polls on 261 geopolitical events</td>
+<td>Markets beat the simple average of individual forecasts. Teams whose
+forecasts were weighted by track record beat markets</td>
+</tr>
+<tr>
+<td><a href="https://dx.doi.org/10.2139/ssrn.6617059">Gómez-Cram et al.
+(2026)</a>, working paper</td>
+<td>Every trade on Polymarket, 2023 to 2025</td>
+<td>About 3% of accounts supply most of the accuracy. The rest supply
+volume and lose money to them</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="what-this-adds-to-the-argument">What this adds to the
+argument</h3>
+<p><strong>Aggregation without deliberation can work.</strong> Markets
+beat polls at forecasting elections, which supports Hayek and the
+optimists on one narrow point. Dispersed knowledge can be pooled by a
+mechanism in which nobody talks to anybody.</p>
+<p><strong>The accuracy comes from the few.</strong> Gómez-Cram et al.
+find that the crowd provides liquidity while a small group of
+persistently skilled traders does the price discovery. A market is a
+selection device as much as an aggregation device. That sits closer to
+the "ability" side of the Hong and Page dispute than to the "diversity"
+side.</p>
+<p><strong>Three lines of evidence now converge.</strong> The
+forecasting tournaments, the performance-weighted teams in Atanasov et
+al. and the Polymarket data all point to the same design. Find the
+people who are reliably good, give them more weight, and keep a broad
+pool from which they can emerge.</p>
+<p><strong>The price mechanism is not special.</strong> In the one
+randomised comparison, deliberating teams with statistical weighting did
+better than a market. Markets and deliberation are alternative designs
+that can be tested against each other.</p>
+<h3 id="limits">Limits</h3>
+<ul>
+<li><strong>Checkable questions only.</strong> A market needs an event
+that settles. It can price who will win, and it cannot price what ought
+to be done.</li>
+<li><strong>Money-weighted voice.</strong> Influence follows the size of
+the stake. This is the demographic objection to epistocracy in a sharper
+form.</li>
+<li><strong>Large traders.</strong> Laboratory markets resisted
+manipulation because others traded against it (Hanson, Oprea and Porter
+2006). Real markets can be thin. Rothschild and Sethi (2016) document
+one trader holding a large share of one side of a 2012 US election
+market.</li>
+<li><strong>Insider knowledge.</strong> Insiders make prices more
+accurate and the market less fair. In April 2026 US authorities <a
+href="https://www.espn.com/espn/betting/story/_/id/49019930/cftc-proposes-rules-limiting-prediction-markets-kalshi-sports">indicted
+a soldier</a> accused of trading on classified information about the
+timing of Nicolás Maduro's capture. The platforms <a
+href="https://www.venable.com/insights/publications/2026/04/kalshi-and-polymarket-move-to-curb-insider">tightened
+their rules</a> in March 2026 and the US regulator has proposed its
+own.</li>
+<li><strong>Reflexivity.</strong> Market prices are now reported as
+news. A price that shapes the beliefs it is meant to measure becomes
+part of the pseudo-environment.</li>
+<li><strong>Mostly sport.</strong> Combined monthly volume on Kalshi and
+Polymarket rose from under 5 billion US dollars in September 2025 to 24
+billion in April 2026. Sport has made up about 80% of Kalshi's volume
+since July 2024. Growth in trading is not growth in civic
+information.</li>
+</ul>
+<h3 id="futarchy">Futarchy</h3>
+<p>Hanson (2013) proposes to "vote on values, but bet on beliefs".
+Elected representatives would define a measure of national welfare.
+Markets would estimate which policies raise it, and the policies the
+markets favour would be adopted.</p>
+<p>This is the cleanest institutional answer to the split between facts
+and values that runs through this explainer. It gives ends to democracy
+and means to markets. It is also Lippmann's expert bureau with the
+experts chosen by their own stakes.</p>
+<p>The objections are practical. Prices conditional on a policy show
+correlation and not cause. Markets on long-run outcomes are thin. Those
+who gain from a policy may spend more moving the price than traders can
+earn correcting it. A US defence research plan for geopolitical markets
+was cancelled in 2003 after a political backlash, which shows legitimacy
+is its own constraint.</p>
+<h2 id="where-the-argument-and-the-experiments-are-heading">Where the
+argument and the experiments are heading</h2>
+<p>The debate is moving from proving that crowds are wise or foolish to
+working out the conditions under which they are either. This section is
+a reading of the trend, not a settled result.</p>
+<p><strong>From theorems to measurement.</strong> After Thompson, Grim
+and Romaniega, few will rest a political argument on Hong and Page
+alone. The live question is which kinds of problem reward variety and
+which reward expertise. Expect more work that classifies political
+problems by type and tests each. Forecasting tournaments are the likely
+tool, because they give political questions a later, checkable
+answer.</p>
+<p><strong>From verdicts to design variables.</strong> The experiments
+point to a handful of settings that decide outcomes: group size, network
+shape, composition, facilitation and briefing material. Lippmann against
+Dewey is becoming an engineering question about how to set them.</p>
+<p><strong>AI as the machinery of deliberation.</strong> Deliberation
+works in groups of five to a few hundred, and Dewey's problem was always
+scale. Language models can summarise, translate and mediate across
+thousands of people. Tessler et al. (2024) is a proof of concept for
+AI-mediated agreement. It does not show that the positions reached are
+more accurate. Related lines include automated analysis of mass
+consultations (Small et al. 2023) and methods for drafting statements
+that provably represent a population (Fish et al. 2024). Landemore
+(2024) is optimistic that this brings deliberation to mass publics.</p>
+<p><strong>The sceptical response.</strong> Lazar and Manuali (2026)
+argue that language models should stay out of formal decision-making and
+be used to strengthen informal public discussion. Three risks are likely
+to drive the next round of experiments.</p>
+<ul>
+<li><strong>Steering.</strong> A mediator that drafts the group's
+statement shapes it. Who sets its objective is a political
+question.</li>
+<li><strong>Correlated error.</strong> If everyone consults the same few
+models, their mistakes line up. That is the common-cause problem of
+Dietrich and Spiekermann, and it lowers the ceiling on crowd
+accuracy.</li>
+<li><strong>The simulated public.</strong> Models can imitate survey
+respondents (Argyle et al. 2023). That makes Brennan's idea of
+simulating an informed electorate technically cheap, and it would be
+Lippmann's expert bureau in automated form.</li>
+</ul>
+<p><strong>The pseudo-environment, one level up.</strong> Costello,
+Pennycook and Rand (2024) show that one-to-one AI dialogue can durably
+correct false beliefs. That is evidence about AI as an intermediary
+between a person and the facts, not about group deliberation. The same
+capacity could instil false beliefs. Lippmann's question of who checks
+the intermediary returns with a new intermediary.</p>
+<p><strong>Standing institutions.</strong> Sortition is moving from
+one-off assemblies to permanent bodies, such as the citizens' council in
+German-speaking Belgium (2019) and the Paris Citizens' Assembly (2021).
+The research questions shift accordingly: whether governments act on the
+outputs, whether non-participants trust them, and whether permanent
+bodies get captured. These are the tests of Lafont's objection.</p>
+<p><strong>Markets as public information.</strong> Prediction markets
+have moved from academic experiment to mass product, and regulators are
+now writing rules for them. The research questions are who supplies the
+accuracy, how much insiders matter, and whether published prices change
+the events they forecast. Language models already forecast at close to
+human-crowd accuracy on some question sets (Schoenegger et al. 2024), so
+part of the skilled minority may soon be machines.</p>
+<h3 id="open-questions-to-watch">Open questions to watch</h3>
+<ul>
+<li>Does deliberation improve accuracy on political questions with
+answers that can be checked later?</li>
+<li>Do depolarising effects last beyond a year?</li>
+<li>Does AI mediation change what groups conclude, or only how fast they
+converge?</li>
+<li>How much does shared reliance on AI sources raise the correlation of
+citizens' errors?</li>
+</ul>
+<h2 id="bibliography">Bibliography</h2>
+<p>Entries with links were checked against the linked page while
+writing. The rest are cited from memory, so confirm volume and page
+details before citing them formally.</p>
+<ul>
+<li>Achen, C. H. and Bartels, L. M. (2016). <em>Democracy for Realists:
+Why Elections Do Not Produce Responsive Government</em>. Princeton
+University Press.</li>
+<li>Achen, C. H. and Bartels, L. M. (2018). <a
+href="https://statmodeling.stat.columbia.edu/wp-content/uploads/2018/08/AchenBartelsResponse.pdf">Statistics
+as if politics mattered: a reply to Fowler and Hall</a>. <em>Journal of
+Politics</em> 80(4).</li>
+<li>Althaus, S. L. (1998). Information effects in collective
+preferences. <em>American Political Science Review</em> 92(3).</li>
+<li>Argyle, L. P., Busby, E. C., Fulda, N., Gubler, J. R., Rytting, C.
+and Wingate, D. (2023). Out of one, many: using language models to
+simulate human samples. <em>Political Analysis</em> 31(3).</li>
+<li>Atanasov, P., Rescober, P., Stone, E., Swift, S. A.,
+Servan-Schreiber, E., Tetlock, P., Ungar, L. and Mellers, B. (2017). <a
+href="https://doi.org/10.1287/mnsc.2015.2374">Distilling the wisdom of
+crowds: prediction markets vs. prediction polls</a>. <em>Management
+Science</em> 63(3), 691-706.</li>
+<li>Bagg, S. (2018). The power of the multitude: answering epistemic
+challenges to democracy. <em>American Political Science Review</em>
+112(4).</li>
+<li>Bartels, L. M. (1996). Uninformed votes: information effects in
+presidential elections. <em>American Journal of Political Science</em>
+40(1).</li>
+<li>Becker, J., Brackbill, D. and Centola, D. (2017). <a
+href="https://doi.org/10.1073/pnas.1615978114">Network dynamics of
+social influence in the wisdom of crowds</a>. <em>PNAS</em> 114(26),
+E5070-E5076.</li>
+<li>Berg, J. E., Nelson, F. D. and Rietz, T. A. (2008). <a
+href="https://iemweb.biz.uiowa.edu/about-iem/research/prediction-market-accuracy-in-the-long-run/">Prediction
+market accuracy in the long run</a>. <em>International Journal of
+Forecasting</em> 24(2).</li>
+<li>Brennan, J. (2014). How smart is democracy? You can't answer that
+question a priori. <em>Critical Review</em> 26(1-2).</li>
+<li>Brennan, J. (2016). <em>Against Democracy</em>. Princeton University
+Press.</li>
+<li>Brennan, J. and Landemore, H. (2021). <em>Debating Democracy: Do We
+Need More or Less?</em> Oxford University Press.</li>
+<li>Caplan, B. (2007). <em>The Myth of the Rational Voter: Why
+Democracies Choose Bad Policies</em>. Princeton University Press.</li>
+<li>Condorcet, M. J. A. N. de (1785). <em>Essai sur l'application de
+l'analyse à la probabilité des décisions rendues à la pluralité des
+voix</em>. Paris.</li>
+<li>Converse, P. E. (1964). The nature of belief systems in mass
+publics. In D. Apter (ed.), <em>Ideology and Discontent</em>. Free
+Press.</li>
+<li>Costello, T. H., Pennycook, G. and Rand, D. G. (2024). Durably
+reducing conspiracy beliefs through dialogues with AI. <em>Science</em>
+385.</li>
+<li>Dewey, J. (1927). <em>The Public and Its Problems</em>. Henry
+Holt.</li>
+<li>Dietrich, F. and Spiekermann, K. (2013). Epistemic democracy with
+defensible premises. <em>Economics and Philosophy</em> 29(1).</li>
+<li>Dreber, A. et al. (2015). Using prediction markets to estimate the
+reproducibility of scientific research. <em>PNAS</em> 112(50).</li>
+<li>Estlund, D. (2008). <em>Democratic Authority: A Philosophical
+Framework</em>. Princeton University Press.</li>
+<li>Farrell, D. M., Suiter, J. and Harris, C. (2019). "Systematizing"
+constitutional deliberation: the 2016-18 citizens' assembly in Ireland.
+<em>Irish Political Studies</em> 34(1).</li>
+<li>Fish, S., Gölz, P., Parkes, D. C., Procaccia, A. D., Rusak, G.,
+Shapira, I. and Wüthrich, M. (2024). Generative social choice.
+<em>Proceedings of the 25th ACM Conference on Economics and
+Computation</em>.</li>
+<li>Fishkin, J., Siu, A., Diamond, L. and Bradburn, N. (2021). <a
+href="https://doi.org/10.1017/S0003055421000642">Is deliberation an
+antidote to extreme partisan polarization? Reflections on "America in
+One Room"</a>. <em>American Political Science Review</em> 115(4).</li>
+<li>Fowler, A. and Hall, A. B. (2018). <a
+href="https://www.gsb.stanford.edu/faculty-research/publications/do-shark-attacks-influence-presidential-elections-reassessing">Do
+shark attacks influence presidential elections? Reassessing a prominent
+finding on voter competence</a>. <em>Journal of Politics</em>
+80(4).</li>
+<li>Galton, F. (1907). Vox populi. <em>Nature</em> 75.</li>
+<li>Giraudet, L.-G. et al. (2022). "Co-construction" in deliberative
+democracy: lessons from the French Citizens' Convention for Climate.
+<em>Humanities and Social Sciences Communications</em> 9.</li>
+<li>Gómez-Cram, R., Guo, Y., Jensen, T. I. and Kung, H. (2026). <a
+href="https://dx.doi.org/10.2139/ssrn.6617059">Prediction market
+accuracy: crowd wisdom or informed minority?</a> SSRN working paper
+6617059.</li>
+<li>Grim, P., Singer, D. J., Bramson, A., Holman, B., McGeehan, S. and
+Berger, W. J. (2019). <a
+href="https://cambridge.org/core/journals/philosophy-of-science/article/diversity-ability-and-expertise-in-epistemic-communities/E679089194FE0FB848F597F3CD1F8A70">Diversity,
+ability, and expertise in epistemic communities</a>. <em>Philosophy of
+Science</em> 86(1).</li>
+<li>Hanson, R. (2013). Shall we vote on values, but bet on beliefs?
+<em>Journal of Political Philosophy</em> 21(2).</li>
+<li>Hanson, R., Oprea, R. and Porter, D. (2006). Information aggregation
+and manipulation in an experimental market. <em>Journal of Economic
+Behavior &amp; Organization</em> 60(4).</li>
+<li>Hayek, F. A. (1945). The use of knowledge in society. <em>American
+Economic Review</em> 35(4).</li>
+<li>Hong, L. and Page, S. E. (2004). Groups of diverse problem solvers
+can outperform groups of high-ability problem solvers. <em>PNAS</em>
+101(46).</li>
+<li>Ingham, S. and Wiens, D. (2021). Demographic objections to
+epistocracy: a generalization. <em>Philosophy &amp; Public Affairs</em>
+49(4).</li>
+<li>Krogh, A. and Vedelsby, J. (1995). Neural network ensembles, cross
+validation, and active learning. <em>Advances in Neural Information
+Processing Systems</em> 7.</li>
+<li>Kuehn, D. (2017). Diversity, ability, and democracy: a note on
+Thompson's challenge to Hong and Page. <em>Critical Review</em> 29(1),
+72-87.</li>
+<li>Lafont, C. (2019). <em>Democracy Without Shortcuts: A Participatory
+Conception of Deliberative Democracy</em>. Oxford University Press.</li>
+<li>Landemore, H. (2013). <em>Democratic Reason: Politics, Collective
+Intelligence, and the Rule of the Many</em>. Princeton University
+Press.</li>
+<li>Landemore, H. (2014). Yes, we can (make it up on volume): answers to
+critics. <em>Critical Review</em> 26(1-2), 184-237.</li>
+<li>Landemore, H. (2020). <em>Open Democracy: Reinventing Popular Rule
+for the Twenty-First Century</em>. Princeton University Press.</li>
+<li>Landemore, H. (2024). Can AI bring deliberation to the masses? In R.
+Chang and A. Srinivasan (eds.), <em>Conversations in Philosophy, Law,
+and Politics</em>. Oxford University Press.</li>
+<li>Landemore, H. (2026). <a
+href="https://www.penguin.com.au/books/politics-without-politicians-9780241649169"><em>Politics
+Without Politicians: The Case for Citizen Rule</em></a>. Allen Lane (UK)
+and Thesis (US).</li>
+<li>Lazar, S. and Manuali, L. (2026). <a
+href="https://link.springer.com/article/10.1007/s11023-026-09767-y">Using
+LLMs to enhance democracy</a>. <em>Minds and Machines</em> 36, article
+12.</li>
+<li>Lippmann, W. (1922). <em>Public Opinion</em>. Harcourt, Brace.</li>
+<li>Lippmann, W. (1925). <em>The Phantom Public</em>. Harcourt,
+Brace.</li>
+<li>Lippmann, W. and Merz, C. (1920). A test of the news. <em>The New
+Republic</em>, supplement, 4 August.</li>
+<li>List, C. and Goodin, R. E. (2001). Epistemic democracy: generalizing
+the Condorcet jury theorem. <em>Journal of Political Philosophy</em>
+9(3).</li>
+<li>Lorenz, J., Rauhut, H., Schweitzer, F. and Helbing, D. (2011). How
+social influence can undermine the wisdom of crowd effect. <em>PNAS</em>
+108(22).</li>
+<li>Lupia, A. (1994). Shortcuts versus encyclopedias: information and
+voting behavior in California insurance reform elections. <em>American
+Political Science Review</em> 88(1).</li>
+<li>Mellers, B. et al. (2014). Psychological strategies for winning a
+geopolitical forecasting tournament. <em>Psychological Science</em>
+25(5).</li>
+<li>Mercier, H. and Landemore, H. (2012). Reasoning is for arguing:
+understanding the successes and failures of deliberation. <em>Political
+Psychology</em> 33(2).</li>
+<li>Mercier, H. and Sperber, D. (2011). Why do humans reason? Arguments
+for an argumentative theory. <em>Behavioral and Brain Sciences</em>
+34(2).</li>
+<li>Moshman, D. and Geil, M. (1998). Collaborative reasoning: evidence
+for collective rationality. <em>Thinking &amp; Reasoning</em> 4(3).</li>
+<li>Navajas, J., Niella, T., Garbulsky, G., Bahrami, B. and Sigman, M.
+(2018). <a href="https://arxiv.org/abs/1703.00045">Aggregated knowledge
+from a small number of debates outperforms the wisdom of large
+crowds</a>. <em>Nature Human Behaviour</em> 2, 126-132.</li>
+<li>Page, B. I. and Shapiro, R. Y. (1992). <em>The Rational Public:
+Fifty Years of Trends in Americans' Policy Preferences</em>. University
+of Chicago Press.</li>
+<li>Page, S. E. (2007). <em>The Difference: How the Power of Diversity
+Creates Better Groups, Firms, Schools, and Societies</em>. Princeton
+University Press.</li>
+<li>Page, S. E. (2015). Diversity trumps ability and the proper use of
+mathematics. <em>Notices of the AMS</em> 62(1), 9-10.</li>
+<li>Rhode, P. W. and Strumpf, K. S. (2004). Historical presidential
+betting markets. <em>Journal of Economic Perspectives</em> 18(2).</li>
+<li>Romaniega, Á. (2023). <a
+href="https://arxiv.org/pdf/2307.04709">Fatal errors and misuse of
+mathematics in the Hong-Page theorem and Landemore's epistemic
+argument</a>. arXiv preprint 2307.04709.</li>
+<li>Rothschild, D. and Sethi, R. (2016). Trading strategies and market
+microstructure: evidence from a prediction market. <em>Journal of
+Prediction Markets</em> 10(1).</li>
+<li>Schkade, D., Sunstein, C. R. and Hastie, R. (2007). What happened on
+Deliberation Day? <em>California Law Review</em> 95(3).</li>
+<li>Schoenegger, P., Tuminauskaite, I., Park, P. S., Bastos, R. V. S.
+and Tetlock, P. E. (2024). Wisdom of the silicon crowd: LLM ensemble
+prediction capabilities rival human crowd accuracy. <em>Science
+Advances</em> 10(45).</li>
+<li>Schudson, M. (2008). The "Lippmann-Dewey debate" and the invention
+of Walter Lippmann as an anti-democrat 1986-1996. <em>International
+Journal of Communication</em> 2.</li>
+<li>Singer, D. J. (2019). Diversity, not randomness, trumps ability.
+<em>Philosophy of Science</em> 86(1), 178-191.</li>
+<li>Small, C. T. et al. (2023). Opportunities and risks of LLMs for
+scalable deliberation with Polis. arXiv preprint.</li>
+<li>Tessler, M. H. et al. (2024). <a
+href="https://doi.org/10.1126/science.adq2852">AI can help humans find
+common ground in democratic deliberation</a>. <em>Science</em> 386,
+eadq2852.</li>
+<li>Thompson, A. (2014). <a
+href="http://www.ams.org/notices/201409/rnoti-p1024.pdf">Does diversity
+trump ability? An example of the misuse of mathematics in the social
+sciences</a>. <em>Notices of the AMS</em> 61(9), 1024-1030.</li>
+<li>Wolfers, J. and Zitzewitz, E. (2004). Prediction markets.
+<em>Journal of Economic Perspectives</em> 18(2).</li>
+</ul>
+</article>
+</main>
+<footer><a href="/blog/">Back to the blog</a> · <a href="/">Home</a></footer>
+</body>
+</html>

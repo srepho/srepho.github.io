@@ -5,7 +5,9 @@ I am a Sydney-based Data Scientist with expertise in machine learning, LLMs, and
 
 ## Blog
 
-Check out my [blog posts](/blog/) for articles on data science, machine learning, and AI.
+Articles on data science, democracy, forecasting and AI. [All blog posts](/blog/).
+
+- [Can Crowds Govern Wisely? An Explainer on Epistemic Democracy](/blog/epistemic-democracy/) (October 6, 2026)
 
 ---
 
