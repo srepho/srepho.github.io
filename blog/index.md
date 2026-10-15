@@ -9,7 +9,7 @@ Articles on data science, democracy, forecasting and AI.
 
 ## [Can Crowds Govern Wisely? An Explainer on Epistemic Democracy](/blog/epistemic-democracy/)
 
-October 6, 2026 · Stephen Oates
+October 6, 2026 · Stephen Oates and Claude
 
 From Lippmann and Dewey to prediction markets and AI: what theory and experiments tell us about when crowds make good decisions.
 

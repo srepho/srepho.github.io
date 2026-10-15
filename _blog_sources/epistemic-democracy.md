@@ -1,6 +1,6 @@
 # Can Crowds Govern Wisely? An Explainer on Epistemic Democracy
 
-Oct 6, 2026 · @Stephen Oates
+Oct 6, 2026 · Stephen Oates and Claude
 
 ## The question in brief
 
