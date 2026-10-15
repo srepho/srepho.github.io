@@ -66,7 +66,7 @@ $$
 \textbf{Survival Rate in Year t} = (1-A)^{t-1}
 $$
 
-Assuming a stationary discount rate (*DR*) we can calculate the discount rate for a given period it as:
+Assuming a stationary discount rate (*DR*) we can calculate the discount rate for a given period as:
 
 $$
 \textbf{Discount Multiplier} = 1/(1 + DR)^{t-1}
@@ -84,7 +84,7 @@ So we will now move onto the practical points regarding the collection of the da
 
 ###### From Historical Data
 
-The least sophisticated approach to working out a model life time would be to merely take the proportion who leave duration a duration (lets call it *A* for attrition) and treat it as constant and universal. This then can be plugged in to the LTV equations above with the discount rate. Next we would take the average spend by all customers under investigation and plug this into the above equation. We can then model the future!
+The least sophisticated approach to working out a model for customer lifetime would be to merely take the proportion who leave duration a duration (lets call it *A* for attrition) and treat it as constant and universal. This then can be plugged in to the LTV equations above with the discount rate. Next we would take the average spend by all customers under investigation and plug this into the above equation. We can then model the future!
 
 ![Great Scott!](GS.png)
 
@@ -99,7 +99,7 @@ The least sophisticated approach to working out a model life time would be to me
 
 There are a number of problems that might arise with the above model largely to do with the fact that we are treating all clients the same and all portions of time the same. More specifically
 
-1. The Hazard Rate is considered to steady. Is a client who has been with a company for < 1 period likely to have the same attrition rate as one who has been with a company for say 7? Even more alarming is that a steady Hazard Rate leads us to predictions of all clients (of a certain cohort) leaving by a certain period.
+1. The Hazard Rate is considered to be steady. Is a client who has been with a company for < 1 period likely to have the same attrition rate as one who has been with a company for say 7? Even more alarming is that a steady Hazard Rate leads us to predictions of all clients (of a certain cohort) leaving by a certain period.
 2. All clients are treated the same in terms of spending. There is no differentiation based on spending habits.
 3. 1 & 2 can interact, so high spending clients might have a different Hazard Rate then lower spending clients.
 
@@ -121,9 +121,9 @@ Generally it uses the below definitions:
 
 Once we have manipulated this data into this form we can then group the data based on these metrics. There is no *a priori* correct way of doing this that holds for all data. We will follow the simple example of Birant (2011). Clients are split along each metric into quintiles (20% groupings) and assigned an ordinal label of 5 for the highest 20% of values, 4 to next highest etc. These are then concatenated (ex 454, 134, 555 etc) This allows for a quick short hand to group customers. So for example we can tell that a 155 is a frequent purchaser who has spent a lot of money during this period but has not purchased in some time. This may be a sign that the client is in danger of leaving.
 
-This gives us an idea of how RFM can work to quickly segment clients. However it still seems too trivial for a lot of situations. Birant (2011) lays out a more sophisticated approach latter in the paper involving clustering of the post RFM groups. I actually think that clustering on the raw RFM data prior to the grouping makes more sense as there seems no a priori reason to assume that quintile splits is more useful then pure clustering. (See Appendix 3 at the end of this paper for an overview of some more basic Numerical Clustering). We can then take the assigned group and use this to create groupings that we can then use to predict future client activity.
+This gives us an idea of how RFM can work to quickly segment clients. However it still seems too trivial for a lot of situations. Birant (2011) lays out a more sophisticated approach later in the paper involving clustering of the post RFM groups. I actually think that clustering on the raw RFM data prior to the grouping makes more sense as there seems no a priori reason to assume that quintile splits are more useful than pure clustering. (See Appendix 3 at the end of this paper for an overview of some more basic Numerical Clustering). We can then take the assigned group and use this to create groupings that we can then use to predict future client activity.
 
-One thing to note regarding RFM models is that the model requires at least 1 period of activity from a client, one possible way of extending the model to allow for more immediate assessment is to build a model based on the client traits that are known and use this to predict the RFM cluster that the client is likely to belong to. This would have to be tested empirically to know if there was sufficient data in this client information to see if first the predictions of correct cluster can be made accurately enough to be of use and secondly that the cluster assignment in turn provides a useful framework for prediction of future behaviour.
+One thing to note regarding RFM models is that the model requires at least 1 period of activity from a client, one possible way of extending the model to allow for more immediate assessment is to build a model based on the client traits that are known and use this to predict the RFM cluster that the client is likely to belong to. This would have to be tested empirically to know if there was sufficient data in this client information to see if; first, the predictions of correct cluster can be made accurately enough to be of use and secondly, that the cluster assignment in turn provides a useful framework for prediction of future behaviour.
 
 [Bruce Hardie](http://www.brucehardie.com/) a Professor at the London Business School has an Excel Spreadsheet and a paper on how to implement RFM Summaries [here](http://www.brucehardie.com/notes/022/).
 
@@ -140,11 +140,11 @@ An alternative way to look at CLV calculations is to treat the discrete time per
 
 ##### Moving to Markov Chains
 
-We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value easily and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilities from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs in order to increase a better return on a Marketing Budget.
+We can write this more formally as a Matrix. The benefits of this relate to the ability to calculate the infinite Life Time Value easily and also to reshape the expenditure of marketing budget based on states. We start by creating a *P* Matrix which shows the transition probabilities from one state to the next. A second Matrix *G* is created which shows the Profit of a purchase minus the marketing cost. Pfiefer & Carraway (2000) provide an example where the marketing budget is cut for all non-positive states net of marketing costs in order to improve spending efficiency and thereby increase overall returns.
 
 # Hazard Function
 
-One issue that must be noted is that of "censorship". Censorship is the fact that we have incomplete data when dealing with existing clients, we are unaware of when they will leave in the future. 
+One issue that must be noted is that of "censorship". Censorship is the fact that we have incomplete data when dealing with existing clients as we are unaware of when they will leave in the future.
 
 
 
@@ -152,7 +152,7 @@ One issue that must be noted is that of "censorship". Censorship is the fact tha
 
 (Taken from Davidson-Pilon 2013)
 
-The censorship issue is illustrated above as we don't at time *t* have any idea how long the blue lines will continue to . If we chose to leave these out of the modelling process we would be giving up possibly useful data. This example shows "Right-Censoring" however "Left-Censoring" where a customer is already existing for some unknown duration prior to the modelling period can also occur. This death event is taken to be final and known (in Markov Chain terminology it is an "Absorbing State").
+The censorship issue is illustrated above as we don't at time *t* have any idea how long the blue lines will continue. If we chose to leave these out of the modelling process we would be giving up possibly useful data. This example shows "Right-Censoring" however "Left-Censoring" - where a customer is already existing for some unknown duration prior to the modelling period - can also occur. This death event is taken to be final and known (in Markov Chain terminology it is an "Absorbing State").
 
 Formally the hazard function can be written using the Nelson-Aalen estimator as:
 
@@ -171,7 +171,7 @@ We can also produce a probability for clients moving between time states to "die
 
 ![NAProb](NAprob.png)
 
-These analysis are quite simple to perform. Effectively we just need the dataset to contain the age of a customers account and the point at which they closed the account (if they did). Fitting the Nelson-Aalen estimator shown above once this dataset is loaded can be completed in Python as follows:
+These analyses are quite simple to perform. Effectively we just need the dataset to contain the age of a customers account and the point at which they closed the account (if they did). Fitting the Nelson-Aalen estimator shown above once this dataset is loaded can be completed in Python as follows:
 
 ```{r eval=FALSE}
 from lifelines import NelsonAalenFitter
@@ -201,14 +201,14 @@ $$
 Furthermore we can also look at movement between these states again with the Nelson-Aalen estimator.
 
 $$
-\hat{A_{lj}}(t) = \sum\limits_{k=1}^K  \frac{\text{Number of l}  \rightarrow \text{j trainsitions at }t_k}{\text{Number of indidivudals at risk in state l just prior to }t_k}
+\hat{A_{lj}}(t) = \sum\limits_{k=1}^K  \frac{\text{Number of l}  \rightarrow \text{j transitions at }t_k}{\text{Number of individuals at risk in state l just prior to }t_k}
 $$
 
 (taken from Beyersmann et al. 2012 p.25)
 
 # Survival Regression
 
-It is also possible to utilise data about the customer directly into our analysis through Survival Regression. Due to censorship we cannot directly use normal linear regression. The most famous approach is the Cox Proportional Hazard Model. Below is an example from Python (lifelines Package). The dataset relates to Criminal Recidivism and can be found [here](http://cran.r-project.org/doc/contrib/Fox-Companion/Rossi.txt)
+It is also possible to incorporate data about the customer directly into our analysis through the use of Survival Regression. Due to censorship we cannot directly use normal linear regression. The most famous approach is the Cox Proportional Hazard Model. Below is an example from Python (lifelines Package). The dataset relates to Criminal Recidivism and can be found [here](http://cran.r-project.org/doc/contrib/Fox-Companion/Rossi.txt)
 
 From Python:
 
@@ -235,12 +235,12 @@ mod.allison
 ```
 
 
-In terms of working out which predictors to use we would go back and forth between.
+In terms of working out which predictors to use we would go back and forth between:
 
 1. Looking at the p values.
-2. Looking at the total model fit via the C-Index (Concordance Indesx)
+2. Looking at the total model fit via the C-Index (Concordance Index)
 
-This is because we cannot use conventional loss functions due to the time component. The Concordance Index which assess the ordering of survival times between a model and the actual event.
+This is because we cannot use conventional loss functions due to the time component. The Concordance Index assesses the ordering of survival times between a model and the actual event.
 
 In R we can see this via:
 
@@ -248,11 +248,11 @@ In R we can see this via:
 survConcordance(Surv(week, arrest) ~predict(mod.allison), Rossi)
 ```
 
-*lifelines in Python has a similair function*.
+*lifelines in Python has a similar function*.
 
 The Concordance Index uses the same scale as the Area Under the Curve (AUC) so random guessing will obtain 0.5, 1.0 is perfect prediction (or concordance) and 0.0 is perfect anti-concordance.
 
-In summary we can use the predictions from Survival Analysis based techniques to feed into our predictions of a clients probability of leaving the company to more accuratly predict based on heterogenaity.
+In summary we can use the predictions from Survival Analysis based techniques to feed into our predictions of a clients probability of leaving the company to more accurately predict based on heterogeneity.
 
 # Machine Learning
 
@@ -260,7 +260,7 @@ In summary we can use the predictions from Survival Analysis based techniques to
 
 ![Run Forest](RFOREST.png)
 
-It is possible to treat the probability of a client leaving as a straightforward supervised classification Machine Learning problem. This technique is less suitable where the number of discrete points at which a client can leave is more then a small number. In those cases we would use the Survival Analysis techniques mentioned above. The below example is taken from a previous blog post I [wrote](http://srepho.github.io/Churn/Churn) so I won't go into all that is going on here. It relates to a synthetic dataset and we are merely trying to predict the binary "Churn"/"No Churn" variable. Note the splitting of the dataset and the cross-validation steps allow for very accurate predictions for how such an algorithm would work in production. I have limited the below to a single algorithm (Random Forest which is [itself](http://en.wikipedia.org/wiki/Random_forest) an ensemble of weak learning algorithms). Accuracy could be boosted by running many different types of algorithms on the data and "stacking" the predictions. An interactive visualisation of one way of assessing algorithm similarity can be seen [here](http://topepo.github.io/caret/similarity.html). The dataset being used is very unbalanced (the vast majority of customers do not churn) so the [Kappa](http://en.wikipedia.org/wiki/Cohen&#39;s_kappa) . I have also used adaptive sampling to avoid a brute force search through the parameter space (RF has number of "trees" to grow and number of variables to sample as parameters). Parameter search can be sped up via two main approaches:
+It is possible to treat the probability of a client leaving as a straightforward supervised classification Machine Learning problem. This technique is less suitable where the number of discrete points at which a client can leave is more than a small number. In those cases we would use the Survival Analysis techniques mentioned above. The below example is taken from a previous blog post I [wrote](http://srepho.github.io/Churn/Churn) so I won't go into all that is going on here. It relates to a synthetic dataset and we are merely trying to predict the binary "Churn"/"No Churn" variable. Note the splitting of the dataset and the cross-validation steps allow for very accurate predictions for how such an algorithm would work in production. I have limited the below to a single algorithm (Random Forest which is [itself](http://en.wikipedia.org/wiki/Random_forest) an ensemble of weak learning algorithms). Accuracy could be boosted by running many different types of algorithms on the data and "stacking" the predictions. An interactive visualisation of one way of assessing algorithm similarity can be seen [here](http://topepo.github.io/caret/models-clustered-by-tag-similarity.html). The dataset being used is very unbalanced (the vast majority of customers do not churn) so the [Kappa](https://en.wikipedia.org/wiki/Cohen's_kappa) statistic (which provides a somewhat normalized measure of accuracy given the imbalance of the classes in the data) might be of use. I have also used adaptive sampling to avoid a brute force search through the parameter space (RF has number of "trees" to grow and number of variables to sample as parameters). Parameter search can be sped up via two main approaches:
 
 1. Spread the algorithm (if possible) over multiple cores.
 2. Use a faster algorithm or implementation.
@@ -331,31 +331,31 @@ Pareto/NBD model produces better predictions than the simple heuristic as to who
 From a practical point of view the lesson is that we should include Management heuristics in our suite of models and compare it statistically to other more "sophisticated" approaches.
 
 # Pareto and friends
-Most of the more sophisticated approaches to modelling CLV in non-contractual settings treat as two separate problems:
+Most of the more sophisticated approaches to modelling CLV in non-contractual settings break it down into two separate problems:
 
 1. The prediction of "Alive" or "Dead"
 2. The probability of purchase/s
 
-Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposed a Negative Binomial Distribution (NBD) but most modern approaches use two separate families of distributions, one for probability of being alive and the other for probability of purchases. A range of distributions have been use; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
+Starting with Ehrenberg (1959) a lot of literature centers around fitting distributions to these two questions. Ehrenberg proposed a Negative Binomial Distribution (NBD) but most modern approaches use two separate families of distributions, one for probability of being alive and the other for probability of purchases. A range of distributions have been used; the Pareto/NBD model of Schmittlein et al (1987), the Beta-Geometric(BG)/NBD of Fader, Hardie & Lee (2005), the Central Variant of the Beta-Geometric (CBG)/NBD and CBG/CNBD-k based on Platzer (2008).
 
 One useful analogy (taken from Medri 2012) to understand these approaches is to imagine each customer as having two separate coins one that they flip to "decide" to answer 1. and the other for 2. (if applicable). The job of the data analyst is to predict these probabilities by finding the distribution parameters.
 
 ![Coin](Coin.gif)
 
-The above papers fit the named distribution parameters for each customer individually (though they could be used on cohorts) and then its a simple case of solving to find the maximum likelihood [MLE](http://en.wikipedia.org/wiki/Maximum_likelihood). The important point is that we need to check if that the assumptions of the modelling distributions are being met (see appendix for a discussion of this).
+The above papers fit the named distribution parameters for each customer individually (though they could be used on cohorts) and then it's a simple case of solving to find the maximum likelihood [MLE](http://en.wikipedia.org/wiki/Maximum_likelihood). The important point is that we need to check if the assumptions of the modelling distributions are being met (see appendix for a discussion of this).
 
 
 ![Assumptions](ParetoStuff.PNG)
 
 (Taken from Blattberg 2008 p.123)
 
-The glaring weakness from the early papers that continues through to the more modern extensions is that there is no mechanism for the interplay between purchases and whether client is alive. Blattberg proposes the use of hierarchical Bayesian modelling to answer this question. We also need to be careful of individual level approaches that are relying on small amounts of information as they are likely to be noisy.
+The glaring weakness from the early papers that continues through to the more modern extensions is that there is no mechanism for the interplay between purchases and whether a client is alive. Blattberg proposes the use of hierarchical Bayesian modelling to answer this question. We also need to be careful of individual level approaches that are relying on small amounts of information as they are likely to be noisy.
 
 #### Implementation
 
 ##### Excel
 
-One of the great things about even these more sophisticated methods is that they are possible in Excel. This allows access to them to those who are less comfortable with statistical programming. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of excel spreadsheets and excel walkthroughs of many of these models available. I will therefore just list some of them here:
+One of the great things about even these more sophisticated methods is that they are possible in Excel. This makes them accessible to those who are less comfortable with statistical programming. [Bruce Hardie](http://www.brucehardie.com/notes/) has a number of Excel spreadsheets and Excel walkthroughs of many of these models available. I will therefore just list some of them here:
 
 -[BG/NBD Model](http://www.brucehardie.com/notes/004/)
 
@@ -497,6 +497,8 @@ $$
 CLV = \frac{m}{1+d-r}
 $$
 
+where m is the net cash flow per period (while the customer is still "alive"), r is the retention rate, and d is the discount rate.
+
 These are all infinite geometric series:
 
 $$
@@ -514,12 +516,12 @@ Assumptions of the models (taken from Platzer 2008) are highlighted below.
 ##### NBD: 
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+2. The differences in $\lambda$ follow a Gamma distribution with shape *r* and rate $\alpha$
 
 ##### Pareto/NBD:
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+2. The differences in $\lambda$ follow a Gamma distribution with shape *r* and rate $\alpha$
 3. Customer Lifespan exponentially distributed with death rate $/mu$
 4. Differences in $\mu$
 5. Purchasing rate and death rate are independently distributed
@@ -527,7 +529,7 @@ Assumptions of the models (taken from Platzer 2008) are highlighted below.
 ##### BG/NBD:
 
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+2. The differences in $\lambda$ follow a Gamma distribution with shape *r* and rate $\alpha$
 3. After each purchase probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
 5. Purchase rate and death rate are independently distributed
@@ -535,14 +537,14 @@ Assumptions of the models (taken from Platzer 2008) are highlighted below.
 
 ##### CBG/NBD:
 1. When active number of transactions follows a Poisson Process with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
-3. At time zero and after each purchases probability of death remains constant *p*
+2. The differences in $\lambda$ follow a Gamma distribution with shape *r* and rate $\alpha$
+3. At time zero and after each purchase probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
 5. Purchase rate and death rate are independently distributed
 
 ##### CGB/CNBD-k
 1. While active number of transactions follows an *Erlang-k* distribution with rate $\lambda$
-2. The differences in $\lambda$ follows a Gamma distribution with shape *r* and rate $\alpha$
+2. The differences in $\lambda$ follow a Gamma distribution with shape *r* and rate $\alpha$
 3. At time zero and after each purchases probability of death remains constant *p*
 4. *p* follows a Beta distribution with parameters *a* and *b*
 5. Purchase rate and death rate are independently distributed
@@ -600,7 +602,7 @@ Research has shown that Hartigan's Rule generally provides the best K estimate (
 (The following is taken from Blattberg (2008) which is itself adapted from Pfeifer & Carraway (2000). )
 
 
-For simplicity we assume that there is 3 Recency States. The following matrix shows the probability of moving from one state to another.
+For simplicity we assume that there are 3 Recency States. The following matrix shows the probability of moving from one state to another.
 
 
 
