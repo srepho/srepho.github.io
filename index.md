@@ -25,7 +25,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### All forecasts
 
-- [Upcoming predictions](/predictions/upcoming.html) (Tuesday 13 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
+- [Upcoming predictions](/predictions/upcoming.html) (Saturday 17 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections
 
