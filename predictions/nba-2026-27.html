@@ -208,6 +208,39 @@ td.wrap { white-space: normal; min-width: 14rem; text-align: left; }
     <p class="note">Top-five chances include uncertainty in player availability and team performance. Wide rank ranges mean the precise order is uncertain.</p>
   </section>
 
+  <section id="efficiency" aria-labelledby="h-efficiency">
+    <style>
+      #efficiency { display:grid; gap:12px; }
+      #efficiency .eff-controls { display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+      #efficiency svg { display:block; width:100%; overflow:visible; }
+      #efficiency .eff-row:focus .eff-highlight,#efficiency .eff-row:hover .eff-highlight { fill:var(--model-band); }
+      #efficiency .eff-row { outline:none; }
+      #efficiency .eff-scored { color:var(--model); font-weight:600; }
+      #efficiency .eff-allowed { color:var(--market); font-weight:600; }
+      #efficiency .eff-detail { min-height:3em; }
+      #efficiency summary { cursor:pointer; }
+    </style>
+    <h3 id="h-efficiency">Points scored &amp; allowed per 100 possessions</h3>
+    <p class="note">Offensive rating measures points scored; defensive rating measures points allowed. A common possession count makes teams comparable regardless of pace. Scored minus allowed is the projected net rating; higher is better.</p>
+    <p class="note" id="eff-reference"></p>
+    <div class="eff-controls">
+      <label>Conference <select id="eff-conference"><option value="All">All</option><option value="E">East</option><option value="W">West</option></select></label>
+      <label>Sort <select id="eff-sort"><option value="net">Net rating</option><option value="scored">Offence · most scored</option><option value="allowed">Defence · fewest allowed</option></select></label>
+      <button class="more" id="eff-expand" type="button" aria-expanded="false" aria-controls="eff-chart">Show all 30 teams</button>
+    </div>
+    <div class="eff-controls" aria-label="Efficiency chart legend">
+      <span class="eff-scored">● Scored · higher is better</span>
+      <span class="eff-allowed">◆ Allowed · lower is better</span>
+      <span class="note">Dashed line: last season’s league average</span>
+    </div>
+    <p class="note eff-detail" id="eff-detail">Hover, tap or focus a team for its ratings. The chart shows projected means.</p>
+    <div id="eff-chart"></div>
+    <details><summary>View ratings table and calculation</summary>
+      <p class="note">Scored = reference average + projected offence above average. Allowed = reference average − projected points prevented above average. Net = scored − allowed. The reference uses estimated possessions (FGA − offensive rebounds + turnovers + 0.44 × FTA), so its level may differ from NBA.com or other providers. This display leaves wins, ranks and probabilities unchanged.</p>
+      <div class="scroll" tabindex="0" aria-label="Points per 100 possessions table"><table id="eff-table"></table></div>
+    </details>
+  </section>
+
   <section aria-labelledby="h-wins">
     <div class="bar">
       <h3 id="h-wins">Projected wins</h3>
@@ -846,5 +879,60 @@ function renderLuck(K) {
   let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(draw, 150); });
 }
 </script>
+
+<script>
+(() => {
+  const efficiencyData = {"reference": {"season": 2026, "label": "2025\u201326", "rating": 113.52009820060293, "games": 1230, "points": 284395.0, "possessions": 250523.92000000004, "audit": {"team_box": {"input_rows": 2652, "nba_regular_rows": 2462, "kept_rows": 2460, "excluded_regular_rows": 2, "excluded_reasons": {"non_standings_game_type": 2}}, "player_box": {"input_rows": 34883, "nba_regular_rows": 32221, "kept_rows": 32191, "excluded_regular_rows": 30, "excluded_reasons": {"non_standings_game_type": 30}}}}, "teams": [{"team": "OKC", "name": "Oklahoma City Thunder", "conference": "W", "scored": 116.04940723333443, "allowed": 109.08635868145267, "net": 6.963048551881758}, {"team": "SA", "name": "San Antonio Spurs", "conference": "W", "scored": 116.93056145518834, "allowed": 110.60918815017914, "net": 6.321373305009199}, {"team": "BOS", "name": "Boston Celtics", "conference": "E", "scored": 115.06469226862745, "allowed": 110.74189257906514, "net": 4.32279968956232}, {"team": "HOU", "name": "Houston Rockets", "conference": "W", "scored": 114.4459784313404, "allowed": 110.49990195654264, "net": 3.9460764747977377}, {"team": "DET", "name": "Detroit Pistons", "conference": "E", "scored": 114.25724588894448, "allowed": 110.47946417191869, "net": 3.77778171702579}, {"team": "TOR", "name": "Toronto Raptors", "conference": "E", "scored": 114.92761430552804, "allowed": 111.75717278071154, "net": 3.1704415248164914}, {"team": "NY", "name": "New York Knicks", "conference": "E", "scored": 115.70370900125793, "allowed": 112.60858773387359, "net": 3.095121267384341}, {"team": "CLE", "name": "Cleveland Cavaliers", "conference": "E", "scored": 116.3118626800032, "allowed": 113.34111180695378, "net": 2.9707508730494236}, {"team": "DEN", "name": "Denver Nuggets", "conference": "W", "scored": 117.4530498011043, "allowed": 114.7755781812963, "net": 2.6774716198080024}, {"team": "PHI", "name": "Philadelphia 76ers", "conference": "E", "scored": 116.13841839327449, "allowed": 114.24672283842543, "net": 1.89169555484906}, {"team": "ATL", "name": "Atlanta Hawks", "conference": "E", "scored": 112.91341900346694, "allowed": 111.76039475347493, "net": 1.1530242499920107}, {"team": "MIN", "name": "Minnesota Timberwolves", "conference": "W", "scored": 114.1379078159999, "allowed": 113.07411767680776, "net": 1.063790139192123}, {"team": "LAL", "name": "Los Angeles Lakers", "conference": "W", "scored": 115.0873185901269, "allowed": 114.0104246599509, "net": 1.076893930175995}, {"team": "ORL", "name": "Orlando Magic", "conference": "E", "scored": 112.62037486954556, "allowed": 111.48391053447824, "net": 1.1364643350673145}, {"team": "MIA", "name": "Miami Heat", "conference": "E", "scored": 113.62984311182724, "allowed": 113.20874622755724, "net": 0.4210968842699986}, {"team": "CHA", "name": "Charlotte Hornets", "conference": "E", "scored": 113.09274911727731, "allowed": 112.66529950705825, "net": 0.4274496102190562}, {"team": "POR", "name": "Portland Trail Blazers", "conference": "W", "scored": 113.12250940131898, "allowed": 112.96730297070724, "net": 0.15520643061174427}, {"team": "PHX", "name": "Phoenix Suns", "conference": "W", "scored": 113.5676313274384, "allowed": 113.69641985269338, "net": -0.12878852525497222}, {"team": "GS", "name": "Golden State Warriors", "conference": "W", "scored": 113.26153887779833, "allowed": 113.3554742240569, "net": -0.0939353462585775}, {"team": "IND", "name": "Indiana Pacers", "conference": "E", "scored": 113.28295383531317, "allowed": 114.64414534703528, "net": -1.3611915117221116}, {"team": "MIL", "name": "Milwaukee Bucks", "conference": "E", "scored": 112.2279061827529, "allowed": 114.75509930590184, "net": -2.5271931231489413}, {"team": "LAC", "name": "LA Clippers", "conference": "W", "scored": 111.3251125777075, "allowed": 114.27613958934064, "net": -2.951027011633142}, {"team": "UTAH", "name": "Utah Jazz", "conference": "W", "scored": 113.1283049936186, "allowed": 116.33420247552147, "net": -3.205897481902867}, {"team": "MEM", "name": "Memphis Grizzlies", "conference": "W", "scored": 111.48312250803548, "allowed": 114.62579360201002, "net": -3.142671093974534}, {"team": "DAL", "name": "Dallas Mavericks", "conference": "W", "scored": 110.40677249536164, "allowed": 113.8159406672827, "net": -3.409168171921063}, {"team": "NO", "name": "New Orleans Pelicans", "conference": "W", "scored": 112.19774827644757, "allowed": 115.8844801942053, "net": -3.6867319177577187}, {"team": "CHI", "name": "Chicago Bulls", "conference": "E", "scored": 111.08719430245552, "allowed": 115.3648357737219, "net": -4.277641471266368}, {"team": "BKN", "name": "Brooklyn Nets", "conference": "E", "scored": 110.50638029562886, "allowed": 115.19960842265326, "net": -4.6932281270244}, {"team": "WSH", "name": "Washington Wizards", "conference": "E", "scored": 111.11260688545633, "allowed": 116.58996162921042, "net": -5.477354743754088}, {"team": "SAC", "name": "Sacramento Kings", "conference": "W", "scored": 109.75973794055174, "allowed": 115.97705471263848, "net": -6.217316772086727}]};
+  const el = id => document.getElementById(id);
+  const safe = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const ref = efficiencyData.reference;
+  el('eff-reference').textContent = `October 17 forecast, shown on the ${ref.label} scoring scale: ${ref.rating.toFixed(1)} points per 100 possessions. We project relative team strength; this display assumes the league scoring level stays at last season’s average. It is not a separate forecast of next season’s scoring level.`;
+  let expanded = false;
+  const allValues = efficiencyData.teams.flatMap(t => [t.scored, t.allowed]);
+  const low = Math.floor(Math.min(...allValues, ref.rating) / 2) * 2 - 2;
+  const high = Math.ceil(Math.max(...allValues, ref.rating) / 2) * 2 + 2;
+  const describe = t => `${t.name}: scored ${t.scored.toFixed(1)}, allowed ${t.allowed.toFixed(1)}, net ${t.net >= 0 ? '+' : ''}${t.net.toFixed(1)} points per 100 possessions.`;
+  function draw() {
+    const conference = el('eff-conference').value, sort = el('eff-sort').value;
+    const rows = efficiencyData.teams.filter(t => conference === 'All' || t.conference === conference)
+      .sort((a,b) => (sort === 'allowed' ? a[sort] - b[sort] : b[sort] - a[sort]) || a.team.localeCompare(b.team));
+    const visible = expanded ? rows : rows.slice(0,10);
+    el('eff-expand').textContent = expanded ? 'Show top 10' : `Show all ${rows.length} teams`;
+    el('eff-expand').setAttribute('aria-expanded', String(expanded));
+    const width = Math.max(280, el('eff-chart').clientWidth), left = width < 520 ? 48 : 190, right = 24;
+    const height = 50 + visible.length * 32;
+    const x = n => left + (n - low) / (high - low) * (width - left - right);
+    let svg = `<svg viewBox="0 0 ${width} ${height}" role="group" aria-label="Projected scoring and defence on last season’s league scoring scale">`;
+    const tickStep = width < 520 ? 4 : 2;
+    for (let tick = low; tick <= high; tick += tickStep) {
+      svg += `<line x1="${x(tick)}" x2="${x(tick)}" y1="32" y2="${height}" stroke="var(--grid)"/><text x="${x(tick)}" y="18" text-anchor="middle" fill="var(--ink-2)" font-size="12">${tick}</text>`;
+    }
+    svg += `<line x1="${x(ref.rating)}" x2="${x(ref.rating)}" y1="28" y2="${height}" stroke="var(--ink-3)" stroke-dasharray="4 4"/>`;
+    visible.forEach((t,i) => {
+      const y = 50 + i * 32, a = x(t.scored), b = x(t.allowed);
+      svg += `<g class="eff-row" tabindex="0" data-eff-index="${i}" aria-label="${safe(describe(t))}"><title>${safe(describe(t))}</title>
+        <rect class="eff-highlight" x="0" y="${y-15}" width="${width}" height="30" rx="4" fill="transparent"/>
+        <text x="0" y="${y+4}" font-size="${width < 520 ? 12 : 13}" fill="var(--ink)" font-weight="600">${safe(width < 520 ? t.team : t.name)}</text>
+        <line x1="${a}" x2="${b}" y1="${y}" y2="${y}" stroke="var(--ink-3)" stroke-width="2"/>
+        <circle cx="${a}" cy="${y}" r="5" fill="var(--model)" stroke="var(--panel)"/>
+        <path d="M ${b} ${y-6} l 6 6 l -6 6 l -6 -6 Z" fill="var(--market)" stroke="var(--panel)"/></g>`;
+    });
+    el('eff-chart').innerHTML = svg + '</svg>';
+    el('eff-chart').querySelectorAll('[data-eff-index]').forEach(node => {
+      const show = () => { el('eff-detail').textContent = describe(visible[Number(node.dataset.effIndex)]); };
+      ['pointerenter','focus','click'].forEach(event => node.addEventListener(event,show));
+    });
+    el('eff-table').innerHTML = `<caption>Projected means on the ${safe(ref.label)} scoring scale · all ${rows.length} selected teams</caption><thead><tr><th scope="col">Team</th><th scope="col">Scored / 100</th><th scope="col">Allowed / 100</th><th scope="col">Net / 100</th></tr></thead><tbody>${rows.map(t => `<tr><th scope="row">${safe(t.name)}</th><td>${t.scored.toFixed(1)}</td><td>${t.allowed.toFixed(1)}</td><td>${t.net > 0 ? '+' : ''}${t.net.toFixed(1)}</td></tr>`).join('')}</tbody>`;
+  }
+  ['eff-conference','eff-sort'].forEach(id => el(id).addEventListener('change', () => {
+    el('eff-detail').textContent = 'Hover, tap or focus a team for its ratings. The chart shows projected means.';
+    draw();
+  }));
+  el('eff-expand').addEventListener('click', () => { expanded = !expanded; draw(); });
+  new ResizeObserver(draw).observe(el('eff-chart'));
+  draw();
+})();
+</script>
+
 </body>
 </html>
