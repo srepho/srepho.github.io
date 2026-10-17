@@ -47,7 +47,7 @@ figure.fig{margin:22px 0;padding:0}
 figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
 figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
 /* Zoomed map geometry extends beyond its viewBox; contain it within this panel. */
-figure.fig svg.map{overflow:hidden}
+figure.fig svg.map{overflow:hidden;max-height:min(75vh,760px)}
 .row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
 @media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
