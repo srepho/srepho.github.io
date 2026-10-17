@@ -63,7 +63,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Research
 
-- [Ideas for experiments](/predictions/ideas.html) (Saturday 17 October 2026) — Questions worth testing, by sport, with links to the write-ups as each is done.
+- [Ideas for experiments](/predictions/ideas.html) (Sunday 18 October 2026) — Questions worth testing, by sport, with links to the write-ups as each is done.
 - [How wrong are Australian polls, and does time in office matter?](/predictions/au-poll-error.html) (Saturday 17 October 2026) — A pre-registered Bayesian study of 1,800 federal and state polls since 1998: the industry's polling-day error, how opinion drifts before an election, house effects, and a 'time for a change' prior.
 - [A Bayesian par for Test blocks](/predictions/bayes-par.html) (Saturday 10 October 2026) — The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.
 - [Can Duckworth–Lewis be improved?](/predictions/dls.html) (Saturday 10 October 2026) — A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.
