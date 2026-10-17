@@ -53,7 +53,8 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### Basketball
 
 - [NBA 2026–27 — 2026-10-17 forecast](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
-- [NBA 2026–27 season outlook — NBA Board](/predictions/nba-2026-27.html) (Saturday 17 October 2026) — The original NBA Board with October 17 wins, team and conference ranks, ratings and seeding odds.
+- [NBA 2026–27 season outlook — NBA Board](/predictions/nba-2026-27.html) (Saturday 17 October 2026) — October 17 forecasts, numbered standings and a detailed model guide.
+- [How our NBA season projections work](/predictions/nba-methodology.html) (Saturday 17 October 2026) — The current model, experiment results, limitations and next tests.
 - [NBA 2026–27 — October 7 archive](/predictions/nba-2026-27-20261007.html) (Wednesday 7 October 2026) — Archived original predictions.
 
 ### Research
