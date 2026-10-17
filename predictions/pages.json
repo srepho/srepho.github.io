@@ -41,8 +41,8 @@
   "title": "Australia: next federal election forecast",
   "blurb": "Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.",
   "section": "Elections",
-  "date": "2026-10-11",
-  "published": "2026-10-14 03:10 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "bayespar",
@@ -95,8 +95,8 @@
   "title": "France 2027: presidential forecast",
   "blurb": "First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a d\u00e9partement map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.",
   "section": "Elections",
-  "date": "2026-10-11",
-  "published": "2026-10-11 09:16 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "germany",
@@ -104,8 +104,8 @@
   "title": "Germany: next Bundestag forecast",
   "blurb": "National polls simulated with a backtested error model and allocated by Sainte-Lagu\u00eb with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.",
   "section": "Elections",
-  "date": "2026-10-11",
-  "published": "2026-10-11 12:36 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "hothand",
@@ -131,8 +131,8 @@
   "title": "Israel 2026: Knesset seat forecast",
   "blurb": "Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader\u2013Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.",
   "section": "Elections",
-  "date": "2026-10-17",
-  "published": "2026-10-17 08:44 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "livepar",
@@ -257,8 +257,8 @@
   "title": "United Kingdom: next general election forecast",
   "blurb": "GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.",
   "section": "Elections",
-  "date": "2026-10-11",
-  "published": "2026-10-11 09:16 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "upcoming",
@@ -266,8 +266,8 @@
   "title": "Upcoming predictions",
   "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
   "section": "All forecasts",
-  "date": "2026-10-17",
-  "published": "2026-10-17 08:44 UTC"
+  "date": "2026-10-18",
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "midterms",
@@ -276,7 +276,7 @@
   "blurb": "An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.",
   "section": "Elections",
   "date": "2026-10-17",
-  "published": "2026-10-17 15:58 UTC"
+  "published": "2026-10-17 20:16 UTC"
  },
  {
   "key": "vic",
