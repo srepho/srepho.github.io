@@ -135,22 +135,31 @@
   "published": "2026-10-13 11:40 UTC"
  },
  {
+  "key": "nba-20261007",
+  "slug": "nba-2026-27-20261007.html",
+  "title": "NBA 2026\u201327 \u2014 October 7 archive",
+  "blurb": "Archived original predictions.",
+  "section": "Basketball",
+  "date": "2026-10-07",
+  "published": "2026-10-17 00:31 UTC"
+ },
+ {
   "key": "nba-20261017",
   "slug": "nba-2026-27-20261017.html",
   "title": "NBA 2026\u201327 \u2014 2026-10-17 forecast",
-  "blurb": "Updated team wins, impact-adjusted forecasts, market disagreements and your own predictions.",
+  "blurb": "Team and conference rankings, projected wins and market comparisons.",
   "section": "Basketball",
   "date": "2026-10-17",
-  "published": "2026-10-17 00:22 UTC"
+  "published": "2026-10-17 00:31 UTC"
  },
  {
   "key": "nba",
   "slug": "nba-2026-27.html",
-  "title": "NBA 2026\u201327 season outlook",
-  "blurb": "Win totals, offence and defence ranks, seeding odds and games-played forecasts for every team, against the Kalshi win-total markets; luck and player WAR.",
+  "title": "NBA 2026\u201327 season outlook \u2014 latest forecast",
+  "blurb": "Team and conference rankings, projected wins and market comparisons.",
   "section": "Basketball",
-  "date": "2026-10-07",
-  "published": "2026-10-14 15:36 UTC"
+  "date": "2026-10-17",
+  "published": "2026-10-17 00:31 UTC"
  },
  {
   "key": "nsw",
