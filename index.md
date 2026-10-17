@@ -57,6 +57,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [How our NBA season projections work](/predictions/nba-methodology.html) (Saturday 17 October 2026) — The current model, experiment results, limitations and next tests.
 - [NBA players: wins above replacement](/predictions/nba-players.html) (Saturday 17 October 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
 - [NBA player value and salaries](/predictions/nba-salaries.html) (Saturday 17 October 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
+- [NBA forecast archive](/predictions/nba-archive.html) (Saturday 17 October 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
 - [NBA 2026–27 — October 7 archive](/predictions/nba-2026-27-20261007.html) (Wednesday 7 October 2026) — Archived original predictions.
 
 ### Research
