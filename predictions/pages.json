@@ -155,11 +155,11 @@
  {
   "key": "nba",
   "slug": "nba-2026-27.html",
-  "title": "NBA 2026\u201327 season outlook \u2014 NBA Board",
-  "blurb": "October 17 forecasts, numbered standings, scoring efficiency and a detailed model guide.",
+  "title": "NBA 2026\u201327: live season forecast \u2014 NBA Board",
+  "blurb": "Live 2026\u201327 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.",
   "section": "Basketball",
   "date": "2026-10-17",
-  "published": "2026-10-17 01:19 UTC"
+  "published": "2026-10-17 02:37 UTC"
  },
  {
   "key": "nba-methodology",
@@ -169,6 +169,24 @@
   "section": "Basketball",
   "date": "2026-10-17",
   "published": "2026-10-17 00:59 UTC"
+ },
+ {
+  "key": "nba-players",
+  "slug": "nba-players.html",
+  "title": "NBA players: wins above replacement",
+  "blurb": "Career wins above replacement, a leaderboard, career comparisons and player projections.",
+  "section": "Basketball",
+  "date": "2026-10-17",
+  "published": "2026-10-17 02:37 UTC"
+ },
+ {
+  "key": "nba-salaries",
+  "slug": "nba-salaries.html",
+  "title": "NBA player value and salaries",
+  "blurb": "Model fair salary from projected wins above replacement against listed 2026\u201327 salaries.",
+  "section": "Basketball",
+  "date": "2026-10-17",
+  "published": "2026-10-17 02:37 UTC"
  },
  {
   "key": "nsw",
