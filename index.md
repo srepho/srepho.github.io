@@ -52,6 +52,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Basketball
 
+- [NBA 2026–27 — 2026-10-17 forecast](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Updated team wins, impact-adjusted forecasts, market disagreements and your own predictions.
 - [NBA 2026–27 season outlook](/predictions/nba-2026-27.html) (Wednesday 7 October 2026) — Win totals, offence and defence ranks, seeding odds and games-played forecasts for every team, against the Kalshi win-total markets; luck and player WAR.
 
 ### Research
