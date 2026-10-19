@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="forecast-date" content="2026-10-19">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlanta Hawks 2026–27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Same tokens as the Board (templates/nba_board.html). */
+:root {
+  --bg: #f6f7f5; --panel: #ffffff; --ink: #15181c; --ink-2: #4d535b; --ink-3: #5f6873; --rule: #dfe2e0; --grid: #eceeec;
+  --model: #2a78d6; --model-band: rgba(42, 120, 214, 0.18); --market: #eb6834; --up: #1f7a4d; --down: #b4442f;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Public Sans", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131518; --panel: #1b1e22; --ink: #f2f3f1; --ink-2: #b9bec4; --ink-3: #8b9199; --rule: #2c3036; --grid: #23272c;
+    --model: #3987e5; --model-band: rgba(57, 135, 229, 0.26); --market: #d95926; --up: #4fbf87; --down: #e57b62; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131518; --panel: #1b1e22; --ink: #f2f3f1; --ink-2: #b9bec4; --ink-3: #8b9199; --rule: #2c3036; --grid: #23272c;
+  --model: #3987e5; --model-band: rgba(57, 135, 229, 0.26); --market: #d95926; --up: #4fbf87; --down: #e57b62; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--panel); color: var(--ink); padding: 8px 12px; border: 2px solid var(--model); border-radius: 6px; z-index: 10; }
+.skip:focus { left: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--model); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 32px 16px 64px; display: grid; gap: 36px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: 0.95; text-transform: uppercase; }
+h2 { font-size: 26px; line-height: 1.1; text-transform: uppercase; border-top: 3px solid var(--ink); padding-top: 12px; }
+p { margin: 0; max-width: 70ch; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+header { display: grid; gap: 14px; }
+nav.pages { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 600 14px var(--font-body); align-items: center; }
+nav.pages a { color: var(--ink-2); }
+select { font: 500 13px var(--font-body); padding: 6px 8px; border-radius: 6px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); }
+.asof { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 10px 14px; background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--ink); border-radius: 8px; }
+.asof .d { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+.asof .k { font-size: 13px; color: var(--ink-2); }
+.stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.stat { background: var(--panel); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; }
+.stat b { font-family: var(--font-display); font-size: 30px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--ink-2); font-size: 13px; }
+section { display: grid; gap: 14px; min-width: 0; }
+.note, .lede { color: var(--ink-2); }
+.note { font-size: 13px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--ink-2); }
+.legend i { display: inline-block; vertical-align: middle; margin-right: 6px; }
+.k-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--model); }
+.k-band { width: 26px; height: 10px; border-radius: 3px; background: var(--model-band); }
+.k-mk { width: 9px; height: 9px; background: var(--market); transform: rotate(45deg); }
+.chart { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 0 4px; position: relative; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart text { font-family: var(--font-body); font-size: 12px; fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+.chart .nm { font-size: 13px; fill: var(--ink); }
+.chart .row:hover .hit, .chart .row:focus .hit { fill: var(--grid); }
+.chart .row:focus { outline: none; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); border-radius: 6px; padding: 10px 12px; font-size: 13px; line-height: 1.45; width: 260px; box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+.tip b { font-family: var(--font-display); font-size: 17px; }
+.tip .r { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 14px; }
+th, td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: 12px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--rule); background: var(--panel); }
+tbody tr:last-child td { border-bottom: 0; }
+.pos { color: var(--up); } .neg { color: var(--down); }
+.pill { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 0 5px; border-radius: 4px; border: 1px solid var(--rule); color: var(--ink-2); margin-left: 6px; }
+.steps { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.steps div { background: var(--panel); padding: 12px 16px; display: grid; grid-template-columns: 2rem 1fr; gap: 10px; }
+.steps div b { font-family: var(--font-display); font-size: 22px; color: var(--model); line-height: 1.1; }
+.games { display: grid; gap: 6px; }
+.games div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; font-variant-numeric: tabular-nums; }
+@media (max-width: 720px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+  <header>
+    <nav class="pages" aria-label="NBA pages">
+      <a href="nba-2026-27.html">NBA Board</a><a href="nba-players.html">Players</a><a href="nba-salaries.html">Salaries</a>
+      <label>Team <select id="team-select" aria-label="Go to another team"></select></label>
+    </nav>
+    <span class="eyebrow" id="eyebrow"></span>
+    <h1 id="title"></h1>
+    <div class="asof"><span class="d" id="asof"></span><span class="k" id="asof-k"></span></div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <main id="main" class="wrap" style="padding:0">
+    <section aria-labelledby="h-next" id="next-wrap">
+      <h2 id="h-next">Next games</h2>
+      <div class="games" id="next"></div>
+    </section>
+
+    <section aria-labelledby="h-games">
+      <h2 id="h-games">Expected games</h2>
+      <p class="lede">How many of the 82 games each player is expected to play. Each player's chance of playing a game comes from his recent seasons, age, role and contract. Players ESPN lists as out lose the games until their return date. The band covers 80% of outcomes.</p>
+      <div class="legend" aria-hidden="true"><span><i class="k-band"></i>80% range</span><span><i class="k-dot"></i>Expected games</span></div>
+      <div class="chart" id="games-chart"></div>
+    </section>
+
+    <section aria-labelledby="h-value">
+      <h2 id="h-value">Value against salary</h2>
+      <p class="lede">What each player's projected contribution would be worth if the league's salary pool were shared by wins added, next to what he is paid this season.</p>
+      <div class="legend" aria-hidden="true"><span><i class="k-dot"></i>Fair salary (within the max)</span><span><i class="k-mk"></i>Listed salary</span></div>
+      <div class="chart" id="value-chart"></div>
+      <p class="note" id="value-totals"></p>
+    </section>
+
+    <section aria-labelledby="h-how">
+      <h2 id="h-how">How the value works</h2>
+      <p class="lede" id="how-lede"></p>
+      <div class="steps" id="steps"></div>
+      <p class="note">This is a convention for comparing players, not a claim about what any contract should be. It ignores the timing of contracts, rookie scales, the luxury tax and the value of winning the title. Replacement level is the rating of a player a team can sign at the minimum. Anyone below it is worth zero here, never a negative salary.</p>
+    </section>
+
+    <section aria-labelledby="h-roster">
+      <h2 id="h-roster">Roster</h2>
+      <p class="note">Ratings are points per 100 possessions against an average player. Off is offence and Def is defence. Net = Off + Def. WAR is wins above replacement. The fair salary range covers 80% of the availability draws. A † marks a salary filled from Basketball-Reference, and "est." marks a supplementary projection for a player the October 17 release did not project.</p>
+      <div class="scroll" tabindex="0" aria-label="Roster table, scrolls sideways"><table id="roster"></table></div>
+    </section>
+  </main>
+</div>
+<script type="application/json" id="data">{"team":{"id":1,"t":"ATL","n":"Atlanta Hawks","c":"E","w":0,"l":0,"mw":44.00866666666667,"lo":32,"hi":56,"rel":43.6763333333,"net":1.2049135999071336,"p6":0.44566666666666666,"pi":0.342,"p1":0.052833333333333336,"pb":0.016166666666666666,"po":0.6216666666666667,"r2":0.2915,"cf":0.13266666666666665,"fi":0.06,"ti":0.023666666666666666,"rank":7},"as_of":"2026-10-19T11:34:42.637392+00:00","completed_games":0,"scenario":{"key":"roster","label":"Current rosters (2026-10-19; 17 October projections)"},"salary_asof":"2026-10-19T11:34:57.699409+00:00","valuation":{"players":526.0,"cap":164961000.0,"pool":4948830000.0,"points_per_win":32.451944440284464,"possessions_per_minute":2.1100606117732603,"max_tiers":[[10,0.35],[7,0.3],[0,0.25]],"implied_dollars_per_positive_war":7358954.075172333,"replacement":-2.0},"players":[{"id":"4701230","n":"Jalen Johnson","g":63.5,"glo":34.0,"ghi":82.0,"mpg":34.5,"ampg":26.7,"min":2191.0,"mpgp":34.5,"net":1.25,"def":0.33,"off":0.92,"war":4.63,"fair":34050786.0,"flo":18875405.0,"fhi":43731421.0,"fmax":34952555.0,"cap":41240250.0,"pay":30000000.0,"src":"espn","sup":false,"inj":0.0},{"id":"4869342","n":"Dyson Daniels","g":65.9,"glo":39.0,"ghi":82.0,"mpg":32.8,"ampg":26.3,"min":2159.0,"mpgp":32.8,"net":0.17,"def":1.03,"off":-0.86,"war":3.04,"fair":22405775.0,"flo":12999750.0,"fhi":27917457.0,"fmax":24394062.0,"cap":41240250.0,"pay":25000000.0,"src":"espn","sup":false,"inj":0.0},{"id":"4278039","n":"Nickeil Alexander-Walker","g":68.5,"glo":44.0,"ghi":82.0,"mpg":29.5,"ampg":24.7,"min":2021.0,"mpgp":29.5,"net":0.73,"def":-0.16,"off":0.89,"war":3.58,"fair":26380263.0,"flo":16725357.0,"fhi":31739429.0,"fmax":28721688.0,"cap":49488300.0,"pay":14403710.0,"src":"espn","sup":false,"inj":0.0},{"id":"4431680","n":"Onyeka Okongwu","g":65.2,"glo":38.0,"ghi":82.0,"mpg":29.5,"ampg":23.4,"min":1922.0,"mpgp":29.5,"net":0.74,"def":0.97,"off":-0.23,"war":3.42,"fair":25163970.0,"flo":14359637.0,"fhi":31620324.0,"fmax":27397220.0,"cap":41240250.0,"pay":16120000.0,"src":"espn","sup":false,"inj":0.0},{"id":"4397020","n":"Luguentz Dort","g":61.3,"glo":32.0,"ghi":81.0,"mpg":26.3,"ampg":19.7,"min":1615.0,"mpgp":26.3,"net":0.33,"def":1.31,"off":-0.98,"war":2.45,"fair":18001567.0,"flo":9164620.0,"fhi":23813516.0,"fmax":19598779.0,"cap":49488300.0,"pay":18222222.0,"src":"espn","sup":false,"inj":0.0},{"id":"2490149","n":"CJ McCollum","g":55.9,"glo":25.0,"ghi":80.0,"mpg":27.6,"ampg":18.8,"min":1541.0,"mpgp":27.6,"net":-0.15,"def":-1.27,"off":1.12,"war":1.85,"fair":13638465.0,"flo":6027977.0,"fhi":19428210.0,"fmax":14848666.0,"cap":57736350.0,"pay":21000000.0,"src":"espn","sup":false,"inj":0.0},{"id":"4397183","n":"Aaron Wiggins","g":60.4,"glo":27.0,"ghi":81.0,"mpg":22.0,"ampg":16.2,"min":1329.0,"mpgp":22.0,"net":0.16,"def":0.27,"off":-0.11,"war":1.87,"fair":13730374.0,"flo":6270692.0,"fhi":18483667.0,"fmax":14949872.0,"cap":41240250.0,"pay":9224300.0,"src":"espn","sup":false,"inj":0.0},{"id":"5149077","n":"Kingston Flemings","g":59.6,"glo":27.0,"ghi":81.0,"mpg":22.2,"ampg":16.1,"min":1321.0,"mpgp":22.2,"net":-1.38,"def":-0.38,"off":-1.0,"war":0.53,"fair":3895383.0,"flo":1773196.0,"fhi":5295951.0,"fmax":4241471.0,"cap":41240250.0,"pay":7348680.0,"src":"basketball_reference","sup":false,"inj":0.0},{"id":"4712863","n":"Mouhamed Gueye","g":56.6,"glo":22.0,"ghi":81.0,"mpg":18.9,"ampg":12.8,"min":1047.0,"mpgp":18.5,"net":-1.29,"def":0.77,"off":-2.06,"war":0.49,"fair":3575330.0,"flo":1355115.0,"fhi":5193574.0,"fmax":3893142.0,"cap":41240250.0,"pay":2406205.0,"src":"espn","sup":false,"inj":0.0},{"id":"4280151","n":"Corey Kispert","g":48.4,"glo":14.0,"ghi":78.0,"mpg":20.3,"ampg":12.0,"min":984.0,"mpgp":20.3,"net":-2.35,"def":-1.42,"off":-0.93,"war":-0.23,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":41240250.0,"pay":13975000.0,"src":"espn","sup":false,"inj":0.0},{"id":"3146557","n":"Jock Landale","g":48.6,"glo":15.0,"ghi":78.0,"mpg":19.3,"ampg":11.4,"min":935.0,"mpgp":19.2,"net":-0.84,"def":-0.39,"off":-0.45,"war":0.7,"fair":5171318.0,"flo":1582508.0,"fhi":8278786.0,"fmax":5630934.0,"cap":41240250.0,"pay":14100000.0,"src":"basketball_reference","sup":false,"inj":0.0},{"id":"4873201","n":"Asa Newell","g":46.9,"glo":13.0,"ghi":77.0,"mpg":17.9,"ampg":9.1,"min":746.0,"mpgp":15.9,"net":-1.52,"def":-0.72,"off":-0.8,"war":0.23,"fair":1730461.0,"flo":251474.0,"fhi":3115827.0,"fmax":1884463.0,"cap":41240250.0,"pay":3399480.0,"src":"espn","sup":false,"inj":0.0},{"id":"4431714","n":"Jalen Wilson","g":47.4,"glo":13.0,"ghi":77.0,"mpg":17.6,"ampg":7.0,"min":573.0,"mpgp":12.1,"net":-2.85,"def":-0.99,"off":-1.86,"war":-0.32,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":41240250.0,"pay":null,"src":null,"sup":false,"inj":0.0},{"id":"5106262","n":"Zuby Ejiofor","g":44.4,"glo":11.0,"ghi":75.0,"mpg":17.2,"ampg":4.8,"min":393.0,"mpgp":8.9,"net":-1.76,"def":-0.29,"off":-1.47,"war":0.06,"fair":454935.0,"flo":0.0,"fhi":1269687.0,"fmax":495807.0,"cap":41240250.0,"pay":3453360.0,"src":"basketball_reference","sup":false,"inj":0.0},{"id":"4585618","n":"Keshon Gilbert","g":16.3,"glo":0.0,"ghi":46.0,"mpg":17.7,"ampg":2.7,"min":225.0,"mpgp":13.8,"net":-2.5,"def":-1.11,"off":-1.39,"war":-0.07,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":41240250.0,"pay":null,"src":null,"sup":false,"inj":0.0},{"id":"2578185","n":"Dorian Finney-Smith","g":31.0,"glo":3.0,"ghi":65.0,"mpg":16.5,"ampg":2.4,"min":193.0,"mpgp":6.2,"net":-2.04,"def":-0.22,"off":-1.82,"war":-0.0,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":57736350.0,"pay":13335000.0,"src":"espn","sup":false,"inj":0.0},{"id":"4431941","n":"RayJ Dennis","g":17.5,"glo":0.0,"ghi":48.0,"mpg":12.7,"ampg":0.9,"min":71.0,"mpgp":4.0,"net":-2.68,"def":-1.35,"off":-1.33,"war":-0.03,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":41240250.0,"pay":null,"src":null,"sup":false,"inj":0.0},{"id":"5105571","n":"Henri Veesaar","g":0.0,"glo":0.0,"ghi":0.0,"mpg":13.3,"ampg":0.0,"min":0.0,"mpgp":null,"net":null,"def":-0.21,"off":null,"war":0.0,"fair":0.0,"flo":0.0,"fhi":0.0,"fmax":0.0,"cap":41240250.0,"pay":1357763.0,"src":"basketball_reference","sup":false,"inj":82.0}],"out":[{"name":"Henri Veesaar","team_id":1,"until":"2027-07-01 00:00:00+00:00"}],"upcoming":[{"start":"2026-10-21T23:00:00+00:00","home":"ORL","away":"ATL","p":0.5759628306257575,"m":2.2880855250617285,"tot":229.50649579422424,"ho":["Noah Penda","Izaiyah Nelson"],"ao":["Henri Veesaar"],"mk":0.555},{"start":"2026-10-23T23:00:00+00:00","home":"CHA","away":"ATL","p":0.5436005379775837,"m":1.3059182079069427,"tot":228.42725550487216,"ho":[],"ao":["Henri Veesaar"]},{"start":"2026-10-25T00:30:00+00:00","home":"ATL","away":"HOU","p":0.5155928299986633,"m":0.46752854184960846,"tot":226.9002670588479,"ho":["Henri Veesaar"],"ao":[]}],"totals":{"fair":168198627.0,"fair_max":181008659.0,"pay_known":193345720.0,"pay_missing":3,"war":22.85},"index":[{"t":"ATL","n":"Atlanta Hawks","href":"nba-team-atl.html"},{"t":"BKN","n":"Brooklyn Nets","href":"nba-team-bkn.html"},{"t":"BOS","n":"Boston Celtics","href":"nba-team-bos.html"},{"t":"CHA","n":"Charlotte Hornets","href":"nba-team-cha.html"},{"t":"CHI","n":"Chicago Bulls","href":"nba-team-chi.html"},{"t":"CLE","n":"Cleveland Cavaliers","href":"nba-team-cle.html"},{"t":"DAL","n":"Dallas Mavericks","href":"nba-team-dal.html"},{"t":"DEN","n":"Denver Nuggets","href":"nba-team-den.html"},{"t":"DET","n":"Detroit Pistons","href":"nba-team-det.html"},{"t":"GS","n":"Golden State Warriors","href":"nba-team-gs.html"},{"t":"HOU","n":"Houston Rockets","href":"nba-team-hou.html"},{"t":"IND","n":"Indiana Pacers","href":"nba-team-ind.html"},{"t":"LAC","n":"LA Clippers","href":"nba-team-lac.html"},{"t":"LAL","n":"Los Angeles Lakers","href":"nba-team-lal.html"},{"t":"MEM","n":"Memphis Grizzlies","href":"nba-team-mem.html"},{"t":"MIA","n":"Miami Heat","href":"nba-team-mia.html"},{"t":"MIL","n":"Milwaukee Bucks","href":"nba-team-mil.html"},{"t":"MIN","n":"Minnesota Timberwolves","href":"nba-team-min.html"},{"t":"NO","n":"New Orleans Pelicans","href":"nba-team-no.html"},{"t":"NY","n":"New York Knicks","href":"nba-team-ny.html"},{"t":"OKC","n":"Oklahoma City Thunder","href":"nba-team-okc.html"},{"t":"ORL","n":"Orlando Magic","href":"nba-team-orl.html"},{"t":"PHI","n":"Philadelphia 76ers","href":"nba-team-phi.html"},{"t":"PHX","n":"Phoenix Suns","href":"nba-team-phx.html"},{"t":"POR","n":"Portland Trail Blazers","href":"nba-team-por.html"},{"t":"SA","n":"San Antonio Spurs","href":"nba-team-sa.html"},{"t":"SAC","n":"Sacramento Kings","href":"nba-team-sac.html"},{"t":"TOR","n":"Toronto Raptors","href":"nba-team-tor.html"},{"t":"UTAH","n":"Utah Jazz","href":"nba-team-utah.html"},{"t":"WSH","n":"Washington Wizards","href":"nba-team-wsh.html"}]}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById("data").textContent);
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v ?? "–").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pct = (x) => x == null ? "–" : x >= 0.995 ? ">99%" : x > 0 && x < 0.005 ? "<1%" : Math.round(x * 100) + "%";
+  const m = (x, d = 1) => x == null ? "–" : `$${(x / 1e6).toFixed(d)}M`;
+  const sg = (x, d = 1) => x == null ? "–" : (x > 0 ? "+" : x < 0 ? "−" : "") + Math.abs(x).toFixed(d);
+  const T = D.team, V = D.valuation, P = D.players;
+  const date = new Date(D.as_of);
+  document.title = `${T.n} 2026–27`;
+  $("eyebrow").textContent = `NBA 2026–27 · ${T.c === "E" ? "Eastern" : "Western"} Conference`;
+  $("title").textContent = T.n;
+  $("asof").textContent = date.toLocaleDateString("en-AU", {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+  $("asof-k").textContent = `${D.completed_games} league games played · salary values: ${D.scenario.label}`;
+  const sel = $("team-select");
+  sel.innerHTML = D.index.map(t => `<option value="${esc(t.href)}"${t.t === T.t ? " selected" : ""}>${esc(t.n)}</option>`).join("");
+  sel.addEventListener("change", () => { location.href = sel.value; });
+  $("stats").innerHTML = [
+    [`${T.w}–${T.l}`, "record"], [T.mw.toFixed(1), `projected wins (80%: ${T.lo}–${T.hi})`],
+    [`#${T.rank}`, "in the conference by projected wins"], [pct(T.po), "make the playoffs"], [pct(T.ti), "win the title"],
+  ].map(([b, s]) => `<div class="stat"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
+
+  if (D.upcoming.length) {
+    $("next").innerHTML = D.upcoming.map(g => {
+      const home = g.home === T.t, opp = home ? g.away : g.home, p = home ? g.p : 1 - g.p;
+      const when = new Date(g.start).toLocaleDateString("en-AU", {weekday: "short", day: "numeric", month: "short"});
+      return `<div><span>${esc(when)} · ${home ? "v" : "at"} ${esc(opp)}</span><span>${pct(p)} to win</span></div>`;
+    }).join("");
+  } else $("next-wrap").hidden = true;
+
+  // ---- charts: one row per player, ordered by projected minutes; hover or focus a row for the details
+  const W = 1000, L = 190, R = 70, RH = 26, top = 26;
+  function frame(el, rows, x0, x1, ticks, fmt, label, draw, tipFor) {
+    const H = top + rows.length * RH + 8, sx = v => L + (v - x0) / (x1 - x0) * (W - L - R);
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="${esc(label)}">`;
+    for (const t of ticks) s += `<line x1="${sx(t)}" x2="${sx(t)}" y1="${top - 6}" y2="${H - 4}" stroke="var(--grid)"/><text x="${sx(t)}" y="${top - 10}" text-anchor="middle">${esc(fmt(t))}</text>`;
+    rows.forEach((p, i) => {
+      const y = top + i * RH + RH / 2;
+      s += `<g class="row" tabindex="0" role="img" aria-label="${esc(tipFor(p).aria)}" data-i="${i}"><rect class="hit" x="0" y="${y - RH / 2}" width="${W}" height="${RH}" fill="transparent"/>`;
+      s += `<text class="nm" x="${L - 10}" y="${y + 4}" text-anchor="end">${esc(p.n)}</text>${draw(p, y, sx)}</g>`;
+    });
+    el.innerHTML = s + "</svg>";
+    const tip = document.createElement("div"); tip.className = "tip"; tip.hidden = true; el.appendChild(tip);
+    el.querySelectorAll(".row").forEach(g => {
+      const show = () => {
+        const p = rows[+g.dataset.i], box = el.getBoundingClientRect(), r = g.getBoundingClientRect();
+        tip.innerHTML = tipFor(p).html; tip.hidden = false;
+        tip.style.left = `${Math.max(8, Math.min(box.width - 270, box.width * 0.45))}px`;
+        tip.style.top = `${r.bottom - box.top + 4}px`;
+      };
+      g.addEventListener("mouseenter", show); g.addEventListener("focus", show);
+      g.addEventListener("mouseleave", () => tip.hidden = true); g.addEventListener("blur", () => tip.hidden = true);
+    });
+  }
+  const rot = P.filter(p => (p.min || 0) > 0 || (p.g || 0) >= 1);
+  frame($("games-chart"), rot, 0, 82, [0, 20, 41, 60, 82], v => v, `${T.n}: expected games per player`, (p, y, sx) => {
+    const lo = p.glo ?? p.g, hi = p.ghi ?? p.g;
+    return `<rect x="${sx(lo)}" y="${y - 5}" width="${Math.max(sx(hi) - sx(lo), 2)}" height="10" rx="4" fill="var(--model-band)"/>`
+      + `<circle cx="${sx(p.g)}" cy="${y}" r="5" fill="var(--model)" stroke="var(--panel)" stroke-width="2"/>`
+      + `<text x="${W - R + 8}" y="${y + 4}">${p.g.toFixed(0)}${p.inj ? " · out" : ""}</text>`;
+  }, p => ({aria: `${p.n}: ${p.g} expected games, 80% range ${p.glo ?? "–"} to ${p.ghi ?? "–"}`,
+            html: `<b>${esc(p.n)}</b><div class="r"><span>Expected games</span><span>${p.g.toFixed(1)}</span></div><div class="r"><span>80% range</span><span>${p.glo ?? "–"}–${p.ghi ?? "–"}</span></div><div class="r"><span>Minutes per game wanted</span><span>${p.mpg ?? "–"}</span></div>${p.inj ? `<div class="r"><span>Games out (injury report)</span><span>${p.inj}</span></div>` : ""}`}));
+
+  const top_ = Math.max(V.cap * 0.35, ...P.map(p => Math.max(p.fmax || 0, p.pay || 0)));
+  const xMax = Math.ceil(top_ / 10e6) * 10e6, ticks = [];
+  for (let t = 0; t <= xMax; t += xMax > 60e6 ? 20e6 : 10e6) ticks.push(t);
+  const valued = P.filter(p => (p.fmax || 0) > 0 || p.pay != null);
+  frame($("value-chart"), valued, 0, xMax, ticks, v => `$${v / 1e6}M`, `${T.n}: fair salary against listed salary`, (p, y, sx) => {
+    let s = "";
+    if (p.pay != null) s += `<line x1="${sx(p.fmax || 0)}" x2="${sx(p.pay)}" y1="${y}" y2="${y}" stroke="var(--ink-3)" stroke-width="2"/>`;
+    s += `<circle cx="${sx(p.fmax || 0)}" cy="${y}" r="5" fill="var(--model)" stroke="var(--panel)" stroke-width="2"/>`;
+    if (p.pay != null) s += `<rect x="${sx(p.pay) - 4.5}" y="${y - 4.5}" width="9" height="9" fill="var(--market)" stroke="var(--panel)" stroke-width="1.5" transform="rotate(45 ${sx(p.pay)} ${y})"/>`;
+    const gap = p.pay == null ? null : (p.fmax || 0) - p.pay;
+    return s + `<text x="${W - R + 8}" y="${y + 4}">${gap == null ? "no salary" : sg(gap / 1e6) + "M"}</text>`;
+  }, p => {
+    const gap = p.pay == null ? null : (p.fmax || 0) - p.pay;
+    return {aria: `${p.n}: fair ${m(p.fmax)}, listed ${p.pay == null ? "unknown" : m(p.pay)}`,
+            html: `<b>${esc(p.n)}</b><div class="r"><span>WAR</span><span>${sg(p.war)}</span></div><div class="r"><span>Fair (shared pool)</span><span>${m(p.fair)}</span></div><div class="r"><span>80% range</span><span>${m(p.flo)}–${m(p.fhi)}</span></div><div class="r"><span>Within the max</span><span>${m(p.fmax)}</span></div><div class="r"><span>Listed salary</span><span>${p.pay == null ? "not found" : m(p.pay)}${p.src === "bref" ? " †" : ""}</span></div><div class="r"><span>Gap</span><span>${gap == null ? "–" : sg(gap / 1e6) + "M"}</span></div>`};
+  });
+  const tt = D.totals;
+  $("value-totals").textContent = `Team total: fair value ${m(tt.fair_max, 0)} (within the max) against ${m(tt.pay_known, 0)} in listed salaries`
+    + (tt.pay_missing ? ` (${tt.pay_missing} rostered player${tt.pay_missing > 1 ? "s" : ""} without a listed salary)` : "")
+    + `. The league average is one cap, ${m(V.cap, 0)}. Players' wins above replacement add up to ${tt.war.toFixed(1)}.`;
+
+  // ---- worked example: the team's most valuable player, with the page's own numbers
+  const ex = [...P].sort((a, b) => (b.war || 0) - (a.war || 0))[0];
+  const dpw = V.implied_dollars_per_positive_war, tiers = V.max_tiers;
+  $("how-lede").textContent = `Four steps, worked through for ${ex.n}, the most valuable player on the roster by this measure.`;
+  const poss = ex.min * V.possessions_per_minute, pts = poss * (ex.net - V.replacement) / 100;
+  $("steps").innerHTML = [
+    `<span><strong>Rating.</strong> ${esc(ex.n)} is rated ${sg(ex.net)} points per 100 possessions against an average player (offence ${sg(ex.off)}, defence ${sg(ex.def)}). That is ${(ex.net - V.replacement).toFixed(1)} better than replacement level (${sg(V.replacement)}).</span>`,
+    `<span><strong>Playing time.</strong> He is expected to play ${ex.g.toFixed(0)} games at about ${Math.round(ex.mpgp)} minutes a game, ${Math.round(ex.min).toLocaleString("en-AU")} minutes in all. Minutes per game are trimmed when a roster's wishes add up to more than 48 × 5 a game. That is about ${Math.round(poss).toLocaleString("en-AU")} possessions at ${V.possessions_per_minute.toFixed(2)} a minute.</span>`,
+    `<span><strong>Wins.</strong> ${Math.round(poss).toLocaleString("en-AU")} possessions × ${(ex.net - V.replacement).toFixed(1)} per 100 ≈ ${pts.toFixed(0)} points over a replacement player. At ${V.points_per_win.toFixed(1)} points per win, that is <strong>${ex.war.toFixed(1)} wins above replacement</strong>.</span>`,
+    `<span><strong>Dollars.</strong> The league's 30 salary caps (${m(V.pool / 1e3, 2).replace("M", "B")}) are shared out in proportion to positive WAR, about ${m(dpw, 2)} per win this season: ${m(ex.fair)} for ${esc(ex.n)}. No contract can exceed the CBA maximum (${tiers.map(t => `${Math.round(t[1] * 100)}% of the cap with ${t[0]}+ years`).join(", ")}), so money above a player's max goes to everyone else. Within the max he is worth ${m(ex.fmax)}. His listed salary is ${ex.pay == null ? "not known" : m(ex.pay)}.</span>`,
+  ].map((h, i) => `<div><b>${i + 1}</b>${h}</div>`).join("");
+
+  // ---- roster table (also the table view of both charts)
+  const head = ["Player", "Games", "80% range", "Min/game", "Off", "Def", "Net", "WAR", "Fair salary", "80% range", "Within the max", "Listed", "Gap"];
+  $("roster").innerHTML = `<caption class="sr">${esc(T.n)} roster: expected games, ratings, wins above replacement and salaries</caption><thead><tr>${head.map(h => `<th scope="col">${h}</th>`).join("")}</tr></thead><tbody>`
+    + P.map(p => {
+      const gap = p.pay == null ? null : (p.fmax || 0) - p.pay;
+      return `<tr><td>${esc(p.n)}${p.sup ? '<span class="pill">est.</span>' : ""}${p.inj ? '<span class="pill">out</span>' : ""}</td><td>${p.g == null ? "–" : p.g.toFixed(0)}</td><td>${p.glo ?? "–"}–${p.ghi ?? "–"}</td><td>${p.mpgp ?? "–"}</td>`
+        + `<td>${sg(p.off)}</td><td>${sg(p.def)}</td><td><strong>${sg(p.net)}</strong></td><td>${sg(p.war)}</td><td>${m(p.fair)}</td><td>${m(p.flo)}–${m(p.fhi)}</td><td><strong>${m(p.fmax)}</strong></td>`
+        + `<td>${p.pay == null ? "–" : m(p.pay)}${p.src === "bref" ? " †" : ""}</td><td class="${gap == null ? "" : gap >= 0 ? "pos" : "neg"}">${gap == null ? "–" : sg(gap / 1e6) + "M"}</td></tr>`;
+    }).join("") + "</tbody>";
+})();
+</script>
+</body>
+</html>
