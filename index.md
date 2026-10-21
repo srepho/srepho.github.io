@@ -25,6 +25,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### All forecasts
 
+- [Results: model against the market](/predictions/results.html) (Thursday 22 October 2026) — One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.
 - [Upcoming predictions](/predictions/upcoming.html) (Wednesday 21 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections

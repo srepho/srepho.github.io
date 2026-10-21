@@ -225,6 +225,15 @@
   "published": "2026-10-17 08:54 UTC"
  },
  {
+  "key": "results",
+  "slug": "results.html",
+  "title": "Results: model against the market",
+  "blurb": "One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.",
+  "section": "All forecasts",
+  "date": "2026-10-22",
+  "published": "2026-10-21 14:58 UTC"
+ },
+ {
   "key": "spain",
   "slug": "spain-2026.html",
   "title": "Spain 2026: Congress seat forecast",
