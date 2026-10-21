@@ -7,6 +7,7 @@ I am a Sydney-based Data Scientist with expertise in machine learning, LLMs, and
 
 Articles on data science, democracy, forecasting and AI. [All blog posts](/blog/).
 
+- [When the Buyer Is an Algorithm](/blog/when-the-buyer-is-an-algorithm/) (October 22, 2026)
 - [Can Crowds Govern Wisely? An Explainer on Epistemic Democracy](/blog/epistemic-democracy/) (October 6, 2026)
 
 ---

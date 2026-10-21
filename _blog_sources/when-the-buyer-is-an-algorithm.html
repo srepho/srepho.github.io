@@ -1,0 +1,699 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>When the Buyer Is an Algorithm</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (~68ch) with charts as full-width "plates" inside it; paper cards as a ledger with a left rule. */
+:root{
+  --bg:#f5f6f8; --surface:#fcfcfd; --fg:#141a22; --fg2:#4b5563; --muted:#7c8491; --line:#dfe3e9; --grid:#e6e9ee;
+  --accent:#1f5fb0; --accent-soft:#e3ecf8;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#6250d6; --neutral-mark:#b5bcc6;
+  --display:"Bricolage Grotesque", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ui:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111418; --surface:#181c22; --fg:#e8eaee; --fg2:#b4bac4; --muted:#8b93a0; --line:#2a3039; --grid:#262c35;
+    --accent:#6ea3ea; --accent-soft:#1c2a3f;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9085e9; --neutral-mark:#4a525e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111418; --surface:#181c22; --fg:#e8eaee; --fg2:#b4bac4; --muted:#8b93a0; --line:#2a3039; --grid:#262c35;
+  --accent:#6ea3ea; --accent-soft:#1c2a3f;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#9085e9; --neutral-mark:#4a525e;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:720px;margin:0 auto}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
+h1{font-size:clamp(34px,7vw,52px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(24px,4.5vw,30px);font-weight:700;margin-top:56px;margin-bottom:14px;letter-spacing:-.01em}
+h3{font-size:19px;font-weight:600;margin-top:28px;margin-bottom:8px}
+p{margin:0 0 14px}
+.eyebrow{font-family:var(--ui);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+header{padding-top:40px;border-bottom:1px solid var(--line);padding-bottom:24px}
+header .lede{font-size:20px;line-height:1.45;color:var(--fg2);margin-top:18px}
+header .meta{font-family:var(--ui);font-size:13px;color:var(--muted);margin-top:14px;line-height:1.5}
+.toc{display:grid;gap:4px;margin:22px 0 0;padding:0;list-style:none;font-family:var(--ui);font-size:14px}
+.toc a{text-decoration:none;color:var(--fg2)}
+.toc a:hover{color:var(--accent)}
+.toc li::before{content:"→ ";color:var(--muted)}
+
+/* chart plates */
+.plate{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 16px 12px;margin:22px 0;position:relative}
+.plate .ptitle{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.3;margin:0 0 2px}
+.plate .psub{font-family:var(--ui);font-size:13px;color:var(--muted);margin:0 0 12px}
+.plate svg{width:100%;height:auto;display:block;font-family:var(--ui);overflow:visible}
+.plate .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--ui);font-size:12.5px;color:var(--fg2);margin:10px 0 0}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.legend i.dot{border-radius:50%;width:10px;height:10px}
+.plate .src{font-family:var(--ui);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.4}
+.plate details{margin-top:8px;font-family:var(--ui);font-size:13px}
+.plate summary{cursor:pointer;color:var(--accent);list-style:none}
+.plate summary::before{content:"▸ "}
+.plate details[open] summary::before{content:"▾ "}
+table{border-collapse:collapse;width:100%;margin-top:8px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:top;font-family:var(--ui)}
+th{color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right;white-space:nowrap}
+.twrap{overflow-x:auto}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-family:var(--ui);font-size:12.5px;padding:6px 9px;border-radius:4px;max-width:240px;line-height:1.35;opacity:0;transition:opacity .12s;z-index:5;transform:translate(-50%,calc(-100% - 10px))}
+.tip.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 14px 12px}
+.tile .v{font-family:var(--ui);font-size:30px;font-weight:600;line-height:1;color:var(--fg)}
+.tile .v small{font-size:15px;font-weight:500;color:var(--fg2)}
+.tile .l{font-family:var(--ui);font-size:12.5px;color:var(--fg2);margin-top:6px;line-height:1.35}
+
+/* paper ledger */
+.paper{border-left:3px solid var(--accent);padding:4px 0 4px 16px;margin:26px 0}
+.paper.older{border-left-color:var(--neutral-mark)}
+.paper .t{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;text-wrap:balance}
+.paper .t a{color:var(--fg);text-decoration:none}
+.paper .t a:hover{color:var(--accent)}
+.paper .by{font-family:var(--ui);font-size:13px;color:var(--muted);margin:4px 0 10px}
+.paper .by b{color:var(--fg2);font-weight:600}
+.paper p{font-size:16px}
+.paper .k{font-family:var(--ui);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:10px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:3px;background:var(--accent-soft);color:var(--accent);margin-right:6px;vertical-align:middle}
+.tag.pub{background:var(--s3);color:#fff}
+.tag.wp{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.outcomes table{min-width:560px}
+.outcomes td:first-child{font-weight:600;color:var(--fg);white-space:nowrap}
+.callout{background:var(--accent-soft);border-radius:6px;padding:14px 16px;margin:18px 0;font-size:16px}
+.callout .eyebrow{color:var(--accent)}
+.caveat{border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin:14px 0;font-family:var(--ui);font-size:14px;color:var(--fg2);line-height:1.5}
+.caveat b{color:var(--fg)}
+.claims{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px}
+.claims li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;font-size:16px}
+.pill{font-family:var(--ui);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:3px;white-space:nowrap;margin-top:3px}
+.pill.sim{background:var(--accent-soft);color:var(--accent)}
+.pill.exp{background:var(--s3);color:#fff}
+.pill.th{background:var(--neutral-mark);color:var(--fg)}
+.pill.open{border:1px dashed var(--muted);color:var(--muted)}
+.sources{font-family:var(--ui);font-size:14px;line-height:1.5;padding-left:20px}
+.sources li{margin-bottom:6px}
+.note{font-family:var(--ui);font-size:13px;color:var(--muted)}
+.matrix table{min-width:560px}
+.matrix td.c{text-align:center}
+.matrix .y{color:var(--s3);font-weight:700}
+.matrix .m{color:var(--muted)}
+.matrix th.grp{text-align:center;border-bottom:none;padding-bottom:0;color:var(--fg2)}
+.dirs{counter-reset:d;padding:0;margin:14px 0;list-style:none;display:grid;gap:14px}
+.dirs li{padding-left:34px;position:relative;font-size:16px}
+.dirs li::before{counter-increment:d;content:counter(d,upper-alpha);position:absolute;left:0;top:2px;font-family:var(--display);font-weight:800;color:var(--accent);font-size:18px}
+.dirs b{font-family:var(--display);font-weight:700}
+.formula{font-family:var(--mono);font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:8px 12px;display:inline-block;margin:4px 0 12px}
+@media (max-width:480px){body{font-size:16px} .paper .t{font-size:18px}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Literature brief · October 2026</div>
+  <h1>When the Buyer Is an Algorithm</h1>
+  <p class="lede">Consumer agents may reduce search, attention and execution frictions, but the consequences depend on whose interests the agents serve, which consumers adopt, and how sellers respond through prices, products and access. In insurance, changes in coverage and risk selection matter as much as renewal savings. This brief maps what the recent economics, simulation and experimental papers establish about each link in that chain, and what they do not.</p>
+  <div class="meta">Prepared for Stephen Oates · Papers from 2024–Oct 2026, plus the earlier insurance and search literature they build on · Each paper carries a method label and a publication-status label · Links go to the primary source where one exists.<br>Revised 16 Oct 2026 after review: the cross-subsidy illustration, the overcharge comparison, the Delaprez–Hortaçsu summary, the evidence matrix and the insurer section were corrected; sections on earlier evidence, outcome types and research directions were added.</div>
+  <ul class="toc">
+    <li><a href="#frame">The theory frame: who subsidises whom</a></li>
+    <li><a href="#prize">How big is the prize</a></li>
+    <li><a href="#earlier">Earlier evidence the agent literature builds on</a></li>
+    <li><a href="#equilibrium">Market-level papers: what survives repricing</a></li>
+    <li><a href="#evidence">Field and lab evidence</a></li>
+    <li><a href="#industries">Industry-specific work</a></li>
+    <li><a href="#sellers">Seller and platform counter-moves</a></li>
+    <li><a href="#caveat">The caveat: the agents have biases too</a></li>
+    <li><a href="#synthesis">What the literature currently shows</a></li>
+    <li><a href="#insurance">Reading it from an insurer's seat</a></li>
+    <li><a href="#directions">Research directions</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</header>
+
+<section id="frame">
+<h2>The theory frame: who subsidises whom</h2>
+<p>The question has a twenty-year-old formal model that the agent literature inherits. In <a href="https://academic.oup.com/qje/article-abstract/121/2/505/1884013">Gabaix &amp; Laibson (QJE 2006)</a>, firms sell a base good below cost and recover the margin through a shrouded add-on that only myopic customers pay. Sophisticated customers avoid the add-on and are, in effect, subsidised by the myopes. The twist that matters here: a competitor cannot profitably "unshroud" and educate the myopes, because educated customers simply buy the subsidised base good from the shrouding firm. <a href="https://www.aeaweb.org/articles?id=10.1257/jel.50.2.477">Armstrong &amp; Vickers (JEL 2012)</a> generalise this to contingent charges, and DellaVigna &amp; Malmendier (2004) get the same cross-subsidy from self-control problems in gym and credit-card contracts.</p>
+<p>The bookkeeping that follows is a conditional identity rather than a prediction. If a share <em>s</em> of customers pays a fee <em>f</em> and the firm must break even on a unit cost <em>c</em>, then with quantities and the pricing structure held fixed:</p>
+<div class="formula">headline price = c − s·f</div>
+<p>Reducing the fee-paying share raises the break-even headline price. If an agent makes avoidance free for the half of the market that adopts it, the add-on revenue from that half disappears and the headline must rise by the lost per-customer margin. Adopters save; sellers reprice; the unassisted remainder funds the difference. Note what this does and does not say: universal sophistication changes <em>who pays</em> without reducing the average resource cost, so it is a redistribution, not a creation of value. Whether real sellers reprice this way, or reach for other instruments, is the empirical question the 2026 papers attack.</p>
+
+<div class="plate" id="p-cross">
+  <p class="ptitle">The cross-subsidy, stylised</p>
+  <p class="psub">Who pays what for a good that costs the firm $100 to supply, 50/50 myopic/sophisticated split, no incremental cost of the fee (USD)</p>
+  <div class="chart" data-chart="cross"></div>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Headline price</span><span><i style="background:var(--s2)"></i>Shrouded add-on</span><span><i style="background:var(--neutral-mark)"></i>Firm's cost ($100)</span></div>
+  <p class="src">Illustration of the model's logic, not data. Before assistance, average revenue is ($110 + $90)/2 = $100, so the firm breaks even on the mixed population. Once nobody pays the fee, the break-even headline rises to $100. Gabaix &amp; Laibson's own hotel example ($80 + $20) assumes everyone is myopic and then asks what one educated customer would do at unchanged prices; it is not a mixed-population equilibrium and should not be transplanted into one.</p>
+  <details><summary>Table view</summary><table><tr><th>Customer</th><th class="n">Headline</th><th class="n">Add-on</th><th class="n">Total paid</th></tr><tr><td>Myopic, before assistance</td><td class="n">90</td><td class="n">20</td><td class="n">110</td></tr><tr><td>Sophisticated, before assistance</td><td class="n">90</td><td class="n">0</td><td class="n">90</td></tr><tr><td>Everyone assisted, after repricing</td><td class="n">100</td><td class="n">0</td><td class="n">100</td></tr></table></details>
+</div>
+
+<p>Two more theoretical pieces sharpen the frame. <a href="https://arxiv.org/abs/2609.25509">Balzer &amp; Young (Sept 2026)</a> make naivety endogenous: consumers invest in understanding their mistakes in proportion to how costly remaining naive is, so firms face a trade-off between the <em>depth</em> of exploitation (profit per naive customer) and its <em>reach</em> (how many stay naive). Deeper exploitation shrinks the exploitable base. This disciplines firms even before agents exist, and it predicts that policies which help consumers at fixed cognition can backfire once cognition responds. An agent is the limiting case: it drives the cost of sophistication toward zero for whoever has one. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7102398">Accornero (July 2026)</a> argues from the demand side that consumer behaviour under delegation does not disappear but migrates up a level, to trust calibration, delegation depth, override and audit.</p>
+</section>
+
+<section id="prize">
+<h2>How big is the prize</h2>
+<p>The industries at stake are the ones where the gap between what people pay and what an attentive comparison would pay is large and persistent. The studies below are the ones usually cited, including in <a href="https://wustllawreview.org/2026/02/25/consumer-agents/">Van Loo's "Consumer Agents" (Wash. U. L. Rev. 2026)</a>. They are not estimates of the same quantity, so they are listed by what each one measures rather than ranked on a common scale.</p>
+
+<div class="plate" id="p-prize">
+  <p class="ptitle">What the pricing-friction studies actually measure</p>
+  <p class="psub">Each figure is a different outcome; the column on the right says which</p>
+  <div class="twrap"><table>
+    <tr><th>Study</th><th>Setting</th><th class="n">Headline figure</th><th>What the figure is</th></tr>
+    <tr><td>Blake, Moshary, Sweeney &amp; Tadelis (Mktg Sci 2021)</td><td>StubHub, back-end fees vs all-in prices</td><td class="n">+20.6%</td><td>Revenue per visitor under back-end fees, combining +14.1% purchase probability and +5.4% revenue conditional on purchase. Not an identical-ticket overcharge.</td></tr>
+    <tr><td>Lu, Markovits, Miller &amp; Van Loo (2025)</td><td>Constructed gift-card marketplace, real purchases</td><td class="n">~10% (max 13%)</td><td>Average price paid for an identical gift card under drip pricing vs transparent pricing.</td></tr>
+    <tr><td>Ellison &amp; Ellison (2009)</td><td>Online computer parts, shipping-fee obfuscation</td><td class="n">~6%</td><td>Margin above the competitive price attributed to obfuscation.</td></tr>
+    <tr><td>Medicare Part D plan-choice studies</td><td>Prescription-drug plans</td><td class="n">~30%</td><td>Estimated excess spending from choosing a worse plan than the cheapest suitable one; a savings-from-switching figure, not a price for an identical good.</td></tr>
+    <tr><td>Einav, Klopack &amp; Mahoney (AER 2025)</td><td>Ten card-billed subscriptions</td><td class="n">+87% to +120%</td><td>Seller revenue attributable to inattention and inertia across two structural models, holding the initial subscriber pool fixed; no price or product response modelled.</td></tr>
+  </table></div>
+  <p class="src">Sources: Van Loo (2026) compilation for the first four; Einav, Klopack &amp; Mahoney, "Selling Subscriptions", AER 115(5), 2025 (the 2023 working-paper abstract gave a 14% to 200%+ range across individual subscriptions).</p>
+</div>
+
+<p>Practitioner and analyst writing frames the same thing as an "inertia premium" or "inertia tax", usually with aggregates rather than estimates of recoverable rents. <a href="https://lex.substack.com/p/ai-the-end-of-the-inertia-premium">Fintech Blueprint</a> points to roughly $23 trillion of the world's $70 trillion in consumer deposits sitting in near-zero-rate checking accounts, and $234 billion of 2024 US credit-card revenue; both are totals, not profit, and neither is an estimate of how much an agent could move. <a href="https://www.bloomberg.com/professional/insights/webinar/ai-agents-the-end-of-consumer-inertia-bi-replay/">Bloomberg Intelligence</a> lists insurance, banking and deposits, telecom and cable, subscriptions, online travel, rideshare and delivery as the sectors most exposed, on the grounds of high switching costs, complex pricing, auto-renewal and low engagement. One strategist quoted by <a href="https://www.aol.com/articles/ai-agent-wants-money-back-101101000.html">Business Insider</a> suggests the economics would move at 40–50% agent adoption rather than 5–10%; that is an attributed scenario, not a threshold established by research.</p>
+</section>
+
+<section id="earlier">
+<h2>Earlier evidence the agent literature builds on</h2>
+<p>The 2026 papers are mostly theory and simulation. The empirical ground they stand on is older work on search, switching and comparison technology, much of it from insurance. Two of these papers matter especially: one gives a historical analogue for what comparison technology did to prices, and one is the counterexample that making individual insurance choices better can make the insurance market worse.</p>
+
+<div class="paper older">
+  <div class="t"><a href="https://www.aeaweb.org/articles?id=10.1257/aer.103.7.2643">Adverse Selection and Inertia in Health Insurance Markets: When Nudging Hurts</a></div>
+  <div class="by"><b>Benjamin Handel</b> · American Economic Review 103(7), 2013 · <span class="tag">Structural estimation</span><span class="tag pub">Published</span></div>
+  <p>Inertia in plan choice is large and costly to the individuals who exhibit it. But in the studied setting, a counterfactual that reduces inertia and improves individual choices worsens adverse selection enough to reduce aggregate welfare, because the people who switch toward cheaper plans are disproportionately the healthier ones. This is the essential insurance counterexample to "removing friction is good": in a pooled market, a friction can be holding the pool together. It comes from a specific health-insurance setting and should not be mechanically transferred to individually risk-priced motor insurance, but it is the reason an insurance analysis of agents must model selection, not just churn.</p>
+</div>
+
+<div class="paper older">
+  <div class="t"><a href="https://onlinelibrary.wiley.com/doi/10.1111/1756-2171.12073">Quantifying Search and Switching Costs in the US Auto Insurance Industry</a></div>
+  <div class="by"><b>Elisabeth Honka</b> · RAND Journal of Economics 45(4), 2014 · <span class="tag">Structural estimation</span><span class="tag pub">Published</span></div>
+  <p>Directly estimates search and switching frictions in US auto insurance. The two are different mechanisms: finding alternatives (search) and moving to one (switching). Honka's estimates identify search costs as especially important, which is relevant because an agent attacks search cost first and switching cost only if it is authorised to act.</p>
+</div>
+
+<div class="paper older">
+  <div class="t"><a href="https://www.journals.uchicago.edu/doi/10.1086/340779">Does the Internet Make Markets More Competitive? Evidence from the Life Insurance Industry</a></div>
+  <div class="by"><b>Jeffrey Brown, Austan Goolsbee</b> · Journal of Political Economy 110(3), 2002 · <span class="tag">Empirical, difference-in-differences</span><span class="tag pub">Published</span></div>
+  <p>The historical analogue. Growth of internet comparison sites reduced term-life prices by roughly 8–15% for the policies that were being compared, with the effect concentrated where comparison use was high. This is evidence about comparison technology adopted by humans, not autonomous agents, but it is the best prior for "what happens to prices when comparison gets cheap in an insurance line."</p>
+</div>
+
+<div class="paper older">
+  <div class="t"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3349971/">Comparison Friction: Experimental Evidence from Medicare Drug Plans</a></div>
+  <div class="by"><b>Kling, Mullainathan, Shafir, Vermeulen, Wrobel</b> · Quarterly Journal of Economics 127(1), 2012 · <span class="tag">Human field experiment</span><span class="tag pub">Published</span></div>
+  <p>Mailing personalised cost comparisons to Medicare Part D beneficiaries raised plan switching from 17% to 28% and cut predicted costs. Information alone moved behaviour, but far from completely. This is the cleanest field evidence for separating the value of information from the additional value of delegated action, which is exactly the split Huang &amp; Xiao test in simulation.</p>
+</div>
+
+<div class="paper older">
+  <div class="t"><a href="https://jolt.law.harvard.edu/articles/pdf/v30/30HarvJLTech309.pdf">Algorithmic Consumers</a></div>
+  <div class="by"><b>Michal Gal, Niva Elkin-Koren</b> · Harvard Journal of Law &amp; Technology 30(2), 2017 · <span class="tag">Legal / conceptual</span><span class="tag pub">Published</span></div>
+  <p>An unusually close predecessor to the current LLM literature. Treats delegated purchasing, buyer coalitions and collective bargaining, intermediary market power, data-access barriers and the question of who the algorithm actually serves, years before agents were deployable. Several of the research directions at the end of this brief are already posed here.</p>
+</div>
+
+<div class="paper older">
+  <div class="t"><a href="https://www.fca.org.uk/publications/corporate-documents/evaluation-paper-25-2-general-insurance-pricing-practices-remedies">Evaluation Paper 25/2: General Insurance Pricing Practices remedies</a></div>
+  <div class="by"><b>UK Financial Conduct Authority</b> · 2025 · following <a href="https://www.fca.org.uk/publication/market-studies/ms18-1-1.pdf">MS18/1</a> and <a href="https://www.fca.org.uk/publication/policy/ps21-5.pdf">PS21/5</a> · <span class="tag">Regulatory evaluation, market data</span><span class="tag pub">Published</span></div>
+  <p>The FCA's pricing-practices work is the most direct real-market evidence on renewal pricing, "price walking" of loyal customers, switching costs and practices such as requiring a phone call to cancel auto-renewal. The 2025 evaluation assesses what the 2022 remedies (renewal price no higher than the equivalent new-business price, easier auto-renewal cancellation) did to prices, product quality and switching. It is a regulatory intervention rather than an agent intervention, but it is evidence on exactly the mechanisms the agent papers hypothesise.</p>
+</div>
+</section>
+
+<section id="equilibrium">
+<h2>Market-level papers: what survives repricing</h2>
+<p>Single-user evidence that an assistant saves its user money cannot tell you who pays once sellers respond. These papers model or simulate the whole market.</p>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2610.05823">Who Keeps the Gains from Personal AI Assistants? Seller Adaptation and the Unassisted in a Language-Model Market Simulation</a></div>
+  <div class="by"><b>Haonan Huang (Princeton), Joey Xiao (NYU)</b> · arXiv 2610.05823 · October 2026 · <span class="tag">LLM simulation</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does</span>
+  <p>Builds a one-day car-rental market in which language models play 200 renters, their assistants, and six adaptive sellers armed with an algorithmic pricing tool. The contract carries a daily rate below cost plus two contingent fees engineered for identification: a refuelling charge only the renter's physical action can avoid, and a pre-ticked add-on that an authorised assistant can cancel online. Half the population gets an assistant (advisory or executing); a fixed tenth never does. A closed-form bound and a deterministic "rule market" are frozen as forecasts before the LLM society runs, and every shocked branch is paired with a frozen-seller twin so adoption effects and market feedback can be separated.</p>
+  <span class="k">What it shows</span>
+  <p>Three results, all pre-registered. First, value comes from acting rather than reading: the simulated renter opens the fine print on 82% of days and still beats the cancellation deadline on only 36% of rentals; an executing assistant lifts that to 97% and advice alone to 93%. Second, sellers do reprice, recovering about 55% of the lost fee revenue through a higher headline rate while abandoning the fees themselves, so adopters keep about two-thirds of their first-day saving, and over two-fifths of what survives is completed transactions rather than dodged charges. Third, the feared bystander tax does not appear: the unassisted panel's spending moves by +$0.38 per renter-day with a confidence interval spanning zero, against a calibrated forecast of +$3.60. Across seven configurations the bystander outcome tracks the fee margin sellers carried before the shock, and when fee-setting is handed to the pricing tool, fee-free seller-periods jump from 19% to 89% and fees vanish for everyone.</p>
+  <div class="caveat"><b>What it does not establish.</b> Anything about human renters or real sellers. The simulated renters failed the authors' pre-registered screening gate because they read far more than humans do; the study proceeded under a declared fallback, so every market claim is about "readers who under-execute". Prices were still cycling at the end of the window, which the authors call an adaptation transient rather than an equilibrium. Advice (93%) nearly matched execution (97%), so the evidence favours assistance and follow-through more than autonomous execution specifically. The phone-only result is a simulation outcome, not measured consumer behaviour. And the bystander interval is uncertainty across these simulated markets, not across real ones.</div>
+</div>
+
+<div class="plate" id="p-hx1">
+  <p class="ptitle">Forecast versus outcome in the Huang &amp; Xiao society</p>
+  <p class="psub">USD per sampled renter-day, executing mandate, final eight periods, 30 markets (95% intervals in table)</p>
+  <div class="chart" data-chart="dumbbell"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--neutral-mark)"></i>Calibrated rule-market forecast</span><span><i class="dot" style="background:var(--s1)"></i>LLM-society outcome</span></div>
+  <p class="src">The deterministic layer called the direction of every response and overstated how far sellers complete it. The seller recovery ratio, not plotted because it is a share, was 0.66 forecast against 0.55 ± 0.31 observed.</p>
+  <details><summary>Table view</summary><table><tr><th>Registered quantity</th><th class="n">Forecast</th><th class="n">Outcome</th></tr><tr><td>Adopters' saving, adapted</td><td class="n">5.6 ± 0.3</td><td class="n">8.7 ± 1.4</td></tr><tr><td>Headline rate rise</td><td class="n">9.6 ± 0.3</td><td class="n">4.4 ± 1.8</td></tr><tr><td>Bystanders' burden</td><td class="n">3.60 ± 0.34</td><td class="n">0.38 ± 0.94</td></tr><tr><td>Adopters' saving, first day</td><td class="n">13.8 ± 0.4</td><td class="n">13.3 ± 1.5</td></tr></table></details>
+</div>
+
+<div class="plate" id="p-hx2">
+  <p class="ptitle">Acting beats reading (in simulation)</p>
+  <p class="psub">Share of simulated rentals on which the add-on was cancelled before the deadline</p>
+  <div class="chart" data-chart="cancel"></div>
+  <p class="src">Huang &amp; Xiao, Section 4. The phone-only row is the executing mandate facing a seller that requires cancellation by phone. Advice and execution are close; the large gap is between any assistance and none.</p>
+  <details><summary>Table view</summary><table><tr><th>Condition</th><th class="n">Timely cancellation</th></tr><tr><td>Unassisted renter</td><td class="n">36%</td></tr><tr><td>Advisory assistant (renter clicks)</td><td class="n">93%</td></tr><tr><td>Executing assistant</td><td class="n">97%</td></tr><tr><td>Executing, seller imposes phone-only path</td><td class="n">13%</td></tr></table></details>
+</div>
+
+<div class="callout"><div class="eyebrow">The line to keep</div>In this simulated environment, seller adaptation eroded part of the fee saving while improved transaction completion remained valuable: the follow-through component was worth about $3.75 per renter-day and survived every configuration, whereas the fee-arbitrage component shrank wherever fee-setting was automated on either side. The authors offer this as a hypothesis about real markets. Whether the pattern holds outside the simulation is an open empirical question.</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2603.25893">Agentic Markets: Equilibrium Effects of Improving Consumer Search</a></div>
+  <div class="by"><b>Lucier, Immorlica, Mobius, Slivkins, Goldstein, Hofman, Jaffe, Rothschild (Microsoft Research)</b> · arXiv 2603.25893 · March 2026 · <span class="tag">Theory</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does</span>
+  <p>Models a two-sided market where consumers pay to acquire signals of product fit before buying, and the market itself learns from indications of fit and quality. Characterises the long-run steady state and then asks what two different improvements in search technology do: making search <em>cheaper</em> and making it <em>more informative</em>.</p>
+  <span class="k">What it shows</span>
+  <p>The two improvements are not the same. Cheaper search improves both market learning and consumer surplus. More informative search can degrade both, unless the market learns as much as consumers do, for instance by reading the transcripts of agentic conversations. At equilibrium prices in symmetric markets, cheaper search raises consumer surplus but more informative search may lower it by weakening competition between businesses. This is the main theoretical reason to doubt that "better-informed buyers" straightforwardly means "lower prices": a buyer who knows exactly which product fits is a buyer with less reason to be contested. The same group's review, <a href="https://arxiv.org/abs/2607.21459">The Evolution of Digital Search: From Blue Links to Delegated Decision-Making</a>, flags market dynamics and seller instrument choice as the open front.</p>
+  <div class="caveat"><b>What it does not establish.</b> Which of the two improvements real agents deliver, or in what mix. The welfare sign therefore depends on an empirical question the paper does not answer: whether an LLM agent mainly makes search cheaper or mainly makes it more informative.</div>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6631180">The Welfare Impact of Delegating Choice to Large Language Models</a></div>
+  <div class="by"><b>Yann Delaprez, Ali Hortaçsu (Chicago)</b> · SSRN 6631180 · posted April 2026, revised Sept 2026 · Kilts Center paper forthcoming · <span class="tag">Structural model + LLM-generated choices</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does</span>
+  <p>Compares human and LLM-generated purchase decisions for pizza-restaurant orders, using menu calorie-labelling laws as the comparison information remedy, and builds a structural model of delegation to quantify mechanisms and welfare.</p>
+  <span class="k">What it shows</span>
+  <p>Labelling had limited effects on calorie intake; in the counterfactual where purchases are delegated to ChatGPT, total calories fall by up to 18%. This is a modelled counterfactual, not an observed effect of a consumer deployment. Delegation also causes substantial exit of unsold product varieties and higher market concentration. The authors' current description makes welfare conditional: it <em>could</em> improve, depending on why consumers delegate and on the underlying technology, with important distributional consequences. An earlier (May 2026) abstract stated the distribution more specifically, with delegators gaining substantially, non-delegators losing slightly through equilibrium prices, and firm profits rising; those claims should be read against the specific version and table before being quoted. For this brief the durable points are two: delegation changes product choice enough to move the supply side (variety, concentration), and surplus is redistributed through uniform prices between those who delegate and those who do not.</p>
+  <div class="caveat"><b>What it does not establish.</b> An observed effect of any deployed agent, or the sign of welfare in general. The 18% is a counterfactual from LLM-generated choices in one product category; the welfare result is explicitly conditional on why people delegate and on the model used.</div>
+</div>
+
+<div class="tiles">
+  <div class="tile"><div class="v">−18%</div><div class="l">Upper-bound reduction in calories in the delegation counterfactual (pizza orders)</div></div>
+  <div class="tile"><div class="v">↓ <small>variety</small></div><div class="l">Substantial exit of unsold product varieties under delegation</div></div>
+  <div class="tile"><div class="v">↑ <small>concentration</small></div><div class="l">Market concentration rises; welfare effect conditional on delegation motives and technology</div></div>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://link.springer.com/article/10.1007/s12525-026-00906-y">Agentic Markets</a></div>
+  <div class="by"><b>Martin Bichler</b> · Electronic Markets 36(1):55 · June 2026 · <span class="tag">Conceptual framework, informal propositions</span><span class="tag pub">Published</span></div>
+  <span class="k">What it does</span>
+  <p>Takes the classical sequential-search framework (Anderson–Renault) and asks how delegation to probabilistic, content-generating agents changes equilibrium prices, entry and matching efficiency. The propositions are stated informally within a conceptual framework rather than proved as theorems.</p>
+  <span class="k">What it shows</span>
+  <p>Agents can drive the technical cost of search toward zero, but the empirical record on current agents (position bias, early stopping, satisficing) acts as a residual behavioural search cost. With effective cost = technical + behavioural and the behavioural part positive, equilibrium markups stay bounded away from the frictionless Bertrand benchmark even as the technical part vanishes. AI-generated content adds noise to perceived match values, reducing allocative efficiency, and cheap AI product generation lowers entry costs. The effects differ across market architectures rather than being uniform.</p>
+</div>
+
+<div class="plate" id="p-bichler">
+  <p class="ptitle">Why markups need not fall to zero</p>
+  <p class="psub">Equilibrium markup as technical search cost falls, with and without a residual behavioural friction (illustrative)</p>
+  <div class="chart" data-chart="markup"></div>
+  <div class="legend"><span><i style="background:var(--s1)"></i>Agents with residual bias (c<sub>behaviour</sub> &gt; 0)</span><span><i style="background:var(--neutral-mark)"></i>Frictionless agents (c<sub>behaviour</sub> = 0)</span></div>
+  <p class="src">Schematic of Bichler's proposition, drawn to show the shape of the claim. The floor is set by the behavioural component; its height in any real market is an empirical matter.</p>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2608.08395">From Product Search to Preference Articulation: The Economics of Agentic Commerce</a></div>
+  <div class="by"><b>Lingxiu Dong, Kaiwen Luo, Fasheng Xu</b> · arXiv 2608.08395 · August 2026 · <span class="tag">Theory</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does</span>
+  <p>Compares manual search, which evaluates a small product set accurately, with agentic search, which screens a broad catalogue through noisy representations of both preferences and products. Models the platform's choice of how faithfully to represent each consumer.</p>
+  <span class="k">What it shows</span>
+  <p>Agentic search avoids the "collapse" of manual search when catalogues grow. When manual inspection is cheap enough, agentic search becomes revenue-superior for the platform before consumers voluntarily adopt it, producing an adoption lag in which rational consumers keep searching manually. Conditional on participation, platforms may assign <em>lower</em> representation fidelity to consumers with larger attention budgets, because those consumers can offset noise by refining. Scarcity shifts from product inspection to preference articulation, which is why the willingness and ability to interact with an agent becomes the central variable.</p>
+</div>
+</section>
+
+<section id="evidence">
+<h2>Field and lab evidence</h2>
+
+<div class="paper">
+  <div class="t"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5565238">Measuring and Mitigating Drip Pricing Overcharge: Evidence from an Online Marketplace Experiment with a Digital Shopping Assistant</a></div>
+  <div class="by"><b>Benjamin Lu, Daniel Markovits, Andrew C. Miller, Rory Van Loo</b> · SSRN 5565238 · October 2025 · <span class="tag">Human experiment, constructed marketplace</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does</span>
+  <p>A randomised online marketplace (n = 1,608) built for the experiment, in which participants buy real gift cards from a $15 endowment. Initial and final price presentation varies across 33 levels, and participants are randomly given an automated assistant that flags a cheaper identical option and links to it. The assistant is a rule-based comparison tool, not a deployed general-purpose LLM agent.</p>
+  <span class="k">What it shows</span>
+  <p>Drip pricing raises the average price paid for identical gift cards by up to a plateau of about 10%, with a maximum of 13%. The assistant cuts the incidence of overpayment by 63% and lowers dollars overpaid enough that, on the experimental demand and payoff estimates, the seller's profit-maximising strategy flips from drip pricing to transparent pricing. That flip is inferred from the experiment's payoffs, not observed as long-run seller adaptation. A side effect: participants exposed to drip pricing rate the platform as less trustworthy even though the third-party seller sets the fees, and the assistant partially worsens that perception. This is the paper Huang &amp; Xiao build on; it establishes that an assistant works for its user and leaves the market-level question open.</p>
+  <div class="caveat"><b>What it does not establish.</b> Anything about LLM agents (the assistant is a fixed comparison rule), anything about seller behaviour (offers were held fixed by design), or anything about adoption at scale. It answers "does this help the user who has it" and nothing further.</div>
+</div>
+
+<div class="tiles">
+  <div class="tile"><div class="v">+10%</div><div class="l">Average price paid under drip pricing vs transparent, same goods (plateau; 13% maximum)</div></div>
+  <div class="tile"><div class="v">−63%</div><div class="l">Reduction in incidence of overpayment when the assistant is present</div></div>
+  <div class="tile"><div class="v">Flips</div><div class="l">Seller's profit-maximising strategy, on the experiment's payoffs, switches from drip to transparent pricing</div></div>
+</div>
+
+<p class="note">A field-tracking reference point the simulation papers all cite: Bakos, Marotta-Wurgler &amp; Trossen (J. Legal Studies 2014) found that only 0.1–1% of shoppers open a licence agreement. The "reading" problem is real; the open question is whether agents fix the reading or the acting, and Kling et al. (above) is the existing field evidence that information alone goes only part of the way.</p>
+</section>
+
+<section id="industries">
+<h2>Industry-specific work</h2>
+
+<div class="paper">
+  <div class="t"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7372267">Agentic AI and Airline Pricing: Demand Cliffs, Elasticity Migration, and the Fate of Fare Fencing under Delegated Booking</a></div>
+  <div class="by"><b>Khaled Abdelghany, Ahmed Abdelghany</b> · SSRN 7372267 · August 2026 · <span class="tag">Theory</span><span class="tag wp">Working paper</span> &nbsp;·&nbsp; companion: <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7447372">When AI Agents Buy the Ticket</a> (SSRN 7447372, Sept 2026, simulation)</div>
+  <span class="k">What it does</span>
+  <p>Develops a formal framework for airline markets in which the buyer is an algorithm executing a contract (a budget cap and preference parameters) rather than a human with a valuation. The companion paper simulates increasing agent penetration across markets with different fare structures and search fragmentation.</p>
+  <span class="k">What it shows</span>
+  <p>A population of booking contracts induces a demand function equal to the survival function of the budget-cap distribution. Drip pricing becomes allocatively inert because the agent evaluates the all-in price. Where the cap distribution has mass points, demand has <em>cliffs</em>, and price sensitivity concentrates on those thresholds (an "elasticity concentration index"). Intertemporal fare fencing loses its premium to the extent delegation severs the link between purchase timing and valuation. The simulation adds that greater penetration compresses sustainable fare differences rather than pushing all fares down, and that the right airline response depends on competitive position.</p>
+  <div class="caveat"><b>What it does not establish.</b> That algorithmic buyers make demand discontinuous in general. For an agent that buys whenever the fare is below its cap <em>b</em>, demand at price <em>p</em> is simply Pr(<em>b</em> &gt; <em>p</em>). That is a staircase only where many contracts share the same cap; a continuously distributed set of budgets gives smooth demand, exactly as human reservation prices can. So the hypothesis is not "algorithms make demand discontinuous" but "standardised mandates, common defaults or shared optimisation rules may concentrate demand around particular thresholds." Likewise, delegation need not remove the timing–valuation link: an agent cannot book a business trip before its owner knows the trip exists.</div>
+</div>
+
+<div class="plate" id="p-air">
+  <p class="ptitle">When contracts cluster, demand becomes a staircase</p>
+  <p class="psub">Share of buyers who purchase at each fare: dispersed valuations vs agents on a few common budget caps (illustrative)</p>
+  <div class="chart" data-chart="stairs"></div>
+  <div class="legend"><span><i style="background:var(--neutral-mark)"></i>Dispersed reservation prices (smooth)</span><span><i style="background:var(--s1)"></i>Agents sharing a few budget caps (cliffs)</span></div>
+  <p class="src">Schematic of the Abdelghany &amp; Abdelghany result under the mass-point condition. If caps were as dispersed as human valuations, the two curves would coincide.</p>
+</div>
+
+<h3>Subscriptions, banking and insurance</h3>
+<p>No paper yet studies autonomous LLM buying agents in subscriptions, banking or insurance directly. The economics of the underlying frictions are well studied (see the earlier-evidence section: Einav, Klopack &amp; Mahoney on subscription inertia; Handel, Honka, Brown &amp; Goolsbee and the FCA on insurance), and the practitioner literature applies them to agents by argument. <a href="https://abundanceeconomicsresearch.substack.com/p/ai-agents-could-rewrite-the-subscription">Abundance Economics Research</a> argues agents turn passive renewal into continuous comparison and makes the second-order point that if agents disproportionately remove low-usage members, the remaining pool is differently selected, not just smaller. The <a href="https://www.consumerfinancemonitor.com/2026/09/17/the-end-of-shopping-agentic-ai-and-the-future-of-consumer-financial-services-introduction/">Consumer Finance Monitor</a> series (Ballard Spahr) walks through banking, cards, lending and insurance and asks whether the existing consumer-protection framework works when the agent is the principal interface. <a href="https://www.rte.ie/brainstorm/2026/0220/1516572-loyalty-penalty-consumer-affairs-switching-banks-insurance-subscriptions/">RTÉ Brainstorm</a> gives the "loyalty penalty" in car and health insurance as the canonical case.</p>
+</section>
+
+<section id="sellers">
+<h2>Seller and platform counter-moves</h2>
+<p>Sellers are not passive. These papers model what the supply side does when it meets a buying agent.</p>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2607.04708">Strategic Buying Agents</a></div>
+  <div class="by"><b>Mingyang Fu, Ming Hu (Toronto)</b> · arXiv 2607.04708 · July 2026 · <span class="tag">Theory + Amazon price data</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Designs the buy-or-wait policy for an agent with a finite shopping window under three information regimes (stationary, Bayesian, robust) and evaluates them on 48,933 Keepa price observations across 367 Amazon items. Optimal policies are threshold rules; the robust randomised policy does best at the 10th percentile of outcomes. The relevant finding for this brief: language models are better at choosing which regime and calibration to use than at making the buy-or-wait call themselves. A "rational" buying agent is a decision rule with an LLM wrapper, not an LLM deciding.</p>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2607.16343">When Pricing Agents Meet Buying Agents: Personalized Pricing and Verifiable Trust</a></div>
+  <div class="by"><b>Chupeng Xie</b> · arXiv 2607.16343 · July 2026 · <span class="tag">Theory</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Both principals delegate to agents that receive different value signals and execute machine-enforced mandates. The same nominal fairness rule can produce no trade because each agent applies it to its own posterior. Verification can restore trade only when it covers the disputed proposition; attestation of a seller's signal can legitimate a high price, while attestation of a restrained rule prevents unauthorised extraction. In repeated relationships, offers above a buyer's reference cap depreciate relationship capital. Verification is privately under-provided when sellers do not internalise avoided inspection, and over-provided when it facilitates extraction.</p>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6839464">Breaking AI Collusion with Consumer AI</a></div>
+  <div class="by"><b>Xiang Cheng, Manmohan Aseri (Maryland)</b> · SSRN 6839464 · May 2026 · under review at Management Science · <span class="tag">Game theory</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Most algorithmic-collusion work is about seller-side algorithms (see <a href="https://arxiv.org/abs/2404.00806">Fish, Gonczarowski &amp; Shorrer 2024</a> on LLM pricing agents reaching supracompetitive prices). This paper asks what a consumer-side AI provider can do about it: inject demand noise by randomising the purchases of a small fraction of subscribed consumers, which breaks the monitoring that collusion depends on. Even though the provider maximises its own profit rather than consumer surplus, its presence always raises consumer surplus by breaking collusion, and the noise can be tuned to market characteristics. A related theoretical result (<a href="https://arxiv.org/abs/2511.21935">Breaking Algorithmic Collusion in Human-AI Ecosystems</a>, Nov 2025) shows that even one human defector can destabilise AI collusion in repeated pricing games.</p>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2601.03061">Vertical Tacit Collusion in AI-Mediated Markets</a></div>
+  <div class="by"><b>Felipe M. Affonso</b> · arXiv 2601.03061 · January 2026 · <span class="tag">Calibrated multi-agent simulation</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does and shows</span>
+  <p>A simulation, calibrated to measured LLM biases, of a platform that controls rankings and sellers that control listings, each learning independently that exploiting the shopping agent's biases pays. Joint exploitation produces more than twice the consumer harm of either strategy alone, because ranking decides which products land in bias-triggering positions while listing manipulation moves conversion. Since the harm comes from aligned incentives rather than an agreement, the author argues it may evade antitrust detection. The paper's broader point: human biases are heterogeneous and noisy, while the biases of agents sharing a model and configuration are correlated, which makes them cheaper to target.</p>
+</div>
+
+<p>Two further pieces belong on the list though only their abstracts are public: <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7033679">Chen, Gan, Qin &amp; Yue, "Open or Restrict? Platform Governance of AI-Assisted Comparison"</a> (SSRN 7033679) on whether platforms should admit comparison agents at all, and <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7282860">Want, "When Consumers Delegate Choice to AI: Strategic Adaptation and Information Asymmetry in Agentic Markets"</a> (SSRN 7282860). Huang &amp; Xiao also document the obstruction instruments already visible in the field: incumbent lawsuits against buying agents, bot walls and CAPTCHAs, and dark-pattern benchmarks for GUI agents.</p>
+</section>
+
+<section id="caveat">
+<h2>The caveat: the agents have biases too</h2>
+<p>Everything above assumes the agent is the rational party. The agent-behaviour literature says that assumption is, at best, model- and configuration-dependent. Two things need keeping apart here: sensitivity to price, which is usually what a principal wants, and susceptibility to irrelevant features such as listing position or marketing nudges, which is the behavioural problem.</p>
+
+<div class="paper">
+  <div class="t"><a href="https://abxlab.media.mit.edu/">A Framework for Studying AI Agent Behavior: Evidence from Consumer Choice Experiments (ABxLab)</a></div>
+  <div class="by"><b>Cherep, Ma, Xu, Shaked, Maes, Singh (MIT Media Lab)</b> · ICLR 2026 · <span class="tag">LLM-agent experiment, controlled environment</span><span class="tag pub">Published (peer-reviewed)</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Varies prices, ratings and psychological nudges in a controlled web-shopping environment and measures how LLM agents' choices move. On nudges, the finding is that agents respond strongly even without the cognitive constraints that cause human bias; the authors report susceptibility amplified 3–10× relative to humans and read agents as implementing simplistic hierarchical decision rules. On price, 13 of 17 models significantly prefer cheaper options in the baseline condition, with effects from 15.2 percentage points (o3) to 34.3 (GPT-4o Mini), and price sensitivity intensifies once ratings are matched. The price result is heterogeneity in a mostly desirable behaviour, not evidence of bias on its own; the nudge result is the behavioural finding. Both come from a controlled choice environment rather than open-web shopping.</p>
+  <div class="caveat"><b>What it does not establish.</b> That agents are irrational, or that these biases survive in deployed products with system prompts, tool constraints and user preferences attached. The clean evidence of problematic behaviour is response to irrelevant features (position, nudges), not the price result.</div>
+</div>
+
+<div class="plate" id="p-abx">
+  <p class="ptitle">How much a cheaper price moves an agent's choice depends on the model</p>
+  <p class="psub">Shift in choice share toward the cheaper option, percentage points, baseline condition (ABxLab, ICLR 2026)</p>
+  <div class="chart" data-chart="abx"></div>
+  <p class="src">The two named endpoints of the reported range across 17 models. Preferring the cheaper option is normally what a principal wants; the point of the chart is that the strength of the preference varies by a factor of two across models, which is what a seller or platform would optimise against.</p>
+  <details><summary>Table view</summary><table><tr><th>Model</th><th class="n">Effect (pp)</th></tr><tr><td>GPT-4o Mini (largest)</td><td class="n">34.3</td></tr><tr><td>o3 (smallest significant)</td><td class="n">15.2</td></tr></table></details>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2508.02630">What Is Your AI Agent Buying? Evaluation, Biases, Model Dependence &amp; Emerging Implications of Agentic E-Commerce</a></div>
+  <div class="by"><b>Allouah, Besbes, Figueroa, Kanoria, Kumar (Columbia)</b> · arXiv 2508.02630; ACM 2026 · <span class="tag">LLM-agent benchmark + randomised experiments</span><span class="tag pub">Published (ACM)</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Builds the ACE benchmark and runs instruction-following and basic economic-rationality checks on shopping agents, then randomises product position and listing attributes. The better tests of problematic behaviour are here: agents show strong, heterogeneous position biases not easily mitigated by the interface (web vs text), and the biases resist simple prompting. Delegation reduces search friction but carries risk when small price or rating advantages are missed, position bias dominates, or endorsements drive choices. Follow-ups by Wadi &amp; Ma (<a href="https://arxiv.org/abs/2608.22697">Does Rank Still Matter?</a>, <a href="https://arxiv.org/abs/2609.28372">Shopping by Algorithm</a>) extend the position-bias and human-heuristic findings.</p>
+</div>
+
+<div class="paper">
+  <div class="t"><a href="https://arxiv.org/abs/2604.18373">Dissecting AI Trading: Behavioral Finance and Market Bubbles</a></div>
+  <div class="by"><b>Shumiao Ouyang</b> · arXiv 2604.18373 · April 2026 · <span class="tag">LLM simulation, asset market</span><span class="tag wp">Working paper</span></div>
+  <span class="k">What it does and shows</span>
+  <p>Not a consumer paper, but the same lesson from finance. LLM traders in an experimental asset market show a pronounced disposition effect and recency-weighted extrapolative beliefs; these aggregate into bubbles of the kind human markets produce. The useful twist is that the biases are programmable: targeted prompts that suppress a specific bias materially reduce bubble magnitude. A similar result on loss aversion and herding appears in <a href="https://link.springer.com/article/10.1007/s42001-026-00465-4">J. Computational Social Science (Feb 2026)</a>.</p>
+</div>
+
+<p>The umbrella piece is <a href="https://arxiv.org/abs/2606.18005">LLM Consumer Behavior Theory (June 2026)</a>, which tries to organise all of this under a common economic lens and lists where rationality and heterogeneity assumptions fail in agentic markets. The sharper framing of the original question may therefore be: industries do not lose their irrational customers so much as trade heterogeneous human biases for potentially correlated biases among agents that share a model and configuration, which are cheaper to exploit but also cheaper to patch. Uniformity across agents is not established; the cited work finds substantial differences between models.</p>
+</section>
+
+<section id="synthesis">
+<h2>What the literature currently shows</h2>
+<p>The question is better posed as "which frictions does delegation remove, which new ones does it introduce, and how does the market adjust?" than as "what happens when buyers become rational?". On that framing, "consumer savings" is not one outcome but four, and the papers speak to them very unevenly.</p>
+
+<div class="plate outcomes" id="p-outcomes">
+  <p class="ptitle">Four different outcomes that "consumer savings" conflates</p>
+  <p class="psub">What each strand of evidence says about each</p>
+  <div class="twrap"><table>
+    <tr><th>Outcome</th><th>What the evidence says</th><th>Strongest source</th></tr>
+    <tr><td>Lower payments</td><td>Established for the individual user of a comparison aid; partly clawed back by sellers in simulation; a redistribution, not value creation, where it comes from fee avoidance alone.</td><td>Lu et al.; Brown &amp; Goolsbee; Huang &amp; Xiao</td></tr>
+    <tr><td>Better products or matching</td><td>Theoretically ambiguous: cheaper search improves matching, more informative search may not; delegation can shrink variety and raise concentration. In insurance, no paper checks whether the cheaper policy preserves cover.</td><td>Lucier et al.; Delaprez &amp; Hortaçsu</td></tr>
+    <tr><td>Saved time and effort, completed transactions</td><td>The component that survived every seller response in simulation (follow-through, cars secured at all); the field evidence shows information alone gets only part of the way.</td><td>Huang &amp; Xiao; Kling et al.</td></tr>
+    <tr><td>Redistribution among consumers, sellers and agent providers</td><td>Theory predicts a transfer from the unassisted to adopters; simulation finds it small or absent unless fee margins are thick; one structural model has firms gaining. Agent providers' own take is unmodelled except in the collusion paper.</td><td>Gabaix–Laibson; Huang &amp; Xiao; Delaprez &amp; Hortaçsu; Cheng &amp; Aseri</td></tr>
+    <tr><td>Risk selection (insurance only)</td><td>Reducing a choice friction can worsen the pool enough to lower aggregate welfare. No agent paper addresses it.</td><td>Handel</td></tr>
+  </table></div>
+</div>
+
+<p>A claim-by-claim reading, tagged by the strongest kind of evidence behind it.</p>
+<ul class="claims">
+  <li><span class="pill exp">Experiment</span><span>A comparison assistant that surfaces the all-in price removes most of the drip-pricing overcharge for its user; on the experiment's payoffs the seller's optimal strategy flips to transparent pricing. (Lu et al.; rule-based assistant, constructed marketplace)</span></li>
+  <li><span class="pill exp">Field experiment</span><span>Personalised comparison information raises switching in an insurance product, but far from fully; information is not the whole friction. (Kling et al. 2012)</span></li>
+  <li><span class="pill exp">Empirical</span><span>Comparison technology adopted by humans cut term-life prices by roughly 8–15%. (Brown &amp; Goolsbee 2002)</span></li>
+  <li><span class="pill exp">Structural</span><span>Reducing inertia in a pooled health-insurance market can worsen adverse selection enough to lower aggregate welfare. (Handel 2013)</span></li>
+  <li><span class="pill sim">Simulation</span><span>Sellers reprice by folding fees into headline rates, recovering roughly half of lost fee revenue; adopters keep about two-thirds of their saving. (Huang &amp; Xiao; LLM society, adaptation transient)</span></li>
+  <li><span class="pill sim">Simulation</span><span>The "bystander tax" on the unassisted is small or absent in that environment unless fee margins are thick and defended; it inverts when fee-setting is automated. (Huang &amp; Xiao)</span></li>
+  <li><span class="pill sim">Structural</span><span>Delegation changes product choice enough to drive variety exit and higher concentration; welfare conditional on delegation motives and technology; surplus redistributed through uniform prices. (Delaprez &amp; Hortaçsu)</span></li>
+  <li><span class="pill th">Theory</span><span>Cheaper search helps consumers; more informative search can hurt them by softening competition. (Lucier et al.)</span></li>
+  <li><span class="pill th">Framework</span><span>Residual agent biases can keep markups above the frictionless benchmark even at zero technical search cost. (Bichler, informal proposition)</span></li>
+  <li><span class="pill th">Theory</span><span>Under delegated booking with clustered budget caps, demand has cliffs; all-in evaluation makes drip pricing inert. (Abdelghany ×2)</span></li>
+  <li><span class="pill th">Theory</span><span>Firms already trade depth of exploitation against reach; agents collapse the cost of sophistication and may make some consumer-protection policies backfire or become redundant. (Balzer &amp; Young)</span></li>
+  <li><span class="pill exp">Experiment</span><span>Current shopping agents respond strongly to listing position and nudges, heterogeneously across models, and the effects resist prompting. (ABxLab; Allouah et al.)</span></li>
+  <li><span class="pill open">Open</span><span>No direct evidence yet on autonomous LLM buying agents deployed in insurance, subscriptions, banking or telecom. The underlying mechanisms in those sectors are well studied; the agent layer is not.</span></li>
+</ul>
+
+<div class="plate matrix" id="p-matrix">
+  <p class="ptitle">Evidence coverage by question</p>
+  <p class="psub">Evidence on the economic mechanism (any technology) versus direct evidence on LLM-agent deployment</p>
+  <div class="twrap"><table>
+    <tr><th></th><th class="grp" colspan="2">Mechanism (any technology)</th><th class="grp" colspan="3">Direct LLM-agent evidence</th></tr>
+    <tr><th>Question</th><th class="c">Theory</th><th class="c">Field / empirical</th><th class="c">Theory</th><th class="c">Simulation</th><th class="c">Experiment</th></tr>
+    <tr><td>Does a comparison aid save its own user money?</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td></tr>
+    <tr><td>Do sellers reprice, and how much is clawed back?</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c m">○</td></tr>
+    <tr><td>Do the unassisted pay more?</td><td class="c y">●</td><td class="c m">○</td><td class="c y">●</td><td class="c y">●</td><td class="c m">○</td></tr>
+    <tr><td>Does competition soften with better-informed buyers?</td><td class="c y">●</td><td class="c m">○</td><td class="c y">●</td><td class="c m">○</td><td class="c m">○</td></tr>
+    <tr><td>Does easier switching change risk selection?</td><td class="c y">●</td><td class="c y">●</td><td class="c m">○</td><td class="c m">○</td><td class="c m">○</td></tr>
+    <tr><td>Are the agents themselves rational?</td><td class="c m">—</td><td class="c m">—</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td></tr>
+    <tr><td>Can sellers obstruct or exploit agents?</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td><td class="c y">●</td></tr>
+    <tr><td>Insurance / subscriptions / banking specifically</td><td class="c y">●</td><td class="c y">●</td><td class="c m">○</td><td class="c m">○</td><td class="c m">○</td></tr>
+  </table></div>
+  <p class="src">● evidence exists in the papers above · ○ none found · — not applicable. Mechanism evidence for sellers repricing includes the fee-to-rate migration after the US CARD Act (Agarwal et al., QJE 2015) and the FCA's pricing remedies; the field column for the first row is Kling et al. and Lu et al. The direct LLM-agent columns are thin everywhere outside e-commerce, and empty for the sectors the analyst literature discusses most.</p>
+</div>
+</section>
+
+<section id="insurance">
+<h2>Reading it from an insurer's seat</h2>
+<p>Four transfers from this literature seem most useful for a personal-lines book, in descending order of how well-grounded they are.</p>
+<p><strong>Selection, not just churn.</strong> Handel is the result to start from. If agents disproportionately take low-engagement customers out of inertia, the remaining pool is differently selected, and the question is whether the risk that moves is priced where it lands. Low-engagement customers are not necessarily low-risk, and high-premium customers are not necessarily high-margin, so the exercise has to model adoption, switching, coverage choice and expected claims jointly rather than treating the agent as a pure margin shock.</p>
+<p><strong>The obstruction step is already regulated.</strong> In Huang &amp; Xiao's simulation, a phone-only cancellation path was the one seller lever that could not be repriced away. The real-market counterpart is the FCA's general-insurance pricing work, which treated "call us to cancel auto-renewal" as a remedy target and whose 2025 evaluation measures what removing it did. Insurers in other jurisdictions should expect that step to draw attention whichever side automates first.</p>
+<p><strong>Renewal pricing is another setting where delegation may change how well segmentation works.</strong> Loyalty-based pricing relies on renewal timing being decoupled from shopping. The Abdelghany results suggest delegation can weaken timing-based segmentation where it does sever that link, and the FCA's new-business/renewal parity rule is evidence of what happens to margins when the segmentation is removed by regulation instead. The analogy is useful; it is not a verbatim transfer, because an agent re-quoting at renewal is still constrained by what its principal has told it to accept.</p>
+<p><strong>Cheaper is not better coverage.</strong> None of the papers evaluate whether an agent's cheaper policy preserves cover. A premium saving that comes from a higher excess, an excluded peril or a lower limit is not a success, and "no claim during the trial" is not evidence the cheaper policy was adequate. Any internal evaluation should score agents on constraint violations and coverage adequacy, not quoted premium.</p>
+<p class="note">None of these is tested on insurance data. The Huang &amp; Xiao design (paired frozen-vs-adaptive sellers, a fee only some customers can escape) is a reasonable template for an internal simulation, provided sellers are allowed more instruments than premium.</p>
+</section>
+
+<section id="directions">
+<h2>Research directions</h2>
+<p>Proposed extensions, not findings of the reviewed papers. Most were raised in review and are consistent with the gaps in the evidence matrix. The thread through all of them: reliable, preference-aligned execution is a promising source of value, not yet an established universal winner, and whether it stays valuable depends on who the agent works for, who adopts, and what sellers do in response.</p>
+<ol class="dirs">
+  <li><b>Insurance selection, not customer churn.</b> Model agent adoption, switching, coverage choice and expected claims jointly. The question is which combinations of underwriting, risk adjustment, consumer information and agent adoption turn easier switching into better allocation, and which create harmful selection. Handel supplies the warning; individually risk-priced lines may behave differently from pooled ones.</li>
+  <li><b>Who does the buying agent work for?</b> Compare an agent funded by the consumer with agents funded by referral commissions, advertising or a marketplace's own sales. Outcomes need not be "lower prices": an agent can win better terms and take the gain in its own fee, favour a restricted panel, or serve users with more valuable data better. Add collective purchasing: an intermediary representing thousands of buyers raises bargaining-power, reverse-auction and supplier-participation questions that an individual shopper does not (Gal &amp; Elkin-Koren). The hypothesis is that delegation may relocate market power from sellers to intermediaries rather than eliminate it.</li>
+  <li><b>Coverage quality and the full lifecycle.</b> Make coverage-preserving savings the benchmark, with expert-validated policy comparisons and explicit household requirements; score agents on constraint violations, missing information, appropriate clarification requests and recommendation quality. Then test whether agents create more value through maintaining adequate cover, detecting relevant life changes, preparing claims and pursuing valid entitlements than through renewal shopping alone.</li>
+  <li><b>Endogenous adoption and autonomy.</b> The simulations assign agents to a fixed share of the population. Model adoption as a choice over expected savings, fees, setup effort, privacy, error risk and the value of retaining control (experimental work by Ivanova-Stenzel &amp; Tolksdorf finds people value decision autonomy even when delegation performs better, though not in shopping tasks). Compare recommendation, approval-before-action and bounded autonomous execution, and include a rule-based comparator so the LLM's contribution can be separated from that of a reliable reminder or cancellation workflow.</li>
+  <li><b>Seller adaptation beyond fees and headline prices.</b> Let sellers vary product design, quality, excesses, underwriting questions, service commitments, channels, and whether to quote at all; otherwise the model forces all adjustment into the one or two instruments it permits. Delaprez &amp; Hortaçsu's variety-exit and concentration results show this is not hypothetical. Also ask whether sellers can infer or probe an agent's mandate: compare agents that reveal a fixed budget, agents that reveal only accept/reject decisions, and agents that negotiate while keeping preferences private.</li>
+  <li><b>Security, authorisation and liability as economic variables.</b> Distinguish behavioural bias from adversarial compromise. <a href="https://arxiv.org/abs/2406.13352">AgentDojo</a> evaluates agents using tools over untrusted data, including prompt-injection attacks that redirect behaviour, which is a different failure mechanism from being swayed by position or a nudge. Outcome measures for buyer agents should include unauthorised purchases, disclosure of sensitive information, execution outside the mandate, inappropriate cancellation, and loss from accepting materially different terms. The economics of interest is the trade-off between reduced transaction friction and safeguards: a confirmation step can be wasteful obstruction or essential protection, and a useful study would tell the two apart rather than scoring every extra step as inefficiency. Who bears the loss when an authorised agent errs, and whether that liability changes what providers are willing to automate, needs jurisdiction-specific legal analysis rather than inference from a fee-transparency rule.</li>
+  <li><b>Identify market effects instead of extrapolating from individual A/B tests.</b> An individual-level experiment that holds seller offers fixed answers whether assistance helps that user; by construction it cannot say what happens when adoption changes prices, products or availability. A staged programme: first validate behaviour, comparing human choices, rule-based tools and LLM agents on the same tasks with out-of-sample validation rather than plausible-sounding simulated personas; second vary adoption intensity, in simulation and eventually in market-level pilots, over the share assisted, who adopts, supplier concentration and what sellers observe; third measure spillovers and product changes, tracking non-adopters as well as adopters on coverage quality, availability, completion rates, agent costs and supplier responses. The claimed adoption "threshold" belongs in stage two as an outcome to estimate, not an assumption imported from commentary.</li>
+</ol>
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<ol class="sources">
+  <li>Huang, H. &amp; Xiao, J. (2026). Who Keeps the Gains from Personal AI Assistants? <a href="https://arxiv.org/abs/2610.05823">arXiv:2610.05823</a></li>
+  <li>Lucier, B., Immorlica, N., Mobius, M., Slivkins, A., Goldstein, D., Hofman, J., Jaffe, S. &amp; Rothschild, D. (2026). Agentic Markets: Equilibrium Effects of Improving Consumer Search. <a href="https://arxiv.org/abs/2603.25893">arXiv:2603.25893</a></li>
+  <li>Rothschild, D. et al. (2026). The Evolution of Digital Search: From Blue Links to Delegated Decision-Making. <a href="https://arxiv.org/abs/2607.21459">arXiv:2607.21459</a></li>
+  <li>Delaprez, Y. &amp; Hortaçsu, A. (2026). The Welfare Impact of Delegating Choice to Large Language Models. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6631180">SSRN 6631180</a> · <a href="https://sites.google.com/view/yanndelaprez/research">author's research page</a></li>
+  <li>Bichler, M. (2026). Agentic markets. Electronic Markets 36(1):55. <a href="https://link.springer.com/article/10.1007/s12525-026-00906-y">doi:10.1007/s12525-026-00906-y</a></li>
+  <li>Dong, L., Luo, K. &amp; Xu, F. (2026). From Product Search to Preference Articulation. <a href="https://arxiv.org/abs/2608.08395">arXiv:2608.08395</a></li>
+  <li>Lu, B., Markovits, D., Miller, A. C. &amp; Van Loo, R. (2025). Measuring and Mitigating Drip Pricing Overcharge. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5565238">SSRN 5565238</a> · <a href="https://scholarship.law.bu.edu/faculty_scholarship/4131">BU Law repository</a></li>
+  <li>Van Loo, R. (2026). Consumer Agents. Washington University Law Review 103(3):705. <a href="https://wustllawreview.org/2026/02/25/consumer-agents/">wustllawreview.org</a></li>
+  <li>Abdelghany, K. &amp; Abdelghany, A. (2026). Agentic AI and Airline Pricing. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7372267">SSRN 7372267</a>; When AI Agents Buy the Ticket. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7447372">SSRN 7447372</a></li>
+  <li>Balzer, B. &amp; Young, B. (2026). The Depth and Reach of Exploitation. <a href="https://arxiv.org/abs/2609.25509">arXiv:2609.25509</a></li>
+  <li>Accornero, P. F. (2026). The Delegated Consumer. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7102398">SSRN 7102398</a></li>
+  <li>Fu, M. &amp; Hu, M. (2026). Strategic Buying Agents. <a href="https://arxiv.org/abs/2607.04708">arXiv:2607.04708</a></li>
+  <li>Xie, C. (2026). When Pricing Agents Meet Buying Agents. <a href="https://arxiv.org/abs/2607.16343">arXiv:2607.16343</a></li>
+  <li>Cheng, X. &amp; Aseri, M. (2026). Breaking AI Collusion with Consumer AI. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6839464">SSRN 6839464</a></li>
+  <li>Fish, S., Gonczarowski, Y. &amp; Shorrer, R. (2024). Algorithmic Collusion by Large Language Models. <a href="https://arxiv.org/abs/2404.00806">arXiv:2404.00806</a></li>
+  <li>Breaking Algorithmic Collusion in Human-AI Ecosystems (2025). <a href="https://arxiv.org/abs/2511.21935">arXiv:2511.21935</a></li>
+  <li>Affonso, F. M. (2026). Vertical Tacit Collusion in AI-Mediated Markets. <a href="https://arxiv.org/abs/2601.03061">arXiv:2601.03061</a></li>
+  <li>Chen, R., Gan, X., Qin, T. &amp; Yue, X. (2026). Open or Restrict? Platform Governance of AI-Assisted Comparison. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7033679">SSRN 7033679</a></li>
+  <li>Cherep, M., Ma, C., Xu, A., Shaked, M., Maes, P. &amp; Singh, N. (2026). A Framework for Studying AI Agent Behavior: Evidence from Consumer Choice Experiments. ICLR 2026. <a href="https://abxlab.media.mit.edu/">abxlab.media.mit.edu</a> · <a href="https://proceedings.iclr.cc/paper_files/paper/2026/file/6739d8df16b5bce3587ca5f18662a6aa-Paper-Conference.pdf">proceedings PDF</a></li>
+  <li>Allouah, A., Besbes, O., Figueroa, J., Kanoria, Y. &amp; Kumar, A. (2025/26). What Is Your AI Agent Buying? <a href="https://arxiv.org/abs/2508.02630">arXiv:2508.02630</a> · <a href="https://dl.acm.org/doi/10.1145/3774904.3792943">ACM</a></li>
+  <li>Wadi, D. &amp; Ma, Y. (2026). Does Rank Still Matter? <a href="https://arxiv.org/abs/2608.22697">arXiv:2608.22697</a>; Shopping by Algorithm. <a href="https://arxiv.org/abs/2609.28372">arXiv:2609.28372</a></li>
+  <li>Ouyang, S. (2026). Dissecting AI Trading: Behavioral Finance and Market Bubbles. <a href="https://arxiv.org/abs/2604.18373">arXiv:2604.18373</a></li>
+  <li>LLM agents reveal how human bias shapes path-dependent market dynamics (2026). J. Computational Social Science 9:32. <a href="https://link.springer.com/article/10.1007/s42001-026-00465-4">doi:10.1007/s42001-026-00465-4</a></li>
+  <li>LLM Consumer Behavior Theory: Foundations of a Novel Research Field (2026). <a href="https://arxiv.org/abs/2606.18005">arXiv:2606.18005</a></li>
+  <li>Debenedetti, E. et al. (2024). AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. <a href="https://arxiv.org/abs/2406.13352">arXiv:2406.13352</a></li>
+  <li>Gabaix, X. &amp; Laibson, D. (2006). Shrouded Attributes, Consumer Myopia, and Information Suppression in Competitive Markets. QJE 121(2). <a href="https://academic.oup.com/qje/article-abstract/121/2/505/1884013">doi:10.1162/qjec.2006.121.2.505</a> · <a href="https://www.nber.org/papers/w11755">NBER w11755</a></li>
+  <li>Armstrong, M. &amp; Vickers, J. (2012). Consumer Protection and Contingent Charges. JEL 50(2). <a href="https://www.aeaweb.org/articles?id=10.1257/jel.50.2.477">doi:10.1257/jel.50.2.477</a></li>
+  <li>Handel, B. (2013). Adverse Selection and Inertia in Health Insurance Markets: When Nudging Hurts. AER 103(7). <a href="https://www.aeaweb.org/articles?id=10.1257/aer.103.7.2643">doi:10.1257/aer.103.7.2643</a></li>
+  <li>Honka, E. (2014). Quantifying Search and Switching Costs in the US Auto Insurance Industry. RAND J. Econ. 45(4). <a href="https://onlinelibrary.wiley.com/doi/10.1111/1756-2171.12073">doi:10.1111/1756-2171.12073</a></li>
+  <li>Brown, J. &amp; Goolsbee, A. (2002). Does the Internet Make Markets More Competitive? Evidence from the Life Insurance Industry. JPE 110(3). <a href="https://www.journals.uchicago.edu/doi/10.1086/340779">doi:10.1086/340779</a></li>
+  <li>Kling, J., Mullainathan, S., Shafir, E., Vermeulen, L. &amp; Wrobel, M. (2012). Comparison Friction: Experimental Evidence from Medicare Drug Plans. QJE 127(1). <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3349971/">PMC3349971</a></li>
+  <li>Einav, L., Klopack, B. &amp; Mahoney, N. (2025). Selling Subscriptions. AER 115(5):1650–1671. <a href="https://ideas.repec.org/p/nbr/nberwo/31547.html">NBER w31547 / IDEAS</a></li>
+  <li>Gal, M. &amp; Elkin-Koren, N. (2017). Algorithmic Consumers. Harvard J. Law &amp; Technology 30(2). <a href="https://jolt.law.harvard.edu/articles/pdf/v30/30HarvJLTech309.pdf">jolt.law.harvard.edu</a></li>
+  <li>Blake, T., Moshary, S., Sweeney, K. &amp; Tadelis, S. (2021). Price Salience and Product Choice. Marketing Science 40(4).</li>
+  <li>Agarwal, S., Chomsisengphet, S., Mahoney, N. &amp; Stroebel, J. (2015). Regulating Consumer Financial Products: Evidence from Credit Cards. QJE 130(1).</li>
+  <li>Financial Conduct Authority. General Insurance Pricing Practices: <a href="https://www.fca.org.uk/publication/market-studies/ms18-1-1.pdf">MS18/1 market study</a> · <a href="https://www.fca.org.uk/publication/policy/ps21-5.pdf">PS21/5 policy statement</a> · <a href="https://www.fca.org.uk/publications/corporate-documents/evaluation-paper-25-2-general-insurance-pricing-practices-remedies">EP25/2 evaluation (2025)</a></li>
+  <li>Fintech Blueprint (2026). AI: The End of the Inertia Premium. <a href="https://lex.substack.com/p/ai-the-end-of-the-inertia-premium">lex.substack.com</a></li>
+  <li>Bloomberg Intelligence (2026). AI Agents — The End of Consumer Inertia? <a href="https://www.bloomberg.com/professional/insights/webinar/ai-agents-the-end-of-consumer-inertia-bi-replay/">bloomberg.com</a></li>
+  <li>Abundance Economics Research (Oct 2026). AI Agents Could Rewrite the Subscription Economy. <a href="https://abundanceeconomicsresearch.substack.com/p/ai-agents-could-rewrite-the-subscription">substack</a></li>
+  <li>Business Insider via AOL (Oct 2026). Your AI agent wants your money back. <a href="https://www.aol.com/articles/ai-agent-wants-money-back-101101000.html">aol.com</a></li>
+  <li>Consumer Finance Monitor / Ballard Spahr (Sept 2026). The End of Shopping? Agentic AI and the Future of Consumer Financial Services. <a href="https://www.consumerfinancemonitor.com/2026/09/17/the-end-of-shopping-agentic-ai-and-the-future-of-consumer-financial-services-introduction/">consumerfinancemonitor.com</a></li>
+  <li>RTÉ Brainstorm (Feb 2026). Are you being ripped off by the 'loyalty penalty'? <a href="https://www.rte.ie/brainstorm/2026/0220/1516572-loyalty-penalty-consumer-affairs-switching-banks-insurance-subscriptions/">rte.ie</a></li>
+</ol>
+</section>
+</div>
+
+<script>
+(function(){
+  const NS='http://www.w3.org/2000/svg';
+  function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+  function mkTip(plate){let t=plate.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';plate.appendChild(t);}return t;}
+  function bindTip(plate,target,html){
+    const tip=mkTip(plate);
+    const show=(ev)=>{tip.innerHTML=html;const r=plate.getBoundingClientRect();
+      let x=(ev.clientX||r.left+r.width/2)-r.left,y=(ev.clientY||r.top+r.height/2)-r.top;
+      x=Math.max(90,Math.min(r.width-90,x));tip.style.left=x+'px';tip.style.top=y+'px';tip.classList.add('on');};
+    target.addEventListener('pointerenter',show);target.addEventListener('pointermove',show);
+    target.addEventListener('pointerleave',()=>tip.classList.remove('on'));
+    target.addEventListener('focus',show);target.addEventListener('blur',()=>tip.classList.remove('on'));
+    target.setAttribute('tabindex','0');target.style.cursor='default';
+  }
+  const INK={p:'var(--fg)',s:'var(--fg2)',m:'var(--muted)',g:'var(--grid)',b:'var(--line)'};
+
+  function hbars(plate,rows,o){
+    const W=640,labW=o.labW||190,rh=34,top=8,bottom=26;
+    const H=top+rows.length*rh+bottom;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':o.aria||''});
+    const max=o.max||Math.max(...rows.map(r=>r.value))*1.12;
+    const x0=labW,x1=W-16,sx=v=>x0+(x1-x0)*v/max;
+    (o.ticks||[]).forEach(t=>{el('line',{x1:sx(t),x2:sx(t),y1:top,y2:top+rows.length*rh,stroke:INK.g,'stroke-width':1},svg);
+      const tx=el('text',{x:sx(t),y:H-8,'text-anchor':'middle','font-size':11,fill:INK.m},svg);tx.textContent=(o.fmt||(v=>v))(t);});
+    el('line',{x1:x0,x2:x0,y1:top,y2:top+rows.length*rh,stroke:INK.b,'stroke-width':1},svg);
+    rows.forEach((r,i)=>{
+      const y=top+i*rh+8,h=rh-16;
+      const lab=el('text',{x:x0-10,y:y+h/2+4,'text-anchor':'end','font-size':12.5,fill:INK.s},svg);lab.textContent=r.label;
+      const w=Math.max(2,sx(r.value)-x0);
+      const g=el('g',{},svg);
+      el('rect',{x:x0,y:y,width:w,height:h,fill:r.color||'var(--s1)'},g);
+      el('rect',{x:x0+w-4,y:y,width:4,height:h,fill:r.color||'var(--s1)',rx:3},g);
+      if(r.showLabel){const t=el('text',{x:x0+w+8,y:y+h/2+4,'font-size':12,fill:INK.p,'font-weight':600},g);t.textContent=r.labelValue;}
+      const hit=el('rect',{x:x0-labW,y:y-8,width:W,height:rh,fill:'transparent'},g);
+      bindTip(plate,hit,`<b>${r.label}</b><br>${r.tip||r.labelValue}`);
+    });
+    plate.querySelector('.chart').appendChild(svg);
+  }
+
+  function cross(plate){
+    const W=640,H=250,left=40,right=16,top=14,bottom=44;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Stacked bars of headline price and add-on for three customer types'});
+    const cols=[{l:'Myopic, before',parts:[['Headline',90,'var(--s1)'],['Add-on',20,'var(--s2)']]},
+                {l:'Sophisticated, before',parts:[['Headline',90,'var(--s1)']]},
+                {l:'Everyone assisted, after',parts:[['Headline',100,'var(--s1)']]}];
+    const max=125,ph=H-top-bottom,sy=v=>top+ph-ph*v/max;
+    [0,50,100].forEach(t=>{el('line',{x1:left,x2:W-right,y1:sy(t),y2:sy(t),stroke:INK.g},svg);const tx=el('text',{x:left-8,y:sy(t)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);tx.textContent='$'+t;});
+    const cw=(W-left-right)/cols.length,bw=90;
+    cols.forEach((c,i)=>{const cx=left+cw*i+cw/2;let acc=0;
+      c.parts.forEach((p,j)=>{const y1=sy(acc+p[1]),y2=sy(acc);const gap=j>0?2:0;
+        const r=el('rect',{x:cx-bw/2,y:y1+gap,width:bw,height:y2-y1-gap,fill:p[2]},svg);
+        bindTip(plate,r,`<b>${c.l}</b><br>${p[0]}: $${p[1]}`);
+        const t=el('text',{x:cx,y:(y1+y2)/2+4,'text-anchor':'middle','font-size':12,fill:'#fff','font-weight':600},svg);t.textContent='$'+p[1];acc+=p[1];});
+      const lab=el('text',{x:cx,y:H-14,'text-anchor':'middle','font-size':12,fill:INK.s},svg);lab.textContent=c.l;});
+    el('line',{x1:left,x2:W-right,y1:sy(100),y2:sy(100),stroke:'var(--neutral-mark)','stroke-width':2},svg);
+    const ct=el('text',{x:W-right,y:sy(100)-6,'text-anchor':'end','font-size':11,fill:INK.m},svg);ct.textContent='cost to supply';
+    plate.querySelector('.chart').appendChild(svg);
+  }
+
+  function dumbbell(plate){
+    const rows=[{l:"Adopters' saving (adapted)",f:5.6,o:8.7,fi:'± 0.3',oi:'± 1.4'},
+                {l:'Headline rate rise',f:9.6,o:4.4,fi:'± 0.3',oi:'± 1.8'},
+                {l:"Bystanders' burden",f:3.6,o:0.38,fi:'± 0.34',oi:'± 0.94'}];
+    const W=640,labW=200,rh=44,top=10,bottom=28,H=top+rows.length*rh+bottom;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Dumbbell chart of forecast versus outcome'});
+    const max=12,x0=labW,x1=W-24,sx=v=>x0+(x1-x0)*v/max;
+    [0,3,6,9,12].forEach(t=>{el('line',{x1:sx(t),x2:sx(t),y1:top,y2:top+rows.length*rh,stroke:INK.g},svg);const tx=el('text',{x:sx(t),y:H-8,'text-anchor':'middle','font-size':11,fill:INK.m},svg);tx.textContent='$'+t;});
+    rows.forEach((r,i)=>{const y=top+i*rh+rh/2;
+      const lab=el('text',{x:x0-12,y:y+4,'text-anchor':'end','font-size':12.5,fill:INK.s},svg);lab.textContent=r.l;
+      el('line',{x1:sx(r.f),x2:sx(r.o),y1:y,y2:y,stroke:INK.b,'stroke-width':2},svg);
+      el('circle',{cx:sx(r.f),cy:y,r:7,fill:'var(--neutral-mark)',stroke:'var(--surface)','stroke-width':2},svg);
+      el('circle',{cx:sx(r.o),cy:y,r:7,fill:'var(--s1)',stroke:'var(--surface)','stroke-width':2},svg);
+      const tf=el('text',{x:sx(r.f),y:y-12,'text-anchor':'middle','font-size':11,fill:INK.m},svg);tf.textContent=r.f.toFixed(1);
+      const to=el('text',{x:sx(r.o),y:y+22,'text-anchor':'middle','font-size':11.5,fill:INK.p,'font-weight':600},svg);to.textContent=r.o.toFixed(r.o<1?2:1);
+      const hit=el('rect',{x:0,y:y-rh/2,width:W,height:rh,fill:'transparent'},svg);
+      bindTip(plate,hit,`<b>${r.l}</b><br>Forecast $${r.f} ${r.fi}<br>Outcome $${r.o} ${r.oi}`);});
+    plate.querySelector('.chart').appendChild(svg);
+  }
+
+  function markup(plate){
+    const W=640,H=250,left=48,right=16,top=14,bottom=40;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Two curves of markup against technical search cost; one falls to zero, one to a positive floor'});
+    const pw=W-left-right,ph=H-top-bottom;
+    const sx=c=>left+pw*c,sy=m=>top+ph-ph*m;
+    [0,.25,.5,.75,1].forEach(t=>{el('line',{x1:left,x2:W-right,y1:sy(t),y2:sy(t),stroke:INK.g},svg);});
+    el('line',{x1:left,x2:W-right,y1:sy(0),y2:sy(0),stroke:INK.b},svg);
+    const f=(c,b)=>{const e=c+b;return 1-Math.exp(-3.2*e);};
+    const path=(b,color,w)=>{let d='';for(let i=0;i<=60;i++){const c=i/60;d+=(i?'L':'M')+sx(c).toFixed(1)+' '+sy(f(c,b)).toFixed(1)+' ';}
+      el('path',{d:d,fill:'none',stroke:color,'stroke-width':w,'stroke-linecap':'round'},svg);};
+    path(0,'var(--neutral-mark)',2);path(0.09,'var(--s1)',2.5);
+    el('line',{x1:left,x2:sx(0.3),y1:sy(f(0,0.09)),y2:sy(f(0,0.09)),stroke:'var(--s1)','stroke-width':1,'stroke-dasharray':'3 3'},svg);
+    const fl=el('text',{x:sx(0.31),y:sy(f(0,0.09))+4,'font-size':11.5,fill:INK.p},svg);fl.textContent='markup floor set by c_behaviour';
+    const xl=el('text',{x:left+pw/2,y:H-10,'text-anchor':'middle','font-size':11.5,fill:INK.m},svg);xl.textContent='technical search cost c_tech →  (0 at left)';
+    const yl=el('text',{x:left-8,y:sy(1)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);yl.textContent='high';
+    const y0=el('text',{x:left-8,y:sy(0)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);y0.textContent='0';
+    const yt=el('text',{x:left-8,y:top+ph/2+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);yt.textContent='markup';
+    plate.querySelector('.chart').appendChild(svg);
+  }
+
+  function stairs(plate){
+    const W=640,H=260,left=48,right=16,top=14,bottom=40;
+    const svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Smooth downward demand curve versus a step-shaped curve'});
+    const pw=W-left-right,ph=H-top-bottom;
+    const sx=p=>left+pw*p,sy=q=>top+ph-ph*q;
+    [0,.5,1].forEach(t=>{el('line',{x1:left,x2:W-right,y1:sy(t),y2:sy(t),stroke:INK.g},svg);});
+    el('line',{x1:left,x2:W-right,y1:sy(0),y2:sy(0),stroke:INK.b},svg);
+    let d='';for(let i=0;i<=60;i++){const p=i/60;const q=1/(1+Math.exp((p-0.5)*9));d+=(i?'L':'M')+sx(p).toFixed(1)+' '+sy(q).toFixed(1)+' ';}
+    el('path',{d:d,fill:'none',stroke:'var(--neutral-mark)','stroke-width':2,'stroke-linecap':'round'},svg);
+    const steps=[[0,1],[0.28,0.72],[0.46,0.38],[0.62,0.12],[0.82,0]];
+    let s='M'+sx(0)+' '+sy(1)+' ';
+    for(let i=1;i<steps.length;i++){s+='L'+sx(steps[i][0])+' '+sy(steps[i-1][1])+' L'+sx(steps[i][0])+' '+sy(steps[i][1])+' ';}
+    s+='L'+sx(1)+' '+sy(0);
+    el('path',{d:s,fill:'none',stroke:'var(--s1)','stroke-width':2.5,'stroke-linejoin':'round'},svg);
+    steps.slice(1,4).forEach(st=>{const c=el('circle',{cx:sx(st[0]),cy:sy(st[1]),r:5,fill:'var(--s1)',stroke:'var(--surface)','stroke-width':2},svg);
+      bindTip(plate,c,'<b>Demand cliff</b><br>A mass of contracts share this budget cap; a small fare increase here loses them all at once.');});
+    const cl=el('text',{x:sx(0.47)+10,y:sy(0.38)-8,'font-size':11.5,fill:INK.p},svg);cl.textContent='cliffs where many caps coincide';
+    const xl=el('text',{x:left+pw/2,y:H-10,'text-anchor':'middle','font-size':11.5,fill:INK.m},svg);xl.textContent='fare →';
+    const yt=el('text',{x:left-8,y:sy(1)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);yt.textContent='100%';
+    const y5=el('text',{x:left-8,y:sy(.5)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);y5.textContent='50%';
+    const y0=el('text',{x:left-8,y:sy(0)+4,'text-anchor':'end','font-size':11,fill:INK.m},svg);y0.textContent='0';
+    plate.querySelector('.chart').appendChild(svg);
+  }
+
+  document.querySelectorAll('.plate').forEach(plate=>{
+    const c=plate.querySelector('.chart');if(!c)return;
+    const k=c.dataset.chart;
+    if(k==='cross')cross(plate);
+    else if(k==='dumbbell')dumbbell(plate);
+    else if(k==='markup')markup(plate);
+    else if(k==='stairs')stairs(plate);
+    else if(k==='cancel')hbars(plate,[
+      {label:'Unassisted renter',value:36,labelValue:'36%',color:'var(--neutral-mark)',tip:'Reads the terms on 82% of days, cancels in time on 36% of rentals'},
+      {label:'Advisory assistant',value:93,labelValue:'93%',tip:'Assistant summarises and sets reminders; the renter clicks'},
+      {label:'Executing assistant',value:97,labelValue:'97%',showLabel:true,tip:'Assistant performs the cancellation after plan approval'},
+      {label:'Executing vs phone-only path',value:13,labelValue:'13%',color:'var(--s2)',showLabel:true,tip:'A phone-only cancellation requirement defeats assisted cancellation almost surely (simulation)'}
+    ],{max:100,ticks:[0,25,50,75,100],fmt:v=>v+'%',labW:200,aria:'Bar chart of timely cancellation rates'});
+    else if(k==='abx')hbars(plate,[
+      {label:'GPT-4o Mini (largest)',value:34.3,labelValue:'34.3 pp',showLabel:true,tip:'Largest price effect among 17 models'},
+      {label:'o3 (smallest significant)',value:15.2,labelValue:'15.2 pp',showLabel:true,tip:'Smallest significant price effect; 13 of 17 models showed a significant cheaper-option preference'}
+    ],{max:40,ticks:[0,10,20,30,40],fmt:v=>v+' pp',labW:200,aria:'Bar chart of price effect by model'});
+  });
+})();
+</script>
+
+</body></html>
