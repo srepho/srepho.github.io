@@ -26,13 +26,13 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### All forecasts
 
-- [Results: model against the market](/predictions/results.html) (Thursday 22 October 2026) — One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.
-- [Upcoming predictions](/predictions/upcoming.html) (Thursday 22 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
+- [Results: model against the market](/predictions/results.html) (Friday 23 October 2026) — One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.
+- [Upcoming predictions](/predictions/upcoming.html) (Friday 23 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections
 
-- [Israel 2026: Knesset seat forecast](/predictions/israel-2026.html) (Thursday 22 October 2026) — Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader–Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.
-- [US midterms 2026: Senate polling research and markets](/predictions/us-midterms-2026.html) (Wednesday 21 October 2026) — An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.
+- [Israel 2026: Knesset seat forecast](/predictions/israel-2026.html) (Friday 23 October 2026) — Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader–Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.
+- [US midterms 2026: Senate polling research and markets](/predictions/us-midterms-2026.html) (Thursday 22 October 2026) — An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.
 - [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 18 October 2026) — Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
 - [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 18 October 2026) — First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
 - [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 18 October 2026) — National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
@@ -43,7 +43,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Economy
 
-- [Australia: economic indicators](/predictions/australia-economy.html) (Thursday 22 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
+- [Australia: economic indicators](/predictions/australia-economy.html) (Friday 23 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
 - [Australia: the insurance industry — October 2026 report](/predictions/australia-insurance-report-2026-10.html) (Monday 12 October 2026) — A written report on the insurance page's indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia's recovery from a loss-making December quarter, complaints still rising.
 - [Australia: the insurance industry](/predictions/australia-insurance.html) (Monday 12 October 2026) — The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.
 

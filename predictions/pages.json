@@ -14,8 +14,8 @@
   "title": "Australia: economic indicators",
   "blurb": "Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.",
   "section": "Economy",
-  "date": "2026-10-22",
-  "published": "2026-10-21 20:18 UTC"
+  "date": "2026-10-23",
+  "published": "2026-10-22 20:18 UTC"
  },
  {
   "key": "auinsurance-report",
@@ -131,8 +131,8 @@
   "title": "Israel 2026: Knesset seat forecast",
   "blurb": "Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader\u2013Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.",
   "section": "Elections",
-  "date": "2026-10-22",
-  "published": "2026-10-21 20:18 UTC"
+  "date": "2026-10-23",
+  "published": "2026-10-22 20:18 UTC"
  },
  {
   "key": "livepar",
@@ -230,8 +230,8 @@
   "title": "Results: model against the market",
   "blurb": "One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.",
   "section": "All forecasts",
-  "date": "2026-10-22",
-  "published": "2026-10-21 20:18 UTC"
+  "date": "2026-10-23",
+  "published": "2026-10-22 20:18 UTC"
  },
  {
   "key": "spain",
@@ -275,8 +275,8 @@
   "title": "Upcoming predictions",
   "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
   "section": "All forecasts",
-  "date": "2026-10-22",
-  "published": "2026-10-21 20:18 UTC"
+  "date": "2026-10-23",
+  "published": "2026-10-22 20:18 UTC"
  },
  {
   "key": "midterms",
@@ -284,8 +284,8 @@
   "title": "US midterms 2026: Senate polling research and markets",
   "blurb": "An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.",
   "section": "Elections",
-  "date": "2026-10-21",
-  "published": "2026-10-21 20:18 UTC"
+  "date": "2026-10-22",
+  "published": "2026-10-22 20:18 UTC"
  },
  {
   "key": "vic",
