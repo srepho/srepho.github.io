@@ -6,7 +6,7 @@
   "blurb": "A pre-registered Bayesian study of 1,800 federal and state polls since 1998: the industry's polling-day error, how opinion drifts before an election, house effects, and a 'time for a change' prior.",
   "section": "Research",
   "date": "2026-10-17",
-  "published": "2026-10-17 13:03 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "aumacro",
@@ -15,7 +15,7 @@
   "blurb": "Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.",
   "section": "Economy",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "auinsurance-report",
@@ -24,7 +24,7 @@
   "blurb": "A written report on the insurance page's indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia's recovery from a loss-making December quarter, complaints still rising.",
   "section": "Economy",
   "date": "2026-10-12",
-  "published": "2026-10-13 05:11 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "auinsurance",
@@ -32,8 +32,8 @@
   "title": "Australia: the insurance industry",
   "blurb": "The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.",
   "section": "Economy",
-  "date": "2026-10-12",
-  "published": "2026-10-11 13:20 UTC"
+  "date": "2026-10-25",
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "australia",
@@ -42,7 +42,7 @@
   "blurb": "Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "bayespar",
@@ -51,7 +51,7 @@
   "blurb": "The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "conditions",
@@ -60,7 +60,7 @@
   "blurb": "A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?",
   "section": "Research",
   "date": "2026-10-09",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "cricket",
@@ -69,7 +69,7 @@
   "blurb": "Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.",
   "section": "Cricket",
   "date": "2026-10-09",
-  "published": "2026-10-13 11:40 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "dls",
@@ -78,7 +78,7 @@
   "blurb": "A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "carryover",
@@ -87,7 +87,7 @@
   "blurb": "A pre-registered test of whether a player's recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "france",
@@ -96,7 +96,7 @@
   "blurb": "First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a d\u00e9partement map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "germany",
@@ -105,7 +105,7 @@
   "blurb": "National polls simulated with a backtested error model and allocated by Sainte-Lagu\u00eb with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "hothand",
@@ -114,7 +114,7 @@
   "blurb": "A pre-registered test at two time scales: do recent innings predict the next beyond a player's level, and within an innings is the ball after a boundary (or a wicket) better than the player's average ball?",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "ideas",
@@ -123,7 +123,7 @@
   "blurb": "Questions worth testing, by sport, with links to the write-ups as each is done.",
   "section": "Research",
   "date": "2026-10-18",
-  "published": "2026-10-17 13:03 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "israel",
@@ -132,7 +132,7 @@
   "blurb": "Seat polls converted to vote shares, simulated with a backtested error model and allocated by Bader\u2013Ofer with surplus agreements: bloc majorities, threshold risk, largest party, against the Kalshi and Polymarket markets.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "livepar",
@@ -141,7 +141,7 @@
   "blurb": "The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.",
   "section": "Cricket",
   "date": "2026-10-13",
-  "published": "2026-10-13 11:40 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "nba-20261007",
@@ -168,7 +168,7 @@
   "blurb": "Live 2026\u201327 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.",
   "section": "Basketball",
   "date": "2026-10-24",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nba-archive",
@@ -177,7 +177,7 @@
   "blurb": "Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.",
   "section": "Basketball",
   "date": "2026-10-24",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nba-live-method",
@@ -186,7 +186,7 @@
   "blurb": "The in-season update from game margins, the pre-registered backtest against preseason ratings and record pace, single-game comparison with closing lines, and the adjustments that did not help.",
   "section": "Basketball",
   "date": "2026-10-17",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nba-methodology",
@@ -195,7 +195,7 @@
   "blurb": "The October 17 model, experiment results, limitations and next tests, with what has changed since.",
   "section": "Basketball",
   "date": "2026-10-17",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nba-players",
@@ -204,7 +204,7 @@
   "blurb": "Career wins above replacement, a leaderboard, career comparisons and player projections.",
   "section": "Basketball",
   "date": "2026-10-24",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nba-salaries",
@@ -213,7 +213,7 @@
   "blurb": "Model fair salary from projected wins above replacement against listed 2026\u201327 salaries.",
   "section": "Basketball",
   "date": "2026-10-24",
-  "published": "2026-10-24 14:30 UTC"
+  "published": "2026-10-24 15:34 UTC"
  },
  {
   "key": "nsw",
@@ -222,7 +222,7 @@
   "blurb": "Legislative Assembly, 27 March 2027: the 2023 result swung by the poll average with One Nation placed from federal booths, optional-preferential exhaustion, a district map, seat distributions and Kalshi's Labor-majority contract; backtested on 2023.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "results",
@@ -240,7 +240,7 @@
   "blurb": "National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "extensions",
@@ -249,7 +249,7 @@
   "blurb": "Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "sessions",
@@ -258,7 +258,7 @@
   "blurb": "A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "uk",
@@ -267,7 +267,7 @@
   "blurb": "GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.",
   "section": "Elections",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "upcoming",
@@ -276,7 +276,7 @@
   "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
   "section": "All forecasts",
   "date": "2026-10-25",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "midterms",
@@ -294,7 +294,7 @@
   "blurb": "All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.",
   "section": "Elections",
   "date": "2026-10-24",
-  "published": "2026-10-24 14:27 UTC"
+  "published": "2026-10-24 14:28 UTC"
  },
  {
   "key": "wickets",
@@ -303,6 +303,6 @@
   "blurb": "The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).",
   "section": "Research",
   "date": "2026-10-10",
-  "published": "2026-10-10 13:19 UTC"
+  "published": "2026-10-24 14:28 UTC"
  }
 ]

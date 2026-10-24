@@ -44,8 +44,8 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### Economy
 
 - [Australia: economic indicators](/predictions/australia-economy.html) (Sunday 25 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
+- [Australia: the insurance industry](/predictions/australia-insurance.html) (Sunday 25 October 2026) — The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.
 - [Australia: the insurance industry — October 2026 report](/predictions/australia-insurance-report-2026-10.html) (Monday 12 October 2026) — A written report on the insurance page's indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia's recovery from a loss-making December quarter, complaints still rising.
-- [Australia: the insurance industry](/predictions/australia-insurance.html) (Monday 12 October 2026) — The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.
 
 ### Cricket
 
