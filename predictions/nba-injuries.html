@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA injury watch</title>
+<meta name="description" content="A pre-registered research note with its design, findings, method and data.">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#464e58;--muted:#5f6873;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;--focus:#1f5fc4;
+  --s1:#1f5fc4;--s2:#d2540e;--s3:#8b44e0;--s4:#0d8a6a;
+  --ramp:#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);color:var(--ink);padding:8px 12px;border:2px solid var(--focus);border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;font-weight:600;margin:0 0 2px;color:var(--ink)}
+.asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
+.asof span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.lede{font-size:17px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+p{max-width:72ch}
+.body li{max-width:72ch;margin:4px 0}.body h2{margin-top:34px}.body h3{margin-top:22px;font-size:17px}.body figure.fig{margin:18px 0 26px}.body .embed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin:14px 0;color:var(--ink2);font-size:14px}
+nav.toc{margin:14px 0 0;font-size:14px}
+nav.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc li{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 4px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tile .l{font-size:13px;color:var(--muted);margin:0}
+.tile .v{font-size:26px;font-weight:600;margin:2px 0 0;line-height:1.2}
+.tile .n{font-size:13px;color:var(--ink2);margin:2px 0 0}
+figure.fig{margin:22px 0;padding:0}
+figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
+figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
+/* Zoomed map geometry extends beyond its viewBox; contain it within this panel. */
+figure.fig svg.map{overflow:hidden;max-height:min(75vh,760px)}
+.row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
+@media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+.legend .sw.dot{width:9px;height:9px;border-radius:50%}
+.legend .sw.hollow{background:transparent!important;border:2px solid currentColor;width:7px;height:7px}
+details.tbl{margin:4px 0 0;font-size:14px}
+details.tbl summary{cursor:pointer;color:var(--accent);font-size:14px}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll:focus-visible{outline-offset:-3px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+caption{text-align:left;font-size:17px;font-weight:600;margin:32px 0 8px;caption-side:top;color:var(--ink)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td:first-child,td:nth-child(2){white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+details.tbl table{font-size:13px}details.tbl caption{font-size:14px;margin:6px 0 4px}
+svg text{fill:var(--ink2);font-size:13px;font-family:var(--sans)}
+svg text.v{font-family:var(--mono);fill:var(--ink);font-size:12px}
+svg text.t{fill:var(--muted);font-size:12px}
+svg .axis{stroke:var(--line);stroke-width:1}svg .grid{stroke:var(--grid);stroke-width:1}svg .zero{stroke:var(--muted);stroke-width:1}
+svg .ci{stroke:var(--accent);stroke-width:2;stroke-linecap:round}svg .pt{fill:var(--accent);stroke:var(--card);stroke-width:2}
+svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+svg .pt.hollow{fill:var(--card);stroke:var(--accent);stroke-width:2.5}
+svg .ident{stroke:var(--muted);stroke-width:1}
+svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+svg .mk{stroke:var(--card);stroke-width:2}
+svg .hit{fill:transparent;cursor:default}
+svg .hit:focus{outline:none}
+svg .hit:focus + .mk, svg .hit:hover + .mk{stroke:var(--ink);stroke-width:2}
+svg .area{stroke:var(--card);stroke-width:.6;cursor:default}svg .area:hover,svg .area:focus{stroke:var(--ink);stroke-width:1.4;outline:none}
+svg text.ml{fill:var(--ink);font-size:10px;paint-order:stroke;stroke:var(--card);stroke-width:3px;pointer-events:none}
+svg .bar{stroke:none}
+svg .bar:hover,svg .bar:focus{filter:brightness(1.15);outline:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 9px;border-radius:6px;max-width:300px;z-index:20;display:none;white-space:pre-line}
+ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
+a{color:var(--accent)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<main id="main">
+  <p class="kicker" id="kicker"></p>
+  <h1 id="title"></h1>
+  <div class="asof" id="asof"></div>
+  <p class="meta" id="reg"></p>
+  <nav class="toc" aria-label="Contents"><ul id="toc"></ul></nav>
+  <h2 id="question-h">Question</h2><p id="question"></p>
+  <h2 id="brief-h">In brief</h2>
+  <div class="lede" id="headline"></div>
+  <div class="tiles" id="tiles"></div>
+  <div id="body" class="body"></div>
+  <h2 id="findings-h">Findings</h2>
+  <p class="meta">Point estimates with uncertainty intervals; the sampling unit and method are stated on each chart. A filled green marker means the interval excludes zero; a hollow marker means it does not. Every chart has a data table beneath it.</p>
+  <div id="charts"></div>
+  <div id="figures"></div>
+  <div id="tables"></div>
+  <h2 id="method-h">Method</h2><ul id="method"></ul>
+  <div id="deviations"></div>
+  <footer id="foot"></footer>
+</main>
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"title":"NBA injury watch","slug":"nba-injuries.html","kicker":"NBA 2026\u201327 \u00b7 injuries and what they do to a season","generated":"2026-10-26 19:03 AEDT","as_of":"2026-10-26","headline":"Jalen Williams (OKC): Left ankle, stretchered off against the Clippers on 26 Oct. Reported as serious, most likely season-ending; ESPN still lists him Day-To-Day. If he misses the rest of the season our model takes 4.6 wins off OKC (59.0 \u2192 54.4) and cuts the title chance from 18% to 9%; Kalshi's title price has gone 24% \u2192 20%.","summary":[{"label":"Jalen Williams (OKC) \u00b7 if out: the season","value":"-4.6 wins","note":"2.1 pts a game \u00b7 title 18% \u2192 9% \u00b7 Reported as serious, most likely season-ending; ESPN still lists him Day-To-Day"}],"findings":[],"findings_label":"","findings_note":"","charts":[{"type":"bars","title":"OKC title chance: our model by scenario, Kalshi now as the line","subtitle":"","x":["Plays","Out 2 weeks","Out 6 weeks","Out the season"],"series":[{"name":"Our model","values":[18.2,18.1,17.8,9.2]}],"xlabel":"","ylabel":"% title","reference":20.5,"referenceLabel":"Kalshi 20%"}],"tables":[{"title":"Jalen Williams (OKC): the season on our model, by how long he is out","columns":[["scenario","Scenario"],["wins","Projected wins"],["range","80% range"],["p60","60+ wins"],["seed","1 seed"],["finals","Reach Finals"],["title","Title"],["next","Next game"]],"rows":[{"scenario":"Plays","wins":"59.0","range":"49\u201369","p60":"49%","seed":"40%","finals":"29%","title":"18%","next":"v PHX Tue 27 Oct 11:00: 81%"},{"scenario":"Out: 2 weeks","wins":"58.5","range":"48\u201369","p60":"46%","seed":"38%","finals":"29%","title":"18%","next":"v PHX Tue 27 Oct 11:00: 76%"},{"scenario":"Out: 6 weeks","wins":"57.9","range":"48\u201368","p60":"43%","seed":"35%","finals":"28%","title":"18%","next":"v PHX Tue 27 Oct 11:00: 76%"},{"scenario":"Out: the season","wins":"54.4","range":"44\u201365","p60":"27%","seed":"22%","finals":"16%","title":"9%","next":"v PHX Tue 27 Oct 11:00: 76%"}]},{"title":"Kalshi on OKC: before the game he was hurt in (Mon 26 Oct 06:18) and now (Mon 26 Oct 18:23)","columns":[["m","Market"],["before","Kalshi before"],["now","Kalshi now"],["chg","Change"],["plays","Our model, plays"],["out","Our model, out the season"]],"rows":[{"m":"Median wins","before":"64.3","now":"61.4","chg":"-3.0","plays":"59.0","out":"54.4"},{"m":"60+ wins","before":"70%","now":"56%","chg":"-13 pts","plays":"49%","out":"27%"},{"m":"West 1 seed","before":"55%","now":"44%","chg":"-11 pts","plays":"40%","out":"22%"},{"m":"Conference title","before":"36%","now":"34%","chg":"-2 pts","plays":"29%","out":"16%"},{"m":"Title","before":"24%","now":"20%","chg":"-4 pts","plays":"18%","out":"9%"}]},{"title":"Who gains if Jalen Williams is out the season (our model)","columns":[["team","Team"],["seed","1 seed"],["title","Title"]],"rows":[{"team":"SA","seed":"+6.2 pts","title":"+1.8 pts"},{"team":"HOU","seed":"+4.8 pts","title":"+1.6 pts"},{"team":"MIN","seed":"+2.7 pts","title":"+0.8 pts"},{"team":"BOS","seed":"-0.1 pts","title":"+0.6 pts"},{"team":"PHI","seed":"-0.2 pts","title":"+0.6 pts"}]},{"title":"Everyone ESPN lists as injured, best players first by the live player rating","columns":[["player","Player"],["team","Team"],["status","ESPN status"],["back","ESPN return date"],["rating","Rating"],["model","Live model"]],"rows":[{"player":"Kawhi Leonard","team":"TOR","status":"Out","back":"2026-10-28","rating":"+4.0","model":"counted out"},{"player":"Kon Knueppel","team":"CHA","status":"Out","back":"2026-10-28","rating":"+2.9","model":"counted out"},{"player":"Jalen Duren","team":"DET","status":"Out","back":"2026-11-09","rating":"+2.5","model":"counted out"},{"player":"Jalen Williams","team":"OKC","status":"Day-To-Day","back":"2026-11-02","rating":"+2.4","model":"counted available"},{"player":"Isaiah Joe","team":"DET","status":"Day-To-Day","back":"2026-10-27","rating":"+2.2","model":"counted available"},{"player":"Kristaps Porzingis","team":"GS","status":"Out","back":"2026-12-01","rating":"+2.1","model":"counted out"},{"player":"Jimmy Butler III","team":"GS","status":"Out","back":"2027-01-02","rating":"+1.9","model":"counted out"},{"player":"Ausar Thompson","team":"DET","status":"Out","back":"2026-10-27","rating":"+1.7","model":"counted out"},{"player":"Joel Embiid","team":"PHI","status":"Out","back":"2026-10-28","rating":"+1.5","model":"counted out"},{"player":"Jaylin Williams","team":"OKC","status":"Day-To-Day","back":"2026-10-26","rating":"+1.4","model":"counted available"},{"player":"Cooper Flagg","team":"DAL","status":"Out","back":"2026-10-26","rating":"+1.4","model":"counted out"},{"player":"VJ Edgecombe","team":"PHI","status":"Out","back":"2026-10-28","rating":"+1.3","model":"counted out"},{"player":"Cason Wallace","team":"OKC","status":"Day-To-Day","back":"2026-10-26","rating":"+1.3","model":"counted available"},{"player":"Donte DiVincenzo","team":"MIN","status":"Out","back":"2027-04-02","rating":"+1.1","model":"counted out"},{"player":"Jalen Suggs","team":"ORL","status":"Day-To-Day","back":"2026-10-28","rating":"+1.0","model":"counted available"},{"player":"Paolo Banchero","team":"ORL","status":"Out","back":"2026-11-22","rating":"+0.8","model":"counted out"},{"player":"Mark Williams","team":"PHX","status":"Out","back":"2027-02-03","rating":"+0.5","model":"counted out"},{"player":"Tobias Harris","team":"SA","status":"Out","back":"2026-10-27","rating":"+0.4","model":"counted out"},{"player":"Branden Carlson","team":"POR","status":"Day-To-Day","back":"2026-10-27","rating":"+0.4","model":"counted available"},{"player":"Coby White","team":"CHA","status":"Out","back":"2026-10-28","rating":"+0.3","model":"counted out"},{"player":"Cameron Johnson","team":"DEN","status":"Day-To-Day","back":"2026-10-26","rating":"+0.3","model":"counted available"},{"player":"Zach Edey","team":"MEM","status":"Out","back":"2026-10-26","rating":"+0.3","model":"counted out"},{"player":"Santi Aldama","team":"DAL","status":"Out","back":"2026-10-28","rating":"+0.2","model":"counted out"},{"player":"Brandon Ingram","team":"LAC","status":"Out","back":"2026-11-08","rating":"+0.2","model":"counted out"},{"player":"Ivica Zubac","team":"IND","status":"Day-To-Day","back":"2026-10-26","rating":"+0.2","model":"counted available"}]}],"question":"How much does a player's injury change his team's season, and has the betting market moved by as much?","method":["Each tracked injury is replayed on the live NBA model (player ratings updated from every game, remaining schedule simulated game by game) with only the injury report changed: once with the player available, once per absence scenario (out until a date, back afterwards). Every other input is today's.","The live forecasts on the Board use ESPN's report as it stands: only players listed as Out are removed (until ESPN's return date, or for ten games if none is given). Day-To-Day players are counted as available until they miss three games in a row.","Kalshi prices are bid-ask midpoints from our six-hourly snapshots: the last before the game the player was hurt in, and the newest. The median wins comes from the 'at least k wins' ladder (steps of five, interpolated at 50%).","Kalshi has been the better guide on season numbers in our tests; read our model's scenarios as the size of the effect, not as a better price."],"deviations":[],"data":{"code":"src/predmarkets/nba_injury_page.py","config":"config/nba_injury_watch.json"}}</script>
+<script>
+(function(){
+  "use strict";
+  var N = JSON.parse(document.getElementById("data").textContent);
+  var SERIES = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)"];
+  var RAMP = getComputedStyle(document.documentElement).getPropertyValue("--ramp").split(",").map(function(s){return s.trim();});
+  var uid = 0;
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  function fmt(v, d){ if(v==null||isNaN(v)) return "–"; if(d==null){ var a=Math.abs(v); d = a>=100?0:a>=10?1:a>=1?2:3; } return Number(v).toFixed(d); }
+  function niceStep(span, n){ var raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), r=raw/mag; var s=r<1.5?1:r<3.5?2:r<7.5?5:10; return s*mag; }
+  function ticks(lo, hi, n){ var st=niceStep(hi-lo||1, n||5), out=[], v=Math.ceil(lo/st)*st; for(;v<=hi+1e-9;v+=st){ out.push(Math.abs(v)<1e-9?0:+v.toFixed(10)); } return out; }
+  function tickLabel(v){ var a=Math.abs(v); return a>=1000? v.toLocaleString("en-AU"): a>=10||a===0? String(Math.round(v*10)/10): a>=1? String(Math.round(v*100)/100): String(Math.round(v*1000)/1000); }
+  function wrap(s, width){ var words=String(s).split(" "), lines=[], cur=""; words.forEach(function(w){ if((cur+" "+w).trim().length>width && cur){ lines.push(cur); cur=w; } else { cur=(cur+" "+w).trim(); } }); if(cur) lines.push(cur); return lines.slice(0,3); }
+  function seriesColor(i, n, ramp){ if(ramp){ var k=Math.round(i*(RAMP.length-1)/Math.max(1,n-1)); return RAMP[k]; } return SERIES[i % SERIES.length]; }
+
+  // Tooltip: one element, shown on hover and on keyboard focus of any element carrying data-tip.
+  var tip = $("tip");
+  function showTip(el){ var t=el.getAttribute("data-tip"); if(!t) return; tip.textContent=t; tip.style.display="block";
+    var r=el.getBoundingClientRect(), x=window.scrollX+r.left+r.width/2, y=window.scrollY+r.top-8;
+    tip.style.left=Math.max(8, Math.min(x - tip.offsetWidth/2, window.scrollX+document.documentElement.clientWidth-tip.offsetWidth-8))+"px";
+    tip.style.top=(y - tip.offsetHeight)+"px"; }
+  function hideTip(){ tip.style.display="none"; }
+  document.addEventListener("mouseover", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("mouseout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+  document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+
+  function figure(title, sub, inner, legend, table){
+    var id="fig"+(++uid);
+    return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
+      + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
+  }
+  function legendHtml(items){ if(!items||items.length<2) return ""; return '<ul class="legend" aria-label="Legend">'+items.map(function(it){ return '<li><span class="sw'+(it.kind?" "+it.kind:"")+'" style="background:'+it.color+';color:'+it.color+'"></span>'+esc(it.name)+'</li>'; }).join("")+'</ul>'; }
+  function tableHtml(caption, cols, rows){ return '<table><caption class="sr">'+esc(caption)+'</caption><thead><tr>'+cols.map(function(c,i){ return '<th scope="col"'+(i?' class="n"':"")+'>'+esc(c)+'</th>'; }).join("")+'</tr></thead><tbody>'
+    + rows.map(function(r){ return '<tr>'+r.map(function(v,i){ return i? '<td class="n">'+esc(v)+'</td>' : '<th scope="row" style="font-weight:500;color:var(--ink)">'+esc(v)+'</th>'; }).join("")+'</tr>'; }).join("")+'</tbody></table>'; }
+  function svgOpen(W, H, title, desc, cls){ var id="svg"+(++uid); return '<svg'+(cls?' class="'+esc(cls)+'"':'')+' viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+id+'-t '+id+'-d"><title id="'+id+'-t">'+esc(title)+'</title><desc id="'+id+'-d">'+esc(desc)+'</desc>'; }
+
+  // ---- Dot plot: estimates with intervals, one row each (the pre-registered findings).
+  function dots(rows, opts){
+    opts = opts||{};
+    var W=860, R=190, rowH=30, labelW=42, lines=rows.map(function(r){ return wrap(r.label, labelW); });
+    var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
+    var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
+    var top=14, H=rows.length*rowH+top+44;
+    var lo=Math.min.apply(null, rows.map(function(r){return r.lo;})), hi=Math.max.apply(null, rows.map(function(r){return r.hi;}));
+    if(!opts.nozero){ lo=Math.min(0, lo); hi=Math.max(0, hi); }
+    if(hi-lo===0){ hi+=1; lo-=1; }
+    var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var tk=ticks(lo, hi, 5);
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    var s=svgOpen(W, H, opts.title||"", desc);
+    tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
+    if(opts.reference!=null&&opts.reference>lo&&opts.reference<hi){ s+='<line class="zero" x1="'+X(opts.reference).toFixed(1)+'" x2="'+X(opts.reference).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/><text class="t" x="'+X(opts.reference).toFixed(1)+'" y="'+(top-2)+'" text-anchor="middle">'+esc(opts.referenceLabel||"")+'</text>'; }
+    rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=!opts.nosig&&((r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0)), ls=lines[i];
+      var ty = y + 5 - (ls.length-1)*9;
+      s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]"+(opts.nosig?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
+      s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
+      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]")+'</text>';
+    });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
+    tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
+    if(opts.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(opts.xlabel)+'</text>';
+    s+='</svg>';
+    var table = tableHtml(opts.title||"Findings", ["Analysis","Estimate","Lower","Upper"], rows.map(function(r){ return [r.label, fmt(r.estimate), fmt(r.lo), fmt(r.hi)]; }));
+    return {svg:s, table:table};
+  }
+
+  // ---- Lines over a shared x (numeric or categorical); several series; legend + end labels; identity line optional.
+  function lines(c){
+    var W=c.width||420, H=c.height||260, L=56, R=c.endLabels===false?16:92, T=12, B=44;
+    var cat = typeof c.x[0]==="string";
+    var xs = cat? c.x.map(function(_,i){return i;}): c.x;
+    var allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.identity){ allY=allY.concat(xs); }
+    var ylo=c.yzero? Math.min(0, Math.min.apply(null, allY)): Math.min.apply(null, allY), yhi=Math.max.apply(null, allY);
+    if(c.ymin!=null) ylo=Math.min(ylo, c.ymin); if(c.ymax!=null) yhi=Math.max(yhi, c.ymax);
+    if(yhi-ylo===0){ yhi+=1; ylo-=1; } var yp=(yhi-ylo)*0.08; if(!c.yzero||ylo<0) ylo-=yp; yhi+=yp;
+    var xlo=Math.min.apply(null, xs), xhi=Math.max.apply(null, xs); if(xhi===xlo){ xhi+=1; }
+    if(cat){ xlo-=0.5; xhi+=0.5; } else if(c.identity){ xlo=ylo; xhi=yhi; }
+    function X(v){ return L+(W-L-R)*(v-xlo)/(xhi-xlo); } function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var yt=ticks(ylo, yhi, 4), xt=cat? xs: ticks(xlo, xhi, 5);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return (cat?c.x[i]:tickLabel(xs[i]))+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(ylo).toFixed(1)+'" y2="'+Y(ylo).toFixed(1)+'"/>';
+    var every = cat? Math.max(1, Math.ceil(xt.length/Math.max(3, Math.floor((W-L-R)/78)))): 1;
+    xt.forEach(function(v,i){ if(cat && i%every!==0 && i!==xt.length-1) return; var lab=cat? c.x[i]: tickLabel(v); s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(lab)+'</text>'; });
+    if(c.identity){ var a=Math.max(xlo,ylo), b=Math.min(xhi,yhi); s+='<line class="ident" x1="'+X(a).toFixed(1)+'" y1="'+Y(a).toFixed(1)+'" x2="'+X(b).toFixed(1)+'" y2="'+Y(b).toFixed(1)+'"/>'; }
+    if(c.reference!=null&&c.reference>=ylo&&c.reference<=yhi){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'; }
+    var n=c.series.length, ends=[];
+    c.series.forEach(function(sr,k){ var col=sr.color||seriesColor(k, n, c.ramp), pts=[];
+      sr.values.forEach(function(v,i){ if(v!=null) pts.push([X(xs[i]), Y(v), i]); });
+      if(sr.line!==false && pts.length>1) s+='<path class="ln" style="stroke:'+col+'" d="M'+pts.map(function(p,i){ return (i===0?'':(p[2]===pts[i-1][2]+1?'L':'M'))+p[0].toFixed(1)+','+p[1].toFixed(1); }).join("")+'"/>';
+      if(sr.markers!==false || pts.length===1) pts.forEach(function(p){ var t=sr.name+"\n"+(cat?c.x[p[2]]:(c.xlabel||"x")+" "+tickLabel(xs[p[2]]))+": "+fmt(sr.values[p[2]])+(sr.n&&sr.n[p[2]]!=null?"  (n="+sr.n[p[2]]+")":"");
+        s+='<circle class="hit" tabindex="0" data-tip="'+esc(t)+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="12"/><circle class="mk" style="fill:'+col+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>'; });
+      if(pts.length&&c.endLabels!==false&&n<=4) ends.push({y:pts[pts.length-1][1], name:sr.name});
+    });
+    ends.sort(function(a,b){ return a.y-b.y; }); for(var i=1;i<ends.length;i++){ if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14; }
+    ends.forEach(function(e){ s+='<text x="'+(W-R+8)+'" y="'+(e.y+4).toFixed(1)+'" style="font-size:12px">'+esc(e.name)+'</text>'; });
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n, c.ramp), kind: sr.line===false?"dot":""}; }));
+    var table = tableHtml(c.title, [c.xlabel||"x"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [cat?x:tickLabel(x)].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Grouped bars over categories (<= 3 series), optional reference line.
+  function bars(c){
+    var W=c.width||420, H=c.height||240, L=56, R=16, T=12, B=44;
+    var n=c.series.length, m=c.x.length, allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.reference!=null) allY.push(c.reference);
+    var ylo=Math.min(0, Math.min.apply(null, allY)), yhi=Math.max(0, Math.max.apply(null, allY)); if(yhi-ylo===0) yhi=ylo+1; var yp=(yhi-ylo)*0.08; yhi+=yp; if(ylo<0) ylo-=yp;
+    function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var slot=(W-L-R)/m, bw=Math.min(24, (slot*0.7-2*(n-1))/n);
+    var yt=ticks(ylo, yhi, 4);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return c.x[i]+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    var everyB = Math.max(1, Math.ceil(m/10));
+    c.x.forEach(function(lab,i){ var cx=L+slot*(i+0.5), ls=wrap(lab, Math.max(8, Math.floor(slot/7)));
+      if(i%everyB===0 || i===m-1) s+='<text class="t" x="'+cx.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle">'+ls.map(function(t,k){ return '<tspan x="'+cx.toFixed(1)+'" dy="'+(k?13:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      c.series.forEach(function(sr,k){ var v=sr.values[i]; if(v==null) return; var col=sr.color||seriesColor(k, n);
+        var x=cx-(n*bw+2*(n-1))/2+k*(bw+2), y0=Y(0), y1=Y(v), top=Math.min(y0,y1), h=Math.abs(y0-y1), r=Math.min(4, h/2);
+        var d = v>=0? 'M'+x+','+y0+'v'+(-(h-r))+'a'+r+','+r+' 0 0 1 '+r+','+(-r)+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 1 '+r+','+r+'v'+(h-r)+'z'
+                    : 'M'+x+','+y0+'v'+(h-r)+'a'+r+','+r+' 0 0 0 '+r+','+r+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 0 '+r+','+(-r)+'v'+(-(h-r))+'z';
+        s+='<path class="bar" tabindex="0" data-tip="'+esc(sr.name+"\n"+lab+": "+fmt(v)+(sr.n&&sr.n[i]!=null?"  (n="+sr.n[i]+")":""))+'" style="fill:'+col+'" d="'+d+'"/>'; });
+    });
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'+(c.referenceLabel?'<text class="t" x="'+(L+4)+'" y="'+(Y(c.reference)-4).toFixed(1)+'" text-anchor="start">'+esc(c.referenceLabel)+'</text>':""); }
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n), kind:"dot"}; }));
+    var table = tableHtml(c.title, [c.xlabel||"category"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [x].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Map: pre-projected SVG paths, one per feature, filled by the model's call; tooltip and table twin.
+  function mapChart(c){
+    var W=c.width, H=c.height;
+    var desc=c.features.map(function(f){ return f.name+": "+f.tip.replace(/\n/g," "); }).join("; ");
+    var s=svgOpen(W, H, c.title, desc, "map");
+    c.features.forEach(function(f){ s+='<path class="area" tabindex="0" data-tip="'+esc(f.name+"\n"+f.tip)+'" d="'+f.d+'" style="fill:'+f.fill+'"/>'; });
+    c.features.forEach(function(f){ if(f.label) s+='<text class="ml" x="'+f.c[0]+'" y="'+(f.c[1]+3)+'" text-anchor="middle">'+esc(f.label)+'</text>'; });
+    s+='</svg>';
+    var legend = legendHtml((c.legend||[]).map(function(l){ return {name:l.name, color:l.color, kind:"dot"}; }));
+    var table = c.table&&c.table.length&&c.columns&&c.columns.length? tableHtml(c.title, c.columns.map(function(x){return x[1];}), c.table.map(function(r){ return c.columns.map(function(x){ return r[x[0]]; }); })): "";
+    return {svg:s, legend:legend, table:table};
+  }
+
+  function renderChart(c){
+    if(c.type==="map"){ var mm=mapChart(c); return figure(c.title, c.subtitle, mm.svg, mm.legend, mm.table); }
+    if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
+    if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
+      return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
+    }
+    if(!c.width){ c.width=860; c.height=c.height||300; }          // standalone charts span the column; panels are 420 wide
+    var r = c.type==="bars"? bars(c): lines(c);
+    return figure(c.title, c.subtitle, r.svg, r.legend, r.table);
+  }
+
+  // ---- Page
+  $("kicker").textContent = N.kicker; $("title").textContent = N.title;
+  $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
+  if(N.registered){ $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.'; }
+  else { $("reg").textContent = 'Generated '+N.generated+'.'; }
+  if(N.question){ $("question").textContent = N.question; } else { $("question").style.display="none"; $("question-h").style.display="none"; }
+  if(N.findings_label){ $("findings-h").textContent = N.findings_label; }
+  if(N.findings_note===""){ document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(!(N.findings&&N.findings.length)){ $("findings-h").style.display="none"; document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
+  var groups = {}, order = [];
+  (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
+  $("charts").innerHTML = order.map(function(g){ var rows=groups[g]; var unit=rows[0].unit||""; var parts=unit.split(/:\s(.+)/);
+    var title = parts.length>1? parts[0]: unit, sub = parts.length>1? parts[1]: "";
+    return renderChart({type:"dots", title:title, subtitle:sub, rows:rows, xlabel: rows[0].xlabel||""}); }).join("");
+  if(N.charts&&N.charts.length){ $("figures").innerHTML = '<h2 id="figures-h">Checks and detail</h2>' + N.charts.map(renderChart).join(""); }
+  if(N.body){ $("body").innerHTML = N.body;
+    var figs = Array.prototype.slice.call($("figures").querySelectorAll("figure.fig")), moved = 0;
+    document.querySelectorAll("#body .chart-slot").forEach(function(slot){ var i = +slot.getAttribute("data-chart"); if(figs[i]){ slot.replaceWith(figs[i]); moved++; } });
+    if(moved && moved >= figs.length){ $("figures").style.display = "none"; } }
+  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+    return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+  $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else if(N.registered){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: '+esc(N.data.source||"Cricsheet ball-by-ball (CC BY 4.0)")+'. Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
+    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
+    + ' <a href="index.html">All forecasts and notes</a>.';
+  // Contents: every h2 on the page, in order.
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+})();
+</script>
+</body>
+</html>
