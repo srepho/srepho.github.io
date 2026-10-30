@@ -102,6 +102,8 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <h2 id="question-h">Question</h2><p id="question"></p>
   <h2 id="brief-h">In brief</h2>
   <div class="lede" id="headline"></div>
+  <section id="overview" hidden></section>
+  <h2 id="summary-h" hidden></h2>
   <div class="tiles" id="tiles"></div>
   <div id="body" class="body"></div>
   <h2 id="findings-h">Findings</h2>
@@ -294,7 +296,9 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   if(N.findings_note===""){ document.querySelector("#findings-h + .meta").style.display="none"; }
   if(!(N.findings&&N.findings.length)){ $("findings-h").style.display="none"; document.querySelector("#findings-h + .meta").style.display="none"; }
   if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
-  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  function renderTiles(rows){ return rows.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  if(N.summary_label){ $("summary-h").hidden=false; $("summary-h").textContent=N.summary_label; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = renderTiles(N.summary); }
   else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
   var groups = {}, order = [];
   (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
@@ -306,9 +310,11 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     var figs = Array.prototype.slice.call($("figures").querySelectorAll("figure.fig")), moved = 0;
     document.querySelectorAll("#body .chart-slot").forEach(function(slot){ var i = +slot.getAttribute("data-chart"); if(figs[i]){ slot.replaceWith(figs[i]); moved++; } });
     if(moved && moved >= figs.length){ $("figures").style.display = "none"; } }
-  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+  function renderTable(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
     return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
-    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }
+  $("tables").innerHTML = (N.tables||[]).map(renderTable).join("");
+  if(N.overview){ $("overview").hidden=false; $("overview").innerHTML='<h2 id="aggregate-h">'+esc(N.overview.title)+'</h2><p>'+esc(N.overview.note)+'</p><div class="tiles">'+renderTiles(N.overview.summary||[])+'</div>'+renderTable(N.overview.table); }
   $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
   if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
   else if(N.registered){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
@@ -316,7 +322,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
     + ' <a href="index.html">All forecasts and notes</a>.';
   // Contents: every h2 on the page, in order.
-  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.hidden||h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
 })();
 </script>
 </body>
