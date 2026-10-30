@@ -26,17 +26,17 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### All forecasts
 
-- [Results: model against the market](/predictions/results.html) (Friday 30 October 2026) — Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.
-- [Upcoming predictions](/predictions/upcoming.html) (Friday 30 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
+- [Results: model against the market](/predictions/results.html) (Saturday 31 October 2026) — Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.
+- [Upcoming predictions](/predictions/upcoming.html) (Saturday 31 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections
 
+- [New Zealand 2026: party votes and coalition arithmetic](/predictions/new-zealand-2026.html) (Saturday 31 October 2026) — 7 November: national party-vote polls, MMP threshold risk and explicit electorate-overhang scenarios. Coalition arithmetic is conditional; electorate outcomes and government formation are not forecast.
+- [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Saturday 31 October 2026) — National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
 - [Israel 2026: results and forecast review](/predictions/israel-2026.html) (Friday 30 October 2026) — Reported party and bloc seats against the frozen pre-election forecast; verified market settlements and the contracts still awaiting resolution.
-- [New Zealand 2026: party votes and coalition arithmetic](/predictions/new-zealand-2026.html) (Friday 30 October 2026) — 7 November: national party-vote polls, MMP threshold risk and explicit electorate-overhang scenarios. Coalition arithmetic is conditional; electorate outcomes and government formation are not forecast.
-- [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Friday 30 October 2026) — National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
 - [US midterms 2026: Senate polling research and markets](/predictions/us-midterms-2026.html) (Friday 30 October 2026) — An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.
 - [US midterms: Senate and House research](/predictions/us-midterms-research-2026.html) (Friday 30 October 2026) — A separate Stan research model: polling and fundamentals, current district maps, shared election errors, held-out tests and explicit coverage bounds for both chambers.
-- [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Thursday 29 October 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
+- [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Friday 30 October 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
 - [Israel 2026: archived final pre-election forecast](/predictions/israel-2026-forecast.html) (Tuesday 27 October 2026) — The final recorded forecast before polls opened, preserved separately from the result review.
 - [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 25 October 2026) — Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
 - [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 25 October 2026) — First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
@@ -46,7 +46,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Economy
 
-- [Australia: economic indicators](/predictions/australia-economy.html) (Friday 30 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
+- [Australia: economic indicators](/predictions/australia-economy.html) (Saturday 31 October 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
 - [Australia: the insurance industry](/predictions/australia-insurance.html) (Sunday 25 October 2026) — The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.
 - [Australia: the insurance industry — October 2026 report](/predictions/australia-insurance-report-2026-10.html) (Monday 12 October 2026) — A written report on the insurance page's indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia's recovery from a loss-making December quarter, complaints still rising.
 
@@ -57,8 +57,8 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Basketball
 
-- [NBA player performance versus preseason](/predictions/nba-performance.html) (Saturday 31 October 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [Our NBA All-Stars and award winners](/predictions/nba-merit.html) (Saturday 31 October 2026) — Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.
+- [NBA player performance versus preseason](/predictions/nba-performance.html) (Saturday 31 October 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA 2026–27: live season forecast — NBA Board](/predictions/nba-2026-27.html) (Friday 30 October 2026) — Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.
 - [NBA forecast archive](/predictions/nba-archive.html) (Friday 30 October 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
 - [NBA players: wins above replacement](/predictions/nba-players.html) (Friday 30 October 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.

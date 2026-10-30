@@ -14,8 +14,8 @@
   "title": "Australia: economic indicators",
   "blurb": "Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.",
   "section": "Economy",
-  "date": "2026-10-30",
-  "published": "2026-10-30 07:21 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "auinsurance-report",
@@ -248,8 +248,8 @@
   "title": "New Zealand 2026: party votes and coalition arithmetic",
   "blurb": "7 November: national party-vote polls, MMP threshold risk and explicit electorate-overhang scenarios. Coalition arithmetic is conditional; electorate outcomes and government formation are not forecast.",
   "section": "Elections",
-  "date": "2026-10-30",
-  "published": "2026-10-30 07:21 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "nsw",
@@ -266,8 +266,8 @@
   "title": "Results: model against the market",
   "blurb": "Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.",
   "section": "All forecasts",
-  "date": "2026-10-30",
-  "published": "2026-10-30 10:38 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "spain",
@@ -275,8 +275,8 @@
   "title": "Spain 2026: Congress seat forecast",
   "blurb": "National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.",
   "section": "Elections",
-  "date": "2026-10-30",
-  "published": "2026-10-30 07:21 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "extensions",
@@ -311,8 +311,8 @@
   "title": "Upcoming predictions",
   "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
   "section": "All forecasts",
-  "date": "2026-10-30",
-  "published": "2026-10-30 07:21 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "midterms",
@@ -321,7 +321,7 @@
   "blurb": "An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.",
   "section": "Elections",
   "date": "2026-10-30",
-  "published": "2026-10-30 10:02 UTC"
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "us-midterms-research",
@@ -338,8 +338,8 @@
   "title": "Victorian election 2026: seat-by-seat forecast",
   "blurb": "All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.",
   "section": "Elections",
-  "date": "2026-10-29",
-  "published": "2026-10-30 07:21 UTC"
+  "date": "2026-10-30",
+  "published": "2026-10-30 20:23 UTC"
  },
  {
   "key": "wickets",
