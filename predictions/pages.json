@@ -255,10 +255,10 @@
   "key": "results",
   "slug": "results.html",
   "title": "Results: model against the market",
-  "blurb": "One unit on every game where our model disagreed with the market, at the recorded price: running units by sport (midpoint, and ask plus fee), confident-only bets, Brier scores and the election positions awaiting results.",
+  "blurb": "Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.",
   "section": "All forecasts",
   "date": "2026-10-30",
-  "published": "2026-10-30 07:40 UTC"
+  "published": "2026-10-30 10:38 UTC"
  },
  {
   "key": "spain",
