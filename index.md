@@ -57,9 +57,9 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Basketball
 
+- [NBA player performance versus preseason](/predictions/nba-performance.html) (Saturday 31 October 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA 2026–27: live season forecast — NBA Board](/predictions/nba-2026-27.html) (Friday 30 October 2026) — Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.
 - [NBA forecast archive](/predictions/nba-archive.html) (Friday 30 October 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
-- [NBA player performance versus preseason](/predictions/nba-performance.html) (Friday 30 October 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA players: wins above replacement](/predictions/nba-players.html) (Friday 30 October 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
 - [NBA player value and salaries](/predictions/nba-salaries.html) (Friday 30 October 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
 - [NBA 2026–27 — 2026-10-17 forecast](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
