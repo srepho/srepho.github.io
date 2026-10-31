@@ -52,7 +52,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Cricket
 
-- [Live Test: block by block against par](/predictions/live-test-par.html) (Tuesday 13 October 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+- [Live Test: block by block against par](/predictions/live-test-par.html) (Saturday 31 October 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
 - [Cricket rankings and predictions](/predictions/cricket.html) (Friday 9 October 2026) — Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 
 ### Basketball
