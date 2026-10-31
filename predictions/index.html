@@ -6,231 +6,271 @@
 <title>Forecasts</title>
 <meta name="description" content="Model forecasts for elections, sports and markets, each with its forecast date.">
 <style>
-  :root{--page:#f9f9f7;--surface:#fff;--ink:#0b0b0b;--ink2:#52514e;--ink3:#898781;--border:rgba(11,11,11,.12)}
-  @media (prefers-color-scheme: dark){:root{--page:#0d0d0d;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--ink3:#898781;--border:rgba(255,255,255,.12)}}
-  html{background:var(--page)}
-  body{margin:0;padding:40px 16px 64px;background:var(--page);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-  .wrap{max-width:760px;margin:0 auto}
-  h1{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}
-  h3{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:26px 0 10px}
-  .sub{color:var(--ink2)}
-  .card{display:block;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--ink);
-    border-radius:8px;padding:16px 18px;margin-bottom:14px;color:inherit;text-decoration:none}
-  .card:hover{border-color:var(--ink2)}
-  .date{font-size:20px;font-weight:650;letter-spacing:-.01em}
-  .date span{font-size:12px;font-weight:500;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-right:6px}
-  .card h2{font-size:16px;margin:8px 0 4px}
-  .card p{margin:0;color:var(--ink2);font-size:14px}
-  footer{color:var(--ink3);font-size:12px;margin-top:26px}
+  :root{--page:#f6f5f1;--surface:#fff;--ink:#141414;--ink2:#4f4e4a;--ink3:#86847e;--border:rgba(20,20,20,.11);--accent:#c2572b;--chip:#ebe9e2}
+  @media (prefers-color-scheme: dark){:root{--page:#0f0f0f;--surface:#1a1a19;--ink:#f3f2ee;--ink2:#c3c2b7;--ink3:#8d8b84;--border:rgba(255,255,255,.11);--accent:#f0915f;--chip:#242422}}
+  html{background:var(--page);scroll-padding-top:16px}
+  body{margin:0;padding:0 16px 64px;background:var(--page);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:1120px;margin:0 auto}
+  header{padding:36px 0 8px}
+  h1{font-size:32px;margin:0 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--ink2);max-width:62ch;margin:0}
+  .jump{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 6px}
+  .jump a{color:var(--ink);text-decoration:none;background:var(--chip);border:1px solid var(--border);border-radius:999px;padding:5px 12px;font-size:14px}
+  .jump a:hover{border-color:var(--ink3)}
+  .jump span{color:var(--ink3);font-size:12px;margin-left:2px}
+  section{margin-top:30px}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:16px 18px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--ink3);transform:translateY(-1px)}
+  .card:focus-visible,.jump a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .card h3{font-size:16.5px;line-height:1.3;margin:0 0 6px;letter-spacing:-.005em}
+  .card p{margin:0 0 12px;color:var(--ink2);font-size:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .date{margin-top:auto;font-size:12.5px;color:var(--ink3)}
+  .new{color:var(--accent);font-weight:650}
+  footer{color:var(--ink3);font-size:12px;margin-top:36px}
 </style>
+<script src="site.js" defer data-site-chrome></script>
 </head>
 <body>
 <div class="wrap">
+  <header>
   <h1>Forecasts</h1>
-  <div class="sub">Model forecasts built from public data. Each page states the date it was made; nothing updates on its own.</div>
-  <h3>Economy</h3>
-    <a class="card" href="australia-economy.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Australia: economic indicators</h2>
-      <p>Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi&#x27;s price for the next RBA decision.</p>
-    </a>
-    <a class="card" href="australia-insurance.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>Australia: the insurance industry</h2>
-      <p>The listed insurers (prices, fundamentals, price-sensitive announcements), APRA&#x27;s quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council&#x27;s catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators&#x27; releases.</p>
-    </a>
-    <a class="card" href="australia-insurance-report-2026-10.html">
-      <div class="date"><span>Forecast date</span> Monday 12 October 2026</div>
-      <h2>Australia: the insurance industry — October 2026 report</h2>
-      <p>A written report on the insurance page&#x27;s indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia&#x27;s recovery from a loss-making December quarter, complaints still rising.</p>
-    </a>
-  <h3>Cricket</h3>
-    <a class="card" href="cricket.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Cricket rankings and predictions</h2>
-      <p>Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men&#x27;s and women&#x27;s coverage.</p>
-    </a>
-    <a class="card" href="live-test-par.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Live Test: block by block against par</h2>
-      <p>The current men&#x27;s Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block&#x27;s runs and wickets, and the block table.</p>
-    </a>
-  <h3>Racing</h3>
-    <a class="card" href="melbourne-cup-2026.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Melbourne Cup 2026 form</h2>
-      <p>The provisional field with weights, history since 1990 and a small ranking aid that is honest about not beating a coin toss.</p>
-    </a>
-  <h3>Basketball</h3>
-    <a class="card" href="nba-2026-27.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>NBA 2026–27: live season forecast — NBA Board</h2>
-      <p>Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.</p>
-    </a>
-    <a class="card" href="nba-archive.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>NBA forecast archive</h2>
-      <p>Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.</p>
-    </a>
-    <a class="card" href="nba-merit.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Our NBA All-Stars and award winners</h2>
-      <p>Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.</p>
-    </a>
-    <a class="card" href="nba-performance.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>NBA player performance versus preseason</h2>
-      <p>Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.</p>
-    </a>
-    <a class="card" href="nba-players.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>NBA players: wins above replacement</h2>
-      <p>Career wins above replacement, a leaderboard, career comparisons and player projections.</p>
-    </a>
-    <a class="card" href="nba-salaries.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>NBA player value and salaries</h2>
-      <p>Model fair salary from projected wins above replacement against listed 2026–27 salaries.</p>
-    </a>
-    <a class="card" href="nba-2026-27-20261017.html">
-      <div class="date"><span>Forecast date</span> Saturday 17 October 2026</div>
-      <h2>NBA 2026–27 — 2026-10-17 forecast</h2>
-      <p>Team and conference rankings, projected wins and market comparisons.</p>
-    </a>
-    <a class="card" href="nba-live-forecast-method.html">
-      <div class="date"><span>Forecast date</span> Saturday 17 October 2026</div>
-      <h2>How the live NBA forecast works, and how it was tested</h2>
-      <p>The in-season update from game margins, the pre-registered backtest against preseason ratings and record pace, single-game comparison with closing lines, and the adjustments that did not help.</p>
-    </a>
-    <a class="card" href="nba-methodology.html">
-      <div class="date"><span>Forecast date</span> Saturday 17 October 2026</div>
-      <h2>How our NBA season projections work</h2>
-      <p>The October 17 model, experiment results, limitations and next tests, with what has changed since.</p>
-    </a>
-    <a class="card" href="nba-2026-27-20261007.html">
-      <div class="date"><span>Forecast date</span> Wednesday 7 October 2026</div>
-      <h2>NBA 2026–27 — October 7 archive</h2>
-      <p>Archived original predictions.</p>
-    </a>
-  <h3>Elections</h3>
-    <a class="card" href="new-zealand-2026.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>New Zealand 2026: party votes and coalition arithmetic</h2>
-      <p>7 November: national party-vote polls, MMP threshold risk and explicit electorate-overhang scenarios. Coalition arithmetic is conditional; electorate outcomes and government formation are not forecast.</p>
-    </a>
-    <a class="card" href="spain-2026.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Spain 2026: Congress seat forecast</h2>
-      <p>National polls projected province by province (proportional swing from 2023) and allocated by D&#x27;Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.</p>
-    </a>
-    <a class="card" href="us-midterms-2026.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>US midterms 2026: Senate, House and markets</h2>
-      <p>One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.</p>
-    </a>
-    <a class="card" href="israel-2026.html">
-      <div class="date"><span>Forecast date</span> Friday 30 October 2026</div>
-      <h2>Israel 2026: results and forecast review</h2>
-      <p>Reported party and bloc seats against the frozen pre-election forecast; verified market settlements and the contracts still awaiting resolution.</p>
-    </a>
-    <a class="card" href="vic-election-2026.html">
-      <div class="date"><span>Forecast date</span> Friday 30 October 2026</div>
-      <h2>Victorian election 2026: seat-by-seat forecast</h2>
-      <p>All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.</p>
-    </a>
-    <a class="card" href="israel-2026-forecast.html">
-      <div class="date"><span>Forecast date</span> Tuesday 27 October 2026</div>
-      <h2>Israel 2026: archived final pre-election forecast</h2>
-      <p>The final recorded forecast before polls opened, preserved separately from the result review.</p>
-    </a>
-    <a class="card" href="australia-next.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>Australia: next federal election forecast</h2>
-      <p>Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.</p>
-    </a>
-    <a class="card" href="france-2027.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>France 2027: presidential forecast</h2>
-      <p>First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.</p>
-    </a>
-    <a class="card" href="germany-next.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>Germany: next Bundestag forecast</h2>
-      <p>National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.</p>
-    </a>
-    <a class="card" href="nsw-2027.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>New South Wales 2027: seat forecast</h2>
-      <p>Legislative Assembly, 27 March 2027: the 2023 result swung by the poll average with One Nation placed from federal booths, optional-preferential exhaustion, a district map, seat distributions and Kalshi&#x27;s Labor-majority contract; backtested on 2023.</p>
-    </a>
-    <a class="card" href="uk-next.html">
-      <div class="date"><span>Forecast date</span> Sunday 25 October 2026</div>
-      <h2>United Kingdom: next general election forecast</h2>
-      <p>GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.</p>
-    </a>
-  <h3>All forecasts</h3>
+  <p class="sub">Model forecasts built from public data, for elections, sport and markets. Each page states the date its forecast was made.</p>
+  <nav class="jump" aria-label="Sections"><a href="#all-forecasts">All forecasts <span>2</span></a><a href="#elections">Elections <span>11</span></a><a href="#economy">Economy <span>3</span></a><a href="#cricket">Cricket <span>2</span></a><a href="#basketball">Basketball <span>10</span></a><a href="#racing">Racing <span>1</span></a><a href="#research">Research <span>10</span></a></nav>
+  </header>
+  <section id="all-forecasts">
+  <h2>All forecasts</h2>
+  <div class="grid">
     <a class="card" href="results.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Results: model against the market</h2>
+      <h3>Results: model against the market</h3>
       <p>Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
     </a>
     <a class="card" href="upcoming.html">
-      <div class="date"><span>Forecast date</span> Saturday 31 October 2026</div>
-      <h2>Upcoming predictions</h2>
+      <h3>Upcoming predictions</h3>
       <p>Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
     </a>
-  <h3>Research</h3>
+  </div>
+  </section>
+  <section id="elections">
+  <h2>Elections</h2>
+  <div class="grid">
+    <a class="card" href="new-zealand-2026.html">
+      <h3>New Zealand 2026: party votes and coalition arithmetic</h3>
+      <p>7 November: national party-vote polls, MMP threshold risk and explicit electorate-overhang scenarios. Coalition arithmetic is conditional; electorate outcomes and government formation are not forecast.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="spain-2026.html">
+      <h3>Spain 2026: Congress seat forecast</h3>
+      <p>National polls projected province by province (proportional swing from 2023) and allocated by D&#x27;Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="us-midterms-2026.html">
+      <h3>US midterms 2026: Senate, House and markets</h3>
+      <p>One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="israel-2026.html">
+      <h3>Israel 2026: results and forecast review</h3>
+      <p>Reported party and bloc seats against the frozen pre-election forecast; verified market settlements and the contracts still awaiting resolution.</p>
+      <div class="date">Friday 30 October 2026</div>
+    </a>
+    <a class="card" href="vic-election-2026.html">
+      <h3>Victorian election 2026: seat-by-seat forecast</h3>
+      <p>All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.</p>
+      <div class="date">Friday 30 October 2026</div>
+    </a>
+    <a class="card" href="israel-2026-forecast.html">
+      <h3>Israel 2026: archived final pre-election forecast</h3>
+      <p>The final recorded forecast before polls opened, preserved separately from the result review.</p>
+      <div class="date">Tuesday 27 October 2026</div>
+    </a>
+    <a class="card" href="australia-next.html">
+      <h3>Australia: next federal election forecast</h3>
+      <p>Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+    <a class="card" href="france-2027.html">
+      <h3>France 2027: presidential forecast</h3>
+      <p>First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+    <a class="card" href="germany-next.html">
+      <h3>Germany: next Bundestag forecast</h3>
+      <p>National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+    <a class="card" href="nsw-2027.html">
+      <h3>New South Wales 2027: seat forecast</h3>
+      <p>Legislative Assembly, 27 March 2027: the 2023 result swung by the poll average with One Nation placed from federal booths, optional-preferential exhaustion, a district map, seat distributions and Kalshi&#x27;s Labor-majority contract; backtested on 2023.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+    <a class="card" href="uk-next.html">
+      <h3>United Kingdom: next general election forecast</h3>
+      <p>GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+  </div>
+  </section>
+  <section id="economy">
+  <h2>Economy</h2>
+  <div class="grid">
+    <a class="card" href="australia-economy.html">
+      <h3>Australia: economic indicators</h3>
+      <p>Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi&#x27;s price for the next RBA decision.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="australia-insurance.html">
+      <h3>Australia: the insurance industry</h3>
+      <p>The listed insurers (prices, fundamentals, price-sensitive announcements), APRA&#x27;s quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council&#x27;s catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators&#x27; releases.</p>
+      <div class="date">Sunday 25 October 2026</div>
+    </a>
+    <a class="card" href="australia-insurance-report-2026-10.html">
+      <h3>Australia: the insurance industry — October 2026 report</h3>
+      <p>A written report on the insurance page&#x27;s indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia&#x27;s recovery from a loss-making December quarter, complaints still rising.</p>
+      <div class="date">Monday 12 October 2026</div>
+    </a>
+  </div>
+  </section>
+  <section id="cricket">
+  <h2>Cricket</h2>
+  <div class="grid">
+    <a class="card" href="cricket.html">
+      <h3>Cricket rankings and predictions</h3>
+      <p>Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men&#x27;s and women&#x27;s coverage.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="live-test-par.html">
+      <h3>Live Test: block by block against par</h3>
+      <p>The current men&#x27;s Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block&#x27;s runs and wickets, and the block table.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+  </div>
+  </section>
+  <section id="basketball">
+  <h2>Basketball</h2>
+  <div class="grid">
+    <a class="card" href="nba-2026-27.html">
+      <h3>NBA 2026–27: live season forecast — NBA Board</h3>
+      <p>Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-archive.html">
+      <h3>NBA forecast archive</h3>
+      <p>Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-merit.html">
+      <h3>Our NBA All-Stars and award winners</h3>
+      <p>Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-performance.html">
+      <h3>NBA player performance versus preseason</h3>
+      <p>Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-players.html">
+      <h3>NBA players: wins above replacement</h3>
+      <p>Career wins above replacement, a leaderboard, career comparisons and player projections.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-salaries.html">
+      <h3>NBA player value and salaries</h3>
+      <p>Model fair salary from projected wins above replacement against listed 2026–27 salaries.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+    <a class="card" href="nba-2026-27-20261017.html">
+      <h3>NBA 2026–27 — 2026-10-17 forecast</h3>
+      <p>Team and conference rankings, projected wins and market comparisons.</p>
+      <div class="date">Saturday 17 October 2026</div>
+    </a>
+    <a class="card" href="nba-live-forecast-method.html">
+      <h3>How the live NBA forecast works, and how it was tested</h3>
+      <p>The in-season update from game margins, the pre-registered backtest against preseason ratings and record pace, single-game comparison with closing lines, and the adjustments that did not help.</p>
+      <div class="date">Saturday 17 October 2026</div>
+    </a>
+    <a class="card" href="nba-methodology.html">
+      <h3>How our NBA season projections work</h3>
+      <p>The October 17 model, experiment results, limitations and next tests, with what has changed since.</p>
+      <div class="date">Saturday 17 October 2026</div>
+    </a>
+    <a class="card" href="nba-2026-27-20261007.html">
+      <h3>NBA 2026–27 — October 7 archive</h3>
+      <p>Archived original predictions.</p>
+      <div class="date">Wednesday 7 October 2026</div>
+    </a>
+  </div>
+  </section>
+  <section id="racing">
+  <h2>Racing</h2>
+  <div class="grid">
+    <a class="card" href="melbourne-cup-2026.html">
+      <h3>Melbourne Cup 2026 form</h3>
+      <p>The provisional field with weights, history since 1990 and a small ranking aid that is honest about not beating a coin toss.</p>
+      <div class="date"><b class="new">Updated today</b> · Saturday 31 October 2026</div>
+    </a>
+  </div>
+  </section>
+  <section id="research">
+  <h2>Research</h2>
+  <div class="grid">
     <a class="card" href="ideas.html">
-      <div class="date"><span>Forecast date</span> Sunday 18 October 2026</div>
-      <h2>Ideas for experiments</h2>
+      <h3>Ideas for experiments</h3>
       <p>Questions worth testing, by sport, with links to the write-ups as each is done.</p>
+      <div class="date">Sunday 18 October 2026</div>
     </a>
     <a class="card" href="au-poll-error.html">
-      <div class="date"><span>Forecast date</span> Saturday 17 October 2026</div>
-      <h2>How wrong are Australian polls, and does time in office matter?</h2>
+      <h3>How wrong are Australian polls, and does time in office matter?</h3>
       <p>A pre-registered Bayesian study of 1,800 federal and state polls since 1998: the industry&#x27;s polling-day error, how opinion drifts before an election, house effects, and a &#x27;time for a change&#x27; prior.</p>
+      <div class="date">Saturday 17 October 2026</div>
     </a>
     <a class="card" href="bayes-par.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>A Bayesian par for Test blocks</h2>
+      <h3>A Bayesian par for Test blocks</h3>
       <p>The session-block par refitted as a multilevel count model in Stan: held-out error and posterior predictive checks against the ridge and cell pars, where the variation lives, and carry once an innings effect is pooled.</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="dls.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Can Duckworth–Lewis be improved?</h2>
+      <h3>Can Duckworth–Lewis be improved?</h3>
       <p>A resource table fitted to each format and sex against the official Standard Edition, and whether the targets actually set in rain-affected chases have favoured one side.</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="form-carryover.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Does form carry over between cricket formats?</h2>
+      <h3>Does form carry over between cricket formats?</h3>
       <p>A pre-registered test of whether a player&#x27;s recent form in T20 predicts their next one-day match (and the reverse) beyond their own history in that format, batting and bowling, men and women.</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="hot-hand.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Is there a hot hand in cricket?</h2>
+      <h3>Is there a hot hand in cricket?</h3>
       <p>A pre-registered test at two time scales: do recent innings predict the next beyond a player&#x27;s level, and within an innings is the ball after a boundary (or a wicket) better than the player&#x27;s average ball?</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="sports-extensions.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights</h2>
+      <h3>Four sports extensions: dynamic Test par, possession totals, portable T20 ratings, WNBA weights</h3>
       <p>Four isolated extensions tested as pre-registered development studies: an annual scoring level in the Bayesian Test par, basketball totals through possessions and rotations, club player ratings in franchise T20, and WNBA-specific forecast weights. None clears the bar; the dynamic par is a prospective candidate.</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="test-sessions.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Test innings, session by session: above or below expectation?</h2>
+      <h3>Test innings, session by session: above or below expectation?</h3>
       <p>A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="wickets-in-hand.html">
-      <div class="date"><span>Forecast date</span> Saturday 10 October 2026</div>
-      <h2>Wickets in hand: a Bayesian par for wickets</h2>
+      <h3>Wickets in hand: a Bayesian par for wickets</h3>
       <p>The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).</p>
+      <div class="date">Saturday 10 October 2026</div>
     </a>
     <a class="card" href="conditions.html">
-      <div class="date"><span>Forecast date</span> Friday 9 October 2026</div>
-      <h2>Should the ratings allow for the conditions of the day?</h2>
+      <h3>Should the ratings allow for the conditions of the day?</h3>
       <p>A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?</p>
+      <div class="date">Friday 9 October 2026</div>
     </a>
-  <footer>Index updated 2026-10-31 12:30 UTC.</footer>
+  </div>
+  </section>
+  <footer>Index updated 2026-10-31 12:42 UTC.</footer>
 </div>
 </body>
 </html>
