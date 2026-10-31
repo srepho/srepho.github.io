@@ -252,6 +252,15 @@
   "published": "2026-10-31 11:07 UTC"
  },
  {
+  "key": "netball",
+  "slug": "netball.html",
+  "title": "Netball: team ratings and the Super Shot",
+  "blurb": "Super Netball and ANZ Premiership team ratings from a Kalman filter on match margins, scored walk-forward against Elo; whether the two-point Super Shot is worth taking; season leaders. Rebuild with `predmarkets netball-page`.",
+  "section": "Netball",
+  "date": "2026-11-01",
+  "published": "2026-10-31 13:04 UTC"
+ },
+ {
   "key": "new-zealand",
   "slug": "new-zealand-2026.html",
   "title": "New Zealand 2026: party votes and coalition arithmetic",

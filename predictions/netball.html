@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="forecast-date" content="2026-11-01">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netball: team ratings and the Super Shot</title>
+<meta name="description" content="A pre-registered research note with its design, findings, method and data.">
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1d2024;--ink2:#464e58;--muted:#5f6873;--line:#dedbd4;--grid:#ebe8e1;--accent:#1f6f8b;--ours:#b45309;--pos:#2b7a4b;--neg:#b3261e;--focus:#1f5fc4;
+  --s1:#1f5fc4;--s2:#d2540e;--s3:#8b44e0;--s4:#0d8a6a;
+  --ramp:#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab,#184f95,#104281,#0d366b;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;--sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15181c;--card:#1d2126;--ink:#e8e6e1;--ink2:#c3c7cd;--muted:#9aa3ad;--line:#2c3138;--grid:#262b31;--accent:#6fb3cc;--ours:#f0a45b;--pos:#5fbf86;--neg:#ef7a72;--focus:#7aa7f0;
+  --s1:#3987e5;--s2:#d95926;--s3:#9085e9;--s4:#199e70;
+  --ramp:#cde2fb,#b7d3f6,#9ec5f4,#86b6ef,#6da7ec,#5598e7,#3987e5,#2a78d6,#256abf,#1c5cab;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);color:var(--ink);padding:8px 12px;border:2px solid var(--focus);border-radius:6px;z-index:10}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+.kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;font-weight:650;margin:0 0 12px;letter-spacing:-.01em}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;font-weight:600;margin:0 0 2px;color:var(--ink)}
+.asof{display:inline-flex;gap:10px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ours);border-radius:8px;padding:8px 14px;margin:0 0 10px}
+.asof span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.asof b{font-size:18px}
+.meta{color:var(--muted);font-size:13px}
+.lede{font-size:17px;line-height:1.55;color:var(--ink);border-left:3px solid var(--accent);padding-left:14px;margin:18px 0}
+p{max-width:72ch}
+.body li{max-width:72ch;margin:4px 0}.body h2{margin-top:34px}.body h3{margin-top:22px;font-size:17px}.body figure.fig{margin:18px 0 26px}.body .embed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 14px;margin:14px 0;color:var(--ink2);font-size:14px}
+nav.toc{margin:14px 0 0;font-size:14px}
+nav.toc ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav.toc li{margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0 4px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.tile .l{font-size:13px;color:var(--muted);margin:0}
+.tile .v{font-size:26px;font-weight:600;margin:2px 0 0;line-height:1.2}
+.tile .n{font-size:13px;color:var(--ink2);margin:2px 0 0}
+figure.fig{margin:22px 0;padding:0}
+figure.fig .sub{color:var(--ink2);font-size:14px;margin:0 0 6px;max-width:80ch}
+figure.fig svg{display:block;width:100%;height:auto;overflow:visible}
+/* Zoomed map geometry extends beyond its viewBox; contain it within this panel. */
+figure.fig svg.map{overflow:hidden;max-height:min(75vh,760px)}
+.row2{display:grid;grid-template-columns:1fr;gap:6px 18px}
+@media (min-width:700px){.row2{grid-template-columns:1fr 1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--ink2);margin:6px 0 2px;list-style:none;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:6px}
+.legend .sw{display:inline-block;width:14px;height:3px;border-radius:2px}
+.legend .sw.dot{width:9px;height:9px;border-radius:50%}
+.legend .sw.hollow{background:transparent!important;border:2px solid currentColor;width:7px;height:7px}
+details.tbl{margin:4px 0 0;font-size:14px}
+details.tbl summary{cursor:pointer;color:var(--accent);font-size:14px}
+.scroll{overflow-x:auto;max-width:100%}
+.scroll:focus-visible{outline-offset:-3px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+caption{text-align:left;font-size:17px;font-weight:600;margin:32px 0 8px;caption-side:top;color:var(--ink)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
+td{padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+td:first-child,td:nth-child(2){white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+details.tbl table{font-size:13px}details.tbl caption{font-size:14px;margin:6px 0 4px}
+svg text{fill:var(--ink2);font-size:13px;font-family:var(--sans)}
+svg text.v{font-family:var(--mono);fill:var(--ink);font-size:12px}
+svg text.t{fill:var(--muted);font-size:12px}
+svg .axis{stroke:var(--line);stroke-width:1}svg .grid{stroke:var(--grid);stroke-width:1}svg .zero{stroke:var(--muted);stroke-width:1}
+svg .ci{stroke:var(--accent);stroke-width:2;stroke-linecap:round}svg .pt{fill:var(--accent);stroke:var(--card);stroke-width:2}
+svg .ci.sig{stroke:var(--pos)}svg .pt.sig{fill:var(--pos)}
+svg .pt.hollow{fill:var(--card);stroke:var(--accent);stroke-width:2.5}
+svg .ident{stroke:var(--muted);stroke-width:1}
+svg .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+svg .mk{stroke:var(--card);stroke-width:2}
+svg .hit{fill:transparent;cursor:default}
+svg .hit:focus{outline:none}
+svg .hit:focus + .mk, svg .hit:hover + .mk{stroke:var(--ink);stroke-width:2}
+svg .area{stroke:var(--card);stroke-width:.6;cursor:default}svg .area:hover,svg .area:focus{stroke:var(--ink);stroke-width:1.4;outline:none}
+svg text.ml{fill:var(--ink);font-size:10px;paint-order:stroke;stroke:var(--card);stroke-width:3px;pointer-events:none}
+svg .bar{stroke:none}
+svg .bar:hover,svg .bar:focus{filter:brightness(1.15);outline:none}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 9px;border-radius:6px;max-width:300px;z-index:20;display:none;white-space:pre-line}
+ul{padding-left:20px}li{margin:4px 0;max-width:72ch}
+a{color:var(--accent)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+<script src="site.js" defer data-site-chrome data-section="netball"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+<main id="main">
+  <p class="kicker" id="kicker"></p>
+  <h1 id="title"></h1>
+  <div class="asof" id="asof"></div>
+  <p class="meta" id="reg"></p>
+  <nav class="toc" aria-label="Contents"><ul id="toc"></ul></nav>
+  <h2 id="question-h">Question</h2><p id="question"></p>
+  <h2 id="brief-h">In brief</h2>
+  <div class="lede" id="headline"></div>
+  <section id="overview" hidden></section>
+  <h2 id="summary-h" hidden></h2>
+  <div class="tiles" id="tiles"></div>
+  <div id="body" class="body"></div>
+  <h2 id="findings-h">Findings</h2>
+  <p class="meta">Point estimates with uncertainty intervals; the sampling unit and method are stated on each chart. A filled green marker means the interval excludes zero; a hollow marker means it does not. Every chart has a data table beneath it.</p>
+  <div id="charts"></div>
+  <div id="figures"></div>
+  <div id="tables"></div>
+  <h2 id="method-h">Method</h2><ul id="method"></ul>
+  <div id="deviations"></div>
+  <footer id="foot"></footer>
+</main>
+</div>
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+<script type="application/json" id="data">{"title":"Netball: team ratings and the Super Shot","slug":"netball.html","kicker":"Netball \u00b7 Super Netball and the ANZ Premiership","generated":"2026-11-01 00:04 AEDT","as_of":"2026-11-01","headline":"ANZ Championship \u2192 Super Netball: the ratings pick the winner 64% of the time over 470 decisive held-out matches (2019\u20132026; 10 draws excluded from accuracy), better than Elo (Brier 0.217 v 0.230), with home advantage +1.8 points. ANZ Premiership: the ratings pick the winner 68% of the time over 338 decisive held-out matches (2019\u20132026; 2 draws excluded from accuracy), not clearly different from Elo (Brier 0.203 v 0.213), with home advantage +0.9 points.","summary":[{"label":"Top rated \u00b7 ANZ Championship \u2192 Super Netball","value":"Adelaide Thunderbirds","note":"+12.5 points a match against an average team, after 2026"},{"label":"Top rated \u00b7 ANZ Premiership","value":"Northern Mystics","note":"+4.8 points a match against an average team, after 2026"},{"label":"Super Shot, 2026","value":"0.99 v 0.89","note":"points per attempt from the two-point zone v close range (50% v 89% accuracy)"}],"findings":[{"label":"ANZ Championship \u2192 Super Netball: ratings \u2212 Elo","estimate":-1.311282606239818,"lo":-2.6013037600395936,"hi":-0.1300748950202785,"unit":"Brier score \u00d7 100 (negative = the ratings are better)","group":"brier"},{"label":"ANZ Championship \u2192 Super Netball: ratings \u2212 home win rate","estimate":-2.8146036590869983,"lo":-4.649410272311754,"hi":-0.9277762666135984,"unit":"Brier score \u00d7 100 (negative = the ratings are better)","group":"brier"},{"label":"ANZ Premiership: ratings \u2212 Elo","estimate":-1.0681561702411737,"lo":-2.800854365061024,"hi":0.46185494851288306,"unit":"Brier score \u00d7 100 (negative = the ratings are better)","group":"brier"},{"label":"ANZ Premiership: ratings \u2212 home win rate","estimate":-4.4777516727501725,"lo":-5.929452599578341,"hi":-2.9879963789540254,"unit":"Brier score \u00d7 100 (negative = the ratings are better)","group":"brier"}],"findings_label":"Does the rating model beat simple baselines?","findings_note":"Held-out Brier score difference per match, \u00d7100, with a 95% interval from resampling whole rounds.","question":"How strong is each team, how well does a simple rating model call matches it has not seen, and is the Super Shot worth taking? 1,592 domestic league matches, 2009\u20132026.","charts":[{"type":"dots","title":"ANZ Championship \u2192 Super Netball: team ratings after the latest season","subtitle":"Posterior mean and 80% interval at the end of the last completed season, before any off-season shrinkage.","rows":[{"label":"Adelaide Thunderbirds","estimate":12.5,"lo":9.6,"hi":15.4,"unit":"points per match against an average team, neutral venue"},{"label":"Melbourne Mavericks","estimate":2.4,"lo":-0.5,"hi":5.3,"unit":"points per match against an average team, neutral venue"},{"label":"West Coast Fever","estimate":1.8,"lo":-1.1,"hi":4.6,"unit":"points per match against an average team, neutral venue"},{"label":"Melbourne Vixens","estimate":1.2,"lo":-1.7,"hi":4.1,"unit":"points per match against an average team, neutral venue"},{"label":"NSW Swifts","estimate":-1.7,"lo":-4.6,"hi":1.3,"unit":"points per match against an average team, neutral venue"},{"label":"Sunshine Coast Lightning","estimate":-2.1,"lo":-5.1,"hi":0.8,"unit":"points per match against an average team, neutral venue"},{"label":"Queensland Firebirds","estimate":-4.4,"lo":-7.3,"hi":-1.5,"unit":"points per match against an average team, neutral venue"},{"label":"GIANTS Netball","estimate":-9.6,"lo":-12.5,"hi":-6.7,"unit":"points per match against an average team, neutral venue"}],"xlabel":"points better than an average team (80% interval)","nosig":true,"digits":1},{"type":"panels","title":"ANZ Championship \u2192 Super Netball: rating at each season's end, by team","subtitle":"The filter's posterior mean after each season's last match, centred on that season's teams; every panel shares the same scale. Ordered by the latest rating.","panels":[{"type":"lines","title":"Thunderbirds","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[-8.3,-16.8,-6.2,-2.0,-3.8,-1.8,2.3,10.1,2.6,12.5]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Mavericks","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[null,null,null,null,null,null,null,-5.5,-4.0,2.4]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Fever","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[-6.6,3.7,-4.8,5.0,7.1,5.7,5.2,5.2,8.6,1.8]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Vixens","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[6.3,2.6,2.7,5.8,-6.1,0.7,1.1,4.1,2.1,1.2]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Swifts","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[-4.5,-0.2,6.1,0.7,2.9,-0.9,3.1,-3.8,-0.3,-1.7]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Lightning","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[6.5,6.1,4.9,-1.9,-0.7,-3.1,-0.2,1.2,0.2,-2.1]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Firebirds","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[2.4,6.9,-4.5,-1.2,0.3,-0.8,-4.6,-5.7,-6.3,-4.4]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"Magpies","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[1.9,-4.4,0.3,-6.4,-2.8,-1.3,-5.0,null,null,null]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834},{"type":"lines","title":"GIANTS","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[2.3,2.2,1.5,0.0,3.3,1.4,-2.0,-5.6,-2.9,-9.6]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-16.784180675691825,"ymax":12.525054050649834}]},{"type":"lines","title":"ANZ Championship \u2192 Super Netball: calibration of held-out home-win probabilities","subtitle":"","x":[0.135,0.297,0.392,0.494,0.57,0.644,0.714,0.781,0.843,0.913],"series":[{"name":"actual home win rate","values":[0.271,0.281,0.51,0.365,0.375,0.594,0.698,0.76,0.708,0.833],"n":[48,48,48,48,48,48,48,48,48,48],"line":false}],"xlabel":"forecast probability (decile mean)","ylabel":"actual","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false},{"type":"dots","title":"ANZ Premiership: team ratings after the latest season","subtitle":"Posterior mean and 80% interval at the end of the last completed season, before any off-season shrinkage.","rows":[{"label":"Northern Mystics","estimate":4.8,"lo":1.7,"hi":7.8,"unit":"points per match against an average team, neutral venue"},{"label":"Southern Steel","estimate":2.5,"lo":-0.5,"hi":5.6,"unit":"points per match against an average team, neutral venue"},{"label":"Mainland Tactix","estimate":1.8,"lo":-1.3,"hi":4.9,"unit":"points per match against an average team, neutral venue"},{"label":"Stars","estimate":-0.7,"lo":-3.9,"hi":2.4,"unit":"points per match against an average team, neutral venue"},{"label":"Central Pulse","estimate":-3.4,"lo":-6.5,"hi":-0.3,"unit":"points per match against an average team, neutral venue"},{"label":"WBOP Magic","estimate":-5.0,"lo":-8.1,"hi":-1.8,"unit":"points per match against an average team, neutral venue"}],"xlabel":"points better than an average team (80% interval)","nosig":true,"digits":1},{"type":"panels","title":"ANZ Premiership: rating at each season's end, by team","subtitle":"The filter's posterior mean after each season's last match, centred on that season's teams; every panel shares the same scale. Ordered by the latest rating.","panels":[{"type":"lines","title":"Mystics","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[0.4,0.1,-2.3,0.5,3.0,0.6,5.7,3.1,4.3,4.8]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113},{"type":"lines","title":"Steel","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[13.1,1.9,5.6,-2.9,0.2,-2.8,-8.7,-9.1,0.3,2.5]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113},{"type":"lines","title":"Tactix","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[-8.9,-0.6,-4.5,2.2,2.2,-3.6,1.3,2.8,3.6,1.8]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113},{"type":"lines","title":"Stars","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[-6.8,-4.0,-2.2,-2.0,1.1,2.5,1.3,-2.2,-9.1,-0.7]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113},{"type":"lines","title":"Pulse","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[1.6,7.0,7.5,6.3,-0.9,6.4,2.5,4.6,3.3,-3.4]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113},{"type":"lines","title":"Magic","subtitle":"","x":["2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"rating","values":[0.7,-4.3,-4.1,-4.1,-5.7,-3.0,-2.1,0.9,-2.4,-5.0]}],"xlabel":"season","ylabel":"points","identity":false,"reference":0.0,"ramp":false,"yzero":false,"endLabels":false,"height":170,"ymin":-9.139869668993379,"ymax":13.07733932032113}]},{"type":"lines","title":"ANZ Premiership: calibration of held-out home-win probabilities","subtitle":"","x":[0.218,0.361,0.428,0.473,0.525,0.569,0.61,0.653,0.724,0.851],"series":[{"name":"actual home win rate","values":[0.147,0.294,0.412,0.441,0.426,0.676,0.632,0.765,0.735,0.882],"n":[34,34,34,34,34,34,34,34,34,34],"line":false}],"xlabel":"forecast probability (decile mean)","ylabel":"actual","identity":true,"reference":null,"ramp":false,"yzero":false,"endLabels":false},{"type":"bars","title":"Super Netball: average home margin by season","subtitle":"Mean home-minus-away points per match, held-out seasons. 2020 and 2021 were played largely in hubs.","x":["2019","2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"home margin","values":[2.0,-1.8,0.8,0.4,2.1,3.7,0.8,0.6]}],"xlabel":"season","ylabel":"points","reference":0.0,"referenceLabel":""},{"type":"bars","title":"Is the Super Shot worth it? Points per attempt by zone","subtitle":"Super Netball team totals. The Super Shot is only live in the last five minutes of each quarter (the Power 5), and shooters choose when to take it, so this compares the shots actually taken, not a forced choice. A two-point attempt is worth more whenever its accuracy is above half the close-range accuracy, before rebounds of misses and turnovers.","x":["2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"inside 3 m (1 point)","values":[0.88,0.898,0.9,0.906,0.898,0.903,0.885]},{"name":"Super Shot zone (2 points)","values":[1.074,1.006,1.033,1.103,1.109,1.05,0.99]}],"xlabel":"season","ylabel":"points per attempt","reference":null,"referenceLabel":""},{"type":"lines","title":"Super Shot attempts as a share of all attempts (whole match, not just the Power 5)","subtitle":"","x":["2020","2021","2022","2023","2024","2025","2026"],"series":[{"name":"share of attempts","values":[14.8,12.1,13.1,15.5,16.5,13.7,11.9]},{"name":"share of points","values":[17.5,13.4,14.8,18.2,19.6,15.6,13.1]}],"xlabel":"season","ylabel":"%","identity":false,"reference":null,"ramp":false,"yzero":true,"endLabels":true}],"tables":[{"title":"Walk-forward record (held-out seasons): ratings / Elo / home win rate","columns":[["league","League"],["train","Fitted on"],["test","Scored on"],["n","Matches"],["brier","Brier"],["ll","Log loss"],["acc","Ratings: winner right"],["mae","Margin MAE"],["cover","80% interval coverage"],["h","Home adv."],["sigma","\u03c3"],["q","q"],["rho","\u03c1"],["s","s"],["s0","s0"]],"rows":[{"league":"ANZ Championship \u2192 Super Netball","train":"2009\u20132018","test":"2019\u20132026","n":480,"brier":"0.217 / 0.230 / 0.245","ll":"0.639 / 0.678 / 0.693","acc":"64.3% (470 decisive)","mae":"8.2","cover":"74.8%","h":"+1.8","sigma":"7.7","q":"0.81","rho":"0.70","s":"4.4","s0":"7.0"},{"league":"ANZ Premiership","train":"2017\u20132018","test":"2019\u20132026","n":340,"brier":"0.203 / 0.213 / 0.247","ll":"0.593 / 0.626 / 0.691","acc":"68.3% (338 decisive)","mae":"7.8","cover":"80.9%","h":"+0.9","sigma":"9.2","q":"0.77","rho":"0.20","s":"3.8","s0":"8.7"}]},{"title":"Super Netball shooting by season","columns":[["season","Season"],["a1","Close attempts"],["acc1","Close accuracy"],["a2","Super Shot attempts"],["acc2","Super Shot accuracy"],["pts","Points per attempt (close / Super)"],["share","Super Shot share of points"]],"rows":[{"season":2020,"a1":6871,"acc1":"88.0%","a2":1196,"acc2":"53.7%","pts":"0.880 / 1.074","share":"17.5%"},{"season":2021,"a1":6952,"acc1":"89.8%","a2":958,"acc2":"50.3%","pts":"0.898 / 1.006","share":"13.4%"},{"season":2022,"a1":7066,"acc1":"90.0%","a2":1067,"acc2":"51.6%","pts":"0.900 / 1.033","share":"14.8%"},{"season":2023,"a1":6733,"acc1":"90.6%","a2":1231,"acc2":"55.2%","pts":"0.906 / 1.103","share":"18.2%"},{"season":2024,"a1":6851,"acc1":"89.8%","a2":1349,"acc2":"55.4%","pts":"0.898 / 1.109","share":"19.6%"},{"season":2025,"a1":7151,"acc1":"90.3%","a2":1137,"acc2":"52.5%","pts":"0.903 / 1.050","share":"15.6%"},{"season":2026,"a1":7011,"acc1":"88.5%","a2":947,"acc2":"49.5%","pts":"0.885 / 0.990","share":"13.1%"}]},{"title":"2026 Super Netball: Goals","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Goals"]],"rows":[{"player":"E.van der Berg","team":"Thunderbirds","matches":14,"value":"708"},{"player":"G.Nweke","team":"Swifts","matches":14,"value":"667"},{"player":"D.Wallam","team":"Lightning","matches":14,"value":"618"},{"player":"R.Aiken-George","team":"Fever","matches":14,"value":"612"},{"player":"S.Nelson","team":"Mavericks","matches":14,"value":"544"},{"player":"M.Cholhok","team":"Firebirds","matches":14,"value":"513"},{"player":"S.Garbin","team":"Vixens","matches":14,"value":"489"},{"player":"M.Letherbarrow","team":"GIANTS","matches":14,"value":"327"},{"player":"K.Austin","team":"Vixens","matches":14,"value":"280"},{"player":"S.Dwyer","team":"GIANTS","matches":14,"value":"269"}]},{"title":"2026 Super Netball: Shooting accuracy (100+ attempts)","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Shooting accuracy"]],"rows":[{"player":"S.Nelson","team":"Mavericks","matches":14,"value":"91.9%"},{"player":"G.Nweke","team":"Swifts","matches":14,"value":"90.5%"},{"player":"E.van der Berg","team":"Thunderbirds","matches":14,"value":"90.4%"},{"player":"S.Garbin","team":"Vixens","matches":14,"value":"89.7%"},{"player":"S.Dwyer","team":"GIANTS","matches":14,"value":"88.2%"},{"player":"R.Aiken-George","team":"Fever","matches":14,"value":"84.6%"},{"player":"U.Palavi","team":"Mavericks","matches":14,"value":"84.6%"},{"player":"D.Wallam","team":"Lightning","matches":14,"value":"82.7%"},{"player":"C.Koenen","team":"Lightning","matches":14,"value":"82.2%"},{"player":"M.Cholhok","team":"Firebirds","matches":14,"value":"81.7%"}]},{"title":"2026 Super Netball: Super Shots scored","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Super Shots scored"]],"rows":[{"player":"K.Austin","team":"Vixens","matches":14,"value":"54"},{"player":"S.Dwyer","team":"GIANTS","matches":14,"value":"49"},{"player":"M.Letherbarrow","team":"GIANTS","matches":14,"value":"49"},{"player":"S.Glasgow","team":"Fever","matches":14,"value":"40"},{"player":"G.Whyte","team":"Swifts","matches":13,"value":"29"},{"player":"T.Selby-Rickit","team":"Firebirds","matches":14,"value":"28"},{"player":"D.Wallam","team":"Lightning","matches":14,"value":"27"},{"player":"U.Palavi","team":"Mavericks","matches":14,"value":"22"},{"player":"E.van der Berg","team":"Thunderbirds","matches":14,"value":"20"},{"player":"N.Barge","team":"Swifts","matches":11,"value":"14"}]},{"title":"2026 Super Netball: Gains","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Gains"]],"rows":[{"player":"S.Sterling-Humphrey","team":"Thunderbirds","matches":14,"value":"79"},{"player":"K.Jackson","team":"Firebirds","matches":13,"value":"67"},{"player":"L.Wilson","team":"Thunderbirds","matches":14,"value":"59"},{"player":"J.Grenvold","team":"Mavericks","matches":14,"value":"59"},{"player":"K.Dehaney","team":"Fever","matches":14,"value":"56"},{"player":"C.Bruce","team":"Lightning","matches":14,"value":"54"},{"player":"F.Williams","team":"Fever","matches":14,"value":"47"},{"player":"E.O'Brien","team":"GIANTS","matches":14,"value":"46"},{"player":"K.Brown","team":"Mavericks","matches":14,"value":"46"},{"player":"J.Weston","team":"Vixens","matches":14,"value":"45"}]},{"title":"2026 Super Netball: Intercepts","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Intercepts"]],"rows":[{"player":"L.Wilson","team":"Thunderbirds","matches":14,"value":"37"},{"player":"K.Jackson","team":"Firebirds","matches":13,"value":"35"},{"player":"S.Sterling-Humphrey","team":"Thunderbirds","matches":14,"value":"32"},{"player":"J.Grenvold","team":"Mavericks","matches":14,"value":"32"},{"player":"K.Burger","team":"Lightning","matches":14,"value":"23"},{"player":"A.Parmenter","team":"Mavericks","matches":14,"value":"22"},{"player":"C.Bruce","team":"Lightning","matches":14,"value":"21"},{"player":"K.Brown","team":"Mavericks","matches":14,"value":"17"},{"player":"F.Williams","team":"Fever","matches":14,"value":"16"},{"player":"K.Dehaney","team":"Fever","matches":14,"value":"16"}]},{"title":"2026 Super Netball: Goal assists","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Goal assists"]],"rows":[{"player":"G.Horjus","team":"Thunderbirds","matches":14,"value":"287"},{"player":"J.Price","team":"Mavericks","matches":14,"value":"275"},{"player":"G.Whyte","team":"Swifts","matches":13,"value":"269"},{"player":"K.Heffernan","team":"Thunderbirds","matches":14,"value":"218"},{"player":"M.Hay","team":"Mavericks","matches":14,"value":"217"},{"player":"C.Koenen","team":"Lightning","matches":14,"value":"207"},{"player":"T.Selby-Rickit","team":"Firebirds","matches":14,"value":"200"},{"player":"L.Watson","team":"Lightning","matches":14,"value":"194"},{"player":"K.Moloney","team":"Vixens","matches":14,"value":"185"},{"player":"K.Austin","team":"Vixens","matches":14,"value":"176"}]},{"title":"2026 Super Netball: Champion Data net points per 60 minutes (300+ minutes)","columns":[["player","Player"],["team","Team"],["matches","Matches"],["value","Champion Data net points per 60 minutes"]],"rows":[{"player":"J.Price","team":"Mavericks","matches":14,"value":"90.2"},{"player":"Z.Cransberg","team":"Fever","matches":11,"value":"88.5"},{"player":"K.Heffernan","team":"Thunderbirds","matches":14,"value":"87.9"},{"player":"E.van der Berg","team":"Thunderbirds","matches":14,"value":"86.8"},{"player":"T.Williams","team":"Thunderbirds","matches":14,"value":"83.8"},{"player":"M.Proud","team":"Swifts","matches":14,"value":"82.0"},{"player":"K.Moloney","team":"Vixens","matches":14,"value":"81.7"},{"player":"M.Gardner","team":"Firebirds","matches":10,"value":"78.1"},{"player":"L.Watson","team":"Lightning","matches":14,"value":"77.5"},{"player":"L.Dunkley","team":"Firebirds","matches":14,"value":"75.9"}]}],"method":["Ratings: each team's strength (points per match against an average team) follows a random walk that drifts a little with every match it plays and shrinks towards the average between seasons; a match observes the home margin as home advantage plus the strength difference plus noise. A Kalman filter updates the joint posterior of every team after each result.","The six settings (home advantage, match noise \u03c3, per-match drift q, between-season shrink \u03c1 and added spread s, a new team's prior spread s0) maximise the marginal predictive log score of the margins on the training seasons (to 2018; the ANZ Premiership on its first two seasons). Training and evaluation predict all matches in a UTC day before using any of that day's results. This conservative daily cutoff substitutes for unavailable result-publication timestamps; it is a historical diagnostic, not a verified decision-time backtest.","Win probability is the chance the predictive margin is above zero. Baselines: Elo with its K-factor and home bonus tuned on the same training seasons and daily cutoff, and the training-period home win rate. Draws count as half a win in the Brier score and are left out of log loss and winner accuracy; an exactly 50/50 forecast gets half credit in winner accuracy. Rating intervals centre both the mean and covariance on the active teams' average.","Super Netball scores two points for a goal from the outer circle from 2020; margins and points are in points. Domestic leagues only (internationals, Fast5, pre-season and youth events are in the data but not rated).","Calibration: ANZ Championship \u2192 Super Netball 80% margin intervals covered 75% of held-out matches; ANZ Premiership 80% margin intervals covered 81% of held-out matches. Below 80% means the ratings are somewhat overconfident, which shows at the extremes of the calibration charts.","Leaders: player totals for the latest Super Netball regular season from Champion Data's match statistics; net points are Champion Data's own player rating."],"deviations":[],"data":{"results":"data/netball/netball_results.json","source":"Champion Data match centre (mc.championdata.com); raw files kept locally, not redistributed","code":"src/predmarkets/netball.py, src/predmarkets/netball_model.py, src/predmarkets/netball_page.py"}}</script>
+<script>
+(function(){
+  "use strict";
+  var N = JSON.parse(document.getElementById("data").textContent);
+  var SERIES = ["var(--s1)","var(--s2)","var(--s3)","var(--s4)"];
+  var RAMP = getComputedStyle(document.documentElement).getPropertyValue("--ramp").split(",").map(function(s){return s.trim();});
+  var uid = 0;
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+  function longDate(ymd){ var p=ymd.split("-"); return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long",year:"numeric"}); }
+  function fmt(v, d){ if(v==null||isNaN(v)) return "–"; if(d==null){ var a=Math.abs(v); d = a>=100?0:a>=10?1:a>=1?2:3; } return Number(v).toFixed(d); }
+  function niceStep(span, n){ var raw=span/n, mag=Math.pow(10,Math.floor(Math.log10(raw))), r=raw/mag; var s=r<1.5?1:r<3.5?2:r<7.5?5:10; return s*mag; }
+  function ticks(lo, hi, n){ var st=niceStep(hi-lo||1, n||5), out=[], v=Math.ceil(lo/st)*st; for(;v<=hi+1e-9;v+=st){ out.push(Math.abs(v)<1e-9?0:+v.toFixed(10)); } return out; }
+  function tickLabel(v){ var a=Math.abs(v); return a>=1000? v.toLocaleString("en-AU"): a>=10||a===0? String(Math.round(v*10)/10): a>=1? String(Math.round(v*100)/100): String(Math.round(v*1000)/1000); }
+  function wrap(s, width){ var words=String(s).split(" "), lines=[], cur=""; words.forEach(function(w){ if((cur+" "+w).trim().length>width && cur){ lines.push(cur); cur=w; } else { cur=(cur+" "+w).trim(); } }); if(cur) lines.push(cur); return lines.slice(0,3); }
+  function seriesColor(i, n, ramp){ if(ramp){ var k=Math.round(i*(RAMP.length-1)/Math.max(1,n-1)); return RAMP[k]; } return SERIES[i % SERIES.length]; }
+
+  // Tooltip: one element, shown on hover and on keyboard focus of any element carrying data-tip.
+  var tip = $("tip");
+  function showTip(el){ var t=el.getAttribute("data-tip"); if(!t) return; tip.textContent=t; tip.style.display="block";
+    var r=el.getBoundingClientRect(), x=window.scrollX+r.left+r.width/2, y=window.scrollY+r.top-8;
+    tip.style.left=Math.max(8, Math.min(x - tip.offsetWidth/2, window.scrollX+document.documentElement.clientWidth-tip.offsetWidth-8))+"px";
+    tip.style.top=(y - tip.offsetHeight)+"px"; }
+  function hideTip(){ tip.style.display="none"; }
+  document.addEventListener("mouseover", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("mouseout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+  document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
+  document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
+
+  function figure(title, sub, inner, legend, table){
+    var id="fig"+(++uid);
+    return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
+      + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
+  }
+  function legendHtml(items){ if(!items||items.length<2) return ""; return '<ul class="legend" aria-label="Legend">'+items.map(function(it){ return '<li><span class="sw'+(it.kind?" "+it.kind:"")+'" style="background:'+it.color+';color:'+it.color+'"></span>'+esc(it.name)+'</li>'; }).join("")+'</ul>'; }
+  function tableHtml(caption, cols, rows){ return '<table><caption class="sr">'+esc(caption)+'</caption><thead><tr>'+cols.map(function(c,i){ return '<th scope="col"'+(i?' class="n"':"")+'>'+esc(c)+'</th>'; }).join("")+'</tr></thead><tbody>'
+    + rows.map(function(r){ return '<tr>'+r.map(function(v,i){ return i? '<td class="n">'+esc(v)+'</td>' : '<th scope="row" style="font-weight:500;color:var(--ink)">'+esc(v)+'</th>'; }).join("")+'</tr>'; }).join("")+'</tbody></table>'; }
+  function svgOpen(W, H, title, desc, cls){ var id="svg"+(++uid); return '<svg'+(cls?' class="'+esc(cls)+'"':'')+' viewBox="0 0 '+W+' '+H+'" role="img" aria-labelledby="'+id+'-t '+id+'-d"><title id="'+id+'-t">'+esc(title)+'</title><desc id="'+id+'-d">'+esc(desc)+'</desc>'; }
+
+  // ---- Dot plot: estimates with intervals, one row each (the pre-registered findings).
+  function dots(rows, opts){
+    opts = opts||{};
+    var W=860, R=190, rowH=30, labelW=42, lines=rows.map(function(r){ return wrap(r.label, labelW); });
+    var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
+    var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
+    var top=14, H=rows.length*rowH+top+44;
+    var lo=Math.min.apply(null, rows.map(function(r){return r.lo;})), hi=Math.max.apply(null, rows.map(function(r){return r.hi;}));
+    if(!opts.nozero){ lo=Math.min(0, lo); hi=Math.max(0, hi); }
+    if(hi-lo===0){ hi+=1; lo-=1; }
+    var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
+    function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
+    var tk=ticks(lo, hi, 5);
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    var s=svgOpen(W, H, opts.title||"", desc);
+    tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
+    if(opts.reference!=null&&opts.reference>lo&&opts.reference<hi){ s+='<line class="zero" x1="'+X(opts.reference).toFixed(1)+'" x2="'+X(opts.reference).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/><text class="t" x="'+X(opts.reference).toFixed(1)+'" y="'+(top-2)+'" text-anchor="middle">'+esc(opts.referenceLabel||"")+'</text>'; }
+    rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=!opts.nosig&&((r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0)), ls=lines[i];
+      var ty = y + 5 - (ls.length-1)*9;
+      s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]"+(opts.nosig?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
+      s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
+      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]")+'</text>';
+    });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
+    tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
+    if(opts.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(opts.xlabel)+'</text>';
+    s+='</svg>';
+    var table = tableHtml(opts.title||"Findings", ["Analysis","Estimate","Lower","Upper"], rows.map(function(r){ return [r.label, fmt(r.estimate), fmt(r.lo), fmt(r.hi)]; }));
+    return {svg:s, table:table};
+  }
+
+  // ---- Lines over a shared x (numeric or categorical); several series; legend + end labels; identity line optional.
+  function lines(c){
+    var W=c.width||420, H=c.height||260, L=56, R=c.endLabels===false?16:92, T=12, B=44;
+    var cat = typeof c.x[0]==="string";
+    var xs = cat? c.x.map(function(_,i){return i;}): c.x;
+    var allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.identity){ allY=allY.concat(xs); }
+    var ylo=c.yzero? Math.min(0, Math.min.apply(null, allY)): Math.min.apply(null, allY), yhi=Math.max.apply(null, allY);
+    if(c.ymin!=null) ylo=Math.min(ylo, c.ymin); if(c.ymax!=null) yhi=Math.max(yhi, c.ymax);
+    if(yhi-ylo===0){ yhi+=1; ylo-=1; } var yp=(yhi-ylo)*0.08; if(!c.yzero||ylo<0) ylo-=yp; yhi+=yp;
+    var xlo=Math.min.apply(null, xs), xhi=Math.max.apply(null, xs); if(xhi===xlo){ xhi+=1; }
+    if(cat){ xlo-=0.5; xhi+=0.5; } else if(c.identity){ xlo=ylo; xhi=yhi; }
+    function X(v){ return L+(W-L-R)*(v-xlo)/(xhi-xlo); } function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var yt=ticks(ylo, yhi, 4), xt=cat? xs: ticks(xlo, xhi, 5);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return (cat?c.x[i]:tickLabel(xs[i]))+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(ylo).toFixed(1)+'" y2="'+Y(ylo).toFixed(1)+'"/>';
+    var every = cat? Math.max(1, Math.ceil(xt.length/Math.max(3, Math.floor((W-L-R)/78)))): 1;
+    xt.forEach(function(v,i){ if(cat && i%every!==0 && i!==xt.length-1) return; var lab=cat? c.x[i]: tickLabel(v); s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(lab)+'</text>'; });
+    if(c.identity){ var a=Math.max(xlo,ylo), b=Math.min(xhi,yhi); s+='<line class="ident" x1="'+X(a).toFixed(1)+'" y1="'+Y(a).toFixed(1)+'" x2="'+X(b).toFixed(1)+'" y2="'+Y(b).toFixed(1)+'"/>'; }
+    if(c.reference!=null&&c.reference>=ylo&&c.reference<=yhi){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'; }
+    var n=c.series.length, ends=[];
+    c.series.forEach(function(sr,k){ var col=sr.color||seriesColor(k, n, c.ramp), pts=[];
+      sr.values.forEach(function(v,i){ if(v!=null) pts.push([X(xs[i]), Y(v), i]); });
+      if(sr.line!==false && pts.length>1) s+='<path class="ln" style="stroke:'+col+'" d="M'+pts.map(function(p,i){ return (i===0?'':(p[2]===pts[i-1][2]+1?'L':'M'))+p[0].toFixed(1)+','+p[1].toFixed(1); }).join("")+'"/>';
+      if(sr.markers!==false || pts.length===1) pts.forEach(function(p){ var t=sr.name+"\n"+(cat?c.x[p[2]]:(c.xlabel||"x")+" "+tickLabel(xs[p[2]]))+": "+fmt(sr.values[p[2]])+(sr.n&&sr.n[p[2]]!=null?"  (n="+sr.n[p[2]]+")":"");
+        s+='<circle class="hit" tabindex="0" data-tip="'+esc(t)+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="12"/><circle class="mk" style="fill:'+col+'" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="4"/>'; });
+      if(pts.length&&c.endLabels!==false&&n<=4) ends.push({y:pts[pts.length-1][1], name:sr.name});
+    });
+    ends.sort(function(a,b){ return a.y-b.y; }); for(var i=1;i<ends.length;i++){ if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14; }
+    ends.forEach(function(e){ s+='<text x="'+(W-R+8)+'" y="'+(e.y+4).toFixed(1)+'" style="font-size:12px">'+esc(e.name)+'</text>'; });
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n, c.ramp), kind: sr.line===false?"dot":""}; }));
+    var table = tableHtml(c.title, [c.xlabel||"x"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [cat?x:tickLabel(x)].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Grouped bars over categories (<= 3 series), optional reference line.
+  function bars(c){
+    var W=c.width||420, H=c.height||240, L=56, R=16, T=12, B=44;
+    var n=c.series.length, m=c.x.length, allY=[]; c.series.forEach(function(s){ s.values.forEach(function(v){ if(v!=null) allY.push(v); }); });
+    if(c.reference!=null) allY.push(c.reference);
+    var ylo=Math.min(0, Math.min.apply(null, allY)), yhi=Math.max(0, Math.max.apply(null, allY)); if(yhi-ylo===0) yhi=ylo+1; var yp=(yhi-ylo)*0.08; yhi+=yp; if(ylo<0) ylo-=yp;
+    function Y(v){ return T+(H-T-B)*(1-(v-ylo)/(yhi-ylo)); }
+    var slot=(W-L-R)/m, bw=Math.min(24, (slot*0.7-2*(n-1))/n);
+    var yt=ticks(ylo, yhi, 4);
+    var desc=c.series.map(function(s){ return s.name+": "+s.values.map(function(v,i){ return c.x[i]+" "+fmt(v); }).join(", "); }).join(". ");
+    var s=svgOpen(W, H, c.title, desc);
+    yt.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/><text class="t" x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+tickLabel(v)+'</text>'; });
+    var everyB = Math.max(1, Math.ceil(m/10));
+    c.x.forEach(function(lab,i){ var cx=L+slot*(i+0.5), ls=wrap(lab, Math.max(8, Math.floor(slot/7)));
+      if(i%everyB===0 || i===m-1) s+='<text class="t" x="'+cx.toFixed(1)+'" y="'+(H-B+16)+'" text-anchor="middle">'+ls.map(function(t,k){ return '<tspan x="'+cx.toFixed(1)+'" dy="'+(k?13:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
+      c.series.forEach(function(sr,k){ var v=sr.values[i]; if(v==null) return; var col=sr.color||seriesColor(k, n);
+        var x=cx-(n*bw+2*(n-1))/2+k*(bw+2), y0=Y(0), y1=Y(v), top=Math.min(y0,y1), h=Math.abs(y0-y1), r=Math.min(4, h/2);
+        var d = v>=0? 'M'+x+','+y0+'v'+(-(h-r))+'a'+r+','+r+' 0 0 1 '+r+','+(-r)+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 1 '+r+','+r+'v'+(h-r)+'z'
+                    : 'M'+x+','+y0+'v'+(h-r)+'a'+r+','+r+' 0 0 0 '+r+','+r+'h'+(bw-2*r)+'a'+r+','+r+' 0 0 0 '+r+','+(-r)+'v'+(-(h-r))+'z';
+        s+='<path class="bar" tabindex="0" data-tip="'+esc(sr.name+"\n"+lab+": "+fmt(v)+(sr.n&&sr.n[i]!=null?"  (n="+sr.n[i]+")":""))+'" style="fill:'+col+'" d="'+d+'"/>'; });
+    });
+    if(c.reference!=null){ s+='<line class="zero" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(c.reference).toFixed(1)+'" y2="'+Y(c.reference).toFixed(1)+'"/>'+(c.referenceLabel?'<text class="t" x="'+(L+4)+'" y="'+(Y(c.reference)-4).toFixed(1)+'" text-anchor="start">'+esc(c.referenceLabel)+'</text>':""); }
+    if(c.xlabel) s+='<text class="t" x="'+((L+W-R)/2)+'" y="'+(H-4)+'" text-anchor="middle">'+esc(c.xlabel)+'</text>';
+    if(c.ylabel) s+='<text class="t" transform="translate(12 '+((T+H-B)/2)+') rotate(-90)" text-anchor="middle">'+esc(c.ylabel)+'</text>';
+    s+='</svg>';
+    var legend = legendHtml(c.series.map(function(sr,k){ return {name:sr.name, color:sr.color||seriesColor(k, n), kind:"dot"}; }));
+    var table = tableHtml(c.title, [c.xlabel||"category"].concat(c.series.map(function(sr){return sr.name;})), c.x.map(function(x,i){ return [x].concat(c.series.map(function(sr){ return fmt(sr.values[i]); })); }));
+    return {svg:s, legend:legend, table:table};
+  }
+
+  // ---- Map: pre-projected SVG paths, one per feature, filled by the model's call; tooltip and table twin.
+  function mapChart(c){
+    var W=c.width, H=c.height;
+    var desc=c.features.map(function(f){ return f.name+": "+f.tip.replace(/\n/g," "); }).join("; ");
+    var s=svgOpen(W, H, c.title, desc, "map");
+    c.features.forEach(function(f){ s+='<path class="area" tabindex="0" data-tip="'+esc(f.name+"\n"+f.tip)+'" d="'+f.d+'" style="fill:'+f.fill+'"/>'; });
+    c.features.forEach(function(f){ if(f.label) s+='<text class="ml" x="'+f.c[0]+'" y="'+(f.c[1]+3)+'" text-anchor="middle">'+esc(f.label)+'</text>'; });
+    s+='</svg>';
+    var legend = legendHtml((c.legend||[]).map(function(l){ return {name:l.name, color:l.color, kind:"dot"}; }));
+    var table = c.table&&c.table.length&&c.columns&&c.columns.length? tableHtml(c.title, c.columns.map(function(x){return x[1];}), c.table.map(function(r){ return c.columns.map(function(x){ return r[x[0]]; }); })): "";
+    return {svg:s, legend:legend, table:table};
+  }
+
+  function renderChart(c){
+    if(c.type==="map"){ var mm=mapChart(c); return figure(c.title, c.subtitle, mm.svg, mm.legend, mm.table); }
+    if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
+    if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
+      return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
+    }
+    if(!c.width){ c.width=860; c.height=c.height||300; }          // standalone charts span the column; panels are 420 wide
+    var r = c.type==="bars"? bars(c): lines(c);
+    return figure(c.title, c.subtitle, r.svg, r.legend, r.table);
+  }
+
+  // ---- Page
+  $("kicker").textContent = N.kicker; $("title").textContent = N.title;
+  $("asof").innerHTML = '<span>Results as of</span><b>'+esc(longDate(N.as_of))+'</b>';
+  if(N.registered){ $("reg").innerHTML = 'Pre-registered '+esc(longDate(N.registered.date))+' (commit '+esc(N.registered.commit)+', <code>'+esc(N.registered.path)+'</code>) before any analysis ran. Results generated '+esc(N.generated)+'.'; }
+  else { $("reg").textContent = 'Generated '+N.generated+'.'; }
+  if(N.question){ $("question").textContent = N.question; } else { $("question").style.display="none"; $("question-h").style.display="none"; }
+  if(N.findings_label){ $("findings-h").textContent = N.findings_label; }
+  if(N.findings_note===""){ document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(!(N.findings&&N.findings.length)){ $("findings-h").style.display="none"; document.querySelector("#findings-h + .meta").style.display="none"; }
+  if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
+  function renderTiles(rows){ return rows.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  if(N.summary_label){ $("summary-h").hidden=false; $("summary-h").textContent=N.summary_label; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = renderTiles(N.summary); }
+  else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
+  var groups = {}, order = [];
+  (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
+  $("charts").innerHTML = order.map(function(g){ var rows=groups[g]; var unit=rows[0].unit||""; var parts=unit.split(/:\s(.+)/);
+    var title = parts.length>1? parts[0]: unit, sub = parts.length>1? parts[1]: "";
+    return renderChart({type:"dots", title:title, subtitle:sub, rows:rows, xlabel: rows[0].xlabel||""}); }).join("");
+  if(N.charts&&N.charts.length){ $("figures").innerHTML = '<h2 id="figures-h">Checks and detail</h2>' + N.charts.map(renderChart).join(""); }
+  if(N.body){ $("body").innerHTML = N.body;
+    var figs = Array.prototype.slice.call($("figures").querySelectorAll("figure.fig")), moved = 0;
+    document.querySelectorAll("#body .chart-slot").forEach(function(slot){ var i = +slot.getAttribute("data-chart"); if(figs[i]){ slot.replaceWith(figs[i]); moved++; } });
+    if(moved && moved >= figs.length){ $("figures").style.display = "none"; } }
+  function renderTable(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+    return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }
+  $("tables").innerHTML = (N.tables||[]).map(renderTable).join("");
+  if(N.overview){ $("overview").hidden=false; $("overview").innerHTML='<h2 id="aggregate-h">'+esc(N.overview.title)+'</h2><p>'+esc(N.overview.note)+'</p><div class="tiles">'+renderTiles(N.overview.summary||[])+'</div>'+renderTable(N.overview.table); }
+  $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
+  if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
+  else if(N.registered){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
+  $("foot").innerHTML = 'Data: '+esc(N.data.source||"Cricsheet ball-by-ball (CC BY 4.0)")+'. Code: <code>'+esc(N.data.code)+'</code>. Results file: <code>'+esc(N.data.results)+'</code>.'
+    + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
+    + ' <a href="index.html">All forecasts and notes</a>.';
+  // Contents: every h2 on the page, in order.
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.hidden||h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+})();
+</script>
+</body>
+</html>
