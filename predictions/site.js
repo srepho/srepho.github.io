@@ -230,6 +230,29 @@
     tick();
   }
 
+  // ---- Australian dates (display text only; data, links and code stay verbatim)
+  function auDateText(text) {
+    if (!/\d{4}-\d{2}-\d{2}/.test(text) || /^https?:\/\//.test(text.trim())) return text;
+    // Explicitly zoned timestamps can be converted to Sydney without guessing.
+    text = text.replace(/(^|[^\w.\/-])(\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2}| UTC))(?=$|[^\w\/-])/g, function (_, before, value) {
+      var iso = value.replace(" UTC", "Z").replace(" ", "T"), d = new Date(iso);
+      return isNaN(d.getTime()) ? _ : before + d.toLocaleString("en-AU", {timeZone:"Australia/Sydney", day:"2-digit", month:"2-digit", year:"numeric", hour:"numeric", minute:"2-digit", timeZoneName:"short"});
+    });
+    return text.replace(/(^|[^\w.\/-])(\d{4})-(\d{2})-(\d{2})(?=$|[^\w\/-]|T\d{2}:)/g, function (_, before, y, m, d) {
+      var date = new Date(y + "-" + m + "-" + d + "T00:00:00Z");
+      if (isNaN(date.getTime()) || date.getUTCMonth() + 1 !== +m || date.getUTCDate() !== +d) return _;
+      return before + d + "/" + m + "/" + y;
+    }).replace(/(\d{2}\/\d{2}\/\d{4})T(?=\d{2}:)/g, "$1 ");
+  }
+  function formatDates(root) {
+    var walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), node;
+    while ((node = walk.nextNode())) {
+      if (!node.parentElement || node.parentElement.closest("script,style,code,pre,textarea,input,select,[contenteditable]")) continue;
+      var formatted = auDateText(node.nodeValue);
+      if (formatted !== node.nodeValue) node.nodeValue = formatted;
+    }
+  }
+
   // ---- long tables
   function constrained(table) {
     for (var n = table.parentElement, i = 0; n && i < 4; n = n.parentElement, i++) {
@@ -285,13 +308,14 @@
   }
   function scan() {
     roots().forEach(function (root) {
+      formatDates(root);
       root.querySelectorAll("table").forEach(function (t) {
         if (t.__sc) { if (t.__scRefresh) t.__scRefresh(); return; }
         contain(t, root);
       });
       if (root !== document && !root.__scObserved) {
         root.__scObserved = true;
-        new MutationObserver(schedule).observe(root, {childList: true, subtree: true});
+        new MutationObserver(schedule).observe(root, {childList: true, characterData: true, subtree: true});
       }
     });
   }
@@ -305,7 +329,7 @@
     addStyle(document, "chrome", CSS);
     try { bar(); } catch (e) { if (window.console) console.warn("site chrome", e); }
     scan();
-    new MutationObserver(schedule).observe(document.body, {childList: true, subtree: true});
+    new MutationObserver(schedule).observe(document.body, {childList: true, characterData: true, subtree: true});
     addEventListener("load", schedule);
     addEventListener("resize", schedule);
   }
