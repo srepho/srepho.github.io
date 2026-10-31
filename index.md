@@ -26,7 +26,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### All forecasts
 
-- [Results: model against the market](/predictions/results.html) (Saturday 31 October 2026) — Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.
+- [Results: model against the market](/predictions/results.html) (Sunday 1 November 2026) — Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.
 - [Upcoming predictions](/predictions/upcoming.html) (Saturday 31 October 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections
