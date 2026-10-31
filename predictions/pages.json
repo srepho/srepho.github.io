@@ -326,20 +326,11 @@
  {
   "key": "midterms",
   "slug": "us-midterms-2026.html",
-  "title": "US midterms 2026: Senate polling research and markets",
-  "blurb": "An experimental Senate polling model with coverage and historical checks, alongside dated Polymarket and Kalshi prices for congressional control and state races.",
+  "title": "US midterms 2026: Senate, House and markets",
+  "blurb": "One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.",
   "section": "Elections",
-  "date": "2026-10-30",
-  "published": "2026-10-30 20:23 UTC"
- },
- {
-  "key": "us-midterms-research",
-  "slug": "us-midterms-research-2026.html",
-  "title": "US midterms: Senate and House research",
-  "blurb": "A separate Stan research model: polling and fundamentals, current district maps, shared election errors, held-out tests and explicit coverage bounds for both chambers.",
-  "section": "Elections",
-  "date": "2026-10-30",
-  "published": "2026-10-30 10:14 UTC"
+  "date": "2026-10-31",
+  "published": "2026-10-31 11:59 UTC"
  },
  {
   "key": "vic",
