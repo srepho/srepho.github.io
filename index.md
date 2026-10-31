@@ -69,7 +69,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Racing
 
-- [Melbourne Cup 2026 form](/predictions/melbourne-cup-2026.html) (Saturday 31 October 2026) — The provisional field with weights, history since 1990 and a small ranking aid that is honest about not beating a coin toss.
+- [Melbourne Cup 2026 form](/predictions/melbourne-cup-2026.html) (Saturday 31 October 2026) — The final field and barriers, a history ranking aid beside a Stan research comparison with uncertainty, and matching Polymarket/Kalshi race-winner prices when available.
 
 ### Research
 
