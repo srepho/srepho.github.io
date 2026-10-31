@@ -68,6 +68,10 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [How our NBA season projections work](/predictions/nba-methodology.html) (Saturday 17 October 2026) — The October 17 model, experiment results, limitations and next tests, with what has changed since.
 - [NBA 2026–27 — October 7 archive](/predictions/nba-2026-27-20261007.html) (Wednesday 7 October 2026) — Archived original predictions.
 
+### Racing
+
+- [Melbourne Cup 2026 form](/predictions/melbourne-cup-2026.html) (Saturday 31 October 2026) — The provisional field with weights, history since 1990 and a small ranking aid that is honest about not beating a coin toss.
+
 ### Research
 
 - [Ideas for experiments](/predictions/ideas.html) (Sunday 18 October 2026) — Questions worth testing, by sport, with links to the write-ups as each is done.
