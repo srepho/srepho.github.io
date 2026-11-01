@@ -213,7 +213,8 @@
   "blurb": "Experimental current-season rim and defensive-event estimates, component evidence, uncertainty and chronological development checks.",
   "section": "Basketball",
   "date": "2026-11-01",
-  "published": "2026-11-01 06:40 UTC"
+  "published": "2026-11-01 13:32 UTC",
+  "listed": false
  },
  {
   "key": "nba-live-method",
@@ -231,7 +232,8 @@
   "blurb": "Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.",
   "section": "Basketball",
   "date": "2026-11-01",
-  "published": "2026-11-01 13:19 UTC"
+  "published": "2026-11-01 13:32 UTC",
+  "listed": true
  },
  {
   "key": "nba-methodology",
