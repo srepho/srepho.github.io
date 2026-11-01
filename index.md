@@ -1,5 +1,5 @@
 ## Welcome to the homepage of Stephen Oates
-I am a Sydney-based Data Scientist with expertise in machine learning, LLMs, and insurance analytics.
+Sydney-based data scientist working on AI agents, ML deployment and insurance analytics. I publish backtested forecasting models and scored predictions for elections and sport, open-source tools for text and process data, and occasional essays on forecasting and AI.
 
 ---
 
