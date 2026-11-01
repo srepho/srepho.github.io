@@ -63,10 +63,14 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [NBA player performance versus preseason](/predictions/nba-performance.html) (Sunday 1 November 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA players: wins above replacement](/predictions/nba-players.html) (Sunday 1 November 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
 - [NBA player value and salaries](/predictions/nba-salaries.html) (Sunday 1 November 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
-- [NBA 2026–27 — 2026-10-17 forecast](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
+- [NBA 2026–27 — 17 October preseason forecast (archived)](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
 - [How the live NBA forecast works, and how it was tested](/predictions/nba-live-forecast-method.html) (Saturday 17 October 2026) — The in-season update from game margins, the pre-registered backtest against preseason ratings and record pace, single-game comparison with closing lines, and the adjustments that did not help.
 - [How our NBA season projections work](/predictions/nba-methodology.html) (Saturday 17 October 2026) — The October 17 model, experiment results, limitations and next tests, with what has changed since.
-- [NBA 2026–27 — October 7 archive](/predictions/nba-2026-27-20261007.html) (Wednesday 7 October 2026) — Archived original predictions.
+- [NBA 2026–27 — 7 October forecast (archived)](/predictions/nba-2026-27-20261007.html) (Wednesday 7 October 2026) — Archived original predictions.
+
+### Netball
+
+- [Netball: team ratings and the Super Shot](/predictions/netball.html) (Sunday 1 November 2026) — Super Netball and ANZ Premiership team ratings from a Kalman filter on match margins, scored walk-forward against Elo; whether the two-point Super Shot is worth taking; season leaders. Rebuild with `predmarkets netball-page`.
 
 ### Racing
 
@@ -85,10 +89,6 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [Test innings, session by session: above or below expectation?](/predictions/test-sessions.html) (Saturday 10 October 2026) — A par for every 30-over block of a Test innings from the match state and the two sides, recent Tests scored block by block, and whether a block above par predicts the next.
 - [Wickets in hand: a Bayesian par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026) — The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).
 - [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026) — A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
-
-### Netball
-
-- [Netball: team ratings and the Super Shot](/predictions/netball.html) (Sunday 1 November 2026) — Super Netball and ANZ Premiership team ratings from a Kalman filter on match margins, scored walk-forward against Elo; whether the two-point Super Shot is worth taking; season leaders. Rebuild with `predmarkets netball-page`.
 
 ---
 <!-- forecasts:end -->
