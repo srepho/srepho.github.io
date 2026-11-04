@@ -367,13 +367,23 @@
   "listed": true
  },
  {
+  "key": "us2028",
+  "slug": "us-election-2028.html",
+  "title": "US election 2028: candidates and nomination markets",
+  "blurb": "Declared candidates and potential presidential nominees, sourced status, and separate Kalshi and Polymarket nomination and general-election prices.",
+  "section": "Elections",
+  "date": "2026-11-04",
+  "published": "2026-11-04 11:45 UTC",
+  "listed": true
+ },
+ {
   "key": "midterms",
   "slug": "us-midterms-2026.html",
   "title": "US midterms 2026: Senate, House and markets",
   "blurb": "One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.",
   "section": "Elections",
   "date": "2026-11-04",
-  "published": "2026-11-03 20:20 UTC",
+  "published": "2026-11-04 11:45 UTC",
   "listed": true
  },
  {
