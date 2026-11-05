@@ -398,6 +398,16 @@
   "listed": true
  },
  {
+  "key": "midterms-report",
+  "slug": "us-midterms-performance-20261105.html",
+  "title": "How our 2026 US midterm forecasts performed",
+  "blurb": "Interim winner-call evaluation, matched market comparisons, all forecast misses and unresolved results. 5 November 2026.",
+  "section": "Elections",
+  "date": "2026-11-05",
+  "published": "2026-11-05 09:01 UTC",
+  "listed": true
+ },
+ {
   "key": "vic",
   "slug": "vic-election-2026.html",
   "title": "Victorian election 2026: seat-by-seat forecast",
