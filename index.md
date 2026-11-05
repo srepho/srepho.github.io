@@ -27,7 +27,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### All forecasts
 
 - [Results: model against the market](/predictions/results.html) (Friday 6 November 2026) — Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.
-- [Upcoming predictions](/predictions/upcoming.html) (Thursday 5 November 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
+- [Upcoming predictions](/predictions/upcoming.html) (Friday 6 November 2026) — Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.
 
 ### Elections
 
@@ -59,10 +59,10 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Basketball
 
+- [NBA player performance versus preseason](/predictions/nba-performance.html) (Friday 6 November 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA 2026–27: live season forecast — NBA Board](/predictions/nba-2026-27.html) (Thursday 5 November 2026) — Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.
 - [NBA forecast archive](/predictions/nba-archive.html) (Thursday 5 November 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
 - [Our NBA All-Stars and award winners](/predictions/nba-merit.html) (Thursday 5 November 2026) — Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.
-- [NBA player performance versus preseason](/predictions/nba-performance.html) (Thursday 5 November 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
 - [NBA players: wins above replacement](/predictions/nba-players.html) (Thursday 5 November 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
 - [NBA player value and salaries](/predictions/nba-salaries.html) (Thursday 5 November 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
 - [NBA 2026–27 — 17 October preseason forecast (archived)](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
