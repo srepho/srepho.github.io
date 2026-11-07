@@ -148,8 +148,10 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
   document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
 
+  var figIds = {};
+  function figId(title){ var s=String(title||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60)||("fig"+(++uid)); var id="fig-"+s; if(figIds[id]){ id=id+"-"+(++figIds[id]); } else { figIds[id]=1; } return id; }
   function figure(title, sub, inner, legend, table){
-    var id="fig"+(++uid);
+    var id=figId(title);      // stable, title-derived ids so other pages can link to a chart
     return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
       + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
   }
@@ -282,7 +284,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     if(c.type==="map"){ var mm=mapChart(c); return figure(c.title, c.subtitle, mm.svg, mm.legend, mm.table); }
     if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
     if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
-      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+(p.subtitle?'<p class="sub">'+esc(p.subtitle)+'</p>':"")+r.legend+r.svg+'</div>'; }).join("");
       var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
       return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
     }
