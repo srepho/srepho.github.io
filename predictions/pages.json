@@ -15,7 +15,7 @@
   "blurb": "Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.",
   "section": "Economy",
   "date": "2026-11-08",
-  "published": "2026-11-07 14:47 UTC",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -43,8 +43,9 @@
   "title": "Australia: next federal election forecast",
   "blurb": "Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.",
   "section": "Elections",
-  "date": "2026-11-01",
-  "published": "2026-10-31 20:38 UTC"
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
+  "listed": true
  },
  {
   "key": "bayespar",
@@ -70,8 +71,8 @@
   "title": "Cricket rankings and predictions",
   "blurb": "Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.",
   "section": "Cricket",
-  "date": "2026-10-31",
-  "published": "2026-11-06 20:18 UTC",
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -107,8 +108,9 @@
   "title": "France 2027: presidential forecast",
   "blurb": "First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a d\u00e9partement map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.",
   "section": "Elections",
-  "date": "2026-11-01",
-  "published": "2026-10-31 20:38 UTC"
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
+  "listed": true
  },
  {
   "key": "germany",
@@ -116,8 +118,9 @@
   "title": "Germany: next Bundestag forecast",
   "blurb": "National polls simulated with a backtested error model and allocated by Sainte-Lagu\u00eb with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.",
   "section": "Elections",
-  "date": "2026-11-01",
-  "published": "2026-10-31 20:38 UTC"
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
+  "listed": true
  },
  {
   "key": "hothand",
@@ -308,8 +311,9 @@
   "title": "New South Wales 2027: seat forecast",
   "blurb": "Legislative Assembly, 13 March 2027: the 2023 result swung by the poll average with One Nation placed from federal booths, optional-preferential exhaustion, a district map, seat distributions and Kalshi's Labor-majority contract; backtested on 2023.",
   "section": "Elections",
-  "date": "2026-11-01",
-  "published": "2026-10-31 20:38 UTC"
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
+  "listed": true
  },
  {
   "key": "results",
@@ -318,7 +322,7 @@
   "blurb": "Aggregate net units, ROI and open hypothetical positions across sports and elections, with matched midpoint / ask-plus-fee comparisons and the individual breakdowns.",
   "section": "All forecasts",
   "date": "2026-11-08",
-  "published": "2026-11-07 19:30 UTC",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -337,8 +341,8 @@
   "title": "Spain 2026: Congress seat forecast",
   "blurb": "National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.",
   "section": "Elections",
-  "date": "2026-11-07",
-  "published": "2026-11-06 20:18 UTC",
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -365,8 +369,9 @@
   "title": "United Kingdom: next general election forecast",
   "blurb": "GB polls swung seat by seat from the 2024 result (proportional swing, first past the post in 632 constituencies, Northern Ireland held): largest party, Reform and Labour majority odds, a constituency map, against Kalshi; due by August 2029.",
   "section": "Elections",
-  "date": "2026-11-01",
-  "published": "2026-10-31 20:38 UTC"
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
+  "listed": true
  },
  {
   "key": "upcoming",
@@ -375,7 +380,7 @@
   "blurb": "Every upcoming forecast on one page: NBA, NFL, rugby league and cricket games beside the Kalshi and Polymarket prices, the Victorian election and the NBA season, with recent results.",
   "section": "All forecasts",
   "date": "2026-11-08",
-  "published": "2026-11-07 14:35 UTC",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -394,8 +399,8 @@
   "title": "US midterms 2026: Senate, House and markets",
   "blurb": "One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.",
   "section": "Elections",
-  "date": "2026-11-07",
-  "published": "2026-11-06 20:18 UTC",
+  "date": "2026-11-08",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
@@ -414,8 +419,8 @@
   "title": "Victorian election 2026: seat-by-seat forecast",
   "blurb": "All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.",
   "section": "Elections",
-  "date": "2026-11-06",
-  "published": "2026-11-06 20:18 UTC",
+  "date": "2026-11-07",
+  "published": "2026-11-07 20:29 UTC",
   "listed": true
  },
  {
