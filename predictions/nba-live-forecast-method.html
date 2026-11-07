@@ -165,23 +165,27 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
     var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
     var top=14, H=rows.length*rowH+top+44;
-    var lo=Math.min.apply(null, rows.map(function(r){return r.lo;})), hi=Math.max.apply(null, rows.map(function(r){return r.hi;}));
+    // rows without an interval (lo/hi null: hand-entered counts, published indexes) size the axis by their estimate and draw hollow with no bar
+    var lo=Math.min.apply(null, rows.map(function(r){return r.lo==null? r.estimate: Math.min(r.lo, r.estimate);})), hi=Math.max.apply(null, rows.map(function(r){return r.hi==null? r.estimate: Math.max(r.hi, r.estimate);}));
     if(!opts.nozero){ lo=Math.min(0, lo); hi=Math.max(0, hi); }
     if(hi-lo===0){ hi+=1; lo-=1; }
     var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
     function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
     var tk=ticks(lo, hi, 5);
-    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    function ivl(r, d){ return r.lo==null||r.hi==null? "  (no interval)": "  ["+fmt(r.lo,d)+", "+fmt(r.hi,d)+"]"; }
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+ivl(r); }).join("; ");
     var s=svgOpen(W, H, opts.title||"", desc);
     tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
     if(opts.reference!=null&&opts.reference>lo&&opts.reference<hi){ s+='<line class="zero" x1="'+X(opts.reference).toFixed(1)+'" x2="'+X(opts.reference).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/><text class="t" x="'+X(opts.reference).toFixed(1)+'" y="'+(top-2)+'" text-anchor="middle">'+esc(opts.referenceLabel||"")+'</text>'; }
     rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=!opts.nosig&&((r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0)), ls=lines[i];
       var ty = y + 5 - (ls.length-1)*9;
       s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
-      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]"+(opts.nosig?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
+      var noivl = r.lo==null||r.hi==null;
+      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+ivl(r,opts.digits)+(opts.nosig||noivl?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
       s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
-      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
-      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]")+'</text>';
+      if(!noivl) s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/>';
+      s+='<circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+ivl(r,opts.digits))+'</text>';
     });
     s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
     tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
