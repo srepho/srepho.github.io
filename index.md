@@ -93,6 +93,10 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 - [Wickets in hand: a Bayesian par for wickets](/predictions/wickets-in-hand.html) (Saturday 10 October 2026) — The hazard-binomial wickets model registered and its beta-binomial expansion tested against the cell mean under a rule fixed in advance, on the same held-out years as the Bayesian-par note (development evidence).
 - [Should the ratings allow for the conditions of the day?](/predictions/conditions.html) (Friday 9 October 2026) — A pre-registered test of adding a per-match conditions effect to the player ratings: does crediting runs relative to how everyone else scored that day predict matches better, and how much do the rankings move?
 
+### Lotto
+
+- [Australian lotto: what a dollar is worth in each draw](/predictions/lotto.html) (Tuesday 10 November 2026) — Expected prize per game in the coming Powerball, Oz Lotto, Saturday Lotto, Millionaire Medley and Set for Life draws: the Division 1 prize shared among the winners the sales imply, the lower divisions, the break-even prize and the payout record.
+
 ---
 <!-- forecasts:end -->
 

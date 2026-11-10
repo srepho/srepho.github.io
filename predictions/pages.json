@@ -179,6 +179,16 @@
   "listed": true
  },
  {
+  "key": "lotto",
+  "slug": "lotto.html",
+  "title": "Australian lotto: what a dollar is worth in each draw",
+  "blurb": "Expected prize per game in the coming Powerball, Oz Lotto, Saturday Lotto, Millionaire Medley and Set for Life draws: the Division 1 prize shared among the winners the sales imply, the lower divisions, the break-even prize and the payout record.",
+  "section": "Lotto",
+  "date": "2026-11-10",
+  "published": "2026-11-10 07:12 UTC",
+  "listed": true
+ },
+ {
   "key": "cup",
   "slug": "melbourne-cup-2026.html",
   "title": "Melbourne Cup 2026 form",
