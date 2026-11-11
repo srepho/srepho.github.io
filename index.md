@@ -31,9 +31,9 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Elections
 
-- [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Wednesday 11 November 2026) — National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
-- [US midterms 2026: Senate, House and markets](/predictions/us-midterms-2026.html) (Wednesday 11 November 2026) — One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.
-- [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Tuesday 10 November 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
+- [Spain 2026: Congress seat forecast](/predictions/spain-2026.html) (Thursday 12 November 2026) — National polls projected province by province (proportional swing from 2023) and allocated by D'Hondt in the 52 constituencies: PP and Vox majority odds, largest party, investiture arithmetic, against the markets; 2023 backtest.
+- [US midterms 2026: Senate, House and markets](/predictions/us-midterms-2026.html) (Thursday 12 November 2026) — One dashboard for Senate and House research, the recorded Senate polling study and prediction-market prices, with independent source dates and coverage labels.
+- [Victorian election 2026: seat-by-seat forecast](/predictions/vic-election-2026.html) (Wednesday 11 November 2026) — All 88 Legislative Assembly seats for 28 November 2026: maps, win probabilities, seat counts, the Kalshi markets and how the model did in 2018 and 2022.
 - [Australia: next federal election forecast](/predictions/australia-next.html) (Sunday 8 November 2026) — Two-party-preferred poll average simulated to a placeholder May 2028 date and applied division by division to the 2025 AEC results (state effects, seat noise, crossbench holds): Labor and Coalition majority odds, hung parliament, seat map, against Kalshi; 2025 backtest.
 - [France 2027: presidential forecast](/predictions/france-2027.html) (Sunday 8 November 2026) — First-round polls for the most-polled candidate set, simulated with a backtested error model; the two largest draws go to a runoff priced from published head-to-head polls or a stated transfer table. Runoff pairs, winner odds, a département map under proportional swing from 2022, against Kalshi and Polymarket; 2022 backtest.
 - [Germany: next Bundestag forecast](/predictions/germany-next.html) (Sunday 8 November 2026) — National polls simulated with a backtested error model and allocated by Sainte-Laguë with the 5% threshold: largest party, coalition arithmetic, threshold risk, a state map by proportional swing, against Kalshi; 2025 backtest.
@@ -47,7 +47,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Economy
 
-- [Australia: economic indicators](/predictions/australia-economy.html) (Wednesday 11 November 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
+- [Australia: economic indicators](/predictions/australia-economy.html) (Thursday 12 November 2026) — Inflation, wages, the labour market, GDP, household spending, housing, RBA and bond rates, the dollar and the ASX from ABS releases, RBA tables and market data, with Kalshi's price for the next RBA decision.
 - [Australia: the insurance industry](/predictions/australia-insurance.html) (Sunday 8 November 2026) — The listed insurers (prices, fundamentals, price-sensitive announcements), APRA's quarterly general insurance statistics (profit, premiums, loss ratios by class and state, capital), the Insurance Council's catastrophe declarations and historical losses, insurance and claims-cost items in the CPI, and the regulators' releases.
 - [Australia: the insurance industry — October 2026 report](/predictions/australia-insurance-report-2026-10.html) (Monday 12 October 2026) — A written report on the insurance page's indicators as at 12 October 2026: industry profit down 31%, catastrophe losses nearly doubled, premium inflation rising again, Allianz Australia's recovery from a loss-making December quarter, complaints still rising.
 
@@ -95,7 +95,7 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 
 ### Lotto
 
-- [Australian lotto: what a dollar is worth in each draw](/predictions/lotto.html) (Wednesday 11 November 2026) — Expected prize per game in the coming Powerball, Oz Lotto, Saturday Lotto, Millionaire Medley and Set for Life draws: the Division 1 prize shared among the winners the sales imply, the lower divisions, the break-even prize and the payout record.
+- [Australian lotto: what a dollar is worth in each draw](/predictions/lotto.html) (Thursday 12 November 2026) — Expected prize per game in the coming Powerball, Oz Lotto, Saturday Lotto, Millionaire Medley and Set for Life draws: the Division 1 prize shared among the winners the sales imply, the lower divisions, the break-even prize and the payout record.
 
 ---
 <!-- forecasts:end -->
