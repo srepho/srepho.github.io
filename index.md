@@ -12,6 +12,20 @@ Articles on data science, democracy, forecasting and AI. [All blog posts](/blog/
 
 ---
 
+## Learning through play
+
+### [Big Questions: interactive guides for curious kids](/magic-kingdom/big-questions/) (November 2026)
+Ten illustrated guides for young children and grown-ups to explore together, with interactive activities, conversation prompts and things to try at home. Topics include science, history, money, government and the human body.
+
+[Explore all ten guides](/magic-kingdom/big-questions/), or start with:
+
+- [What is everything made of?](/magic-kingdom/big-questions/guides/01-made-of/)
+- [Who is in charge?](/magic-kingdom/big-questions/guides/03-in-charge/)
+- [Where did people come from?](/magic-kingdom/big-questions/guides/05-people/)
+- [Why is there day and night?](/magic-kingdom/big-questions/guides/10-day-night/)
+
+---
+
 ## Interactive Demos
 
 ### [Anthropic Performance Challenge Simulator](https://srepho.github.io/anthropic-challenge/) (January 2026)
