@@ -54,18 +54,18 @@ Model forecasts for elections, sports and markets ([all forecasts](/predictions/
 ### Cricket
 
 - [Live T20: who is winning, ball by ball](/predictions/live-t20.html) (Saturday 14 November 2026) — The WBBL or BBL match in play: win probability after every delivery from the in-play state model, starting from our pre-match forecast, with the projected first-innings total and an over-by-over table.
-- [Live Test: block by block against par](/predictions/live-test-par.html) (Wednesday 11 November 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
+- [Live Test: block by block against par](/predictions/live-test-par.html) (Saturday 14 November 2026) — The current men's Test scored every 30 overs against the sessions par and the Bayesian par: cumulative runs against expectation per innings, each block's runs and wickets, and the block table.
 - [Cricket rankings and predictions](/predictions/cricket.html) (Sunday 8 November 2026) — Tests, T20Is and ODIs on one page: team and player rankings, upcoming matches, matchup scenarios, player value and model validation, with men's and women's coverage.
 - [Shield to Baggy Green: selection evidence](/predictions/shield-readiness.html) (Monday 2 November 2026) — Separate readiness and development screens for Sheffield Shield players, with role-specific Test comparisons, uncertainty and match evidence. Research prototype.
 
 ### Basketball
 
+- [NBA 2026–27: live season forecast — NBA Board](/predictions/nba-2026-27.html) (Saturday 14 November 2026) — Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.
+- [NBA forecast archive](/predictions/nba-archive.html) (Saturday 14 November 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
 - [NBA player performance versus preseason](/predictions/nba-performance.html) (Saturday 14 November 2026) — Live player impact revisions, minutes, uncertainty and evidence above or below preseason expectation; searchable by player and team.
-- [NBA 2026–27: live season forecast — NBA Board](/predictions/nba-2026-27.html) (Friday 13 November 2026) — Live 2026–27 forecast updated nightly from results: standings, playoff and title odds, next games; the October 17 preseason forecast against Kalshi; luck and research.
-- [NBA forecast archive](/predictions/nba-archive.html) (Friday 13 November 2026) — Every earlier NBA forecast as published: daily live forecasts, the October 17 Board and interactive page, the October 7 original.
+- [NBA players: wins above replacement](/predictions/nba-players.html) (Saturday 14 November 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
+- [NBA player value and salaries](/predictions/nba-salaries.html) (Saturday 14 November 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
 - [Our NBA All-Stars and award winners](/predictions/nba-merit.html) (Friday 13 November 2026) — Current-season-only merit ratings, our All-Star and award selections, uncertainty and continuation projections; last season is used only as the Most Improved benchmark.
-- [NBA players: wins above replacement](/predictions/nba-players.html) (Friday 13 November 2026) — Career wins above replacement, a leaderboard, career comparisons and player projections.
-- [NBA player value and salaries](/predictions/nba-salaries.html) (Friday 13 November 2026) — Model fair salary from projected wins above replacement against listed 2026–27 salaries.
 - [NBA 2026–27 — 17 October preseason forecast (archived)](/predictions/nba-2026-27-20261017.html) (Saturday 17 October 2026) — Team and conference rankings, projected wins and market comparisons.
 - [How the live NBA forecast works, and how it was tested](/predictions/nba-live-forecast-method.html) (Saturday 17 October 2026) — The in-season update from game margins, the pre-registered backtest against preseason ratings and record pace, single-game comparison with closing lines, and the adjustments that did not help.
 - [How our NBA season projections work](/predictions/nba-methodology.html) (Saturday 17 October 2026) — The October 17 model, experiment results, limitations and next tests, with what has changed since.
