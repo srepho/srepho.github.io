@@ -103,6 +103,8 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <h2 id="question-h">Question</h2><p id="question"></p>
   <h2 id="brief-h">In brief</h2>
   <div class="lede" id="headline"></div>
+  <section id="overview" hidden></section>
+  <h2 id="summary-h" hidden></h2>
   <div class="tiles" id="tiles"></div>
   <div id="body" class="body"></div>
   <h2 id="findings-h">Findings</h2>
@@ -146,8 +148,10 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   document.addEventListener("focusin", function(e){ var el=e.target.closest&&e.target.closest("[data-tip]"); if(el) showTip(el); });
   document.addEventListener("focusout", function(e){ if(e.target.closest&&e.target.closest("[data-tip]")) hideTip(); });
 
+  var figIds = {};
+  function figId(title){ var s=String(title||"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,60)||("fig"+(++uid)); var id="fig-"+s; if(figIds[id]){ id=id+"-"+(++figIds[id]); } else { figIds[id]=1; } return id; }
   function figure(title, sub, inner, legend, table){
-    var id="fig"+(++uid);
+    var id=figId(title);      // stable, title-derived ids so other pages can link to a chart
     return '<figure class="fig" aria-labelledby="'+id+'-t"><h3 id="'+id+'-t">'+esc(title)+'</h3>'+(sub?'<p class="sub" id="'+id+'-s">'+esc(sub)+'</p>':"")
       + (legend||"") + inner + (table? '<details class="tbl"><summary>Data table</summary><div class="scroll" tabindex="0">'+table+'</div></details>':"") + '</figure>';
   }
@@ -163,23 +167,27 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     var maxLines=Math.max.apply(null, lines.map(function(l){return l.length;}));
     var L = maxLines>1? 300: 310; rowH = maxLines>1? 18*maxLines+12: 30;
     var top=14, H=rows.length*rowH+top+44;
-    var lo=Math.min.apply(null, rows.map(function(r){return r.lo;})), hi=Math.max.apply(null, rows.map(function(r){return r.hi;}));
+    // rows without an interval (lo/hi null: hand-entered counts, published indexes) size the axis by their estimate and draw hollow with no bar
+    var lo=Math.min.apply(null, rows.map(function(r){return r.lo==null? r.estimate: Math.min(r.lo, r.estimate);})), hi=Math.max.apply(null, rows.map(function(r){return r.hi==null? r.estimate: Math.max(r.hi, r.estimate);}));
     if(!opts.nozero){ lo=Math.min(0, lo); hi=Math.max(0, hi); }
     if(hi-lo===0){ hi+=1; lo-=1; }
     var pad=(hi-lo)*0.06; lo-=pad; hi+=pad;
     function X(v){ return L+(W-L-R)*(v-lo)/(hi-lo); }
     var tk=ticks(lo, hi, 5);
-    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+" ["+fmt(r.lo)+", "+fmt(r.hi)+"]"; }).join("; ");
+    function ivl(r, d){ return r.lo==null||r.hi==null? "  (no interval)": "  ["+fmt(r.lo,d)+", "+fmt(r.hi,d)+"]"; }
+    var desc = rows.map(function(r){ return r.label+": "+fmt(r.estimate)+ivl(r); }).join("; ");
     var s=svgOpen(W, H, opts.title||"", desc);
     tk.forEach(function(v){ s+='<line class="'+(v===0?"zero":"grid")+'" x1="'+X(v).toFixed(1)+'" x2="'+X(v).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/>'; });
     if(opts.reference!=null&&opts.reference>lo&&opts.reference<hi){ s+='<line class="zero" x1="'+X(opts.reference).toFixed(1)+'" x2="'+X(opts.reference).toFixed(1)+'" y1="'+top+'" y2="'+(H-36)+'"/><text class="t" x="'+X(opts.reference).toFixed(1)+'" y="'+(top-2)+'" text-anchor="middle">'+esc(opts.referenceLabel||"")+'</text>'; }
     rows.forEach(function(r,i){ var y=top+i*rowH+rowH/2, sig=!opts.nosig&&((r.lo>0&&r.hi>0)||(r.lo<0&&r.hi<0)), ls=lines[i];
       var ty = y + 5 - (ls.length-1)*9;
       s+='<text x="'+(L-12)+'" y="'+ty+'" text-anchor="end">'+ls.map(function(t,k){ return '<tspan x="'+(L-12)+'" dy="'+(k?18:0)+'">'+esc(t)+'</tspan>'; }).join("")+'</text>';
-      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]"+(opts.nosig?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
+      var noivl = r.lo==null||r.hi==null;
+      var tipText = r.label+"\n"+fmt(r.estimate,opts.digits)+ivl(r,opts.digits)+(opts.nosig||noivl?"":(sig?"\ninterval excludes zero":"\ninterval includes zero"));
       s+='<g tabindex="0" data-tip="'+esc(tipText)+'"><rect class="hit" x="'+L+'" y="'+(y-rowH/2)+'" width="'+(W-L-R)+'" height="'+rowH+'"/>';
-      s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
-      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+"  ["+fmt(r.lo,opts.digits)+", "+fmt(r.hi,opts.digits)+"]")+'</text>';
+      if(!noivl) s+='<line class="ci'+(sig?" sig":"")+'" x1="'+X(r.lo).toFixed(1)+'" x2="'+X(r.hi).toFixed(1)+'" y1="'+y+'" y2="'+y+'"/>';
+      s+='<circle class="pt'+(sig?" sig":(opts.nosig?"":" hollow"))+'" cx="'+X(r.estimate).toFixed(1)+'" cy="'+y+'" r="5"/></g>';
+      s+='<text class="v" x="'+(W-R+14)+'" y="'+(y+4)+'">'+esc(fmt(r.estimate,opts.digits)+ivl(r,opts.digits))+'</text>';
     });
     s+='<line class="axis" x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-36)+'" y2="'+(H-36)+'"/>';
     tk.forEach(function(v){ s+='<text class="t" x="'+X(v).toFixed(1)+'" y="'+(H-20)+'" text-anchor="middle">'+tickLabel(v)+'</text>'; });
@@ -276,7 +284,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     if(c.type==="map"){ var mm=mapChart(c); return figure(c.title, c.subtitle, mm.svg, mm.legend, mm.table); }
     if(c.type==="dots"){ var d=dots(c.rows, c); return figure(c.title, c.subtitle, d.svg, "", d.table); }
     if(c.type==="panels"){ // small multiples sharing a title: each panel is a lines/bars spec
-      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+r.legend+r.svg+'</div>'; }).join("");
+      var inner=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return '<div><h4 style="font-size:14px;margin:8px 0 2px;color:var(--ink2)">'+esc(p.title)+'</h4>'+(p.subtitle?'<p class="sub">'+esc(p.subtitle)+'</p>':"")+r.legend+r.svg+'</div>'; }).join("");
       var tables=c.panels.map(function(p){ var r = p.type==="bars"? bars(p): lines(p); return r.table; }).join("");
       return figure(c.title, c.subtitle, '<div class="row2">'+inner+'</div>', "", tables);
     }
@@ -295,7 +303,9 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   if(N.findings_note===""){ document.querySelector("#findings-h + .meta").style.display="none"; }
   if(!(N.findings&&N.findings.length)){ $("findings-h").style.display="none"; document.querySelector("#findings-h + .meta").style.display="none"; }
   if(N.headline){ $("headline").textContent = N.headline; } else { $("headline").style.display="none"; }
-  if(N.summary&&N.summary.length){ $("tiles").innerHTML = N.summary.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  function renderTiles(rows){ return rows.map(function(t){ return '<div class="tile"><p class="l">'+esc(t.label)+'</p><p class="v">'+esc(t.value)+'</p>'+(t.note?'<p class="n">'+esc(t.note)+'</p>':"")+'</div>'; }).join(""); }
+  if(N.summary_label){ $("summary-h").hidden=false; $("summary-h").textContent=N.summary_label; }
+  if(N.summary&&N.summary.length){ $("tiles").innerHTML = renderTiles(N.summary); }
   else { $("tiles").style.display="none"; if(!N.headline){ $("brief-h").style.display="none"; } }
   var groups = {}, order = [];
   (N.findings||[]).forEach(function(f){ if(!groups[f.group]){ groups[f.group]=[]; order.push(f.group); } groups[f.group].push(f); });
@@ -307,9 +317,11 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     var figs = Array.prototype.slice.call($("figures").querySelectorAll("figure.fig")), moved = 0;
     document.querySelectorAll("#body .chart-slot").forEach(function(slot){ var i = +slot.getAttribute("data-chart"); if(figs[i]){ slot.replaceWith(figs[i]); moved++; } });
     if(moved && moved >= figs.length){ $("figures").style.display = "none"; } }
-  $("tables").innerHTML = (N.tables||[]).map(function(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
+  function renderTable(t){ if(!t.rows.length) return ""; var id="tbl"+(++uid);
     return '<div class="scroll" tabindex="0" aria-labelledby="'+id+'"><table><caption id="'+id+'">'+esc(t.title)+'</caption><thead><tr>'+t.columns.map(function(c){return '<th scope="col">'+esc(c[1])+'</th>';}).join("")+'</tr></thead><tbody>'
-    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }).join("");
+    + t.rows.map(function(r){ return '<tr>'+t.columns.map(function(c,i){ var v=r[c[0]]; if(v&&typeof v==="object"&&v.href){ return '<td><a href="'+esc(v.href)+'" rel="noopener">'+esc(v.text)+'</a></td>'; } var sv=String(v); return '<td class="'+(i&&/^[+\-\d]/.test(sv)&&!/[A-Za-z]/.test(sv)?"n":"")+'">'+esc(v)+'</td>'; }).join("")+'</tr>'; }).join("")+'</tbody></table></div>'; }
+  $("tables").innerHTML = (N.tables||[]).map(renderTable).join("");
+  if(N.overview){ $("overview").hidden=false; $("overview").innerHTML='<h2 id="aggregate-h">'+esc(N.overview.title)+'</h2><p>'+esc(N.overview.note)+'</p><div class="tiles">'+renderTiles(N.overview.summary||[])+'</div>'+renderTable(N.overview.table); }
   $("method").innerHTML = (N.method||[]).map(function(m){ return '<li>'+esc(m)+'</li>'; }).join("");
   if(N.deviations&&N.deviations.length){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><ul>'+N.deviations.map(function(d){return '<li>'+esc(d)+'</li>';}).join("")+'</ul>'; }
   else if(N.registered){ $("deviations").innerHTML='<h2 id="dev-h">Deviations from the pre-registration</h2><p>None.</p>'; }
@@ -317,7 +329,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     + (N.data.downloads ? ' Downloads: '+N.data.downloads.map(function(d){ return '<a href="'+esc(d.href)+'">'+esc(d.label)+'</a>'; }).join(', ')+'.' : '')
     + ' <a href="index.html">All forecasts and notes</a>.';
   // Contents: every h2 on the page, in order.
-  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
+  $("toc").innerHTML = Array.prototype.map.call(document.querySelectorAll("main h2"), function(h){ if(!h.id) h.id="h"+(++uid); if(h.hidden||h.style.display==="none") return ""; return '<li><a href="#'+h.id+'">'+esc(h.textContent)+'</a></li>'; }).join("");
 })();
 </script>
 </body>
